@@ -1,0 +1,73 @@
+.p_panel_box{
+  width: 100%;
+  background-color: #e5e5e5;
+  padding:20px 50px;
+}
+.p_panel_box_template{
+  padding: 20px 0;
+  background-color: #fff;
+}
+.p_panel_box_template1{ padding-top: 0;}
+.panel_content_box{
+  width: 100%;
+}
+.panel-dash-board{
+  background-color: #fff;
+  transform: translate(5px, 5px);
+  transition: width .25s,height .25s,left .25s,top .25s,right .25s,bottom .25s;
+  overflow: hidden;
+  padding: 10px 20px;
+}
+.chang-chart {
+  min-height: 500px;
+}
+
+.p_page_list{ width: 100%; padding: 0 0 0 60px;  position: relative;}
+//.p_page_list_template{ padding: 0;}
+.p_page_list li{ float: left; padding: 0 10px; line-height: 36px; display: inline-block; color: #666; cursor: pointer; margin-right: 10px; font-size: 14px; color: #333; cursor: pointer;border-bottom:2px solid #fff;}
+/*.p_page_list li.cur,.p_page_list1 li:hover{background-color: #e5e5e5; border-radius: 3px 3px 0 0 ; border-bottom: 1px solid #e5e5e5; margin-bottom: -1px; color: #333;}*/
+.p_page_list li.current{ color: #333;border-bottom:2px solid #dc5150;font-weight:bold;}
+.preview_head{ height: 35px; border-bottom: 1px solid #e6eaec; color:#333; font-size: 14px; margin: 0 20px;  line-height: 35px; position: relative; padding-right: 180px;}
+.icon-filter{cursor: pointer;  float: right;  margin-top: 10px;  line-height: 20px;  border-radius: 3px;  margin-right: 15px;}
+.preview_btn_list{ position: absolute; width: 175px; right: -10px; line-height: 34px;display: none}
+.change_table{ cursor: pointer;  float: right;  margin-top: 10px;  line-height: 20px;  border-radius: 3px;  margin-right: 15px;}
+.p_page_list .cur{border: 1px solid #c6d3f1; background-color: #f1f1f1;}
+/*.preview_head i{ color:#849bd1; font-size: 14px; margin-left: 10px;  cursor: pointer;}*/
+.preview_head i{ color:#849bd1; font-size: 14px; margin-left: 5px;margin-right:5px;margin-top:2px;  cursor: pointer; font-size: 18px;}
+.preview_operate{ text-align: right; color: #859acf; width: 150px; position: absolute;right: 70px; top: 0;}
+.preview_operate i{ margin-left:20px; cursor: pointer;font-size: 20px; }
+.preview-title{overflow: hidden; display: block;  float: left;  width: 95%;  text-overflow: ellipsis;height: 35px;}
+.page_tab_box{position: relative; background-color: #fff; padding-right:150px; }
+.cur_border_bottom{ position: absolute; bottom: 0; left: -500px; width:0px; border-bottom:2px solid #dc5150; height: 0; font-size: 0; overflow: hidden;transition: left 0.5s;}
+.preview_operate_list{ position: absolute; right:58px; top: 0; width: 90px;height:38px;}
+.more_operate{ width: 35px; float: right; text-align: right; line-height: 38px; position: relative; cursor: pointer;}
+.more_operate>i{ color:#859acf; font-size: 24px;}
+.preview_operate_list>span{ float: right; line-height: 38px; color: #d2d2d2;}
+.dashboard_auth{ float: right; margin-right: 15px; border:1px solid #eaedef; border-radius: 50%;height: 26px; width: 26px; overflow: hidden; margin-top: 6px;}
+.dashboard_auth img{ height: 24px; width: 24px;}
+.operate_item_list{ text-align: left; color: #666; display:none;position: absolute; right: -11px; top:38px; background-color: #fff; width: 163px; border:1px solid #d2dadf; padding: 10px 0; z-index: 2;}
+.operate_item_list:before,.operate_item_list:after{content:'';position: absolute;width: 0; height: 0; font-size: 0; overflow: hidden; border-bottom: 8px solid #d2dadf; border-top: none; border-left: 6px solid transparent; border-right: 6px solid transparent; top: -9px; right: 15px;}
+.operate_item_list:after{border-bottom: 8px solid #fff; top: -8px;}
+.operate_item_list li{ line-height: 30px; height: 30px; padding: 0 15px; color: #666; cursor: pointer;}
+.operate_item_list li i{ margin-right:10px; vertical-align: middle; font-size: 20px;}
+.operate_item_list li:hover{ background-color: #f4f4f4;}
+.more_operate:hover .operate_item_list{ display: block;}
+
+/* 样式 */
+.date-select-box{
+  margin: 10px 0;
+  line-height: 30px;
+}
+.head-name-panel{
+  margin-top: 10px;
+  ul li {
+    float: left;
+    line-height: 30px;
+    text-align: center;
+    background-color: #ddd;
+    border-right: 1px solid #fff;
+    &:nth-last-child {
+      border-right: none;
+    }
+  }
+}

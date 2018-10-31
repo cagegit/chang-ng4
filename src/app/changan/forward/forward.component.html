@@ -1,0 +1,11 @@
+<div class="user_fixed" #forward [@flyIn]="active">
+    <div class="user_left">
+        <div class="sub_nav">
+            <div class="sub_nav">
+                <a routerLink="./forward-config" routerLinkActive="cur" [routerLinkActiveOptions]="{ exact: false }"><i class="iconfont icon-kuanyi20guanrenjiaoseguanli"></i><span>平台配置</span></a>
+                <a routerLink="./task" routerLinkActive="cur" [routerLinkActiveOptions]="{ exact: false }"><i class="iconfont icon-kuanyi20guanrenjiaoseguanli"></i><span>任务管理</span></a>
+            </div>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</div>

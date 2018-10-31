@@ -1,0 +1,24 @@
+.data_table_list{padding-left: 0; padding-right: 0;}
+.data_table_list li{ height: 230px; margin-bottom: 20px;}
+.data_table_list li img{height: 100%; margin: 0 auto; max-width: 100%;}
+.data_table{height: 100%;background-color: #fff; padding: 10px; border-radius: 3px;box-shadow: 0 1px 1px #e7ebed,1px 0 1px #e7ebed,0 -1px 1px #e7ebed,-1px 0px 1px #e7ebed;}
+.data_table:hover{ box-shadow: 0 1px 2px #aab9e0,1px 0 2px #aab9e0,0 -1px 2px #aab9e0,-1px 0px 2px #aab9e0; cursor: pointer;}
+.create_table{border-radius: 3px; border:2px dashed #c9c9c9; height: 100%; cursor: pointer;}
+.create_con{height: 80px; text-align: center; position: relative; top: 50%; margin-top: -40px;  color: #666; }
+.create_con i{color:#a6a7a9; font-size: 48px; display: block;}
+/*.table_box{ width: 100%; height: 100%; position: relative; border:1px solid #e7ebed;border-radius: 3px; background-color: #f1f2f7;}*/
+/*.table_box:hover{ box-shadow: 0 0 10px rgba(0,0,0,0.3); cursor: pointer;}*/
+/*.table_name{height: 38px; line-height: 38px;position: absolute; left: 0;top: 0; width: 100%; padding-left: 22px; color: #5c5f75;overflow: hidden;  text-overflow: ellipsis;  padding-right: 20px;}*/
+/*.table_name:after{ position: absolute; content: ''; overflow: hidden; width: 2px; height: 2px; border-radius: 50%; left: 11px; top: 18px; background-color: #fff;}*/
+/*.create_auth{height: 38px; line-height: 38px;position: absolute; bottom: 0; left: 0; width: 100%; border-top: 1px solid #e7ebed; padding: 0 34px 0 44px; font-size: 12px; color: #666;}*/
+/*.auth_head{ position:absolute;height: 24px; width: 24px; overflow: hidden; border-radius: 50%; border:1px solid #dee0ec; left: 10px; top: 7px;}*/
+/*.auth_head img{display: block; width: 22px; height: 22px;}*/
+/*.create_auth .icon-shanchu1{ position: absolute; right:5px; top: 0px;  font-size: 18px; color: #ef6462;}*/
+/*.d3_box{ position: absolute; top: 38px; bottom:38px; left: 10px; right: 10px; }*/
+/*.table_template{position: absolute;height: 16px; line-height: 16px; color: #fff; font-size: 12px; padding: 0 8px; top: 0; left:12px; background-color: #61c0a3; }*/
+/*.d3_box img{display:block;} !*margin: 20px auto 0;*!*/
+/*.data_table_box{position: absolute;left: 15px; right: 15px; bottom:60px; top:202px; padding-top: 40px; }*/
+.self_page{ position: absolute; left:30px; right: 30px; bottom:10px; height: 30px;  }
+.pagination{ padding: 0;}
+
+

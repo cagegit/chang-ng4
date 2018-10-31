@@ -1,0 +1,206 @@
+<div class="user_right scroll_bar main_content" [@flyInOut]="active">
+  <h5 class="title">目标平台列表</h5>
+  <div class="tj-select-panel clear-fix mar10">
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="search($event,validateForm.value)" class="ant-advanced-search-form">
+      <div nz-row [nzGutter]="10">
+        <div nz-col [nzSpan]="8">
+          <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSpan]="6">
+              <label>目标平台名称</label>
+            </div>
+            <div nz-form-control nz-col [nzSpan]="18">
+              <nz-input formControlName="unitName" [nzSize]="'normal'" [nzPlaceHolder]="'请输入目标平台名称'"></nz-input>
+            </div>
+          </div>
+        </div>
+
+        <div nz-col [nzSpan]="8">
+          <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSpan]="6">
+              <label>目的地址</label>
+            </div>
+            <div nz-form-control nz-col [nzSpan]="18">
+              <nz-input formControlName="address" [nzSize]="'normal'" [nzPlaceHolder]="'请输入目的地址'"></nz-input>
+            </div>
+          </div>
+        </div>
+
+        <div nz-col [nzSpan]="8">
+          <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSpan]="6">
+              <label>转发方式</label>
+            </div>
+            <div nz-form-control nz-col [nzSpan]="18">
+              <nz-select formControlName="forwardMode" [nzPlaceHolder]="'请选择转发方式'" [nzShowSearch]="true" nzAllowClear>
+                <nz-option *ngFor="let option of forwardModeEnum" [nzLabel]="option.name" [nzValue]="option.name">
+                </nz-option>
+              </nz-select>
+            </div>
+          </div>
+        </div>
+        <div nz-col [nzSpan]="24" style="text-align: right;">
+          <button nz-button [nzType]="'primary'">查询</button>
+          <button nz-button (click)="resetForm()">重置</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="invite"><button (click)="show('add')"><span>新增</span></button></div>
+  <div>
+    <nz-table #nzTable [nzAjaxData]="_dataSet" [nzShowSizeChanger]="true" [nzLoading]="_loading" [nzTotal]="_total"
+      [(nzPageIndex)]="_current" (nzPageIndexChange)="refreshData()" [(nzPageSize)]="_pageSize" (nzPageSizeChange)="refreshData(true)"
+      [nzBordered]="true" [nzShowTotal]="true" [nzShowQuickJumper]="true">
+      <thead nz-thead>
+        <tr>
+          <th nz-th nzWidth="6%"><span>序号</span></th>
+          <th nz-th nzWidth="20%"><span>目标平台名称</span></th>
+          <th nz-th nzWidth="12%"><span>静态推送</span></th>
+          <th nz-th nzWidth="12%"><span>转发方式</span></th>
+          <th nz-th nzWidth="18%"><span>目的地址</span></th>
+          <th nz-th nzWidth="18%"><span>目的命名空间/端口</span></th>
+          <th nz-th nzWidth="14%"><span>操作</span></th>
+        </tr>
+      </thead>
+      <tbody nz-tbody>
+        <tr nz-tbody-tr *ngFor="let data of nzTable.data; index as i;">
+            <td nz-td>{{i+1}}</td>
+          <td nz-td>{{data.unitName}}</td>
+          <td nz-td>{{data.staticForwardPlatform||'无'}}</td>
+          <td nz-td>{{data.forwardMode}}</td>
+          <td nz-td>{{data.address}}</td>
+          <td nz-td>{{data.nsPort}}</td>
+          <td [ngStyle]="{'text-align':'center'}">
+            <a href="javascript:void(0);" style="padding-right: 5px" (click)="show('edit',data)">编辑</a>
+            <a href="javascript:void(0);" style="padding-right: 5px" (click)="deleteItem()" *ngIf="data.isUse==1">删除</a>
+            <a href="javascript:void(0);" style="padding-right: 5px" (click)="dataSetConfirm.open('删除目标平台配置','确定要删除该数据吗？',data.id);$event.stopPropagation();"
+              *ngIf="data.isUse==0">删除</a>
+            <a href="javascript:void(0);" style="padding-right: 5px" (click)="show('preview',data)">详情</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+<nz-modal [nzVisible]="isVisible" [nzTitle]="title" [nzContent]="modalContent" (nzOnCancel)="handleCancel($event)"
+  [nzFooter]="false">
+  <ng-template #modalContent>
+    <form role="form" #AddForm="ngForm">
+      <div class="modal-body clearfix">
+        <div class="self_modal_input row" *ngIf="!preview">
+          <div class=" col-xs-4 text_right"><em class="em-color">*</em>平台名称</div>
+          <input type="text" name="unitName" autocomplete="off"
+            required [(ngModel)]="addData.unitName" placeholder="输入平台名称">
+        </div>
+        <div class="self_modal_input row" *ngIf="preview">
+          <div class=" col-xs-4 text_right">平台名称</div> {{addData.unitName}}
+        </div>
+        <div class="self_modal_input row" *ngIf="!preview">
+            <div class=" col-xs-4 text_right"><em class="em-color">*</em>静态推送</div>
+            <select name="staticForwardPlatform" required [(ngModel)]="addData.staticForwardPlatform"  disabled={{flag}} [ngClass]="{disabled:flag}">
+              <option *ngFor="let item of staticForwardPlatformEnum" value="{{item.name}}">{{item.name}}</option>
+            </select>
+          </div>
+          <div class="self_modal_input row" *ngIf="preview">
+            <div class=" col-xs-4 text_right">静态推送</div> {{addData.staticForwardPlatform}}
+          </div>
+        <div class="self_modal_input row" *ngIf="!preview">
+          <div class=" col-xs-4 text_right"><em class="em-color">*</em>转发方式</div>
+          <select name="forwardMode" required [(ngModel)]="addData.forwardMode" > 
+            <option *ngFor="let item of forwardModeEnum" value="{{item.name}}">{{item.name}}</option>
+          </select>
+        </div>
+        <div class="self_modal_input row" *ngIf="preview">
+          <div class=" col-xs-4 text_right">转发方式</div> {{addData.forwardMode}}
+        </div>
+        <div class="self_modal_input row" *ngIf="!preview">
+          <div class=" col-xs-4 text_right"><em class="em-color">*</em>目的地址</div>
+          <input type="text" autocomplete="off" name="address" required [(ngModel)]="addData.address" maxlength="60"
+            minlength="5" placeholder="输入目的地址">
+        </div>
+        <div class="self_modal_input row" *ngIf="preview">
+          <div class=" col-xs-4 text_right">目的地址</div> {{addData.address}}
+        </div>
+        <div class="self_modal_input  row" *ngIf="!preview">
+          <div class=" col-xs-4 text_right"><em class="em-color">*</em>目的命名空间/端口</div>
+          <input type="text" autocomplete="off" name="nsPort" required [(ngModel)]="addData.nsPort" maxlength="60"
+            minlength="2" placeholder="输入目的命名空间/端口">
+        </div>
+        <div class="self_modal_input row" *ngIf="preview">
+          <div class=" col-xs-4 text_right">目的命名空间/端口</div> {{addData.nsPort}}
+        </div>
+        <div class="self_modal_input row" *ngIf="!preview">
+          <div class=" col-xs-4 text_right"><em class="em-color">*</em>用户名</div>
+          <input type="text" autocomplete="off" name="username" required [(ngModel)]="addData.username" maxlength="20"
+            minlength="2" placeholder="输入用户名">
+        </div>
+        <div class="self_modal_input row" *ngIf="preview">
+          <div class=" col-xs-4 text_right">用户名</div> {{addData.username}}
+        </div>
+        <div class="self_modal_input row" *ngIf="!preview">
+          <div class=" col-xs-4  text_right"><em class="em-color">*</em>密码</div>
+          <input type="password" autocomplete="off" name="password" required [(ngModel)]="addData.password" maxlength="100"
+            minlength="2" placeholder="输入密码">
+        </div>
+        <div class="self_modal_input row" *ngIf="preview">
+          <div class=" col-xs-4 text_right">密码</div> {{addData.password}}
+        </div>
+        <div class="self_modal_input  row" *ngIf="!preview">
+          <div class=" col-xs-4 text_right">唯一识别码</div>
+          <input type="text" autocomplete="off" name="cdKey" [(ngModel)]="addData.cdKey" maxlength="100" minlength="2"
+            placeholder="输入唯一识别码">
+        </div>
+        <div class="self_modal_input row" *ngIf="preview">
+          <div class=" col-xs-4 text_right">唯一识别码</div> {{addData.cdKey||'-'}}
+        </div>
+        <div class="self_modal_input row" *ngIf="!preview">
+          <div class=" col-xs-4 text_right">优先级</div>
+          <select name="priority" [(ngModel)]="addData.priority" disabled={{priority}} [ngClass]="{disabled:priority}">
+            <option *ngFor="let item of priorityEnum" value="{{item.id}}">{{item.name}}</option>
+          </select>
+        </div>
+        <div class="self_modal_input row" *ngIf="preview">
+          <div class=" col-xs-4 text_right">优先级</div> {{addData.priorityName||'-'}}
+        </div>
+        <div class="self_modal_input  row" *ngIf="!preview">
+          <div class="col-xs-4 text_right">备注</div>
+          <textarea name="notes" rows="3" maxlength="60" minlength="2" [(ngModel)]="addData.notes" placeholder="输入协议备注描述"></textarea>
+        </div>
+        <div class="self_modal_input row" *ngIf="preview">
+          <div class=" col-xs-4 text_right">备注</div> {{addData.notes||'-'}}
+        </div>
+      </div>
+      <div class="muti-btn" *ngIf="!preview">
+        <div class="invite" [ngStyle]="{width:'70px'}">
+          <button (click)="submit()"><span>保存</span></button>
+        </div>
+        <div class="invite" [ngStyle]="{width:'70px'}">
+          <button (click)="clear()"><span>重置</span></button>
+        </div>
+      </div>
+      <div class="muti-btn" *ngIf="preview">
+          <div class="invite" [ngStyle]="{width:'70px'}">
+            <button (click)="handleCancel()"><span>关闭</span></button>
+          </div>
+        </div>
+    </form>
+  </ng-template>
+</nz-modal>
+
+
+<alert-confirm #dataSetConfirm (confirm)="delete($event)"></alert-confirm>
+
+<nz-modal [nzVisible]="isVisibles" [nzTitle]="'删除转发平台配置'" [nzContent]="modalContents" (nzOnCancel)="handleCancelItem($event)"
+  (nzOnOk)="handleOk($event)" [nzFooter]="false">
+  <ng-template #modalContents>
+    <div class="modal-body clearfix form-inline" [ngStyle]="{'padding':'20px 10px'}">
+      <span class="fz14">存在车辆正在当前转发平台配置，请删除这些转发车辆后再删除此平台配置。 </span>
+    </div>
+    <div class="muti-btn">
+      <div class="invite">
+        <button (click)="handleCancelItem()"><span>知道了</span></button>
+      </div>
+    </div>
+  </ng-template>
+</nz-modal>

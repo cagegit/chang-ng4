@@ -1,0 +1,4 @@
+.sk_nosave{ background: url("../../../assets/img/saiku_nosave.png") no-repeat center center; height: 160px;}
+.nosave_text{ text-align: center; font-size: 18px; color: #fff; margin-bottom:35px;}
+.nosave_btn button{ width: 49%; font-size: 18px;}
+.nosave_btn{ margin-top:50px; }

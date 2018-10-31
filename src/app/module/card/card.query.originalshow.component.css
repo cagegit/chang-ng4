@@ -1,0 +1,8 @@
+.data_content_contanier{ width: 100%;border:1px solid #dfe5e9; border-top: 0;background-color: #fff; position: relative;}
+.up_scroll_contanier .chart_box{ position: absolute; left: 0; top: 35px; right: 0; bottom: 35px;}
+.left_scroll_contanier .chart_box{ position: absolute; left: 0; top: 0; right: 0; bottom: 40px;}
+.new_table_box{ position: absolute; left:0px; top: 0px; right: 0px; bottom: 0px;}
+.new_table_box table{ margin: 0;}
+.unable_loading{ background-color: #efefef; }
+.icon_cur{border:1px solid #acbee7;}
+.left_content{ position: absolute; top:39px; bottom:27px; left: 0; right: 0; }

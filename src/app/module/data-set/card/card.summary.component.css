@@ -1,0 +1,23 @@
+.d3_box img{height: 100%; margin: 0 auto; max-width: 100%;}
+.create_table{border-radius: 3px; border:2px dashed #c9c9c9; height: 100%; cursor: pointer;}
+.create_con{height: 80px; text-align: center; position: relative; top: 50%; margin-top: -40px;  color: #666; }
+.create_con i{color:#a6a7a9; font-size: 48px; display: block;}
+.table_box{ width: 100%; height: 100%; position: relative;box-shadow: 0 1px 1px #e7ebed,1px 0 1px #e7ebed,0 -1px 1px #e7ebed,-1px 0px 1px #e7ebed;border-radius: 3px; background-color: #fff; overflow: hidden;}
+.table_box:hover{ box-shadow: 0 1px 2px #aab9e0,1px 0 2px #aab9e0,0 -1px 2px #aab9e0,-1px 0px 2px #aab9e0; cursor: pointer;}
+.table_name{height: 38px; font-weight: bold; line-height: 38px;position: absolute; left: 0;top: 0; width: 100%; padding-left: 22px; color: #5c5f75;overflow: hidden; white-space: nowrap; text-overflow: ellipsis;  padding-right: 20px;}
+.table_name:after,.table_name:before{ position: absolute; content: ''; overflow: hidden; width: 2px; height: 2px; border-radius: 50%; left: 11px; top: 18px; background-color: #fff;}
+.table_name:before{ width: 6px; height: 6px; font-size: 0; line-height: 0; overflow: hidden; background-color:#ef6462 ; left: 9px; top: 16px;}
+.create_auth{height: 38px; transition: all 0.3s; line-height: 38px;position: absolute; bottom: -38px; left: 0; width: 100%; padding: 0 34px 0 44px; font-size: 12px; color: #666;background-color: #eaeaec}
+.table_box:hover .create_auth{ bottom: 0;}
+.auth_head{ position:absolute;height: 24px; width: 24px; overflow: hidden; border-radius: 50%; border:1px solid #dee0ec; left: 10px; top: 7px;}
+.auth_head img{display: block; width: 22px; height: 22px;}
+.create_auth .icon-shanchu1{ position: absolute; right:5px; top: 0px;  font-size: 18px; color: #ef6462;}
+.d3_box{ position: absolute; top: 48px; bottom:10px; left: 10px; right: 10px; }
+.table_template{position: absolute;height: 16px; line-height: 16px; color: #fff; font-size: 12px; padding: 0 8px; top: 0; left:12px; background-color: #61c0a3; }
+.d3_box img{display:block;} /*margin: 20px auto 0;*/
+.d3_box table{width:100%;border:1px solid #e7ebed;background-color: #fff;table-layout: fixed;}
+.d3_box table tr:first-child{background-color: rgb(247,247,247);    overflow: hidden;padding:5px;}
+.d3_box table td{border-bottom: 1px solid #e7ebed;  border-right:1px solid #e7ebed;  overflow: hidden;padding:5px;    height: 18px;
+  line-height: 18px;text-overflow: ellipsis;  white-space: nowrap;text-align: center;font-size:12px;}
+.d3_box table tr:last-child td{border-bottom: 0px;  border-right:1px solid #e7ebed;  overflow: hidden;padding:5px;    height: 18px;
+  line-height: 18px;text-overflow: ellipsis;  white-space: nowrap;text-align: center;}

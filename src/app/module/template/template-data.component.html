@@ -1,0 +1,44 @@
+<div class="ng-template_data">
+  <crumbs>替换数据</crumbs>
+  <ul class="container-fluid data_step_list">
+    <li class="col-lg-4 col-md-4 col-sm-4">
+      <div class="data_step_box">
+        <div class="step_head">
+          <div class="step_title">选择已有数据集</div>
+          <p class="data_step_describe">（选择数数据集后会自动更新应用模板数据）</p>
+        </div>
+        <ul class="data_step_body scroll_bar">
+          <ng-template ngFor let-item [ngForOf]="dataSetList">
+            <ng-template [ngIf]="item.schemaHandle&&item.schemaHandle.status=='READY'">
+              <li (click)="updateData(DATA_TYPE.DATASET,item.dataSetID)"><a  href="javascript:void(0);">{{item.dataSetName}}</a><i class="iconfont icon-duihao"></i></li>
+            </ng-template>
+          </ng-template>
+        </ul>
+      </div>
+    </li>
+    <li class="col-lg-4 col-md-4 col-sm-4">
+      <div class="data_step_box">
+        <div class="step_head">
+          <div class="step_title">选择已有数据源</div>
+          <p class="data_step_describe">（选择数据源后系统会自动创建数据集和生成数据模型）</p>
+        </div>
+        <ul class="data_step_body  scroll_bar">
+          <li *ngFor="let item of dataSourceList" (click)="updateData(DATA_TYPE.DATASOURCE,item.dataSourceID)"><a href="javascript:void(0);">{{item.dataSourceName}}</a><i class="iconfont icon-duihao"></i></li>
+        </ul>
+      </div>
+    </li>
+    <li class="col-lg-4 col-md-4 col-sm-4">
+      <div class="data_step_box">
+        <div class="step_head">
+          <div class="step_title">链接新的数据源</div>
+          <p class="data_step_describe">（链接数据源后系统会自动创建数据集和生成数据模型）</p>
+        </div>
+        <div class="add_source_body">
+          <a class="{{dataSourceType}}" href="javascript:void(0);" (click)="createDataSource()"></a>
+          <p class="add_source_describe">当点击链接新的数据源</p>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <div class="ng-template_data_btn"><button class="self_btn self_cancel" (click)="cancel()">返回上一页</button></div>
+</div>

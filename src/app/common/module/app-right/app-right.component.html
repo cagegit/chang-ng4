@@ -1,0 +1,66 @@
+<div class="home_right" >
+  <h3 class="sub_title clearfix">
+    <span>最近访问的报表</span>
+    <a routerLink="/data_center" routerLinkActive="active"><i class="iconfont icon-gengduo"></i></a>
+  </h3>
+  <!---没有报表的情况 begin---->
+  <div *ngIf="!reportLogs||reportLogs.length==0" class="h_no_table">
+    <div class="h_table_icon"><i class="iconfont icon-shujuji"></i> </div>
+    <p class="h_no_table_text">您还没有创建过数据报表，点击图片查看报表样例，学习如何制作报表.</p>
+  </div>
+  <!---没有报表的情况 end---->
+  <!--有访问报表的情况 begin-->
+  <ul class="table_list" #tableList>
+    <li class="clearfix" *ngFor="let repItem of reportLogs">
+      <img class="table_img" src="assets/img/app_logo.png" alt="" title="">
+      <span class="table_title">
+        <ng-template [ngIf]="repItem && repItem.resourceExists">
+          <a class="export-link" title="{{repItem?.resourceName}}" [routerLink]="['/card/',repItem?.resourceReferId]" [queryParams]="{cardId:repItem?.resourceId  }">{{repItem?.resourceName}}</a>
+        </ng-template>
+        <ng-template [ngIf]="repItem && !repItem?.resourceExists">
+          <a class="export-link" style="color: #666;text-decoration: none;" title="{{repItem?.resourceName}}">{{repItem?.resourceName}}</a>
+        </ng-template>
+      </span>
+      <span class="table_dir">
+         <ng-template [ngIf]="repItem && repItem?.resourceReferExists">
+           <a class="export-link" title="{{repItem?.resourceReferName}}" routerLink="/data_set/{{repItem?.resourceReferId}}/card">{{repItem?.resourceReferName}}</a>
+         </ng-template>
+         <ng-template [ngIf]="repItem && !repItem?.resourceReferExists">
+           <a class="export-link" style="color: #666;text-decoration: none;" title="{{repItem?.resourceReferName}}">{{repItem?.resourceReferName}}</a>
+         </ng-template>
+      </span>
+      <span class="table_time">{{repItem?.updateTime|date:"yyyy-MM-dd HH:mm"}}</span>
+    </li>
+
+  </ul>
+  <h3 class="sub_title clearfix">
+    <span>动态更新</span>
+    <a routerLink="/message"><i class="iconfont icon-gengduo"></i></a>
+  </h3>
+  <log-recently [recentlyLogs]="recentlyLogs" (viewChangeEvent)="viewChangeFn($event)" [maxRecentLength] = "maxRecentLength"></log-recently>
+  <!--<ul class="table_list">-->
+  <!--<li class="clearfix" *ngFor="let item of recentlyLogs">-->
+  <!--<img class="table_img" src="assets/img/app_logo.png" alt="" title="">-->
+  <!---->
+  <!--<span [innerHTML]="item.resourceType|logResource:item"></span>-->
+  <!--</li>-->
+
+  <!--</ul>-->
+  <!--有访问报表的情况 end-->
+  <!--<h3 class="sub_title clearfix">-->
+  <!--<span>帮助中心</span>-->
+  <!--<a href=""><i class="iconfont icon-gengduo"></i></a>-->
+  <!--</h3>-->
+  <!--<ul class="table_list help_center">-->
+  <!--<li class="clearfix">-->
+  <!--<i class="iconfont icon-wendang h_help_l"></i>-->
+  <!--<span>DataSee产品功能介绍</span>-->
+  <!--<i class="iconfont icon-jiantouyou h_help_r self_cursor"></i>-->
+  <!--</li>-->
+  <!--<li class="clearfix">-->
+  <!--<i class="iconfont icon-shipin h_help_l"></i>-->
+  <!--<span>DataSee产品功能介绍</span>-->
+  <!--<i class="iconfont icon-jiantouyou h_help_r self_cursor"></i>-->
+  <!--</li>-->
+  <!--</ul>-->
+</div>

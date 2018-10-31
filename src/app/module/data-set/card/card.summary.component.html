@@ -1,0 +1,50 @@
+<div class="table_box">
+  <div class="table_name" title="{{card.cardName}}">{{card.cardName}}</div>
+  <div class="d3_box" (click)="gotoCard(true,card.cardId)">
+    <!--<div class="table_ng-template">模板</div>-->
+    <!--<img src="{{card.img}}" >-->
+    <ng-template [ngIf]="card.renderMode=='table'||card.renderMode=='originTable'">
+      <ng-template [ngIf]="tableData&&tableData.length>0">
+        <table>
+          <ng-template ngFor let-item [ngForOf]="tableData" let-i="index">
+            <tr *ngIf="i==0">
+              <td style="font-weight: bold" *ngFor="let cell of item">{{cell}}</td>
+            </tr>
+            <tr *ngIf="i!=0">
+              <td *ngFor="let cell of item">{{cell}}</td>
+            </tr>
+            <!--<tr *ngIf="i!=0&&i%2!=0"><td *ngFor="let cell of item">{{cell}}</td></tr>-->
+            <!--<tr *ngIf="i!=0&&i%2==0"><td style="background-color: #ffffee" *ngFor="let cell of item">{{cell}}</td></tr>-->
+          </ng-template>
+        </table>
+      </ng-template>
+      <ng-template [ngIf]="!tableData||tableData.length==0">
+        <img src="{{card.img}}" />
+      </ng-template>
+    </ng-template>
+    <ng-template [ngIf]="card.renderMode=='txt'">
+      <showTxt [cellSet]="card.dataBrief"></showTxt>
+      <ng-template [ngIf]="!card.dataBrief||card.dataBrief.length==0">
+        <img src="{{card.img}}" />
+      </ng-template>
+    </ng-template>
+    <!--<ng-template [ngIf]="card.renderMode=='txt'||card.renderMode=='table'">-->
+    <!--<img src="{{card.img}}" >-->
+    <!--</ng-template>-->
+    <ng-template [ngIf]="card.renderMode!='txt'&&card.renderMode!='table'">
+      <ng-template [ngIf]="!card.dataBrief||card.dataBrief.length==0">
+        <img src="{{card.img}}" />
+      </ng-template>
+      <ng-template [ngIf]="card.dataBrief&&card.dataBrief.length>0">
+        <chart [options]="options" (load)="saveInstance($event.context)">
+        </chart>
+      </ng-template>
+    </ng-template>
+  </div>
+  <div class="create_auth">
+    <div class="auth_head"><img src="{{card.avatarUrl}}?{{timestamp}}"></div>
+    {{card.displayName}}
+    <i class="iconfont icon-shanchu1 self_cursor" (click)="delSelf(card.cardId)"></i>
+    <!--alertConfirm.open('确定要删除该Card吗？',card.cardId)-->
+  </div>
+</div>

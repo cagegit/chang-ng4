@@ -1,0 +1,82 @@
+<div class="container-fluid" *ngIf="group">
+  <div class="detail_top clearfix">
+    <div class="info_left">
+      <div class="header_img"><img src="assets/img/angular-logo.png"></div>
+      <div class="name_p" (click)="showEditer('groupName')">
+        <p class="user_name">{{group.groupName}}
+        <my-editer *ngIf="editer.groupName" (onSave)="updateGroupName($event)" (onCancel)="hideEidter('groupName')" [myVal]="group.groupName" [placeholder]="'请输入组名,1-10个字符'" regStr="^.{1,10}$" errMessage="请输入1到10位的字符"></my-editer>
+        </p>
+      </div>
+    </div>
+    <div class="delete_group"><button (click)="groupConfirm.open('确定要删除该用户组吗？',group.groupId);$event.stopPropagation();" class="self_btn c_ef5350"><i class="iconfont icon-shanchu"></i>删除用户组</button></div>
+  </div>
+
+  <div class="detail_bottom">
+    <div class="group_title">
+      <span>用户管理</span>
+      <div class="input-group self_input_group">
+        <input [(ngModel)]="selected"
+               [typeahead]="userListAll"
+               [typeaheadOptionField]="'userDisplayName'"
+               (typeaheadOnSelect)="selectAddUser($event)"
+               placeholder="搜索用户"
+               class="form-control self_form_control">
+        <div class="input-group-addon self_input_group_addon"><i class="iconfont icon-chuangjianhuodong"></i></div>
+      </div>
+    </div>
+    <ul class="group_user_list self_clearfix">
+      <li *ngFor="let user of userList; ">
+        <div class="u_img"><img src="{{user.userHeadImg}}" alt="" title="" height="48" width="48"> </div>
+        <p>{{user.userDisplayName}}</p>
+        <i class="iconfont icon-xxz" (click)="deleteUser(user)"></i>
+      </li>
+    </ul>
+  </div>
+
+
+  <resource-permission [relationResourceID]="group.groupId" [relationResuourceType]="RESOURCE_TYPE_GROUP"></resource-permission>
+  <alert-confirm #groupConfirm (confirm)="deleteGroup($event)"></alert-confirm>
+<!--&lt;!&ndash;  <div class="detail_bottom">-->
+    <!--<p class="group_title"><span>权限</span></p>-->
+    <!--<ul class="group_list">-->
+      <!--<li class="container-fluid group_head">-->
+        <!--<select class="select_type">-->
+          <!--<option>数据集</option>-->
+          <!--<option>数据源</option>-->
+          <!--<option>dashboard</option>-->
+        <!--</select>-->
+        <!--<div class="input-group self_input_group"  [ngStyle]='{"margin-top": "6px"}'>-->
+          <!--<input [(ngModel)]="selectedDataSet"-->
+                 <!--[typeahead]="dataSetListAll"-->
+                 <!--[typeaheadOptionField]="'dataSetName'"-->
+                 <!--(typeaheadOnSelect)="selectAddDataSet($event)"-->
+                 <!--placeholder="搜索数据集"-->
+                 <!--class="form-control self_form_control">-->
+          <!--<div class="input-group-addon self_input_group_addon"><i class="iconfont icon-chuangjianhuodong"></i></div>-->
+        <!--</div>-->
+      <!--</li>-->
+    <!--</ul>-->
+    <!--<ul class="data_list">-->
+      <!--<li class="self_clearfix"><span class="read_head self_left">读</span><span class="write_head self_left">写</span> </li>-->
+      <!--<li *ngFor="let dataSet of dataSetList" class="self_clearfix">-->
+        <!--<div class="data_img"><img src="assets/img/dataset_icon.png">&lt;!&ndash;<img src="assets/img/dashboard_icon.png"><img src="assets/img/datasource_icon.png">&ndash;&gt;</div>-->
+        <!--<div class="data_text self_left">{{dataSet.dataSetName}}</div>-->
+        <!--<div class="read_checkbox self_left">-->
+          <!--<label class="mock_label">-->
+            <!--<input type="checkbox" class="mock_input" checked >-->
+            <!--<i class="right_con"></i>-->
+            <!--<div class="mock_box"></div>-->
+          <!--</label>-->
+        <!--</div>-->
+        <!--<div class="read_checkbox self_left">-->
+          <!--<label class="mock_label">-->
+            <!--<input type="checkbox" class="mock_input" >-->
+             <!--<div class="mock_box"></div>-->
+          <!--</label>-->
+        <!--</div>-->
+        <!--<div class="delete_data"><i class="iconfont icon-shanchu1" (click)="deleteDataSet(dataSet)"></i></div>-->
+      <!--</li>-->
+    <!--</ul>-->
+    <!--<div class="delete_group"><button (click)="deleteGroup()" class="self_btn c_ef5350"><i class="iconfont icon-shanchu"></i>删除用户组</button></div>-->
+  <!--</div>-->
+</div>

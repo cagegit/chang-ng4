@@ -1,0 +1,28 @@
+.filter_text{display: block;
+  border: 1px solid #ccc;
+  padding-left: 6px;
+  border-radius: 2px; background-color: #f7f7f7; width: 100%;}
+.sort_down{display: block;
+  width: 18px;
+  float: right;
+  position: relative;}
+.sort_down:after{border-top-color:#ef5350;display: block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  top: 9px;
+  right: 5px;
+  border-top: 6px solid #999;
+  border-left: 5px solid transparent;
+  content: '';
+  border-right: 5px solid transparent;
+  border-bottom: none;}
+.filter_option_box{border: 1px solid #ccc;border-top: 0px;   padding:0  8px;max-height: 160px;  width: 100%;}
+.filter_option_box li{height: 26px; line-height: 26px;}
+.filter_option_box li>label{ width: 100%; text-align: left;}
+.filter_option_box .mock_box{ top: 5px;}
+.filter_option_box .right_con{ top: 6px;}
+.select_all_default{ color: #8da2d4;}
+.select_box{ width: 132px; float: left;}
+.select_filter_btn button{ width: 49%; font-size:14px; height: 30px; line-height: 30px; }

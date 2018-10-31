@@ -1,0 +1,51 @@
+<div bsModal #manifestUpdateModal="bs-modal"  [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog">
+    <div class="modal-content self_modal_content">
+      <div class="modal-header self_modal_header relational_table">
+        <span>编辑项目</span>
+        <button type="button" class="close self_close" (click)="closeHandle()" aria-label="Close">
+          <i class="iconfont icon-guanbigongjulan"></i>
+        </button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div  class="radio self_radio">
+        <label>
+          <input id="inlineRadio1" name="allBranchFlag" (click)="updateSelectType($event.target.value)" type="radio"  value="1" [checked]="manifestBranch.allBranchFlag==1" class="ng-untouched ng-pristine ng-valid"> 默认增加全部分支
+        </label>
+      </div>
+      <div  class="radio self_radio">
+        <label >
+          <input id="inlineRadio2" name="allBranchFlag" (click)="updateSelectType($event.target.value)" type="radio" value="0" [checked]="manifestBranch.allBranchFlag==0" class="ng-untouched ng-pristine ng-valid"> 编辑分支
+        </label>
+      </div>
+      <div class="branch_box" [class.hidden]="manifestBranch.allBranchFlag==1">
+        <div class="branch_lable">输入要添加的分支</div>
+        <textarea rows="3" [(ngModel)]="inputBranches" name="inputBranches">可不填</textarea>
+        <div class="branch_remarks">（多个分支名以分号";"隔开）</div>
+        <div class="branch_lable">选择已有分支</div>
+        <div class="branch_search"><input type="text" class="self_modal_input" placeholder="搜索分支名" (keyup)="search($event.target.value)"><i class="iconfont icon-fangdajing"></i></div>
+        <ul class="branch_list scroll_bar">
+          <li *ngFor="let branch of manifestBranch.branches">
+            <label  class="mock_label self_ellipsis">
+              <input  class="mock_input" type="checkbox"  [checked]="manifestBranch.checked(branch)"  (click)="checkedToggle(branch)">
+              <i  class="right_con"></i>
+              <div class="mock_box"></div>
+              <span>{{branch}}</span>
+            </label>
+          </li>
+        </ul>
+        <div class="branch_page">
+       <!--   <a href="" class="self_left"><i class="iconfont icon-jiantouzuo"></i> 上一页 </a>
+          <a href="" class="self_right">下一页 <i class="iconfont icon-jiantouyou"></i></a>
+          {{pagination|json}}-->
+          <pager [totalItems]="pagination.total" [(ngModel)]="pagination.current" (pageChanged)="pageChanged($event)" pageBtnClass="btn" [itemsPerPage]="pagination.pageSize" previousText="&lt;上一页" nextText="下一页&gt;"></pager>
+        <!--  <pagination [totalItems]="pagination.total" [(ngModel)]="pagination.current" [itemsPerPage]="pagination.pageSize" class="pagination-sm" (pageChanged)="pageChanged($event)"
+                      [boundaryLinks]="false" [rotate]="false"  [previousText]="previousText" [nextText]="nextText" [pageBtnClass]="'self_page_item'"></pagination>-->
+        </div>
+      </div>
+      <button class="self_btn c_ef5350 marT30" (click)="formSubmit()">完成</button>
+    </div>
+  </div>
+</div>
+

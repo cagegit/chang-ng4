@@ -1,0 +1,72 @@
+<div style="position: relative;">
+<div class="user_center" style="position: absolute;top:0;left: 0;bottom: 0;">
+  <!-- <h5 class="title">数据协议列表</h5> -->
+  <div class="relative">
+    <h5 class="title">数据协议列表</h5>
+    <div class="invite-position invite"><button (click)="show('add')"><span>新增</span></button></div>
+  </div>
+  <div class="form-group search_box">
+    <input type="text" autocomplete="off" #search class="form-control" (keyup)="searchFun(search.value)" placeholder="搜索数据协议名称"
+      [(ngModel)]="searchProtocolKey" name="searchProtocolKey">
+    <i class="iconfont icon-fangdajing"></i>
+  </div>
+  <ul class="user_list scroll_bar">
+    <li *ngFor="let item of searchList" (click)="clickFun(item)" [ngClass]="{cur:currentIndex===item.id}">
+      <a title="{{item.name}}" class="over-text">{{item.name}}</a>
+      <span class="span-right" [hidden]="currentIndex!==item.id">
+        <i class="iconfont icon-qianming" (click)="show('edit',item)"></i>
+        <i class="iconfont icon-shanchu" (click)="dataSetConfirm.open('删除协议配置','确定要删除该数据吗？',item.id);$event.stopPropagation();"></i>
+      </span>
+    </li>
+  </ul>
+</div>
+<div class="user_right" style="margin-left: 207px;">
+  <protocol-detail #protocolDetail [data]="currentData"></protocol-detail>
+</div>
+
+<nz-modal [nzVisible]="showModel" [nzTitle]="title" [nzContent]="modalContent" (nzOnCancel)="handleCancel($event)"
+  [nzFooter]="false">
+  <ng-template #modalContent>
+    <div class="modal-body clearfix">
+      <div class="self_modal_input row">
+        <div class="col-xs-3 text_right"><em class="em-color">*</em>协议名称</div>
+        <input type="text" autocomplete="off" name="name" required [(ngModel)]="addData.name" placeholder="输入协议名称"
+          disabled={{flag}} [ngClass]="{disabled:flag}">
+      </div>
+      <div class="self_modal_input row">
+        <div class="col-xs-3 text_right"><em class="em-color">*</em>规约号</div>
+        <select name="ruleNo" required [(ngModel)]="addData.ruleNo" placeholder="选择规约号">
+          <option *ngFor="let item of ruleNoEnum" value="{{item.id}}">{{item.name}}</option>
+        </select>
+      </div>
+      <div class="self_modal_input row">
+        <div class="col-xs-3 text_right"><em class="em-color">*</em>协议类型</div>
+        <select name="type" required [(ngModel)]="addData.type" (change)="onChangeType($event.target.value)"
+          placeholder="选择协议类型">
+          <option *ngFor="let item of typeEnum" value="{{item.id}}">{{item.name}}</option>
+        </select>
+      </div>
+      <div class="self_modal_input  row" [hidden]="addData.type&&(addData.type==='1'||addData.type===1)">
+        <div class="col-xs-3 text_right"><em class="em-color">*</em>端口</div>
+        <input type="text" autocomplete="off" name="port" required [(ngModel)]="addData.port" maxlength="6" minlength="2" (blur)="onChangePort($event.target.value)"
+          placeholder="输入端口">
+      </div>
+      <div class="self_modal_input  row">
+        <div class="col-xs-3 text_right">备注</div>
+        <textarea name="notes" rows="3" maxlength="60" minlength="2" [(ngModel)]="addData.notes" placeholder="输入协议备注描述"></textarea>
+      </div>
+      <div class="muti-btn">
+        <div class="invite" [ngStyle]="{width:'70px'}">
+          <button (click)="addProrocol()"><span>保存</span></button>
+        </div>
+        <div class="invite" [ngStyle]="{width:'70px'}">
+          <button (click)="clear()"><span>重置</span></button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</nz-modal>
+
+
+<alert-confirm #dataSetConfirm (confirm)="deleteProtocol($event)"></alert-confirm>
+</div>

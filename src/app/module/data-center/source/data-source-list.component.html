@@ -1,0 +1,67 @@
+
+<div class="user_right scroll_bar main_content" [@flyInOut]="active">
+  <div class="data_list_box">
+    <div class="list_box">
+      <div class=" self_clearfix add_source">
+        <span>已添加的数据源</span>
+        <button (click)="showAddDataSourceModal.show()" class="self_btn self_sm_btn c_ef5350 marT20 fr">添加数据源</button>
+      </div>
+      <div class="container-fluid data_list_head">
+        <div class="row">
+          <div class="col-sm-3 col-lg-3 col-md-3 set_column list_text_align">数据源名称</div>
+          <div class="col-sm-2 col-lg-2 col-md-2 set_column">创建者</div>
+          <div class="col-sm-2 col-lg-2 col-md-2 set_column">更新时间</div>
+          <!-- <div class="col-sm-2 col-lg-2 col-md-2 set_column">授权用户</div>
+          <div class="col-sm-2 col-lg-2 col-md-2 set_column">数据更新</div> -->
+          <div class="col-sm-2 col-lg-2 col-md-2 set_column">数据集</div>
+          <div class="col-sm-3 col-lg-3 col-md-3 set_column"></div>
+        </div>
+      </div>
+      <ul *ngIf="hasDataSourceList" class="container-fluid data_list_body">
+        <li *ngFor="let dataSource of _dataSourceList" class="self_clearfix row">
+          <div class="col-sm-3 col-lg-3 col-md-3 set_column data_name  ">
+            <div class="source_logo data_source_{{dataSource.dataSourceType|lowercase}}">
+              <!-- <div *ngIf="!dataSource.connectedState" class="err_test">!</div> -->
+            </div>
+            <a title="{{dataSource.name}}" routerLink="/chang/source/update/{{dataSource.dataSourceType|lowercase}}/{{dataSource.id}}">{{dataSource.name}}</a>
+          </div>
+          <div class="col-sm-2 col-lg-2 col-md-2 account set_column">{{dataSource.username||'-'}}</div>
+          <div class="col-sm-2 col-lg-2 col-md-2 add_time set_column" title='{{dataSource.updateTime|date:"yyyy-MM-dd HH:mm:ss"}}'>{{dataSource.updateTime|date:"yyyy-MM-dd HH:mm:ss"}}
+          </div>
+          <!-- <div class="col-sm-2 col-lg-2 col-md-2 auth_uer set_column">
+            <p class="self_ellipsis">{{dataSource.userList}}</p>
+            <p><span class="look_more self_cursor"  (click)="resourcePermissionModal.show(dataSource.dataSourceID,dataSource.dataSourceName,RESOURCE_TYPE_DATA_SOURCE)">查看更多</span></p>
+          </div>
+          <div class="col-sm-2 col-lg-2 col-md-2 data_update">
+            <div class="data_row case_1">按需获取</div>
+          </div> -->
+          <div class="col-sm-2 col-lg-2 col-md-2"><a  [routerLink]="['/chang/data-center/list/set',{dataSourceID: dataSource.id}]">{{dataSource.dataSets.length}}个</a></div>
+          <div class="col-sm-3 col-lg-3 col-md-3 operate">
+            <!--<div class="row">-->
+            <!--&lt;!&ndash;<span class="col-sm-4 col-lg-4 col-md-4"></span>&ndash;&gt;-->
+            <!--<span class="col-sm-2 col-lg-2 col-md-2"><i *ngIf="dataSource.hasPermission(PERMISSION_TYPE.ADD)" class=" iconfont icon-chuangjianhuodong"  placement="bottom" tooltip="添加"  [routerLink]="['/data_center/set/update',{ dataSourceID: dataSource.dataSourceID }]"></i></span>-->
+            <!--<span class="col-sm-2 col-lg-2 col-md-2 "><i *ngIf="dataSource.hasPermission(PERMISSION_TYPE.EDIT)" class="iconfont icon-qianming" placement="bottom" tooltip="编辑" tooltipClass="custom_source_list1"   routerLink="/data_center/source/update/{{dataSource.dataSourceType|lowercase}}/{{dataSource.dataSourceID}}"></i></span>-->
+            <!--<span class="col-sm-2 col-lg-2 col-md-2 "><i *ngIf="dataSource.hasPermission(PERMISSION_TYPE.AUTH)" class="iconfont icon-iconshezhi01" placement="bottom" tooltip="权限设置" tooltipClass="custom_source_list1"   (click)="resourcePermissionModal.show(dataSource.dataSourceID,dataSource.dataSourceName,RESOURCE_TYPE_DATA_SOURCE)"></i></span>-->
+            <!--<span class="col-sm-2 col-lg-2 col-md-2"><i *ngIf="dataSource.hasPermission(PERMISSION_TYPE.DEL)" class=" iconfont icon-shanchu" placement="bottom" tooltipClass="customClass" tooltipClass="custom_source_list1"  tooltip="删除"  (click)="delete(dataSource)"></i></span>-->
+            <!--</div>-->
+            <i  class=" iconfont icon-chuangjianhuodong" placement="bottom" tooltip="添加"
+              [routerLink]="['/chang/set/update',{dataSourceID: dataSource.id}]"></i>
+            <i  class="iconfont icon-qianming" placement="bottom" tooltip="编辑"
+              routerLink="/chang/source/update/{{dataSource.dataSourceType|lowercase}}/{{dataSource.id}}"></i>
+            <!-- <i class="iconfont icon-iconshezhi01" placement="bottom" tooltip="权限设置"
+              (click)="resourcePermissionModal.show(dataSource.dataSourceID,dataSource.dataSourceName,RESOURCE_TYPE_DATA_SOURCE)"></i> -->
+            <i  class=" iconfont icon-shanchu" placement="bottom" tooltipClass="customClass"
+              tooltip="删除" (click)="dataSourceConfirm.open('确认','确定要删除该数据源吗？',dataSource.id);$event.stopPropagation();"></i>
+          </div>
+      </ul>
+      <div class="not_source" *ngIf="!hasDataSourceList">
+        <div class="not_source_con"> 您还没有添加数据源！</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<data-source-add-modal #showAddDataSourceModal></data-source-add-modal>
+<!-- <resource-permission-modal #resourcePermissionModal (changeUserPermission)="update($event)"></resource-permission-modal> -->
+<alert-confirm #dataSourceConfirm (confirm)="delete($event)"></alert-confirm>

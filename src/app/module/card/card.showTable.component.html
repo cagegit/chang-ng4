@@ -1,0 +1,69 @@
+
+<div class="show_table_container">
+
+  <div *ngIf="totalPage>1" class="up_scroll_btn scroll_btn_box" [class.unable_loading]="isLoading || (page == 0)" (click)="loadingData(false)">
+    <i class="iconfont icon-jiantouy-copy"></i>
+  </div>
+  <div class="show_table_box scroll_bar scroll_o_bar" [class.show_table_top]="totalPage>1" #tableBox>
+    <div class="nav-up" *ngIf="drill"><span style="font-weight: bold">上卷导航</span>
+      <ul *ngIf="allPath.length>0">
+        <li *ngFor="let key of allPath">
+          <ul>
+            <li>{{key.name}}：</li>
+            <li *ngFor="let level of key.value;let i=index" (click)="drillUp(key.name,level)">
+              <span *ngIf="i!=0"> > </span>
+              <span style="color: #00b0e8;cursor: pointer;">{{level.caption}}</span>
+            </li>
+          </ul>
+        </li>
+
+      </ul>
+    </div>
+    <div class="table_body" >
+      <table border="1" bordercolor="#dfe5e9">
+        <thead #tableHead class="table_head">
+        <ng-template ngFor let-heads [ngForOf]="showHead"  let-i="index">
+          <tr>
+            <ng-template ngFor let-cHead [ngForOf]="heads" let-j="index">
+              <ng-template [ngIf]="cHead.colspan>0">
+                <th [attr.class]="cHead.class" [attr.colspan]="cHead.colspan">
+                  <div [attr.class]="cHead.class">{{cHead.value}}</div>
+                </th>
+              </ng-template>
+            </ng-template>
+          </tr>
+        </ng-template>
+        </thead>
+        <tbody #tableBody>
+        <!--<tr *ngFor="let i of mockData;let j = index">-->
+          <!--<td *ngFor="let m of mockData2;let n=index">第{{j}} {{n}}格</td>-->
+
+        <!--</tr>-->
+        <ng-template ngFor let-row [ngForOf]="showData"  let-i="index">
+          <tr>
+            <ng-template ngFor let-cell [ngForOf]="row" let-j="index">
+              <ng-template [ngIf]="cell.colspan>0">
+                <ng-template [ngIf]="cell.class=='cellhighlight'">
+                  <td [attr.class]="cell.class"  [attr.colspan]="cell.colspan"  (click)="cellClick(i,j)">
+                    {{cell.value}}
+                  </td>
+                </ng-template>
+                <ng-template [ngIf]="cell.class!='cellhighlight'">
+                  <td [attr.class]="cell.class" [attr.colspan]="cell.colspan">
+                    <div [attr.class]="cell.class">{{cell.value}}</div>
+                  </td>
+                </ng-template>
+              </ng-template>
+            </ng-template>
+          </tr>
+        </ng-template>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div *ngIf="totalPage>1" class="down_scroll_btn scroll_btn_box" (click)="loadingData(true)" [class.unable_loading]="isLoading || (page === totalPage-1)" >
+    <i class="iconfont icon-jiantouy-copy"></i>
+  </div>
+</div>
+
+

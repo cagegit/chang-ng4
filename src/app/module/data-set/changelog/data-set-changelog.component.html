@@ -1,0 +1,80 @@
+<div class="data_table_box scroll_bar">
+  <div class="chang_log_table">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0px">
+      <thead>
+      <tr>
+        <th width="180">时间</th>
+        <th width="180">操作者</th>
+        <th>事件</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of datasetLog">
+          <td class="chang_log_time">{{item.updateTime|date:'yyyy-MM-dd HH:mm'}}</td>
+          <td>
+            <ng-template [ngIf]="item.action!='AUTOBUILD'">
+              <a routerLink="/um/user/{{item.userId}}" class="self_cursor">{{item.userDisplayName}}</a>
+            </ng-template>
+            <ng-template [ngIf]="item.action=='AUTOBUILD'">
+              系统自动
+            </ng-template>
+          </td>
+          <td>
+            <div [ngSwitch]="item.action">
+              <div *ngSwitchCase="'AUTOBUILD'">更新数据</div>
+              <div *ngSwitchCase="'CREATE'">
+                <ng-template [ngIf]="item.resourceType=='CARD'">
+                  创建报表{{item.resourceName}}
+                </ng-template>
+                <ng-template [ngIf]="item.resourceType=='DATASET'">
+                  创建数据集{{item.resourceName}}
+                </ng-template>
+              </div>
+              <div *ngSwitchCase="'EDIT'">
+                <ng-template [ngIf]="item.resourceType=='CARD'">
+                  修改报表{{item.resourceName}}
+                </ng-template>
+                <ng-template [ngIf]="item.resourceType=='DATASET'">
+                  修改数据集{{item.resourceName}}
+                </ng-template>
+              </div>
+              <div *ngSwitchCase="'REMOVE'">
+                <ng-template [ngIf]="item.resourceType=='CARD'">
+                  删除报表{{item.resourceName}}
+                </ng-template>
+                <ng-template [ngIf]="item.resourceType=='DATASET'">
+                  删除数据集{{item.resourceName}}
+                </ng-template>
+              </div>
+              <div *ngSwitchCase="'BUILD'">
+                手动更新数据
+              </div>
+            </div>
+            <!--<ng-template [ngIf]="item.action!='AUTOBUILD'">-->
+              <!--{{item.action}}-->
+            <!--</ng-template>-->
+            <!--<ng-template [ngIf]="item.action=='AUTOBUILD'">-->
+              <!--更新数据-->
+            <!--</ng-template>-->
+           </td>
+        </tr>
+        <!--<tr>-->
+          <!--<td class="chang_log_time">2016.09.01  18:00  </td>-->
+          <!--<td><a class="self_cursor">chenshu</a> </td>-->
+          <!--<td>创建报表abc</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+          <!--<td class="chang_log_time">2016.09.01  18:00  </td>-->
+          <!--<td><a class="self_cursor">chenshu</a> </td>-->
+          <!--<td>创建报表abc</td>-->
+        <!--</tr>-->
+      </tbody>
+    </table>
+  </div>
+  <div class="self_page">
+    <pagination [totalItems]="totalItems" [(ngModel)]="bigCurrentPage" [itemsPerPage]="itemsPerPage" class="pagination-sm" (pageChanged)="pageChanged($event)"
+                 [previousText]="previousText" [nextText]="nextText" [pageBtnClass]="'self_page_item'"></pagination>
+  </div>
+</div>
+
+

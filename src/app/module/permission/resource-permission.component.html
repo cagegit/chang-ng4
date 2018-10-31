@@ -1,0 +1,49 @@
+<div class="detail_bottom">
+  <p class="group_title"><span>权限管理</span></p>
+  <ul class="group_list">
+    <li class="container-fluid group_head">
+      <select class="select_type" (change)='changeResourceType($event.target.value);'>
+        <option *ngFor="let item of resourceTypeOption" value="{{item.type}}" [selected]="item.type==resourceType">{{item.text}}</option>
+      </select>
+      <div class="add_box"  *ngIf="RESOURCE_TYPE.GROUP==relationResuourceType">
+        <button (click)="addPermission.show(relationResourceID,relationResuourceType,resourceType,resourcePermissionList)" class="self_btn c_49a2df self_cursor">添加+</button>
+        <add-permission #addPermission [direction]="'right'" (selectChange)="selectAdd($event)" [left]="'-160'" [top]="'40'"></add-permission>
+      </div>
+    </li>
+  </ul>
+  <ul class="data_list">
+    <li class="self_clearfix"><span class=" data_list_name">名字</span><span class="read_head self_left">读权限</span><span class="write_head self_left">写权限</span><span class="write_head self_left">授权权限</span> </li>
+    <ng-template [ngIf]="resourcePermissionList.length>0">
+      <li *ngFor="let item of resourcePermissionList" class="self_clearfix">
+        <div class="data_img"><img src="assets/img/{{item.resourceType}}_icon.png"></div>
+        <div class="data_text self_left self_ellipsis">{{item.resourceName}}</div>
+        <div class="read_checkbox self_left">
+          <label class="mock_label">
+            <input type="checkbox" class="mock_input" [checked]="item.hasPermission(PERMISSION_TYPE.READ)" (change)="changePermission(item,PERMISSION_TYPE.READ,$event.target);" [disabled]="item.disabled">
+            <i class="right_con"></i>
+            <div class="mock_box"></div>
+          </label>
+        </div>
+        <div class="read_checkbox self_left">
+          <label class="mock_label">
+            <input type="checkbox" class="mock_input" [checked]="item.hasPermission(PERMISSION_TYPE.EDIT)" (change)="changePermission(item,PERMISSION_TYPE.EDIT,$event.target);" [disabled]="item.disabled">
+            <i class="right_con"></i>
+            <div class="mock_box"></div>
+          </label>
+        </div>
+        <div class="read_checkbox self_left">
+          <label class="mock_label">
+            <input type="checkbox" class="mock_input" [checked]="item.hasPermission(PERMISSION_TYPE.AUTH)"  (change)="changePermission(item,PERMISSION_TYPE.AUTH,$event.target);" [disabled]="item.disabled">
+            <i class="right_con"></i>
+            <div class="mock_box"></div>
+          </label>
+        </div>
+        <div class="delete_data" *ngIf="RESOURCE_TYPE.GROUP==relationResuourceType&&!item.disabled"><i class="iconfont icon-shanchu1" (click)="del(item)"></i></div>
+      </li>
+    </ng-template>
+    <div class="no_content_list" *ngIf="resourcePermissionList.length==0">
+      <div class="icon_box"><i class="iconfont icon-sousuowuneirong"></i></div>
+      <span>暂无权限</span>
+    </div>
+  </ul>
+</div>

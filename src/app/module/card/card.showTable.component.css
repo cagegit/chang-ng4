@@ -1,0 +1,20 @@
+table{ border:1px solid #dfe5e9;font-size:12px;}
+table tr:hover{ background-color: #f7f7f7}
+table td,thead th{height:28px; line-height: 28px; padding: 0 30px; word-break: keep-all; position: relative; text-align: center; white-space: nowrap; }
+table .td_bg{ background-color: #f7f7f7;font-weight: bold;}
+table td i{ margin-left: 10px; vertical-align:middle; color: #a1a1a1; position: absolute; right: 10px; top: 0px;transform:rotate(90deg); font-size: 14px;}
+.text_place{text-align: left;}
+.cell_noborder{border-top:0px;border-bottom:0px}
+.nobottom-border{border-bottom:0px}
+.show_table_box{ position:absolute; top: 10px;  left: 10px; bottom: 30px;right: 10px; }
+.show_table_top{top:30px;}
+.table_head{background-color: #fff; z-index: 2; left: 0; top: 0;}
+.table_foot{height: 30px; border:1px solid #dfe5e9; background-color: #f7f7f7; line-height: 28px; position: absolute; left: 10px; right: 10px; bottom: 10px; position: absolute;}
+.up_scroll_btn{ top:5px; right: 4px; position: absolute;transform: rotate(90deg)}
+.down_scroll_btn{ bottom: 5px; right: 4px; position: absolute;transform: rotate(-90deg)}
+.show_table_container{ position: absolute; top: 0; right: 0; bottom: 0; left: 0;}
+.nav-up{margin-bottom:5px;margin-left:10px;  text-align: left;  border-bottom: 1px dashed #ccc;}
+.nav-up ul{height: 30px;    margin: 5px 0px;}
+.nav-up ul li{float:left;     border: 1px solid #ccc;  height: 25px;  padding: 2px 5px;}
+.nav-up ul li ul{margin: 0px;  height: 25px;}
+.nav-up ul li ul li{    margin: 0px;  padding: 0px;  float: left;border: none;}

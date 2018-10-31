@@ -1,0 +1,66 @@
+.app_home{ width: 100%; height: 100%;}
+.app_home1{ position:relative;}
+/*** left style **/
+/*.home_left{margin-right: 482px;}*/
+
+
+/***用户组***/
+/**用户登录*/
+.user_email input{ padding-left: 20px; width: 270px;}
+/***登录信息***/
+.login_info{ height: 132px; background: url("../../assets/img/login_info.jpg") no-repeat top center;}
+.login_email input{ padding-left: 0; width: 200px;}
+.forget_password{ margin-top: 30px; border-top:1px solid #5a5d6c;padding-top: 20px; text-align: center; }
+.forget_password a{ color: #fff;}
+/*******修改密码*******/
+.edit_password{height: 175px; background: url("../../assets/img/edit_password.jpg") no-repeat center center;}
+.self_modal_text{ line-height: 30px; font-size: 18px; color: #fff; padding-top:17px; }
+.self_modal_text a{ color: #5bb1ff; font-size: 14px; text-decoration: underline;}
+/***重置密码**/
+.password-tishi{ color: #fff;}
+/**home*/
+.home_left{ padding: 0 20px;}
+.h_dashboard_title{height: 86px; line-height: 86px; font-size: 24px; color: #323757; position: relative; padding-right: 350px;}
+.h_search{ width: 270px; height: 30px; position: absolute; right: 80px; top: 27px; line-height: 30px; }
+.h_search input{vertical-align: top; width: 100px; height: 30px;border:1px solid #e2e2e2; border-radius: 3px; padding: 0 30px 0 10px; font-size: 14px; font-weight: normal; line-height: 28px; width: 100%; outline: none;}
+.h_search input:focus{ color: #333; font-size: 14px;border:1px solid #96ddc4; }
+.h_search i{ position:absolute;right: 0; top: 0; font-size: 18px; right: 10px; color: #b4b7c6;}
+.h_create_btn{ width: 70px; height: 30px; position: absolute; right: 0; top: 24px; line-height: 30px;}
+.h_create_btn button{ height: 30px; line-height: 30px; font-size: 14px; vertical-align: middle;}
+.h_dashboard_list{ padding-left: 0;padding-right: 0; margin-left: -8px; margin-right: -8px;}
+.h_dashboard_list li{ padding-left: 8px; padding-right: 8px; margin-bottom: 16px;}
+.h_dashboard_item{ height: 197px; border:1px solid #eceff1; border-radius:3px; background-color: #f8f9fb;  position: relative; padding-bottom:30px;  box-shadow: -1px 1px 1px #f5f6f7;}
+.h_list_bottom{ height: 30px; position: absolute; bottom: 0; width: 100%; border-top: 1px solid #e9edef; left: 0; }
+.h_bottom_l{ width: 70%; line-height:29px; color: #666666; padding-left: 10px;font-size: 10px;  text-overflow: ellipsis;  white-space: nowrap;  overflow: hidden;}
+.h_bottom_l i{ color: #8699d1; margin-right:5px; vertical-align: middle; font-size: 18px; }
+.h_bottom_r{ width: 30%; padding-right: 10px; text-align: right; line-height: 29px;}
+.h_bottom_r i{ color: #f06e6b; margin-left: 10px; font-size: 18px;}
+.h_bottom_r span{ color: #e9edef;}
+.h_list_img{ width: 78px;height: 78px; border-radius: 50%; background-color: #fff; line-height: 78px; text-align: center; margin: 15px auto;}
+.h_list_img i{ color: #fcbe7a; font-size: 48px;}
+.h_dashboard_name{ color: #6c76a8; font-weight: bold; line-height: 20px; height:55px;overflow: hidden; text-align: center; padding: 15px 10px 0;}
+.h_dashboard_item:hover{box-shadow: 0 0 10px rgba(0,0,0,0.3); }
+.h_no_dashboard{ position: relative; margin-top: 50px; }
+.h_no_dashboard_box{ width: 530px; margin: 0 auto;}
+.h_create_dashboard{ width: 200px; padding-top: 56px; height: 228px; background-color: #f8f9fb; border:1px solid #eceff1; border-radius: 3px; box-shadow: 1px 1px 1px #f7f8f9; margin: 0 auto 30px;}
+.h_create_jia{ width: 78px; height: 78px; background-color: #fff; border-radius: 50%; text-align: center; line-height: 78px; margin: 0 auto;}
+.h_create_jia i{ font-size: 60px; color: #95a5d6;}
+.h_create_dashboard p{ text-align: center; color: #666; margin-top:20px;}
+.h_create_text{ line-height: 24px; color: #666; margin-bottom: 0;}
+.h_create_text a{ color: #4d85c2;}
+.help_center li{ padding: 0 20px 0 55px; position: relative; color: #333; line-height: 66px;}
+.h_help_l{ position: absolute; left: 10px; top: 0; color: #6c76a8;  font-size: 22px;}
+.h_help_r{ position: absolute; right: 0; top: 0;}
+.h_no_table{width: 316px; margin: 0 auto; padding: 76px 0;}
+.h_table_icon{ width: 52px; height: 52px; border-radius: 50%; background-color: #f8f9fb; border: 1px solid #e7ebed; line-height: 52px; text-align: center; margin: 0 auto 15px;}
+.h_table_icon i{ color: #859acf; font-size: 34px;}
+.h_no_table_text{ line-height: 24px; color: #bababa;}
+.export-link{overflow: hidden;  display: block;  white-space: nowrap;  text-overflow: ellipsis;}
+
+
+.not_create .h_search{ right: 0;}
+.not_create .h_create_btn{ display: none;}
+
+.no_search_con{ width: 135px; padding-left:62px;height: 46px; line-height: 46px; margin: 200px  auto  0; position: relative; color: #999; }
+.no_search_con .icon_box{ position:absolute;  top:0; left:0;width: 46px; height: 46px; line-height: 46px; border-radius: 50%; background-color: #f8f8f8; text-align: center;}
+.no_search_con .icon_box i{ font-size: 24px; color: #bababa;}

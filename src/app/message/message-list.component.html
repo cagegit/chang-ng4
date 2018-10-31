@@ -1,0 +1,825 @@
+<div class="message_box" #messageBox [@flyIn]="active">
+  <div class="message_con">
+    <ul class="message_list marB20">
+      <div class="message_header">最近消息</div>
+      <li class="clearfix" *ngFor="let item of recentlyLogs">
+        <div class="rep-li" [ngSwitch]="item.resourceType">
+          <div *ngSwitchCase="'DATASET'" class=" self_clearfix  message_item">
+            <div class="icon_box  bg_purple"><i class="iconfont icon-shujuji"></i></div>
+            <div class="message_text"  [ngSwitch]="item.action" >
+              <span *ngSwitchCase="'CREATE'">
+            <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 创建了数据集
+            <ng-template [ngIf]="!item.resourceExists">
+              {{item.resourceName}}
+            </ng-template>
+            <ng-template [ngIf]="item.resourceExists">
+            <a routerLink="/data_set/{{item.resourceId}}/card">{{item.resourceName}}</a>
+            </ng-template>
+          </span>
+              <span *ngSwitchCase="'EDIT'">
+                <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 修改了数据集
+                <ng-template [ngIf]="!item.resourceExists">
+                  {{item.resourceName}}
+                </ng-template>
+                <ng-template [ngIf]="item.resourceExists">
+                <a routerLink="/data_set/{{item.resourceId}}/card">{{item.resourceName}}</a>
+                </ng-template>
+              </span>
+              <span *ngSwitchCase="'REMOVE'">
+                 <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 删除了数据集 {{item.resourceName}}
+              </span>
+              <span *ngSwitchCase="'BUILD'">
+                <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对数据集
+                <ng-template [ngIf]="!item.resourceExists">
+                  {{item.resourceName}}
+                </ng-template>
+                <ng-template [ngIf]="item.resourceExists">
+                <a routerLink="/data_set/{{item.resourceId}}/card">{{item.resourceName}}</a>
+                </ng-template> 更新数据
+              </span>
+              <span *ngSwitchCase="'AUTOBUILD'">
+                系统自动对数据集
+                 <ng-template [ngIf]="!item.resourceExists">
+                  {{item.resourceName}}
+                </ng-template>
+                <ng-template [ngIf]="item.resourceExists">
+                <a routerLink="/data_set/{{item.resourceId}}/card">{{item.resourceName}}</a>
+                </ng-template> 更新数据
+              </span>
+              <span *ngSwitchCase="'AUTHORIZE'">
+               <span [ngSwitch]="item.remark">
+                 <span *ngSwitchCase="'get'">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                  {{item.resourceReferName}}
+                  </ng-template>
+                  <ng-template [ngIf]="item.resourceReferExists">
+                   <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                  </ng-template>
+                   授予数据集
+                   <ng-template [ngIf]="!item.resourceExists">
+                  {{item.resourceName}}
+                  </ng-template>
+                  <ng-template [ngIf]="item.resourceExists">
+                   <a routerLink="/data_set/{{item.resourceId}}/card">{{item.resourceName}}</a>
+                  </ng-template>
+                    访问的权限
+                 </span>
+                 <span *ngSwitchCase="'edit'">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                    {{item.resourceReferName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceReferExists">
+                     <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                    </ng-template> 授予数据集
+                   <ng-template [ngIf]="!item.resourceExists">
+                    {{item.resourceName}}
+                  </ng-template>
+                  <ng-template [ngIf]="item.resourceExists">
+                   <a routerLink="/data_set/{{item.resourceId}}/card">{{item.resourceName}}</a>
+                  </ng-template> 编辑的权限
+                 </span>
+                  <span *ngSwitchCase="'authorize'">
+                    <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户
+                    <ng-template [ngIf]="!item.resourceReferExists">
+                    {{item.resourceReferName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceReferExists">
+                   <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                    </ng-template>
+                    授予数据集
+                    <ng-template [ngIf]="!item.resourceExists">
+                    {{item.resourceName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceExists">
+                     <a routerLink="/data_set/{{item.resourceId}}/card">{{item.resourceName}}</a>
+                    </ng-template>
+                    对外授权的权限
+                  </span>
+                </span>
+                <!--<a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户 <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a> 授予数据集 <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a> 的权限-->
+                  </span>
+              <span *ngSwitchCase="'UNAUTHORIZE'">
+                    <span [ngSwitch]="item.remark">
+                 <span *ngSwitchCase="'get'">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                    {{item.resourceReferName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceReferExists">
+                      <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                    </ng-template>
+                    取消数据集
+                    <ng-template [ngIf]="!item.resourceExists">
+                    {{item.resourceName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceExists">
+                     <a routerLink="/data_set/{{item.resourceId}}/card">{{item.resourceName}}</a>
+                    </ng-template> 访问的权限
+                 </span>
+                 <span *ngSwitchCase="'edit'">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                    {{item.resourceReferName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceReferExists">
+                      <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                    </ng-template>
+                    取消数据集
+                    <ng-template [ngIf]="!item.resourceExists">
+                    {{item.resourceName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceExists">
+                     <a routerLink="/data_set/{{item.resourceId}}/card">{{item.resourceName}}</a>
+                    </ng-template>
+                   编辑的权限
+                 </span>
+                  <span *ngSwitchCase="'authorize'">
+                    <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户
+                    <ng-template [ngIf]="!item.resourceReferExists">
+                    {{item.resourceReferName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceReferExists">
+                      <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                    </ng-template>
+                    取消数据集
+                     <ng-template [ngIf]="!item.resourceExists">
+                    {{item.resourceName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceExists">
+                     <a routerLink="/data_set/{{item.resourceId}}/card">{{item.resourceName}}</a>
+                    </ng-template> 对外授权的权限
+                  </span>
+                </span>
+                <!--<a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户 <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a> 取消数据集 <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a> 的授权-->
+                  </span>
+              <span *ngSwitchCase="'GROUPAUTHORIZE'">
+                       <span [ngSwitch]="item.remark">
+                 <span *ngSwitchCase="'get'">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                    {{item.resourceReferName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceReferExists">
+                      <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                    </ng-template>
+                   授予数据集 <ng-template [ngIf]="!item.resourceExists">
+                    {{item.resourceName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceExists">
+                     <a routerLink="/data_set/{{item.resourceId}}/card">{{item.resourceName}}</a>
+                    </ng-template> 访问的权限
+                 </span>
+                 <span *ngSwitchCase="'edit'">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                    {{item.resourceReferName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceReferExists">
+                      <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                    </ng-template> 授予数据集
+                   <ng-template [ngIf]="!item.resourceExists">
+                    {{item.resourceName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceExists">
+                     <a routerLink="/data_set/{{item.resourceId}}/card">{{item.resourceName}}</a>
+                    </ng-template>编辑的权限
+                 </span>
+                  <span *ngSwitchCase="'authorize'">
+                    <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组
+                    <ng-template [ngIf]="!item.resourceReferExists">
+                    {{item.resourceReferName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceReferExists">
+                      <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                    </ng-template>
+                    授予数据集 <ng-template [ngIf]="!item.resourceExists">
+                    {{item.resourceName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceExists">
+                     <a routerLink="/data_set/{{item.resourceId}}/card">{{item.resourceName}}</a>
+                    </ng-template> 对外授权的权限
+                  </span>
+                </span>
+                <!--<a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组 <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a> 授予数据集 <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a> 的权限-->
+                  </span>
+              <span *ngSwitchCase="'GROUPUNAUTHORIZE'">
+                   <span [ngSwitch]="item.remark">
+             <span *ngSwitchCase="'get'">
+               <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组
+               <ng-template [ngIf]="!item.resourceReferExists">
+                {{item.resourceReferName}}
+                </ng-template>
+                <ng-template [ngIf]="item.resourceReferExists">
+                  <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                </ng-template>
+               取消数据集
+               <ng-template [ngIf]="!item.resourceExists">
+                {{item.resourceName}}
+                </ng-template>
+                <ng-template [ngIf]="item.resourceExists">
+                 <a routerLink="/data_set/{{item.resourceId}}/card">{{item.resourceName}}</a>
+                </ng-template>访问的授权
+             </span>
+             <span *ngSwitchCase="'edit'">
+               <a routerLink="/um/group/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组
+               <ng-template [ngIf]="!item.resourceReferExists">
+                {{item.resourceReferName}}
+                </ng-template>
+                <ng-template [ngIf]="item.resourceReferExists">
+                  <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                </ng-template>
+               取消数据集 <ng-template [ngIf]="!item.resourceExists">
+                {{item.resourceName}}
+                </ng-template>
+                <ng-template [ngIf]="item.resourceExists">
+                 <a routerLink="/data_set/{{item.resourceId}}/card">{{item.resourceName}}</a>
+                </ng-template> 编辑的权限
+             </span>
+              <span *ngSwitchCase="'authorize'">
+                <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组
+                <ng-template [ngIf]="!item.resourceReferExists">
+                {{item.resourceReferName}}
+                </ng-template>
+                <ng-template [ngIf]="item.resourceReferExists">
+                  <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                </ng-template>
+                 取消数据集
+                <ng-template [ngIf]="!item.resourceExists">
+                {{item.resourceName}}
+                </ng-template>
+                <ng-template [ngIf]="item.resourceExists">
+                 <a routerLink="/data_set/{{item.resourceId}}/card">{{item.resourceName}}</a>
+                </ng-template> 对外授权的权限
+              </span>
+            </span>
+            <!--<a  routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组 <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a> 取消数据集 <a routerLink="/data_set/{{item.resourceId}}/card">{{item.resourceName}}</a> 的授权-->
+              </span>
+            </div>
+            <div class="message_time">{{item.updateTime|date:"yyyy-MM-dd HH:mm"}}</div>
+          </div>
+          <div *ngSwitchCase="'DATASOURCE'" class=" self_clearfix  message_item">
+            <div class="icon_box bg_red"><i class="iconfont icon-shujuku"></i></div>
+            <div [ngSwitch]="item.action" class="message_text">
+              <span *ngSwitchCase="'CREATE'">
+                <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 创建了数据源
+                <ng-template [ngIf]="!item.resourceExists">
+                    {{item.resourceName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceExists">
+                     <a routerLink="/data_center/source/update/{{item.type}}/{{item.resourceId}}">{{item.resourceName}}</a>
+                    </ng-template>
+              </span>
+              <span *ngSwitchCase="'EDIT'">
+                <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 修改了数据源
+                <ng-template [ngIf]="!item.resourceExists">
+                    {{item.resourceName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceExists">
+                     <a routerLink="/data_center/source/update/{{item.type}}/{{item.resourceId}}">{{item.resourceName}}</a>
+                    </ng-template>
+              </span>
+              <span *ngSwitchCase="'REMOVE'">
+                 <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 删除了数据源 {{item.resourceName}}
+              </span>
+              <span *ngSwitchCase="'AUTHORIZE'">
+                <span [ngSwitch]="item.remark">
+                 <span *ngSwitchCase="'get'">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                     {{item.resourceReferName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceReferExists">
+                     <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                   </ng-template> 授予数据源
+                   <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/data_center/source/update/{{item.type}}/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template>
+                    访问的权限
+                 </span>
+                 <span *ngSwitchCase="'edit'">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                     {{item.resourceReferName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceReferExists">
+                     <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                   </ng-template> 授予数据源
+                   <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/data_center/source/update/{{item.type}}/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 编辑的权限
+                 </span>
+                  <span *ngSwitchCase="'authorize'">
+                    <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户
+                    <ng-template [ngIf]="!item.resourceReferExists">
+                      {{item.resourceReferName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceReferExists">
+                      <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                    </ng-template> 授予数据源
+                    <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/data_center/source/update/{{item.type}}/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 对外授权的权限
+                  </span>
+                </span>
+                <!--<a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户 <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a> 授予数据源 <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a> 的权限-->
+              </span>
+              <span *ngSwitchCase="'UNAUTHORIZE'">
+                <span [ngSwitch]="item.remark">
+                 <span *ngSwitchCase="'get'">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                     {{item.resourceReferName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceReferExists">
+                     <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                   </ng-template> 取消数据源 <a
+                   routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a> 访问的权限
+                 </span>
+                 <span *ngSwitchCase="'edit'">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                     {{item.resourceReferName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceReferExists">
+                     <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                   </ng-template> 取消数据源
+                   <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/data_center/source/update/{{item.type}}/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template>编辑的权限
+                 </span>
+                  <span *ngSwitchCase="'authorize'">
+                    <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户
+                    <ng-template [ngIf]="!item.resourceReferExists">
+                      {{item.resourceReferName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceReferExists">
+                      <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                    </ng-template> 取消数据源
+                    <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/data_center/source/update/{{item.type}}/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 对外授权的权限
+                  </span>
+                </span>
+                <!--<a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户 <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a> 取消数据源 <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a> 的授权-->
+              </span>
+              <span *ngSwitchCase="'GROUPAUTHORIZE'">
+                  <span [ngSwitch]="item.remark">
+                 <span *ngSwitchCase="'get'">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组
+                    <ng-template [ngIf]="!item.resourceReferExists">
+                      {{item.resourceReferName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceReferExists">
+                      <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                    </ng-template>
+                    授予数据源
+                   <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/data_center/source/update/{{item.type}}/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 访问的权限
+                 </span>
+                 <span *ngSwitchCase="'edit'">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                      {{item.resourceReferName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceReferExists">
+                      <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                    </ng-template> 授予数据源
+                   <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/data_center/source/update/{{item.type}}/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 编辑的权限
+                 </span>
+                  <span *ngSwitchCase="'authorize'">
+                    <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组
+                    <ng-template [ngIf]="!item.resourceReferExists">
+                      {{item.resourceReferName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceReferExists">
+                      <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                    </ng-template> 授予数据源
+                    <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/data_center/source/update/{{item.type}}/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 对外授权的权限
+                  </span>
+                </span>
+                <!--<a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组 <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a> 授予数据源 <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a> 的权限-->
+              </span>
+              <span *ngSwitchCase="'GROUPUNAUTHORIZE'">
+                  <span [ngSwitch]="item.remark">
+                 <span *ngSwitchCase="'get'">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                      {{item.resourceReferName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceReferExists">
+                      <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                    </ng-template> 取消数据源
+                   <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/data_center/source/update/{{item.type}}/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 访问的授权
+                 </span>
+                 <span *ngSwitchCase="'edit'">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                      {{item.resourceReferName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceReferExists">
+                      <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                    </ng-template> 取消数据源
+                   <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/data_center/source/update/{{item.type}}/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 编辑的权限
+                 </span>
+                  <span *ngSwitchCase="'authorize'">
+                    <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组
+                    <ng-template [ngIf]="!item.resourceReferExists">
+                      {{item.resourceReferName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceReferExists">
+                      <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                    </ng-template> 取消数据源
+                    <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/data_center/source/update/{{item.type}}/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 对外授权的权限
+                  </span>
+                </span>
+                <!--<a  routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组 <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a> 取消数据源 <a routerLink="/data_set/{{item.resourceId}}/card">{{item.resourceName}}</a> 的授权-->
+              </span>
+            </div>
+            <div class="message_time">{{item.updateTime|date:"yyyy-MM-dd HH:mm"}}</div>
+          </div>
+          <div *ngSwitchCase="'DASHBOARDS'" class=" self_clearfix  message_item">
+            <div class="icon_box bg_yellow"><i class="iconfont icon-shujuji"></i></div>
+            <div [ngSwitch]="item.action" class="message_text">
+              <span *ngSwitchCase="'CREATE'">
+                <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 创建了仪表盘
+                  <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template>
+              </span>
+              <span *ngSwitchCase="'EDIT'">
+                <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 修改了仪表盘
+                <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/仪表盘/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template>
+              </span>
+              <span *ngSwitchCase="'REMOVE'">
+                 <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 删除了仪表盘 {{item.resourceName}}
+              </span>
+              <span *ngSwitchCase="'AUTHORIZE'">
+                <span [ngSwitch]="item.remark">
+                 <span *ngSwitchCase="'get'">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                     {{item.resourceReferName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceReferExists">
+                     <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                   </ng-template> 授予仪表盘
+                   <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 访问的权限
+                 </span>
+                 <span *ngSwitchCase="'edit'">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                     {{item.resourceReferName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceReferExists">
+                     <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                   </ng-template> 授予仪表盘
+                   <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 编辑的权限
+                 </span>
+                  <span *ngSwitchCase="'authorize'">
+                    <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户
+                    <ng-template [ngIf]="!item.resourceReferExists">
+                      {{item.resourceReferName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceReferExists">
+                      <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                    </ng-template> 授予仪表盘
+                    <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 对外授权的权限
+                  </span>
+                </span>
+                <!--<a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户 <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a> 授予仪表盘 <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a> 的权限-->
+              </span>
+              <span *ngSwitchCase="'UNAUTHORIZE'">
+                 <span [ngSwitch]="item.remark">
+                 <span *ngSwitchCase="'get'">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                     {{item.resourceReferName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceReferExists">
+                     <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                   </ng-template> 取消仪表盘
+                   <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 访问的权限
+                 </span>
+                 <span *ngSwitchCase="'edit'">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                     {{item.resourceReferName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceReferExists">
+                     <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                   </ng-template> 取消仪表盘
+                   <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 编辑的权限
+                 </span>
+                  <span *ngSwitchCase="'authorize'">
+                    <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户
+                    <ng-template [ngIf]="!item.resourceReferExists">
+                      {{item.resourceReferName}}
+                    </ng-template>
+                    <ng-template [ngIf]="item.resourceReferExists">
+                      <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                    </ng-template> 取消仪表盘
+                    <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 对外授权的权限
+                  </span>
+                </span>
+                <!--<a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户 <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a> 取消仪表盘 <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a> 的授权-->
+              </span>
+               <span *ngSwitchCase="'GROUPAUTHORIZE'">
+                   <span [ngSwitch]="item.remark">
+                 <span *ngSwitchCase="'get'">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                     {{item.resourceReferName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceReferExists">
+                     <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                   </ng-template>
+                    授予仪表盘
+                   <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 访问的权限
+                 </span>
+                 <span *ngSwitchCase="'edit'">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                     {{item.resourceReferName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceReferExists">
+                     <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                   </ng-template> 授予仪表盘
+                   <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 编辑的权限
+                 </span>
+                  <span *ngSwitchCase="'authorize'">
+                    <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组
+                    <ng-template [ngIf]="!item.resourceReferExists">
+                     {{item.resourceReferName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceReferExists">
+                     <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                   </ng-template> 授予仪表盘
+                    <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 对外授权的权限
+                  </span>
+                </span>
+                 <!--<a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组 <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a> 授予Dashboard <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a> 的权限-->
+              </span>
+               <span *ngSwitchCase="'GROUPUNAUTHORIZE'">
+                   <span [ngSwitch]="item.remark">
+                 <span *ngSwitchCase="get">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                     {{item.resourceReferName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceReferExists">
+                     <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                   </ng-template> 取消仪表盘
+                   <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 访问的授权
+                 </span>
+                 <span *ngSwitchCase="edit">
+                   <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组
+                   <ng-template [ngIf]="!item.resourceReferExists">
+                     {{item.resourceReferName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceReferExists">
+                     <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                   </ng-template> 取消仪表盘
+                   <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 编辑的权限
+                 </span>
+                  <span *ngSwitchCase="authorize">
+                    <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组
+                    <ng-template [ngIf]="!item.resourceReferExists">
+                     {{item.resourceReferName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceReferExists">
+                     <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                   </ng-template> 取消仪表盘
+                    <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/dashboard/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 对外授权的权限
+                  </span>
+                </span>
+                 <!--<a  routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 对用户组 <a routerLink="/um/group/{{item.resourceReferId}}">{{item.resourceReferName}}</a> 取消Dashboard <a routerLink="/data_set/{{item.resourceId}}/card">{{item.resourceName}}</a> 的授权-->
+              </span>
+            </div>
+            <div class="message_time">{{item.updateTime|date:"yyyy-MM-dd HH:mm"}}</div>
+          </div>
+          <div *ngSwitchCase="'USER'" class=" self_clearfix  message_item">
+            <div class="icon_box bg_green"><i class="iconfont icon-yonghu"></i></div>
+            <div [ngSwitch]="item.action"  class="message_text">
+          <span *ngSwitchCase="'JOIN'">
+            新成员
+            <ng-template [ngIf]="!item.resourceExists">
+                 {{item.resourceName}}
+               </ng-template>
+               <ng-template [ngIf]="item.resourceExists">
+                  <a routerLink="/um/user/{{item.resourceId}}">{{item.resourceName}}</a>
+               </ng-template> 加入
+          </span>
+          <span *ngSwitchCase="'EDIT'">
+            <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 修改了
+            <ng-template [ngIf]="!item.resourceExists">
+                 {{item.resourceName}}
+               </ng-template>
+               <ng-template [ngIf]="item.resourceExists">
+                  <a routerLink="/um/user/{{item.resourceId}}">{{item.resourceName}}</a>
+               </ng-template> 的用户信息
+          </span>
+           <span *ngSwitchCase="'INVITE'">
+            <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 邀请了
+             <ng-template [ngIf]="!item.resourceExists">
+                 {{item.resourceName}}
+               </ng-template>
+               <ng-template [ngIf]="item.resourceExists">
+                  <a routerLink="/um/user/{{item.resourceId}}">{{item.resourceName}}</a>
+               </ng-template> 加入
+          </span>
+           <span *ngSwitchCase="'REMOVE'">
+            <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 删除了成员 {{item.resourceName}}
+          </span>
+
+            </div>
+            <div class="message_time">{{item.updateTime|date:"yyyy-MM-dd HH:mm"}}</div>
+          </div>
+          <div *ngSwitchCase="'GROUP'" class=" self_clearfix  message_item">
+            <div class="icon_box bg_green"><i class="iconfont icon-yonghu"></i></div>
+            <div [ngSwitch]="item.action" class="message_text">
+              <span *ngSwitchCase="'ADD_USER'">
+                <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 将
+                <ng-template  [ngIf]="!item.resourceReferExists">
+                  {{item.resourceReferName}}
+                </ng-template>
+                <ng-template [ngIf]="item.resourceReferExists">
+                  <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                </ng-template>加入用户组
+                <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/um/group/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template>
+              </span>
+              <span *ngSwitchCase="'REMOVE_USER'">
+                <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 将
+                <ng-template [ngIf]="!item.resourceReferExists">
+                  {{item.resourceReferName}}
+                </ng-template>
+                <ng-template [ngIf]="item.resourceReferExists">
+                  <a routerLink="/um/user/{{item.resourceReferId}}">{{item.resourceReferName}}</a>
+                </ng-template>从用户组
+                <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/um/group/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 移除
+              </span>
+              <span *ngSwitchCase="'BE_ADMIN'">
+                 <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/um/user/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template> 成为管理员
+              </span>
+              <span *ngSwitchCase="'CREATE'">
+                <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 创建了组
+                   <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/um/group/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template>
+              </span>
+              <span *ngSwitchCase="'EDIT'">
+                <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 修改了组
+                <ng-template [ngIf]="!item.resourceExists">
+                     {{item.resourceName}}
+                   </ng-template>
+                   <ng-template [ngIf]="item.resourceExists">
+                      <a routerLink="/um/group/{{item.resourceId}}">{{item.resourceName}}</a>
+                   </ng-template>
+              </span>
+              <span *ngSwitchCase="'REMOVE'">
+               <a routerLink="/um/user/{{item.userId}}">{{item.userDisplayName}}</a> 删除了组 {{item.resourceName}}
+              </span>
+            </div>
+            <div class="message_time">{{item.updateTime|date:"yyyy-MM-dd HH:mm"}}</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div class="self_page">
+      <pagination [totalItems]="totalItems" [(ngModel)]="bigCurrentPage" [itemsPerPage]="itemsPerPage"
+                  class="pagination-sm" (pageChanged)="pageChanged($event)"
+                  [previousText]="previousText" [nextText]="nextText" [pageBtnClass]="'self_page_item'"></pagination>
+    </div>
+  </div>
+</div>

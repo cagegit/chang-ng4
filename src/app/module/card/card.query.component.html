@@ -1,0 +1,66 @@
+<div class="saiku_center" [@centerToRightState]="toRightStateStr">
+  <div class="saiku_center_l">
+    <div class="saiku_detail_box">
+      <div class="write_sql" #queryEdit>
+      </div>
+      <div *ngIf="edit">当前位置：{{edit.getCursorPosition()}}
+        </div>
+      <div class="sk_table_name">
+        <div class="sk_t_n">
+          <input type="text" name="card-title" placeholder="报表名称"  [(ngModel)]="title" maxlength="50" (focus)="focusFn($event)" />
+        </div>
+        <textarea class="sk_t_d"  [(ngModel)]="desc" maxlength="100" placeholder="报表描述信息"></textarea>
+      </div>
+
+      <div class="chart_title">
+        <span class="title_tab" [class.no_cur]="showPretty" (click)="changePretty(false)">sql查询结果</span>
+        <span class="title_tab" [class.no_cur]="!showPretty" (click)="changePretty(true)">图表</span>
+        <!--<span class="title_tab no_cur" *ngIf="!prettyResult.measureIndexs" (click)="changePretty(true)">图表</span>-->
+        <span class="set_meta" style="color:#ccc" *ngIf="!cardResult||!cardResult.columnMetaList||cardResult.columnMetaList.length==-1" >设置维度和指标</span>
+        <span class="set_meta" *ngIf="cardResult&&cardResult.columnMetaList&&cardResult.columnMetaList.length>0" (click)="queryDim.showModal(cardResult.columnMetaList)">设置维度和指标</span>
+        <span class="notice">{{dataNotice}}</span>
+      </div>
+      <div class="data_content_contanier" #showDataContainer>
+      <query-original *ngIf="!showPretty" [cardResult]="cardResult"  [page]="curPage"   (changePageEvent)="changPageFn($event)" [totalPage]="totalPage"></query-original>
+        <query-pretty #queryPretty *ngIf="showPretty" [cardResult]="prettyResult"  [chartUtil]="chartUtil" [chartType]="chartType" [showType]="showType" [iconType]="iconType" [curPage]="curPage"   [toRightStateStr]="toRightStateStr" [toLeftStateStr]="toLeftStateStr" (changePageEvent)="changPageFn($event)" [totalPage]="totalPage" [dataChange]="dataChange"></query-pretty>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="operate_btn_query">
+  <span tooltip="后退" placement="bottom" [class.no_hover]="!goBackEnable" (click)="backPreHistory()"><i class="iconfont icon-fanhui1"></i></span>
+  <!--<span><i class="iconfont icon-yulan" tooltip="打开" placement="bottom"></i></span>-->
+  <span class="no_hover no_margin"><i class="iconfont icon-iconbianji"></i></span>
+  <b>|</b>
+  <span tooltip="新建" placement="bottom" (click)="createNew()"><i class="iconfont icon-xinjian"></i></span>
+  <span (click)="updateCard()"><i class="iconfont icon-baocun" tooltip="保存" placement="bottom"></i></span>
+  <span class="sk_download no_margin" tooltip="导出" placement="bottom"  (click)="showDownloadType($event)">
+          <i class="iconfont icon-daochu" (click)="showDownloadType($event)"></i>
+          <div class="mock_down"></div>
+          <ul class="download_list" *ngIf="showFlagList.showDownloadFlag">
+             <!--<li (click)="exportPDF()"><i class="iconfont icon-pdf"></i>PDF</li>-->
+            <li (click)="exportExcel()"><i class="iconfont icon-excel"></i>表格</li>
+            <li (click)="exportImage()"><i class="iconfont icon-iconfontpngeps"></i>图片</li>
+          </ul>
+        </span>
+  <b>|</b>
+  <span class="no_hover"><i class="iconfont icon-zdcx"></i> </span>
+  <span (click)="checkRun()" class="no_margin"><i class="iconfont icon-sdcx"  tooltip="执行查询" placement="bottom"></i></span>
+  <b>|</b>
+  <span class="no_hover"><i class="iconfont icon-XSHZH"></i> </span>
+  <span class="no_hover"><i class="iconfont icon-yckzd"></i> </span>
+  <span class="no_hover"><i class="iconfont icon-hljh"></i> </span>
+  <span class="no_hover" ><i class="iconfont icon-xz"></i> </span>
+  <span class="no_hover"><i class="iconfont icon-qp"></i> </span>
+  <span  class="no_hover" *ngIf="dataSourceCount>1"><i class="iconfont icon-zidingyiSQL" ></i></span>
+  <span *ngIf="dataSourceCount==1" (click)="changeQueryType('OLAP')"><i class="iconfont icon-zidingyiSQL" tooltip="切换OLAP" placement="bottom" ></i></span>
+  <b>|</b>
+  <span *ngIf="fullScreenFlag" (click)="fullScreen($event)"><i class="iconfont icon-quxiaoquanping" tooltip="取消全屏" placement="bottom"></i></span>
+  <span *ngIf="!fullScreenFlag" (click)="fullScreen($event)"><i class="iconfont icon-quanping" tooltip="全屏" placement="bottom"></i></span>
+
+</div>
+<alert-confirm #confirmBox (confirm)="save($event)"></alert-confirm>
+<div #cancelDiv style="position: absolute;width:150px;z-index:1000;text-align:center;height:20px;background-color: rgba(255,255,255,0.7);display: none">
+  正在查询...<a (click)="cancel()">取消查询</a>
+</div>
+<query-dim #queryDim  [queryTemplate]="queryTemplate" (changeMetaEvent)="changePrettyMetaFn($event)" ></query-dim>

@@ -1,0 +1,31 @@
+<div class="preview_filter " [style.top.px]="top+34" [style.left.px]="left-217" #previewFilter >
+  <div class="big_box scroll_bar">
+    <ul class="preview_list "  (click)="stopBubble($event)">
+      <ng-template ngFor let-filter [ngForOf]="filters">
+        <li class="self_clearfix" *ngIf="filter.show">
+          <div class=" self_clearfix marB20">
+            <label class="self_left">{{filter.paramName}}</label>
+            <div class="select_box">
+              <span class="filter_text" (click)="showMembers($event,filter)">
+                <ng-template ngFor let-key [ngForOf]="selectTexts">
+                <span class="select_text" *ngIf="key.name==filter.uniqueName" title="{{key.value}}">
+                  {{key.value}}
+                  </span>
+                  </ng-template>
+                  <!--选择-->
+                  <i class="sort_btn sort_down"></i></span>
+                <filter-member [filter]="filter" [defaultParams]="defaultParams" [selectParams]="selectParams" (changeSelectParamEvent)="changeShowSpan($event)"></filter-member>
+            </div>
+          </div>
+        </li>
+      </ng-template>
+      <li class="self_clearfix" >
+      <div class="select_filter_btn self_clearfix marB20">
+        <button class="self_btn self_cancel self_left" (click)="close($event)">取消</button>
+        <button class="self_btn c_ef5350 self_right" (click)="search()">确定</button>
+      </div>
+      </li>
+
+    </ul>
+  </div>
+</div>

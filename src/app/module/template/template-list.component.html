@@ -1,0 +1,18 @@
+<div class="crumbs_box">
+  <crumbs>应用模板</crumbs>
+  <!--<a [routerLink]="[ '/template/dashboard/data/isource/d0a30273-b306-40c0-8bc6-53794b63d4f7']">模版数据替换测试</a>-->
+</div>
+<div class="template_list_box">
+  <div class="template_nav_box">
+    <div class="template_nav_title"><i class="icon-moban iconfont"></i>模板列表</div>
+    <ul class="template_nav_list">
+      <li *ngFor="let dashboardTemplate of dashboardTemplateList">
+        <a [routerLink]="[ '/template','dashboard',dashboardTemplate.dashboardID ]" routerLinkActive="active">{{dashboardTemplate.templateName}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="template_con_box">
+    <div class="use_template_link"><a href="javascript:void(0)" (click)="useTemplateFn($event)">使用模板</a></div>
+    <common-preview *ngIf="dashboard" [dashboard]="dashboard" [isPreview]="isPreview" [fromTemplateList]="true"></common-preview>
+  </div>
+</div>

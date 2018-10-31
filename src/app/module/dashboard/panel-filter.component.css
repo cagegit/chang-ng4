@@ -1,0 +1,9 @@
+.panel_filter{position: absolute;width:168px; padding:8px 10px; background-color: #fff; border:1px solid #e3edf4;z-index: 100;cursor:pointer;  /*display: none;*/ top: 100px;}
+.panel_filter:before,.panel_filter:after{ content: '';width: 0; height: 0;overflow: hidden; position: absolute; border-bottom: 8px solid #e3edf4; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: none; right: 10px; top: -8px;}
+.panel_filter:after{top: -7px; border-bottom-color: #fff;}
+.panel_filter li{ height: 28px; position: relative; line-height: 28px; padding-right:40px;  }
+.filter_switch{ width: 36px; position: absolute; height: 14px; line-height: 0; background-color: #6c6c6c; border:1px solid #d8d8d8; right: 0px; top: 7px; border-radius: 7px; transition:all 0.3s;}
+.switch_left,.switch_right{ width: 50%;display: inline-block; height: 12px; cursor: pointer;}
+.switch_btn{ width: 13px; height: 10px; display: inline-block; position: absolute; left: 2px; top: 1px; border-radius: 5px; background-color: #fff;transition:all 0.3s;}
+.open{background-color: #62b22d;}
+.open .switch_btn{ left: 20px;}

@@ -1,0 +1,11 @@
+.look_right{
+  /*position: fixed; top: 76px; right: 0; bottom: 45px;*/
+  float: right; background:url("../../../assets/img/jihuo_bg.jpg") no-repeat center center #2a96f0;}
+.no_padding{ padding: 0;}
+.look_left{ padding:80px 0px 0 60px; background-color: #fff;float:left;}
+.jihuo_title{ font-size: 20px; color: #333;}
+.look_left .jihuo_link{ margin-top: 20px; margin-bottom: 0;height: 30px; position: relative; padding-left: 45px; line-height: 30px;}
+.look_left .jihuo_link a{ color: #4c86c4; font-size: 14px; text-decoration: none; }
+.look_left .jihuo_link i { font-size: 30px; color:#1f7acc; margin-right:13px; position: absolute; left: 0; top: 0;}
+
+

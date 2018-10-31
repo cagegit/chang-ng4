@@ -1,0 +1,96 @@
+<!-- <div class="user_right scroll_bar main_content" [@flyInOut]="active">
+  <div class="dashboard_manage_box">
+    <div class="dashboard_manage_head self_clearfix">
+      <div class="dashboard_manage_search"><input type="text" placeholder="搜索仪表盘" (keyup)="search($event.target.value)"><i
+          class="iconfont icon-fangdajing"></i></div>
+      <select class="dashboard_sort_created" (change)='filter("createUserDisplayName",$event.target.value)'>
+        <option value="">按创建者</option>
+        <option *ngFor="let createUserDisplayName of createUserDisplayNameSet" value="{{createUserDisplayName}}"
+          [selected]="(createUserDisplayName == filterDashboard.createUserDisplayName)?'selected':null">{{createUserDisplayName}}</option>
+      </select>
+      <div class="dashboard_manage_btn"><button class="self_btn c_ef5350" (click)="toCreateDashboard();">创建仪表盘</button></div>
+    </div>
+    <ul *ngIf="dashboardList.length>0;else none" class="dashboard_manage_list container-fluid">
+      <li class="row">
+        <span class="col-lg-2 col-md-2 col-sm-2 self_ellipsis" title="仪表盘名称">仪表盘名称</span>
+        <span class="col-lg-2 col-md-2 col-sm-2 self_ellipsis" title="创建者">创建者</span>
+        <span class="col-lg-1 col-md-1 col-sm-1 self_ellipsis" title="子页面个数">子页面个数</span>
+        <span class="col-lg-2 col-md-2 col-sm-2 self_ellipsis" title="数据更新时间">数据更新时间</span>
+        <span class="col-lg-2 col-md-2 col-sm-2 self_ellipsis" title="数据集">数据集</span>
+        <span class="col-lg-3 col-md-3 col-sm-3 self_ellipsis"></span>
+      </li>
+      <li class="row manage_item" *ngFor="let dashboard of dashboardList">
+        <span class="col-lg-2 col-md-2 col-sm-2 self_ellipsis" title="{{dashboard.dashboardName}}"><a routerLink="/dashboard/{{dashboard.dashboardID}}">{{dashboard.dashboardName}}</a></span>
+        <span class="col-lg-2 col-md-2 col-sm-2 time self_ellipsis" title="{{dashboard.createUserDisplayName}}">{{dashboard.createUserDisplayName}}</span>
+        <span class="col-lg-1 col-md-1 col-sm-1 time self_ellipsis">{{dashboard.content.length}}个</span>
+        <span class="col-lg-2 col-md-2 col-sm-2 time self_ellipsis">{{dashboard.updatedTime|date:"yyyy-MM-dd
+          HH:mm:ss"}}</span>
+        <span class="col-lg-2 col-md-2 col-sm-2 self_ellipsis"><a *ngFor="let dataSetID of dashboard.datasetIds; let i=index"
+            routerLink="/chang/data_set/{{dataSetID}}/card">{{i>0?',':''}}{{dashboard.datasetIds.length}}</a></span>
+        <span class="col-lg-3 col-md-3 col-sm-3">
+          <i class="iconfont icon-shanchu" (click)="dashboardConfirm.open('确定','确定要删除该仪表盘吗？',dashboard.dashboardID);$event.stopPropagation();"></i>
+          <i class="iconfont icon-qianming" routerLink="/dashboard/update/{{dashboard.dashboardID}}"></i>
+        </span>
+      </li>
+    </ul>
+    <ng-template #none>
+      <div class="not_dashboard">
+        <div class="not_dashboard_con"></div>
+      </div>
+    </ng-template>
+  </div>
+</div> -->
+
+
+<div class="user_right scroll_bar main_content" [@flyInOut]="active">
+  <div class="data_list_box" style="min-height: 90vh;">
+    <div class="list_box scroll_bar">
+      <div class=" self_clearfix add_source">
+        <div class="search_set marT20 marR20"><i class="iconfont icon-fangdajing"></i><input myFocusChangeStyle
+            [focusClass]="'data_focus_box'" type="text" placeholder="搜索仪表盘" (keyup)="search($event.target.value)"></div>
+        <!-- <select class="set_sort_type marT20 marR20" (change)='filter("createUserDisplayName",$event.target.value)'>
+          <option value="">按创建者</option>
+          <option *ngFor="let createUserDisplayName of createUserDisplayNameSet" value="{{createUserDisplayName}}">{{createUserDisplayName}}</option>
+        </select> -->
+        <div class="add_dataset_btn marT20"><button class="self_btn c_ef5350" (click)="toCreateDashboard()">创建仪表盘</button></div>
+      </div>
+      <div class="container-fluid data_list_head">
+        <div class="row">
+          <div class="col-sm-2 col-lg-2 col-md-2 list_text_align">仪表盘名称</div>
+          <!-- <div class="col-sm-2 col-lg-2 col-md-2 list_text_align">创建者</div> -->
+          <div class="col-sm-2 col-lg-2 col-md-2">子页面个数</div>
+          <!-- <div class="col-sm-2 col-lg-2 col-md-2">数据更新时间</div> -->
+          <!-- <div class="col-sm-2 col-lg-2 col-md-2">数据集</div> -->
+          <div class="col-sm-2 col-lg-2 col-md-2"></div>
+        </div>
+      </div>
+      <ul *ngIf="dashboardList" class="container-fluid data_list_body">
+        <li class="row" *ngFor="let dashboard of dashboardList">
+          <div class="col-sm-2 col-lg-2 col-md-2 set_column set_name list_text_align">
+            <a title="{{dashboard.dashboardName}}" href="javascript:void(0);" (click)="toEditDashboard(dashboard.dashboardID)">{{dashboard.dashboardName}}</a>
+          </div>
+          <!-- <div class="col-sm-2 col-lg-2 col-md-2 set_column list_text_align">
+            {{dashboard.createUserDisplayName}}
+          </div> -->
+          <div class="col-sm-2 col-lg-2 col-md-2 set_column account">{{dashboard.content.length}}个</div>
+          <!-- <div class="col-sm-2 col-lg-2 col-md-2 set_column add_time" title='{{dashboard.updatedTime|date:"yyyy-MM-dd HH:mm"}}'>{{dashboard.updatedTime|date:"yyyy-MM-dd
+            HH:mm:ss"}}</div> -->
+          <!-- <div class="col-sm-2 col-lg-2 col-md-2">
+            <a *ngFor="let dataSetID of dashboard.datasetIds; let i=index" routerLink="/chang/data_set/{{dataSetID}}/card">{{i>0?',':''}}{{dashboard.datasetIds.length}}</a>
+          </div> -->
+          <div class="col-sm-2 col-lg-2 col-md-2 operate">
+            <i class="iconfont icon-shanchu" (click)="dashboardConfirm.open('确定','确定要删除该仪表盘吗？',dashboard.dashboardID);$event.stopPropagation();"></i>
+            <!-- <i class="iconfont icon-iconshezhi01" (click)="resourcePermissionModal.show(dashboard.dashboardID,dashboard.dashboardName,RESOURCE_TYPE_DASHBOARD)"></i> -->
+            <i class="iconfont icon-qianming" href="javascript:void(0);" (click)="toEditDashboard(dashboard.dashboardID)"></i>
+          </div>
+        </li>
+      </ul>
+      <div class="not_source" *ngIf="!dashboardList||dashboardList.length===0">
+        <div class="not_source_con"> 您还没有添加仪表盘！</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<alert-confirm #dashboardConfirm (confirm)="delete($event)"></alert-confirm>
+<resource-permission-modal #resourcePermissionModal (changeUserPermission)="update($event)"></resource-permission-modal>

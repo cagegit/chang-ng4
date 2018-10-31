@@ -1,0 +1,28 @@
+.section_dimension{ width: 430px;}
+.dimension_title{ display: inline-block; padding-left:37px; background: url("../../../assets/img/section_dimension.png") no-repeat left center; color: #fff; font-size:16px; font-weight: bold;}
+.confirm_btn button{ width: 49%;}
+.section_dimension_title{ height: 40px; line-height: 38px; padding-left: 22px; border:1px solid #e6eaec; font-size: 14px; color: #333; background-color: #f7f7f7; border-radius: 2px 2px 0 0;}
+.section_dimension_list{ border-left:1px solid #e6eaec;border-right:1px solid #e6eaec; background-color: #fff; max-height: 360px; padding-bottom: 10px;}
+.section_dimension_list li{  color: #333; font-size: 14px;}
+.dimension_item{ height:38px; line-height: 38px;position: relative;}
+.first_dimension>.dimension_item{ padding: 0 23px; margin: 0 23px; overflow: hidden;}
+.second_dimension>.dimension_item{ padding: 0 23px 0 23px; margin-left: 80px;}
+.third_dimension{ padding-left: 138px; padding-right: 23px;}
+.dimension_item i{ position: absolute; left: 0; top: 1px; cursor: pointer; font-size: 12px; display: inline-block; color: #7f7f7f; transform: rotate(0deg);}
+.dimension_item label{ position: relative; padding-left:30px; display: inline-block; font-weight: normal; cursor: pointer; height: 38px; vertical-align: top; }
+.dimension_item label input{position: absolute; left: 0; top: 0;width: 0; height: 0; overflow: hidden;}
+.mock_check{ width:15px; height: 15px; border:1px solid #909396; border-radius: 2px; box-shadow: 0 0 3px rgba(0,0,0,0.3); position: absolute; left: 0; top: 11px;}
+.mock_check:after{content:'';width: 6px; height: 10px; display: none; transform: rotate(30deg);
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);	 border-right: 2px solid #1f7acc; border-bottom: 2px solid #1f7acc; position: absolute; left: 4px; top: 1px;}
+.dimension_item label input:checked+.mock_check:after{ display: block;}
+.checked_bg{background-color: #f9f9f9;}
+.first_dimension ul{ display: none;}
+.showChild>ul{ display: block;}
+.showChild>.dimension_item i{ transform: rotate(90deg);}
+.none_radius{ border-radius: 0;}
+.section_indicator{ border-bottom: 1px solid #e6eaec; border-radius: 0 0 2px 2px;}
+.input_disable_color{background-color: #ccc}
+

@@ -1,0 +1,34 @@
+<div class="operater_list" #operaterListBox (click)="onClickHandle($event)" [style.top.px]="top+32" [style.left.px]="left - 60">
+  <div #test class="test"></div>
+  <ul class="first_o_list">
+    <li *ngFor="let first of menuObj">
+      <i class="iconfont icon-jiantouyou" *ngIf="first.value.length>0"></i>
+      <p [class.selected]="first.selected" class="self_ellipsis">{{first.alias}}</p>
+      <ul *ngIf="first.value.length>0" class="second_o_list">
+        <li *ngFor="let second of first.value">
+          <i class="iconfont icon-jiantouyou" *ngIf="second.hasNext"></i>
+          <p [class.selected]="second.selected" class="self_ellipsis" [attr.data-parent-name]="first.name" [attr.data-self]="second.name" [attr.data-hasNext]="second.hasNext" [attr.data-type]="second.type"  (click)="addLimit($event)">{{second.alias}}</p>
+          <ul class="third_o_list" *ngIf="second.hasNext">
+            <ng-template ngFor let-item [ngForOf]="second.children">
+            <li *ngIf="item.visible==undefined||item.visible"><p [class.selected]="item.selected" class="self_ellipsis" title="{{item.name}}" [attr.data-parent-name]="first.name+','+second.name"  [attr.data-unique-name]="item.uniqueName" [attr.data-type]="second.type" (click)="addLimit($event)">{{item.caption}}</p></li>
+            </ng-template>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <!--<li *ngFor="let firstClassName of firstClassNameList">-->
+      <!--<i class="iconfont icon-jiantouyou"></i>-->
+      <!--<p>{{firstClassName}}</p>-->
+      <!--<ul class="second_o_list">-->
+        <!--<li *ngFor="let secondClassName of secondClassNameList">-->
+          <!--<i class="iconfont icon-jiantouyou"></i>-->
+          <!--<p>{{secondClassName}}</p>-->
+          <!--<ul class="third_o_list">-->
+            <!--<li *ngFor="let i of [0,1,2,3,4,5,6,7,8,9]"><p>图片收入{{i}}</p></li>-->
+          <!--</ul>-->
+        <!--</li>-->
+      <!--</ul>-->
+    <!--</li>-->
+  </ul>
+</div>
+

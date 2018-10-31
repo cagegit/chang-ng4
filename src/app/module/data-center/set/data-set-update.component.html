@@ -1,0 +1,131 @@
+<div class="full_height">
+  <form role="form" [formGroup]="dataSetForm" (ngSubmit)="onSubmit()" style="padding-top: 20px;">
+    <div class="data_box marB20" [@foldState] = 'foldState.basicInfo'>
+        <div class="data_source_name">
+          <i class="iconfont  icon-daiqueren icon_tit"></i>数据集名称
+          <i class="iconfont icon-shouqi list_fold"[@iconState]="iconState.basicInfo"  (click)="changeFoldState('basicInfo')"></i>
+        </div>
+        <div class="set_name marL20"></div>
+          <div class="data_input"><i class="iconfont icon-qianming"></i>
+          <input formControlName="dataSetName" required maxlength="50" autofocus="autofocus" (keyup)="asyncValidator($event.target.value)" type="text" placeholder="请为这个数据集命名,他会帮助你在列表中快速找到你要用的数据" myFocusChangeStyle  [focusClass]="'data_focus_box'" >
+          <div class="self_error" *ngIf="formErrors.dataSetName"><i class="iconfont icon-buzhengque"></i>{{formErrors.dataSetName}}</div>
+        </div>
+      </div>
+    <div class="data_box marB20" [@foldState] = 'foldState.selectSource'>
+      <div class="data_source_name">
+        <i class="iconfont  icon-daiqueren icon_tit"></i>选择数据源
+        <i class="iconfont icon-shouqi list_fold"[@iconState]="iconState.basicInfo"  (click)="changeFoldState('selectSource')"></i>
+      </div>
+      <div class="had_create marL20" *ngIf="dataSet.dataSetID">{{dataSet.dataSourceName}}</div>
+      <div class="set_name marL20 select_source_box">
+        <div class="select_source_box_title">
+          <span>选择数据源（当选择一个以上数据源时，目前只支持SQL自定义查询报表分析）</span>
+          <a href="javascript:void(0)" (click)="showAddDataSourceModal.show()">添加数据源</a>
+        </div>
+        <div class="select_source_box_options">
+          <ul>
+            <li *ngFor="let dataSource of dataSourceList" title="{{dataSource.name||dataSource.dataSourceName}}">
+              <label class="mock_label">
+                <input type="radio" class="mock_input" [checked]="dataSource.checked" (change)="toggleSelectedStatus(dataSource,'none',$event.target);" name="checked">
+                <i class="right_con"></i>
+                <div class="mock_box"></div>
+                {{dataSource.name||dataSource.dataSourceName}}
+              </label>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="data_box marB20 marT20" [@foldState] = 'foldState.dataAdd'>
+        <div class="data_source_name">
+          <i class="iconfont  icon-daiqueren icon_tit"></i>添加数据
+          <i class="iconfont icon-shouqi list_fold"[@iconState]="iconState.dataAdd"  (click)="changeFoldState('dataAdd')"></i>
+        </div>
+      <ng-template [ngIf]="true">
+        <div class="self_pr">
+          <!-- code 数据源显示 -->
+          <!-- <div class="has_select_project">
+            <label>已选择的项目:</label>
+            <div class="project_items">
+              <span *ngFor="let project of selectedProjects">{{project.projectName}}</span>
+            </div>
+            <a routerLink="/data_center/source/update/{{dataSet.dataSourceType}}/{{dataSet.dataSourceID}}">添加项目</a>
+          </div> -->
+          <div class="select_tabel self_clearfix marL20" style="margin-top:20px">
+            <div class="item_box self_left">
+              <div class="item_title">
+                <span>可选择的数据表</span>
+                <div class="search_project"><input type="text" placeholder="搜索数据表" (keyup)='checkedTableSearch($event.target.value)'><i class="iconfont icon-fangdajing"></i></div>
+              </div>
+              <ul class="item_list scroll_bar">
+                <li class="source_item"  *ngFor="let dataSource of checkedTables.showList; let i = index" #parent [hidden]="dataSource.tables.length==0">
+                  <div class="dimension_table_name self_cursor"  (click)="toggleFolder(parent,'dim_folder')"><i class="iconfont icon-arrow-down-copy"></i><i class="iconfont icon-shujuku"></i>{{dataSource.name}}</div>
+                  <ul>
+                    <li *ngFor="let table of dataSource.tables" (click)='toggleTable(table)' class="fact_key_item dev-container-field" [class.selected]="table.checked" title="{{table.tableName}}">
+                      <i class="iconfont icon-biaoge"></i><span class="item">{{table.tableName}}</span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <div class="moveBtn self_left">
+              <div class="pointBtn" (click)="moveProject(true)"><i class="iconfont icon-jiantouyou"></i></div>
+              <div class="pointBtn" (click)="moveProject(true,true)"><i class="iconfont icon-doubleup-copy"></i></div>
+              <div class="pointBtn" (click)="moveProject(false)"><i class="iconfont icon-jiantouzuo"></i></div>
+              <div class="pointBtn" (click)="moveProject(false,true)"><i class="iconfont icon-sjiantou04-copy"></i></div>
+            </div>
+            <div class="item_box self_right">
+              <div class="item_title">
+                <span>已选择的数据表</span>
+                <div class="search_project"><input type="text" placeholder="搜索数据表" (keyup)='selectedTableSearch($event.target.value)'><i class="iconfont icon-fangdajing"></i></div>
+              </div>
+              <ul class="item_list scroll_bar">
+                <li class="source_item"  *ngFor="let dataSource of selectedTables.showList; let i = index" #parent>
+                  <div class="dimension_table_name self_cursor"  (click)="toggleFolder(parent,'dim_folder')"><i class="iconfont icon-arrow-down-copy"></i><i class="iconfont icon-shujuku"></i>{{dataSource.name}}</div>
+                  <ul>
+                    <li *ngFor="let table of dataSource.tables" (click)='toggleTable(table)' class="fact_key_item dev-container-field" [class.selected]="table.checked" title="{{table.tableName}}">
+                      <i class="iconfont icon-biaoge"></i><span class="item">{{table.tableName}}</span>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+  <!--            <ul *ngFor="let dataSource of selectedTables.showList" class="item_list scroll_bar" #parent>
+                <li *ngFor="let table of dataSource.tables" (click)='toggleTable(table)' [class.selected]="table.checked">
+                  <i class="iconfont icon-shujubiao"></i><span>{{table.showTableName}}</span>
+                </li>
+              </ul>-->
+            </div>
+          </div>
+          <!-- <div class="set_gx marL20 self_cursor" *ngIf="selectedTables.origList.length==1"><a (click)="showRelationalTable()">设置表关联关系</a></div> -->
+          <!-- <div class="add_data_zhezhao" *ngIf="dataSet.isSQL"></div> -->
+        </div>
+      </ng-template>
+      </div>
+    <div class="mysql_btn marT20 self_clearfix">
+      <button class="self_btn c_ef5350 self_sm_btn" type="submit" [disabled]="!dataSetForm.valid || disabled">保存</button>
+      <button class="self_btn self_cancel self_sm_btn" (click)="formReset()">取消</button>
+    </div>
+  </form>
+</div>
+
+<!-- <show-data *ngIf = 'showDataFlag' [tablePreViewData]="tablePreViewData" (closeModal)="closeDataShow()"></show-data> -->
+<!-- <relational-table *ngIf="relationalTableFlag" (closeModal)="closeRelationalTable()" [dataSet]="tempDataSet" (relationChange)="relationChange($event)"></relational-table> -->
+<div bsModal #successModal="bs-modal"  [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog self_success_modal" >
+    <div class="modal-content self_modal_content">
+      <div class="modal-header self_modal_header create_success">
+        <button type="button" class="close self_close" (click)="closeSuccessModal()" aria-label="Close">
+          <i class="iconfont icon-guanbigongjulan"></i>
+        </button>
+      </div>
+      <div class="success_text">
+        <p>你可以：</p>
+        <!-- <p><i class="iconfont icon-doubleup-copy"></i><a routerLink="/data_set/{{dataSet.dataSetID}}/card">开始制作分析报表</a></p> -->
+        <!-- <p><i class="iconfont icon-doubleup-copy"></i><a  routerLink="/data_set/{{dataSet.dataSetID}}/schema">查看或修改系统生成的数据模型</a></p> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<data-source-add-modal  #showAddDataSourceModal></data-source-add-modal>
+

@@ -1,0 +1,51 @@
+<div bsModal #manifestAddModal="bs-modal"  [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog">
+    <div class="modal-content self_modal_content">
+      <div class="modal-header self_modal_header relational_table">
+        <span>新增项目</span>
+        <button type="button" class="close self_close" (click)="closeHandle()" aria-label="Close">
+          <i class="iconfont icon-guanbigongjulan"></i>
+        </button>
+      </div>
+      <div>
+        <form role="form" [formGroup]="manifestForm">
+        <div class="data_input">
+          <i class="iconfont icon-zhiye1"></i>
+          <input type="text" placeholder="项目名" formControlName="project" myFocusChangeStyle  [focusClass]="'data_focus_box'"  maxlength="50">
+          <div class="self_error" *ngIf="formErrors.project"><i class="iconfont icon-buzhengque"></i>{{formErrors.project}}</div>
+        </div>
+        <div class="data_input">
+          <i class="iconfont icon-yonghuzu"></i>
+          <input type="text" placeholder="组织名" formControlName="organization" myFocusChangeStyle  [focusClass]="'data_focus_box'"  maxlength="50">
+          <div class="self_error" *ngIf="formErrors.organization"><i class="iconfont icon-buzhengque"></i>{{formErrors.organization}}</div>
+        </div>
+        <div class="data_input">
+          <i class="iconfont icon-link-copy"></i>
+          <input type="text" placeholder="项目链接" formControlName="url" myFocusChangeStyle  [focusClass]="'data_focus_box'"  maxlength="200">
+          <div class="self_error" *ngIf="formErrors.url"><i class="iconfont icon-buzhengque"></i>{{formErrors.url}}</div>
+        </div>
+        <div class="branch_title">分支:</div>
+        <div  class="radio self_radio">
+          <label>
+            <input id="inlineRadio1" type="radio" formControlName="allBranchFlag"  value="1" [checked]="manifestForm.value.allBranchFlag==1" class="ng-untouched ng-pristine ng-valid"> 默认增加全部分支
+          </label>
+        </div>
+        <div  class="radio self_radio">
+          <label >
+            <input id="inlineRadio2" type="radio" formControlName="allBranchFlag" value="0" [checked]="manifestForm.value.allBranchFlag==0" class="ng-untouched ng-pristine ng-valid"> 输入要添加的分支名
+          </label>
+        </div>
+        <div class="branch_box" [class.hidden]="manifestForm.value.allBranchFlag==1">
+          <div class="branch_lable">输入要添加的分支</div>
+          <textarea rows="3" formControlName="inputBranches">可不填</textarea>
+          <div class="branch_remarks">（多个分支名以分号";"隔开）</div>
+        </div>
+        <div class="manifest_btn marT20 self_clearfix">
+          <button class=" self_btn c_ef5350 self_right " type="submit" (click)="formSubmit()"  [disabled]="!manifestForm.valid||submitted">保存</button>
+          <button class=" self_btn self_cancel self_left" (click)="closeHandle()">取消</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

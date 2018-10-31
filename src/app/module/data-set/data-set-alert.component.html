@@ -1,0 +1,15 @@
+<div bsModal #alertModal="bs-modal"  [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog data_set_alert">
+    <div class="modal-content self_modal_content">
+      <div class="modal-header self_modal_header data_set_alert_head">
+        <button type="button" class="close self_close" (click)="alertModal.hide()" aria-label="Close">
+          <i class="iconfont icon-guanbigongjulan"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="data_set_alert_body">请先启用模型进行数据构建，模型启用完成后可以制作分析报表</div>
+      </div>
+    </div>
+    <div class="data_set_alert_btn marT20"><button class="self_btn c_ef5350" (click)="ok()" >知道了</button></div>
+  </div>
+</div>

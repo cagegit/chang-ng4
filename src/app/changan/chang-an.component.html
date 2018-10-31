@@ -1,0 +1,18 @@
+<div [ngStyle]="{background:'#fff',width:'100%'}" #content>
+  <div class="user_fixed" [@flyIn]="active">
+    <div class="user_left" style="min-height: 100vh;bottom: 0;position: absolute;left: 0;">
+      <div class="nav_title"><i class="fa fa-sliders"></i><span>数据转发管理</span></div>
+      <div class="sub_nav">
+        <a routerLink="/chang/car/protocol" routerLinkActive="cur" [routerLinkActiveOptions]="{ exact: false }"><i
+            class="fa fa-file-powerpoint-o"></i><span>协议列表</span></a>
+        <a routerLink="/chang/car/tasks" routerLinkActive="cur"><i class="fa fa-tasks"></i><span>任务管理</span></a>
+        <a routerLink="/chang/car/transmit" routerLinkActive="cur"><i class="fa fa-car"></i><span>转发车辆</span></a>
+        <a routerLink="/chang/car/setting" routerLinkActive="cur"><i class="fa fa-cogs"></i><span>平台配置</span></a>
+        <a routerLink="/chang/car/log" routerLinkActive="cur"><i class="fa fa-calendar-check-o"></i><span>转发日志</span></a>
+      </div>
+    </div>
+    <div style="min-height: 100vh;margin-left: 195px;">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

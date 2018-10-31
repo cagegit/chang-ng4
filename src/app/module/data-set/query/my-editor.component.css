@@ -1,0 +1,6 @@
+.my-editor,.editor_box{ position: absolute; top: 0; left: 0; right: 0; bottom: 0; line-height: 24px;}
+.query_operate{ height: 16px; line-height: 16px; position: absolute; right: 0; top: -16px; padding-right: 30px;}
+.query_operate span{ color: #4c86c4; font-size: 12px; margin-left: 5px; cursor: pointer;}
+.folder_btn{ display: inline-block; height: 16px; width: 16px; line-height: 16px; text-align: center; position: absolute; right: 0; bottom: 0; background-color: #eaeaea;}
+.folder_btn i{ cursor: #4c86c4; display: inline-block; transform: rotate(90deg); font-size: 12px;}
+.folder_btn .folder.icon-jiantouyou{transform: rotate(-90deg);}

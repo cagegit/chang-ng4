@@ -1,0 +1,141 @@
+<ng-progress [thick]="true" [showSpinner]="false" [minimum]="0.2" [trickleSpeed]="500" [speed]="500"></ng-progress>
+<div class="container-fluid app_box">
+  <!--已登录用户导航-->
+  <header *ngIf="appContext.isLoggedIn;else isNotLogin">
+    <nav class="app_nav self_clearfix">
+      <div class="app_logo"><a  routerLink="/dashboard/list"><img src="assets/img/logo.svg" width="120" height="33"/></a></div>
+      <!--<ul class="nav_list">-->
+      <!--<li routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><a >首页</a></li>-->
+      <!--<li routerLink="/data_center" [class.active]="isDataCenter" ><a  >数据中心&lt;!&ndash;<i class="iconfont icon-arrow-down-copy"></i>&ndash;&gt;</a></li>-->
+      <!--<li><a href="javascript:void(0)">应用模板</a></li>-->
+      <!--<li><a href="https://code.csdn.net/CSDN_DA/csdn-datasee-manual/tree/master"  target="_blank">帮助中心</a></li>-->
+      <!--</ul>-->
+      <!--<div class="app_flex"><i class="iconfont icon-zhankai"></i></div>-->
+      <div class="nav_right">
+        <div class="notify_fold"><i class="iconfont icon-zhankai"></i></div>
+        <div class="login_user">
+          <div class="u_left">
+            <a [routerLink]="[ '/um/user', appContext.user.userId ]"><img src="{{appContext.user.userHeadImg}}"></a>
+          </div>
+          <ul class="user_nav_list">
+            <li routerLink="/um" routerLinkActive="active"><i class="iconfont icon-yonghuguanli"></i><span>用户管理</span>
+            </li>
+            <li routerLink="/tenant" routerLinkActive="active"><i class="iconfont icon-iconshezhi01"></i><span>租户管理</span>
+            </li>
+            <li (click)="authService.logout()"><i class="iconfont icon-zhuxiao"></i><span>退出</span></li>
+          </ul>
+          <!--<div class="u_name" ><a [routerLink]="[ '/um/user', appContext.user.userId ]">{{appContext.user.userName}}</a><i class="iconfont icon-jiantou-copy-copy-copy-copy self_cursor"  ></i>-->
+          <!--</div>-->
+        </div>
+        <div class="app_message notify_nav">
+          <i *ngIf="appContext.hasNewNotify" class="has_mes"></i><i class="iconfont icon-home_news"></i>
+          <div class="notify_nav_box">
+            <div class="self_clearfix notify_set">
+              <span class="self_left">消息通知</span>
+              <i class="iconfont icon-iconshezhi01 self_right"></i>
+            </div>
+            <ul class="notify_nav_list">
+              <li *ngFor="let i of [0,1,2]">
+                <span>chenshu添加了一个jira数据集</span>
+                <span class="notify_time">2016-09-18 22:00</span>
+              </li>
+            </ul>
+            <div class="notify_nav_more"><i class="iconfont icon-gengduo"></i></div>
+          </div>
+        </div>
+        <div class="app_message function_nav">
+          <i class="iconfont icon-gongneng"></i>
+          <div class="function_nav_box">
+            <ul class="function_nav_list self_clearfix">
+              <li >
+                <a routerLink="/template/dashboard/list">
+                  <div class="function_icon"><i class="iconfont icon-gongneng1"></i></div>
+                  <div class="function_text">应用模板</div>
+                </a>
+              </li>
+              <li>
+                <a routerLink="/data_center">
+                  <div class="function_icon"><i class="iconfont icon-shuju2"></i></div>
+                  <div class="function_text">数据中心</div>
+                </a>
+              </li>
+              <li>
+                <a routerLink="/welcome">
+                  <div class="function_icon"><i class="iconfont icon-bangzhu"></i></div>
+                  <div class="function_text">帮助中心</div>
+                </a>
+              </li>
+            </ul>
+            <ul class="function_nav_list self_clearfix">
+              <li>
+                <a routerLink="/introduce">
+                  <div class="function_icon"><i class="iconfont icon-mail"></i></div>
+                  <div class="function_text">产品介绍</div>
+                </a>
+              </li>
+              <li>
+                <a routerLink="/contact">
+                  <div class="function_icon"><i class="iconfont icon-mail"></i></div>
+                  <div class="function_text">联系我们</div>
+                </a>
+              </li>
+              <li>
+                <a routerLink="/protocol">
+                  <div class="function_icon"><i class="iconfont icon-mail"></i></div>
+                  <div class="function_text">协议管理</div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="app_message datasee_nav">
+          <i class="iconfont icon-chuangjianhuodong"></i>
+          <div class="datasee_nav_box">
+            <!-- <div class="add_to_datasee">Datasee</div>-->
+            <ul class="datasee_nav_list">
+              <li class="datasee_nav_source"><a [routerLink]="['data_center','source','list']"
+                                                [queryParams]="{ isAdd: 1 }" routerLinkActive="cur">数据源</a></li>
+              <li class="datasee_nav_set "><a routerLink="/data_center/set/update" routerLinkActive="cur"> 数据集</a></li>
+              <li class="datasee_nav_table"><a [routerLink]="['card','OLAP']" routerLinkActive="cur">报表</a></li>
+              <li class="datasee_nav_dashboard"><a routerLink="/dashboard/update" routerLinkActive="cur">仪表盘</a></li>
+              <li class="datasee_nav_user"><a [routerLink]="['um','user',appContext.user.userId ]"
+                                              [queryParams]="{ isAdd: 1 }" routerLinkActive="cur">用户</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class=""></div>
+    </nav>
+    <head-dashboard-list></head-dashboard-list>
+  </header>
+  <ng-template #isNotLogin>
+    <!--未登录用户导航-->
+    <header>
+      <nav class="app_nav not_login self_clearfix" *ngIf="!appContext.isLoggedIn">
+        <div class="app_logo self_cursor"><a  routerLink="/main"><img src="assets/img/logo.svg" width="120" height="33"/></a></div>
+        <ul class="not_login_nav">
+          <li><a routerLink="/login_domain" routerLinkActive="active">登录</a></li>
+          <!--<li class="look_demo"><a routerLink="" routerLinkActive="active">观看Demo</a></li>-->
+          <!--<li><a routerLink="" routerLinkActive="active">观看Demo</a></li>-->
+          <li><a routerLink="/contact" routerLinkActive="active">联系我们</a></li>
+          <li><a routerLink="/introduce" routerLinkActive="active">产品介绍</a></li>
+        </ul>
+      </nav>
+    </header>
+  </ng-template>
+
+  <!-- 主体部分 -->
+  <div class="app_container" #appContainer [style.min-height.px]="minHeight">
+    <router-outlet></router-outlet>
+    <!--<app-right></app-right>-->
+  </div>
+
+  <footer class="app_footer clearfix">
+    <span>Copyright © 2016-2021, DATASEE.NET, All Rights Reserved</span>
+    <a href="javascript:void(0)" class="footer_link fr">帮助</a>
+    <span class="fenge fr">|</span>
+    <a href="javascript:void(0)" class="footer_link fr">关于我们</a>
+  </footer>
+  <app-notification></app-notification>
+</div>
+

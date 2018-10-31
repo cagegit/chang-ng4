@@ -1,0 +1,232 @@
+<div class="car-zf" [@flyInOut]="active">
+  <div class="zf-head">
+    <!-- <div class="zf-title">
+      <p></p>
+    </div> -->
+    <h5 class="title">转发车辆列表</h5>
+    <nz-tabset [(nzSelectedIndex)]="currentTabIndex">
+      <nz-tab *ngFor="let tab of tabs">
+        <ng-template #nzTabHeading>
+          {{tab.name}}
+        </ng-template>
+      </nz-tab>
+    </nz-tabset>
+
+    <div class="tj-select-panel clear-fix" [style.display]="currentTabIndex===0?'block':'none'">
+      <form nz-form [formGroup]="validateForm" class="ant-advanced-search-form" (ngSubmit)="search($event,validateForm.value)">
+        <div nz-row [nzGutter]="40">
+          <div nz-col [nzSpan]="8">
+            <div nz-form-item nz-row>
+              <div nz-form-label nz-col [nzSpan]="5">
+                <label>车牌号</label>
+              </div>
+              <div nz-form-control nz-col [nzSpan]="19">
+                <nz-input formControlName="licensePlate" [nzSize]="'normal'" [nzPlaceHolder]="'请输入车牌号'"></nz-input>
+              </div>
+            </div>
+          </div>
+
+          <div nz-col [nzSpan]="8">
+            <div nz-form-item nz-row>
+              <div nz-form-label nz-col [nzSpan]="5">
+                <label>VIN</label>
+              </div>
+              <div nz-form-control nz-col [nzSpan]="19">
+                <nz-input formControlName="vin" [nzSize]="'normal'" [nzPlaceHolder]="'请输入VIN码'"></nz-input>
+              </div>
+            </div>
+          </div>
+
+          <div nz-col [nzSpan]="8">
+            <div nz-form-item nz-row>
+              <div nz-form-label nz-col [nzSpan]="5">
+                <label>车辆厂商</label>
+              </div>
+              <div nz-form-control nz-col [nzSpan]="19">
+                <!--<nz-input formControlName="vendor" [nzSize]="'normal'" [nzPlaceHolder]="'请输入车辆生产厂商'"></nz-input>-->
+                <nz-select formControlName="vendor" [nzPlaceHolder]="'请输入车辆生产厂商'" [nzShowSearch]="true" nzAllowClear>
+                  <nz-option *ngFor="let option of vendorEnum" [nzLabel]="option.name" [nzValue]="option.name">
+                  </nz-option>
+                </nz-select>
+              </div>
+            </div>
+          </div>
+          <div nz-col [nzSpan]="8">
+            <div nz-form-item nz-row>
+              <div nz-form-label nz-col [nzSpan]="5">
+                <label>目标平台</label>
+              </div>
+              <div nz-form-control nz-col [nzSpan]="19">
+                <nz-select formControlName="platformId" [nzPlaceHolder]="'请选择目标平台'" [nzShowSearch]="true" nzAllowClear>
+                  <nz-option *ngFor="let option of platforms" [nzLabel]="option.unitName" [nzValue]="option.id">
+                  </nz-option>
+                </nz-select>
+              </div>
+            </div>
+          </div>
+
+          <div nz-col [nzSpan]="8">
+            <div nz-form-item nz-row>
+              <div nz-form-label nz-col [nzSpan]="5">
+                <label>转发状态</label>
+              </div>
+              <div nz-form-control nz-col [nzSpan]="19">
+                <nz-select formControlName="status" [nzShowSearch]="true" [nzPlaceHolder]="'请选择转发状态'" nzAllowClear>
+                  <nz-option *ngFor="let option of statusOptions" [nzLabel]="option.label" [nzValue]="option.value">
+                  </nz-option>
+                </nz-select>
+              </div>
+            </div>
+          </div>
+          <div nz-col [nzSpan]="8">
+            <div nz-form-item nz-row>
+              <div nz-form-label nz-col [nzSpan]="5">
+                <label>转发协议</label>
+              </div>
+              <div nz-form-control nz-col [nzSpan]="19">
+                <nz-select formControlName="protocolId" [nzPlaceHolder]="'请选择转发协议'" [nzShowSearch]="true" nzAllowClear>
+                  <nz-option *ngFor="let option of xyOptions" [nzLabel]="option.name" [nzValue]="option.id">
+                  </nz-option>
+                </nz-select>
+              </div>
+            </div>
+          </div>
+          <div nz-col [nzSpan]="24" style="text-align: right;">
+            <button nz-button [nzType]="'primary'">查询</button>
+            <button nz-button (click)="resetForm($event)">重置</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+    <div class="dr-select-panel clear-fix" [style.display]="currentTabIndex===1?'block':'none'">
+      <form class="ant-advanced-search-form">
+        <div nz-row [nzGutter]="40">
+          <div nz-col [nzSpan]="12">
+            <div nz-form-item nz-row>
+              <div nz-form-label nz-col [nzSpan]="4">
+                <label>查询文件</label>
+              </div>
+              <div nz-form-control nz-col [nzSpan]="20">
+                <app-uploader-tool #uploader [url]="uploadUrl" (success)="getUploadResponse($event)" (fail)="uploadFail($event)"></app-uploader-tool>
+              </div>
+            </div>
+          </div>
+          <div nz-col [nzSpan]="24">
+            <div nz-row>
+              <div nz-col [nzSpan]="12" style="text-align: left;">
+                <a href="javascript:void(0)" (click)="downDoc()"><i class="anticon anticon-download"></i> 下载导入查询模板</a>
+              </div>
+              <div nz-col [nzSpan]="12" style="text-align: right;">
+                <!--<button nz-button [nzType]="'primary'">查询</button>-->
+                <button nz-button [nzType]="'reset'" (click)="resetUploadForm()">重置</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+  <div class="zf-body">
+    <div ><button type="button" class="self-btn" (click)="exportFile()" [disabled]="isExport"><span>{{isExport?'导出中...':'导出'}}</span></button>
+      <span *ngIf="currentTabIndex===1 && isFinding" style="text-align: center;padding-left: 35%;color:#108ee9;">{{importFindText}}<i class="fa fa-spinner fa-pulse"></i></span>
+    </div>
+    <!-- <div class="export-file">
+      <button nz-button [nzType]="'primary'" (click)="exportFile()">导出</button>
+    </div> -->
+    <div [style.display]="currentTabIndex===0?'block':'none'">
+      <nz-table #nzTable [nzAjaxData]="_dataSet" [nzShowSizeChanger]="true" [nzLoading]="_loading" [nzTotal]="_total"
+        [(nzPageIndex)]="_current" (nzPageIndexChange)="refreshData()" [(nzPageSize)]="_pageSize" (nzPageSizeChange)="refreshData(true)"
+        [nzBordered]="true" [nzShowTotal]="true" [nzShowQuickJumper]="true">
+        <thead nz-thead>
+          <tr>
+            <th nz-th rowspan="2"><span>序号</span></th>
+            <th nz-th rowspan="2"><span>车牌号</span></th>
+            <th nz-th rowspan="2"><span>VIN</span></th>
+            <th nz-th colspan="5"><span>车辆基础信息</span></th>
+            <th nz-th colspan="3"><span>转发状态信息</span></th>
+            <th nz-th rowspan="2"><span>操作</span></th>
+          </tr>
+          <tr>
+            <th nz-th>车辆厂商</th>
+            <th nz-th>通讯协议类型</th>
+            <th nz-th>车辆型号</th>
+            <th nz-th>车辆种类</th>
+            <th nz-th>运营公司</th>
+            <th nz-th>目标平台</th>
+            <th nz-th>转发协议</th>
+            <th nz-th>平台连接状态</th>
+          </tr>
+        </thead>
+        <tbody nz-tbody>
+          <tr nz-tbody-tr *ngFor="let data of nzTable.data; index as i;">
+            <td nz-td>
+              <a href="javascript:void(0);">{{i+1}}</a>
+            </td>
+            <td nz-td>{{data.licensePlate}}</td>
+            <td nz-td>{{data.vin}}</td>
+            <td nz-td>{{data.vendor}}</td>
+            <td nz-td>{{data.communicationProtocol}}</td>
+            <td nz-td>{{data.vehModelNo}}</td>
+            <td nz-td>{{data.vehType}}</td>
+            <td nz-td>{{data.operatingCompany}}</td>
+            <td nz-td>{{data.platformName}}</td>
+            <td nz-td>{{data.protocolName}}</td>
+            <td nz-td></td>
+            <td align="center">
+              <a href="javascript:void(0);" (click)="deleteRecord(data)" style="padding-right: 10px">移除</a>
+              <a href="javascript:void(0);" (click)="checkLogs(data.vin)">日志</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+    <div [style.display]="currentTabIndex===1?'block':'none'">
+      <div style="padding-bottom:10px" *ngIf="_notFindNum>0">共找到{{_hasFindNum}}辆，未找到<a href="javascript:void(0);" (click)="exportUnHandleData()">{{_notFindNum}}</a>辆</div>
+      <nz-table #nzTable2 [nzDataSource]="_dataSet2" [nzPageSize]="_pageSize2" [nzShowSizeChanger]="true" [nzBordered]="true" [nzShowTotal]="true">
+        <thead nz-thead>
+        <tr>
+          <th nz-th rowspan="2"><span>序号</span></th>
+          <th nz-th rowspan="2"><span>车牌号</span></th>
+          <th nz-th rowspan="2"><span>VIN</span></th>
+          <th nz-th colspan="5"><span>车辆基础信息</span></th>
+          <th nz-th colspan="3"><span>转发状态信息</span></th>
+          <th nz-th rowspan="2"><span>操作</span></th>
+        </tr>
+        <tr>
+          <th nz-th>车辆厂商</th>
+          <th nz-th>通讯协议类型</th>
+          <th nz-th>车辆型号</th>
+          <th nz-th>车辆种类</th>
+          <th nz-th>运营公司</th>
+          <th nz-th>转发平台名称</th>
+          <th nz-th>转发协议</th>
+          <th nz-th>平台连接状态</th>
+        </tr>
+        </thead>
+        <tbody nz-tbody>
+        <tr nz-tbody-tr *ngFor="let data of nzTable2.data; index as i;">
+          <td nz-td>
+            <a href="javascript:void(0);">{{i+1}}</a>
+          </td>
+          <td nz-td>{{data.licensePlate}}</td>
+          <td nz-td>{{data.vin}}</td>
+          <td nz-td>{{data.vendor}}</td>
+          <td nz-td>{{data.communicationProtocol}}</td>
+          <td nz-td>{{data.vehModelNo}}</td>
+          <td nz-td>{{data.vehType}}</td>
+          <td nz-td>{{data.operatingCompany}}</td>
+          <td nz-td>{{data.platformName}}</td>
+          <td nz-td>{{data.protocolName}}</td>
+          <td nz-td></td>
+          <td align="center">
+            <a href="javascript:void(0);" (click)="deleteRecord(data)" style="padding-right: 10px">移除</a>
+            <a href="javascript:void(0);" (click)="checkLogs(data.vin)">日志</a>
+          </td>
+        </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </div>
+</div>

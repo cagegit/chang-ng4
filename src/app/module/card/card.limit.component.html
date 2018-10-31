@@ -1,0 +1,40 @@
+<div bsModal #setLimitBox="bs-modal"  [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog set_filter_box">
+    <div class="modal-content self_modal_content">
+      <div class="modal-header self_modal_header set-filter">
+        <span style="margin-left: 50px;">条数限制</span>
+        <button type="button" class="close self_close" (click)="closeModal()" aria-label="Close">
+          <i class="iconfont icon-guanbigongjulan"></i>
+        </button>
+      </div>
+      <div>
+        <span class="title_span">过滤方式：</span>
+        <select id="funcs" class="select_opt">
+        <option *ngFor="let item of functions" [attr.selected]="item.checked" value="{{item.name}}">{{item.name}}</option>
+        <!--<option value="TopPercent">TopPercent</option>-->
+        <!--<option value="TopSum">TopSum</option>-->
+        <!--<option value="BottomCount">BottomCount</option>-->
+        <!--<option value="BottomPercent">BottomPercent</option>-->
+        <!--<option value="BottomSum">BottomSum</option>-->
+      </select>
+      </div>
+      <div class="f_search_box">
+        <span class="title_span">临 界 值：</span>
+        <input type="text"  placeholder="自定义数字" (keyup)="changeNumber($event)"
+                                       [(ngModel)]="showNumber"></div>
+      <div>
+        <span class="title_span">指    标：</span>
+        <select id="measures" class="select_opt">
+          <option *ngFor="let measure of measures" [attr.selected]="measure.checked" value="{{measure.uniqueName}}">{{measure.caption}}</option>
+          <!--<option value="Top Percent">TopPercent</option>-->
+          <!--<option value="Top Sum">TopSum</option>-->
+          <!--<option value="Bottom Count">BottomCount</option>-->
+          <!--<option value="Bottom Percent">BottomPercent</option>-->
+          <!--<option value="Bottom Sum">BottomSum</option>-->
+        </select>
+      </div>
+
+      <div class="set_filter_btn marT20"><button class="self_btn c_a0a1a1 self_left" (click)="closeModal()">取消</button><button class="self_btn c_ef5350 self_right" (click)="save($event)">保存</button></div>
+    </div>
+  </div>
+</div>

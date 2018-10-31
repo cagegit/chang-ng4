@@ -1,0 +1,74 @@
+<div bsModal #dataSourceAddModal="bs-modal" [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1"
+  role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog">
+    <div class="modal-content self_modal_content">
+      <div class="modal-header self_modal_header source_type">
+        <button type="button" class="close self_close" (click)="dataSourceAddModal.hide()" aria-label="Close">
+          <i class="iconfont icon-guanbigongjulan"></i>
+        </button>
+      </div>
+      <div class="had_selected">已支持的数据源类型</div>
+      <form role="form" #selectAddForm="ngForm">
+        <ul class="source_type_list self_clearfix">
+          <li>
+            <label for="mysql">
+              <input type="radio" id="mysql" name="source_type" value="mysql" [(ngModel)]="selectSourceType">
+              <div class="type_item mysql_bg" title="mysql"></div>
+            </label>
+          </li>
+          <li>
+            <label for="impala">
+              <input type="radio" id="impala" name="source_type" value="impala" [(ngModel)]="selectSourceType">
+              <div class="type_item impala_bg" title="impala"></div>
+            </label>
+          </li>
+          <!-- 
+        <li>
+          <label for="hive2">
+            <input type="radio" id="hive2"name="source_type" value="hive2" [(ngModel)]="selectSourceType" >
+            <div class="type_item hive2_bg" title="hive2"></div>
+          </label>
+        </li>
+        <li>
+          <label for="code">
+            <input type="radio" id="code" name="source_type" value="code" [(ngModel)]="selectSourceType">
+            <div class="type_item code_bg"></div>
+          </label>
+        </li>
+        <li>
+          <label for="spark">
+            <input type="radio" id="spark" name="source_type" value="spark" [(ngModel)]="selectSourceType">
+            <div class="type_item spark_bg" title="spark"></div>
+          </label>
+        </li>
+        <li *ngIf="DISPLAY_SWITCH_ISOURCE">
+          <label for="isource">
+            <input type="radio" id="isource" name="source_type" value="isource" [(ngModel)]="selectSourceType">
+            <div class="type_item isource_bg"></div>
+          </label>
+        </li> -->
+          <!--        <li>
+          <label for="jira">
+            <input type="radio" id="jira" name="source_type" value="jira" [(ngModel)]="selectSourceType">
+            <div class="type_item jira_bg"></div>
+          </label>
+        </li>
+        <li>
+          <label for="csv">
+            <input type="radio" id="csv" name="source_type" value="csv" [(ngModel)]="selectSourceType">
+            <div class="type_item csv_bg"></div>
+          </label>
+        </li>
+        <li>
+          <label for="github">
+            <input type="radio" id="github" name="source_type" value="github" [(ngModel)]="selectSourceType">
+            <div class="type_item github_bg"></div>
+          </label>
+        </li>
+        -->
+        </ul>
+      </form>
+      <div class="marT30"><button class="data_btn sure_btn" (click)="selectAddDataSource()">确定</button></div>
+    </div>
+  </div>
+</div>

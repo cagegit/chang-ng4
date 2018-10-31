@@ -1,0 +1,8 @@
+<div class="pop_layer set_operate" #setOperate [style.left.px]="left-166" [style.top.px]="top+34">
+  <ul>
+    <li (click)="refresh()"><i class="iconfont icon-shuaxin"></i>刷新图表数据</li>
+    <li [routerLink]="[ '/card',panel?.data?.queryType?panel?.data?.queryType:'OLAP',{id:panel?.data?.dataSetId,cardId:panel?.data?.cardId} ]" ><i class="iconfont icon-iconbianji"></i>编辑图表</li>
+    <li *ngIf="queryType!='SQL'" #opt_drill (click)="setOptionType('drill')"><i class="iconfont icon-xz"></i>下钻</li>
+    <li *ngIf="queryType!='SQL'" #opt_section (click)="setOptionType('section')"><i class="iconfont icon-yckzd"></i>切片</li>
+  </ul>
+</div>

@@ -1,0 +1,24 @@
+.dashboard_manage{ background-color: #e5e5e5; padding: 0 50px 60px;}
+.dashboard_manage_box{background-color: #fff; border-radius: 3px; padding: 20px;}
+.dashboard_manage_head{ height: 50px;}
+.dashboard_manage_search{ float: left; width: 230px; height: 28px; position:relative; line-height: 26px;}
+.dashboard_manage_search input{ width: 100%; padding:0 10px 0 30px; border:1px solid #dde0e2; outline:none; border-radius: 2px; color: #999; font-size: 12px;}
+.dashboard_manage_search input:focus{ color: #333;}
+.dashboard_manage_search i{ position: absolute; line-height: 28px; left: 8px; top: 0; color: #686873; cursor: pointer;}
+/*.dashboard_sort_created{float: left; width: 230px; height: 28px; position:relative; line-height: 26px;}*/
+.dashboard_sort_created{ float: left; margin-left: 20px;color: #666; padding:0 10px; width:170px;outline: none; height: 28px;border:1px solid #dde0e2; line-height: 26px;border-radius: 3px;}
+.dashboard_manage_btn{float: right; width: 116px; height: 30px;}
+.dashboard_manage_btn button{ height: 30px; line-height: 30px; font-size: 14px;}
+.dashboard_manage_list li{ text-align: center;}
+.dashboard_manage_list li:first-child{height:42px; line-height: 40px; border:1px solid #e6eaec; background-color: #f8f8f8; color: #666;}
+.dashboard_manage_list li span:first-child{ padding-left: 50px; text-align: left}
+.dashboard_manage_list .manage_item{ height: 71px; border-bottom: 1px solid #e6eaec; line-height: 70px; overflow: hidden;}
+.dashboard_manage_list .manage_item:last-child{ border-bottom: none;}
+.time{ font-size: 12px; color: #aab3c9;}
+.dashboard_manage_list .manage_item:hover{ background-color: #fffff5; cursor: pointer;}
+.dashboard_manage_list i{ float:right; padding: 0 10px;font-size: 16px; color: #859acf; cursor: pointer; display: none; }
+.dashboard_manage_list .icon-shanchu{ color: #ef5350;}
+.dashboard_manage_list .manage_item:hover i{ display: inline-block;}
+.not_dashboard{min-height: 600px; position: relative; }
+.not_dashboard_con{ width: 280px; height: 300px; background: url("../../../assets/img/not_dashboard.png") no-repeat center top; position: absolute; left: 50%; margin-left: -140px; top: 50%; margin-top: -100px; padding-top: 160px; text-align: center; font-size:16px;  color: #999; }
+

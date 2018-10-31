@@ -1,0 +1,85 @@
+<!--<div class="container">-->
+  <!--<div class="row clearfix">-->
+    <!--<div class="col-md-12 column">-->
+      <!--<form role="form" [formGroup]="dataSourceForm">-->
+        <!--<input type="hidden" formControlName="dataSourceID" />-->
+        <!--<div class="form-group">-->
+          <!--<input type="text" class="form-control" placeholder="命名这个数据源"  formControlName="dataSourceName" />-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+          <!--<input type="text" class="form-control" placeholder="数据库主机名或IP地址" formControlName="hostname" />-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+          <!--<input type="text" class="form-control" placeholder="数据库名" formControlName="databaseName" />-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+          <!--<input type="text" class="form-control" placeholder="用户名" formControlName="userName" />-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+          <!--<input type="text" class="form-control" placeholder="密码" formControlName="password" />-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+        <!--<input type="text" class="form-control" placeholder="端口号:默认3306" formControlName="databasePort" /> <button type="button" class="btn btn-default"  [disabled]="!dataSourceForm.valid||submitted" (click)="connectTest()">链接测试</button>-->
+        <!--</div>-->
+        <!--<div class="form-group">-->
+          <!--<button type="submit" class="btn btn-default" (click)="formSubmit()"  [disabled]="!dataSourceForm.valid||submitted">保存</button>-->
+          <!--<button type="submit" class="btn btn-default" (click)="formReset()">取消</button>-->
+        <!--</div>-->
+      <!--</form>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+<div  class="data_main" class="full_height">
+    <div class="connector_title code_title">CSDN旗下代码托管平台</div>
+    <form>
+      <div class="data_box marB20" [@foldState] = 'foldState.sourceName'>
+        <div class="data_source_name">
+          <i class="iconfont  icon-daiqueren icon_tit"></i>数据源名称
+          <i class="iconfont icon-shouqi list_fold"[@iconState]="iconState.sourceName"  (click)="changeFoldState('sourceName')"></i>
+        </div>
+          <div class="data_input marT30"><i class="iconfont icon-qianming"></i><input type="text" placeholder="命名这个数据源" myFocusChangeStyle  [focusClass]="'data_focus_box'" ></div>
+      </div>
+      <div class="data_box marB20" [@foldState] = 'foldState.connectConfig'>
+        <div class="data_source_name input_error"><i class="iconfont icon_tit icon-daiqueren"></i><i class="iconfont icon-jinzhiban1000 err_icon"></i>连接配置<span>连接失败，用户名和密码有误！</span>
+          <i class="iconfont icon-shouqi list_fold" [@iconState]="iconState.connectConfig" (click)="changeFoldState('connectConfig')"></i>
+        </div>
+          <div class="data_input marT30 marB20"><i class="iconfont icon-qianming"></i><input type="text" placeholder="服务url" myFocusChangeStyle  [focusClass]="'data_focus_box'" ></div>
+          <div class="data_input marT30 marB20"><i class="iconfont icon-qianming"></i><input type="text" placeholder="用户名" myFocusChangeStyle  [focusClass]="'data_focus_box'" ></div>
+          <div class="data_input marT30 marB20">
+            <i class="iconfont icon-qianming"></i>
+            <input type="password" placeholder="密码" myFocusChangeStyle  [focusClass]="'data_focus_box'" >
+            <div class="test_button">
+              <button class="data_btn">连接测试</button>
+            </div>
+          </div>
+      </div>
+      <div class="data_box marB20" [@foldState] = 'foldState.jiraData'>
+        <div class="data_source_name input_error"><i class="iconfont icon_tit icon-daiqueren"></i><i class="iconfont icon-jinzhiban1000 err_icon"></i>jira data import<span>连接失败，用户名和密码有误！</span>
+          <i class="iconfont icon-shouqi list_fold" [@iconState]="iconState.jiraData" (click)="changeFoldState('jiraData')"></i>
+        </div>
+      </div>
+      <div class="data_box marB20" [@foldState] = 'foldState.dataSync'>
+        <div class="data_source_name marB10">
+          <i class="iconfont  icon-daiqueren icon_tit"></i>数据同步
+          <i class="iconfont icon-shouqi list_fold"[@iconState]="iconState.dataSync"  (click)="changeFoldState('dataSync')"></i>
+        </div>
+        <div class="sync_radio marL20"><label for="timeSync"><input type="radio" name="sync" value="1" id="timeSync" checked><div class="radio_btn"></div>定时同步</label></div>
+        <div class="sync_select marL20  self_clearfix">
+          <select name="month">
+            <option value="1">每月</option>
+          </select>
+          <select name="day">
+            <option value="1">1日</option>
+            <option value="1">2日</option>
+          </select>
+        </div>
+        <div class="sync_radio marL20"><label for="handSync"><input type="radio" name="sync" value="1" id="handSync"><div class="radio_btn"></div>手工同步</label></div>
+      </div>
+      <div class="mysql_btn marT20 self_clearfix">
+        <button class="form_btn save" type="submit">保存</button>
+        <button class="form_btn cancel">取消</button>
+      </div>
+    </form>
+</div>
+
+

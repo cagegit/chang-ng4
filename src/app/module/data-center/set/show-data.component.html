@@ -1,0 +1,28 @@
+<div bsModal #showData="bs-modal"  [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog">
+    <div class="modal-content self_modal_content">
+      <div class="modal-header self_modal_header show_data">
+        <button type="button" class="close self_close" (click)="closeHandle()" aria-label="Close">
+          <i class="iconfont icon-guanbigongjulan"></i>
+        </button>
+      </div>
+      <div class="data_show_box ">
+        <div class="data_table  scroll_o_bar scroll_bar">
+          <table cellpadding="0" cellspacing="0" *ngIf="tablePreViewData && tablePreViewData.previewData">
+            <thead>
+              <tr>
+                <th *ngFor="let key of tablePreViewData.previewData[0]">{{key}}</th>
+              </tr>
+            </thead>
+            <tbody class="">
+              <tr *ngFor="let values of tablePreViewData.previewData.slice(1)">
+                <td *ngFor="let v of values">{{v}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

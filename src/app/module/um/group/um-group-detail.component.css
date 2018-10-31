@@ -1,0 +1,41 @@
+ul li{  list-style: none; }
+ul{ margin: 0; padding: 0;}
+p{ margin: 0}
+.detail_top{height: 100px; border-bottom: 1px solid #cfcfcf; position: relative; padding-right: 120px;}
+.info_left{ float: left; display: inline-block;margin-right:10px; }
+.header_img{ float: left; width: 48px; height: 48px; border:1px solid #d5dbdf; border-radius: 50%; overflow: hidden; margin:30px 15px 0 0; }
+.header_img img { height: 48px; width: 48px; display: block;}
+.name_p{ display: inline-block; margin-top: 30px; line-height:24px; float: left;}
+/*.name_p .editer_box{ position: absolute; left: 35px;  top: 65px; width: 184px; padding: 0 45px 0 10px; height: 32px;  border: 1px solid #e7e7e8;  border-radius: 3px;  background-color: #f0f0f0;  z-index: 100;}*/
+.user_name{ line-height:30px; margin-top: 9px; position: relative; }
+.user_permissions{ display: inline-block; padding: 0 10px; background-color: #53bb9b; height: 18px; line-height: 18px; color: #fff;}
+.info_right{margin-top: 49px;}
+.info_right li{ display: inline-block; float: left; margin-right: 40px; font-size: 14px; color: #666;}
+.info_right li i{ margin-right: 6px;}
+.group_title{ height: 60px; line-height: 60px; font-size: 16px; color: #323757; position: relative; text-align: left; padding-left: 20px;}
+.group_title:before{content: ''; position: absolute; top:28px; left:0px;height: 6px; width: 6px; overflow: hidden;
+  border-radius: 3px; background-color: #f05f5c;}
+.group_title:after{content: ''; position: absolute; width: 2px; height: 2px; background-color: #fff; overflow: hidden;
+  border-radius: 1px; top: 30px; left: 2px;}
+.group_list li{height: 44px; line-height: 44px; border-bottom: 1px solid #cfcfcf; font-size: 14px; color: #333;}
+
+.delete_group{margin-top:10px; width: 95px; position: absolute; right: 0; top:31px;}
+.delete_group button{ font-size: 12px; height: 26px; line-height: 26px; }
+.delete_group button i{ margin-right:5px; font-size: 18px; vertical-align: top; }
+.delete_group span{ vertical-align: top;}
+.um_group_title:before{content: ''; position: absolute; top:28px; left:0px;height: 6px; width: 6px; overflow: hidden;
+  border-radius: 3px; background-color: #f05f5c;}
+.um_group_title:after{content: ''; position: absolute; width: 2px; height: 2px; background-color: #fff; overflow: hidden;
+  border-radius: 1px; top: 24px; left: 2px;}
+.self_input_group{width: 173px; float: right; margin-top: 14px;}
+.self_input_group_addon{background-color: #fff; padding: 2px 7px; }
+.self_input_group_addon i{ color: #237dcd; font-size: 18px;}
+.group_user_list li{padding: 20px  5px 0; width: 88px; display: inline-block; float: left; position: relative;}
+.u_img{ width:48px; height: 48px; border-radius: 50%; overflow: hidden; margin:  0 auto; border:1px solid #d5dbdf;}
+.u_img img{ display:block;}
+.group_user_list{ display: inline-block;}
+.group_user_list li p{padding-top: 10px; color: #333; text-align: center;}
+.group_user_list li i{ position: absolute; cursor: pointer; top: 17px; right: 11px; color: #ef5350; font-size: 12px; display: none;}
+.group_user_list li:hover i { display: block;}
+.self_form_control{height: 26px; padding: 0 12px; line-height: 26px;}
+

@@ -1,0 +1,26 @@
+<!--预计算处理进度条-->
+<ng-template [ngIf]="dataSet.schemaHandle&&dataSet.schemaHandle.status==SCHEMA_HANDLE_STATUS.BUILDING">
+  <div class="schema_zhezhao"></div>
+  <div class="schame_progress">
+    <div class="progress_bar"><span [style.width.%]="dataSet.schemaHandle.completePercent"></span></div>
+    <p class="progress_text" *ngIf="dataSet.schemaHandle.remainingTime>0">当前正在进行预计算，预计需要{{dataSet.schemaHandle.remainingTimeDesc}}完成</p>
+  </div>
+</ng-template>
+
+<!--预计算开始 确认弹层-->
+<div bsModal #startConfirmModal="bs-modal"  [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog self_success_modal compute_schame" >
+    <div class="modal-content self_modal_content">
+      <div class="modal-header self_modal_header schema_header">
+        <button type="button" class="close self_close" aria-label="Close" (click)="startConfirmModal.hide()">
+          <i class="iconfont icon-guanbigongjulan"></i>
+        </button>
+      </div>
+      <div class="schame_text">数据集“{{dataSet.dataSetName}}”将开始全量数据更新构建，此过程可能会持续较长时间（1小时甚至以上）。其间将暂时无法进行报表制作和其他数据集操作。</div>
+      <div class="self_clearfix schema_btn marT20">
+        <button class="self_btn self_cancel" (click)="startCancel()" >取消</button>
+        <button class="self_btn   c_ef5350" (click)="start()">确定</button>
+      </div>
+    </div>
+  </div>
+</div>

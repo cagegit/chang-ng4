@@ -1,0 +1,11 @@
+.contact_box{ width: 100%; background-color: #fff; position: absolute; top: 0; bottom: 0;}
+.contact_header{ position: relative; width: 100%;}
+.contact_img{ width: 100%;}
+.contact_img img{ display: block;width: 100%;}
+.contact_sm{ width: 1000px; height: 72px; line-height: 36px; position: absolute; top:50%; left: 50%; margin-left: -500px; margin-top: -36px; font-size: 20px; color: #fff; font-weight: bold; text-align: center;}
+.contact_content{ margin: 140px auto 0;width: 830px;}
+.contact_content li{ width: 400px;height: 200px; border:3px solid #eaeaea; margin-right: 30px; float: left; position: relative; padding: 78px 55px 0;}
+.contact_content li:last-child{ margin-right: 0; padding-top: 106px;text-align: center;}
+.contact_icon{ position: absolute; width: 118px; height: 118px;border:6px solid #eaeaea; border-radius: 50%; top:-59px;  left: 141px; text-align: center; line-height: 106px; background-color: #fff;}
+.contact_icon i{ font-size: 60px; color: #ef5451;}
+.contact_text{ line-height: 28px; font-size: 16px; font-weight: bold; color: #666;}

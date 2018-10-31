@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <base href="<%= htmlWebpackPlugin.options.metadata.BASE_URL %>">
+  <!--<title><%= htmlWebpackPlugin.options.title %></title>-->
+  <title>长安智能网联监控与数据转发系统</title>
+  <meta name="cfg" content='<%= JSON.stringify(htmlWebpackPlugin.options.metadata.cfg) %>'>
+  <meta http-equiv=Content-Type content="text/html;charset=utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="<%= htmlWebpackPlugin.options.title %>">
+  <% if (webpackConfig.htmlElements.headTags) { %>
+    <!-- Configured Head Tags  -->
+    <%= webpackConfig.htmlElements.headTags %>
+      <% } %>
+  <style type="text/css">
+    .loadingBox {
+      position: relative;
+      width: 100vw;
+      background-color: #313447;
+      height: 100vh;
+    }
+
+    @keyframes myfirst {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes mysecond {
+      from {
+        transform: rotate(-10deg);
+      }
+      to {
+        transform: rotate(350deg);
+      }
+    }
+
+    @keyframes mythird {
+      from {
+        transform: rotate(10deg);
+      }
+      to {
+        transform: rotate(370deg);
+      }
+    }
+
+    .loading_animation {
+      width: 100px;
+      animation: myfirst 0.8s 0.1s infinite;
+      height: 100px;
+      border-radius: 50%;
+      border-top: 2px solid #56bb9d;
+      border-left: 2px solid transparent;
+      position: absolute;
+      border-right: 2px solid transparent;
+      border-bottom: 2px solid transparent;
+      left: 50%;
+      top: 50%;
+      margin-top: -50px;
+      margin-left: -50px;
+    }
+
+    .loading_animation1 {
+      width: 84px;
+      animation: mysecond 0.8s 0.2s infinite;
+      height: 84px;
+      border-radius: 50%;
+      border-top: 2px solid #ee5550;
+      border-left: 2px solid transparent;
+      position: absolute;
+      border-right: 2px solid transparent;
+      border-bottom: 2px solid transparent;
+      left: 50%;
+      top: 50%;
+      margin-top: -42px;
+      margin-left: -42px;
+    }
+
+    .loading_animation2 {
+      width: 116px;
+      animation: mythird 0.8s infinite;
+      height: 116px;
+      border-radius: 50%;
+      border-top: 2px solid #8561a1;
+      border-left: 2px solid transparent;
+      position: absolute;
+      border-right: 2px solid transparent;
+      border-bottom: 2px solid transparent;
+      left: 50%;
+      top: 50%;
+      margin-top: -58px;
+      margin-left: -58px;
+    }
+  </style>
+</head>
+<body class="scroll_bar">
+  <app>
+    <div class="loadingBox" id="loadingBox">
+      <div class="loading_animation"></div>
+      <div class="loading_animation1"></div>
+      <div class="loading_animation2"></div>
+    </div>
+  </app>
+  <iframe style="display: none" id="loginIframe"></iframe>
+  <% if (htmlWebpackPlugin.options.metadata.isDevServer && htmlWebpackPlugin.options.metadata.HMR !== true) { %>
+    <!-- Webpack Dev Server reload -->
+    <script src="/webpack-dev-server.js"></script>
+    <% } %>
+</body>
+</html>

@@ -1,0 +1,17 @@
+.crumbs_box{ margin: 0 50px 20px;}
+.template_list_box{ margin: 0 50px 30px; position: relative; background-color: #fff; border-radius: 3px; padding:20px 20px  20px 235px;
+  min-height: 200px;}
+.template_con_box{ width: 100%; position: relative;}
+.template_nav_box{ position: absolute; width:200px; left: 20px; top: 20px; border:1px solid #e6eaec; border-radius: 2px; background-color: #fbfbfb; }
+.template_nav_title{height: 37px; line-height: 36px; border-bottom: 1px solid #f0f0f0; background-color: #f7f7f7; padding:0 10px; }
+.template_nav_title i{ color: #849bd1; margin-right:7px; vertical-align: middle; font-size: 18px; }
+.template_nav_list{ padding: 12px 0;}
+.template_nav_list li{ margin-bottom: 5px;}
+.template_nav_list li a{ display: block; height:28px; line-height: 28px; color: #333; padding: 0 10px 0 30px; position: relative;}
+.template_nav_list li a.active{ background-color: #ebebeb;}
+.template_nav_list li a.active:before{ content: ''; position: absolute; width: 4px; height: 4px; background-color: #646675; border-radius: 50%; font-size: 0; overflow: hidden; left: 13px; top: 12px;}
+.c_ef5350{ background-color: #ef5350;}
+.c_ef5350:hover{ background-color: #d74441}
+.use_template_link{ position: absolute; width: 90px; height: 30px;; border-radius: 3px; background-color: #ef5350;right:0; top: 0px; z-index: 2; text-align: center; line-height: 30px;cursor: pointer; }
+.use_template_link:hover{ background-color: #d74441;}
+.use_template_link a{color: #fff; text-decoration: none;}

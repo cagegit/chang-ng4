@@ -1,0 +1,137 @@
+<div *ngIf="dataSet.dataSourceType!='code'&&dataSet.dataSourceType!='isource'" class="data_table_box">
+  <div class="schema_box">
+    <div class="schema_left">
+      <div class="schema_data_table"><span>数据表</span><select (change)='changeTable($event.target.value)' name="currentSelectedTable" [(ngModel)]="currentSelected">
+          <option *ngFor="let tableName of selectedTables" value="{{tableName[1]}}" [selected]="tableName==currentSelectedTable">{{tableName[0]}}</option>
+        </select>
+      </div>
+      <!-- <div class="d_sql" *ngIf="dataSet.isSQL">
+        <div class="sql_title">自定义查询</div>
+        <div class="sql_text_box">{{selectedTables[0]}}<i class="iconfont icon-jiantou-copy-copy-copy-copy "></i></div>
+        <div class="sql_text_box sql_text_box1"> SELECT * FROM fact_lib_collection, fact_pv where fact_lib_co<i class="iconfont icon-jiantou-copy-copy-copy-copy "></i></div>
+      </div> -->
+      <div class="schema_key_box">
+        <div class="key_title">指标可选字段</div>
+        <div class="key_container scroll_bar">
+          <div class="key_search"><i class="iconfont icon-fangdajing"></i><input type="text" (keyup)='search("fact",$event.target.value)'
+              value="{{filterSearch.fact}}"> </div>
+          <ul class="key_list scroll_bar dev-container-field dev-container-fact" *ngIf="factTable" [dragula]='"bag"'>
+            <li *ngFor="let field of factTable" class="fact_key_item dev-field dev-from-fact-table"
+              [attr.data-translate]='getTranslate("field",field)'>
+              <i class="iconfont " [ngClass]="{'icon-kongjianshuzhiqujian': field.schemaShowType == 'number', 'icon-abc': field.schemaShowType == 'string', 'icon-riqi': field.schemaShowType == 'time'}"></i>
+              {{field.fieldName}}
+            </li>
+          </ul>
+        </div>
+        <div class="key_title">维度可选字段
+          <!-- <i class="iconfont icon-link-copy self_right self_cursor" (click)="showRelationalTable()" placement="bottom" tooltip="设置表关联关系"></i>  -->
+        </div>
+        <div class="key_container ">
+          <div class="key_search"><i class="iconfont icon-fangdajing"></i><input type="text" (keyup)='search("dimension",$event.target.value)'
+              value="{{filterSearch.dimension}}"> </div>
+          <ul class="dimension_list scroll_bar">
+            <li class="dimension_item" *ngFor="let dimensionTable of dimensionTableArray" #parent>
+              <div class="dimension_table_name self_cursor" (click)="toggleFolder(parent,'dim_folder')">
+                <!-- <i class="iconfont icon-arrow-down-copy"></i> -->
+                <i class="iconfont icon-biaoge"></i>{{dimensionTable.tableName}}</div>
+              <ul class="dev-container-field dev-container-dimension" [dragula]='"bag"' [attr.data-table]="dimensionTable.tableName">
+                <li class="fact_key_item dev-field dev-from-dimension-table" *ngFor="let field of dimensionTable.tableFields"
+                  [attr.data-translate]='getTranslate("field",field)'>
+                  <i class="iconfont" [ngClass]="{'icon-kongjianshuzhiqujian': field.schemaShowType == 'number', 'icon-abc': field.schemaShowType == 'string', 'icon-riqi': field.schemaShowType == 'time'}"></i>
+                  {{field.fieldName}}
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="schema_right">
+      <div class="selected_key_box marB20">
+        <div class="schema_title self_clearfix">
+          指标
+          <i class="iconfont icon-shanchu1  self_cursor" (click)="delAllMeasure()" placement="bottom" tooltip="清空指标"></i>
+          <!-- <i class="iconfont icon-huifu-07-07 self_cursor " (click)="resetAllMeasure()" placement="bottom" tooltip="恢复默认指标"></i> -->
+          <i class="iconfont icon-unif056 self_cursor" (click)="addAllMeasure()" placement="bottom" tooltip="添加全部可选指标"></i>
+        </div>
+        <ul class="selected_key_list dev-container-measure" [attr.data-container]='"measure"' [dragula]='"bag"'>
+          <li class="selected_item dev-measure" *ngFor="let measure of measureList;let i=index" [attr.data-translate]='getTranslate("measure",measure)'
+            [attr.data-index]="i">
+            <i class="iconfont icon-qianming" [class.show]="measureEditor && (measure.measureDisplayName==measureEditor.measureDisplayName)"
+              (click)="onShowLayer($event,{'layerType':'fact','direction':'left'},measure)"></i>
+            <span *ngIf="measure.measureDisplayName">{{measure.measureDisplayName}}</span>
+            <span *ngIf="!measure.measureDisplayName"><span *ngIf="measure.aggregationType!=='NONE'" class="agg_type">{{measure.aggregationType}}</span><span>{{measure.fieldName}}</span></span>
+            <i class="iconfont icon-xxz" (click)="delMeasure(measure)" title="删除指标"></i>
+          </li>
+          <!--<div class="selected_item drag_down">拖拽开始</div>-->
+          <!--<div class="selected_item drag_move">拖拽中</div>-->
+          <!--<div class="selected_item drag_end">+</div>-->
+        </ul>
+      </div>
+      <div class="selected_key_box">
+        <div class="schema_title self_clearfix">
+          维度
+          <i class="iconfont icon-shanchu1 self_cursor" placement="bottom" tooltip="清空维度" (click)="delAllHierachy()"></i>
+          <!-- <i class="iconfont icon-huifu-07-07 self_cursor" placement="bottom" tooltip="恢复默认维度" (click)="resetAllHierachy()"></i> -->
+          <i class="iconfont icon-unif056 self_cursor" placement="bottom" tooltip="添加全部可选维度" (click)="addAllHierachy()"></i>
+          <i class="iconfont icon-kmd self_cursor" placement="bottom" tooltip="添加维度分组" (click)="showHierachy()"></i></div>
+        <div class="weidu_box" [@groupFoldLeft]="groupFoldFlag">
+          <!-- dimension start {-->
+          <div class="weidu_group" *ngFor="let dimension of dimensionList" #rightParent>
+            <div class="w_group_title self_cursor"><i class="iconfont icon-jiantouyou" (click)="toggleFolder(rightParent,'group_folder')"></i>{{dimension.tableName}}</div>
+            <ul class="selected_key_list self_clearfix dev-container-hierachy" [attr.data-container]='"hierachy"'
+              [dragula]='"bag"' [attr.data-table]="dimension.tableName">
+              <li class="selected_item marR20 marB20 self_left" *ngFor="let hierachy of dimension.allHierachies;let i=index"
+                [attr.data-translate]='getTranslate("hierachy",hierachy)' [attr.data-index]="i">
+                <ng-template [ngIf]="hierachy.allLevels.length!==1||hierachy.hierachyName!==hierachy.allLevels[0].levelName">
+                  <i class="iconfont icon-kmd" title="编辑维度分组" (click)="showHierachy(hierachy,dimension.tableName)"></i>
+                  <span>{{hierachy.hierachyName}}</span>
+                  <i class="iconfont icon-xxz" (click)="delHierachy(dimension.tableName,hierachy)" title="删除维度分组"></i>
+                </ng-template>
+                <ng-template [ngIf]="hierachy.allLevels.length===1&&hierachy.hierachyName===hierachy.allLevels[0].levelName">
+                  <i class="iconfont icon-qianming" title="编辑维度" (click)="onShowLayer($event,{'layerType':'dimension','direction':'left'},hierachy.allLevels[0],{'fromHierachyEditor' : false,'tableName' : dimension.tableName,'hierachy' : hierachy})"></i>
+                  <span>{{hierachy.allLevels[0].levelName}}</span>
+                  <i class="iconfont icon-xxz" (click)="delHierachy(dimension.tableName,hierachy)" title="删除维度"></i>
+                </ng-template>
+              </li>
+            </ul>
+          </div>
+          <!-- }dimension end-->
+          <div class="w_group_tree_box" [@groupFoldRight]="groupFoldFlag">
+            <div class="tree_top scroll_bar" *ngIf="hierachyEditor">
+              <div class="tree_group_name"><i class="iconfont icon-kmd"></i> <input type="text" placeholder="输入分组名"
+                  autofocus="autofocus" [(ngModel)]="hierachyEditor.hierachy.hierachyName"></div>
+              <ul class="tree_key_list dev-container-level" [attr.data-container]='"level"' [dragula]='"bag"'
+                [attr.data-table]="hierachyEditor.tableName">
+                <li class="tree_key_item" *ngFor="let level of hierachyEditor.hierachy.allLevels;let i=index"
+                  [attr.data-translate]='getTranslate("level",level)' [attr.data-index]="i">
+                  <i class="iconfont icon-qianming" (click)="onShowLayer($event,{'layerType':'dimension','direction':'right'},level,{'fromHierachyEditor' : true,'tableName' : hierachyEditor.tableName,'hierachy' : hierachyEditor.hierachy})"
+                    title="编辑"></i>
+                  <span title="{{level.levelName}}">{{level.levelName}}</span>
+                  <i class="iconfont icon-xxz" (click)="delLevel(level)" title="删除"></i>
+                </li>
+                <li class="tree_key_item dev-disabled">拖入成员</li>
+              </ul>
+            </div>
+            <div class="tree_bottom">
+              <i class="iconfont self_left icon-xxz self_cursor" placement="top" tooltip="取消" (click)="cancelShowHierachy()"></i>
+              <i class="iconfont self_right icon-duihao self_cursor" placement="top" tooltip="保存" (click)="saveHierachy()"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="schema_zhezhao" *ngIf="dataSet.schemaHandle&&dataSet.schemaHandle.status=='BUILDING'"></div>
+    <div class="schame_progress" *ngIf="dataSet.schemaHandle&&dataSet.schemaHandle.status=='BUILDING'">
+      <div class="progress_bar"><span [style.width.%]="dataSet.schemaHandle.completePercent"></span></div>
+      <p class="progress_text">当前正在进行预计算，预计需要{{dataSet.schemaHandle.remainingTimeDesc}}完成</p>
+    </div>
+  </div>
+</div>
+<edit-fact *ngIf="measureEditor" [position]="factLayerPosition" [measure]="measureEditor" (measureChange)="measureChange($event)"></edit-fact>
+<edit-dimension *ngIf="levelEditor" [position]="dimensionLayerPosition" [level]="levelEditor.currentValue"
+  (levelChange)="levelChange($event)"></edit-dimension>
+<relational-table *ngIf="relationalTableFlag" [dataSet]="dataSet" [defaultTable]="currentSelectedTable"
+  (relationChange)="relationChange($event)" (closeModal)="closeRelationalTable()"></relational-table>
+<state-step *ngIf="dataSet.dataSourceType=='code'|| dataSet.dataSourceType=='isource'"></state-step>

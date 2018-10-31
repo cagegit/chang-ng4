@@ -1,0 +1,8 @@
+/*.data_table_box{ position: absolute;left: 15px; right: 15px; bottom:60px; top:202px;padding-top: 40px; }*/
+.chang_log_table{ line-height:50px;text-align: center; }
+.chang_log_table table{ border:none;}
+.chang_log_table th{text-align: center; color: #7f7f7f; font-weight: normal; line-height: 50px;}
+.chang_log_table tbody tr:hover{ background-color: #fffff5; cursor: pointer}
+.chang_log_table tbody td{ font-size: 12px; color: #666; line-height: 50px;}
+.chang_log_table tbody tr{ border-top: 1px solid #e6eaec;}
+.chang_log_table tbody .chang_log_time{ color: #aab3c9;}

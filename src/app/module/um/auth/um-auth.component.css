@@ -1,0 +1,10 @@
+.auth_box{margin-left:195px; background-color: #fff; padding: 0 20px; height: 100%; }
+.auth_title{ padding:30px 0 20px  20px;margin: 0; font-size:16px; color: #333; border-bottom: 1px solid #cfcfcf; position: relative; }
+.auth_title:before{ content: ''; position: absolute; top:36px; left:2px;height: 6px; width: 6px; overflow: hidden;
+  border-radius: 3px; background-color: #f05f5c;}
+.auth_title:after{ content: ''; position: absolute; width: 2px; height: 2px; background-color: #fff; overflow: hidden;
+  border-radius: 1px; top: 38px; left: 4px;}
+.auth_list{ margin:0 20px; width: 900px; display:inline-block; border-bottom: 1px dashed #dcdcdc; padding-bottom: 20px;}
+.auth_list li{ display: inline-block; float:left;width: 190px;height: 15px;margin-top: 20px; line-height: 15px;}
+
+

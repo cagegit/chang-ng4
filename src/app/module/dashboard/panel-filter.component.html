@@ -1,0 +1,10 @@
+<ul class="panel_filter" [style.top.px]="top" [style.left.px]="left">
+  <li *ngFor="let filter of filters;let i=index;">
+    <span>{{filter.paramName}}</span>
+    <div class="filter_switch self_clearfix" [class.open]="filter.show" (click)="changeSwitch($event,filter)">
+      <span class="switch_left self_left" ></span>
+      <span class="switch_right self_right" ></span>
+      <span class="switch_btn" (click)="cancelBubble($event)"></span>
+    </div>
+  </li>
+</ul>

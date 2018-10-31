@@ -1,0 +1,42 @@
+.big_box{ max-height: 320px;padding:8px 10px; }
+.preview_filter{position: absolute;width:219px;background-color: #fff; border:1px solid #e3edf4;z-index: 100;cursor:pointer;  /*display: none;*/ top: 100px;}
+.preview_filter:before,.preview_filter:after{ content: '';width: 0; height: 0;overflow: hidden; position: absolute; border-bottom: 8px solid #e3edf4; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: none; right: 10px; top: -8px;}
+.preview_filter:after{top: -7px; border-bottom-color: #fff;}
+.preview_time_title{ height: 26px; line-height: 26px; border-bottom: 1px solid #e6eaec; font-size: 12px;}
+.preview_list{ padding-top:10px; font-size: 12px;}
+.preview_list li{ min-height: 24px; line-height:24px;}
+.preview_list li label{ display: inline-block; width: 57px; text-align: center;  font-weight: normal; float: left;}
+.preview_list li select{ width:110px;height: 24px;line-height: 22px; border:1px solid #e6eaec; border-radius: 3px;  background-color: #f7f7f7; }
+.border_top{border-top: 1px solid #e6eaec;}
+.preview_list1 li label{ width: 100%; text-align:left;}
+.preview_list1 li select{ width: 100%; outline: none;}
+.filter_text{display: block;
+  border: 1px solid #ccc;
+  padding-left: 6px;
+  border-radius: 2px; background-color: #f7f7f7; width: 100%;}
+.select_text{display: inline-flex; overflow: hidden; white-space: nowrap;width:103px;}
+.sort_down{display: block;
+  width: 18px;
+  float: right;
+  position: relative;}
+.sort_down:after{border-top-color:#ef5350;display: block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  top: 9px;
+  right: 5px;
+  border-top: 6px solid #999;
+  border-left: 5px solid transparent;
+  content: '';
+  border-right: 5px solid transparent;
+  border-bottom: none;}
+.filter_option_box{border: 1px solid #ccc;border-top: 0px;   padding:0  8px;max-height: 160px;  width: 100%;}
+.filter_option_box li{height: 26px; line-height: 26px;}
+.filter_option_box li>label{ width: 100%; text-align: left;}
+.filter_option_box .mock_box{ top: 5px;}
+.filter_option_box .right_con{ top: 6px;}
+.select_all_default{ color: #8da2d4;}
+.select_box{ width: 132px; float: left;}
+.select_filter_btn button{ width: 49%; font-size:14px; height: 30px; line-height: 30px; }
+/*.preview_list>li{ border-bottom: 1px solid #e6eaec;}*/

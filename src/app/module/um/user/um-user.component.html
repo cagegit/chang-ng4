@@ -1,0 +1,59 @@
+<div class="user_center ">
+  <div class="form-group search_box">
+    <input type="text" #searchUser class="form-control" id="search" (keyup)="search(searchUser.value)" placeholder="搜索用户">
+    <i class="iconfont icon-fangdajing"></i>
+  </div>
+  <ul class="user_list scroll_bar">
+    <li *ngFor="let user of userList" [hidden]="!user.filterFlag" [class.cur]="curUser.id === user.id" (click)="changeCurUser(user)"><a title="{{user.displayName}}">{{user.displayName}}<span *ngIf="user.requireChange">(未激活)</span></a></li>
+  </ul>
+  <div class="invite" *auth="PERMISSION_USER_ADD"><button (click)="userAddModal.show()"><i class="iconfont icon-yaoqing"></i><span>邀请新用户</span></button></div>
+</div>
+<div class="user_right scroll_bar">
+  <user-detail [user]="detailUser"  ></user-detail>
+</div>1
+
+
+<div bsModal #userAddModal="bs-modal"  [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog">
+    <div class="modal-content self_modal_content">
+      <form role="form"  #userForm="ngForm" (submit)="onSubmit()">
+        <div class="modal-header self_modal_header invite_user">
+          <button type="button" class="close self_close" (click)="userAddModal.hide()" aria-label="Close">
+            <i class="iconfont icon-guanbigongjulan"></i>
+          </button>
+        </div>
+        <div class="modal-body self_modal_body">
+          <div class="self_modal_input user_name clearfix marB20">
+            <i class="iconfont icon-zhiye1"></i>
+            <input type="text" name="userName" #displayName="ngModel" required [myFocusChangeStyle] = "'self_modal_input'" [focusClass]="'focusBox'" id="userName" [(ngModel)]="initUser.displayName"  maxlength="20" (blur)="onChangeName($event.target.value)" placeholder="输入姓名">
+          </div>
+          <div class="self_modal_input user_email clearfix">
+            <i class="iconfont icon-youxiang"></i>
+            <input type="text" name="email" #email = "ngModel" [myFocusChangeStyle] = "'self_modal_input'" required [focusClass]="'focusBox'" [(ngModel)]="initUser.userName" id="email" placeholder="输入邮箱" (blur)="onChangeEmail($event.target.value)">
+            <div class="self_error" *ngIf="!isEmail" ><i class="iconfont icon-buzhengque"></i>邮箱格式不正确</div>
+          </div>
+          <div class="radio self_radio">
+            <label class="radio-inline">
+              <input type="radio" name="auth" id="inlineRadio1" [value]="1" [(ngModel)]="initUser.isAdmin" (click)="initUser.isAdmin=1" [checked]="initUser.isAdmin==1"> 管理员
+            </label>
+            <label class="radio-inline">
+              <input type="radio" name="auth" id="inlineRadio2" [value]="0"  [(ngModel)]="initUser.isAdmin" (click)="initUser.isAdmin=0" [checked]="initUser.isAdmin==0"> 普通成员
+            </label>
+          </div>
+          <div class="self_modal_input user_email clearfix marB20">
+            <span class="user_group">选择一个用户组</span>
+            <select class="form-control group_select" name="groups" [(ngModel)]="initUser.groupName">
+              <option *ngIf="!groups || !groups.length" value="">暂无用户组</option>
+              <option *ngFor="let g of groups" value="{{g['groupName']}}">{{g["groupName"]}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer self_modal_footer">
+          <div class="">
+            <button type="submit" class="self_btn c_ef5350" [disabled]="!userForm.valid">邀请</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

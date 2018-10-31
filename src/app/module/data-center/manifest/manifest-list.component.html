@@ -1,0 +1,60 @@
+<div class="data_list_box">
+  <data-center-nav></data-center-nav>
+  <div class="list_box scroll_bar">
+    <div class=" self_clearfix add_source">
+      <div class="search_set marT20 marR20"><i class="iconfont icon-fangdajing"></i><input myFocusChangeStyle  [focusClass]="'data_focus_box'"  type="text" placeholder="搜索项目名" (keyup)="search($event.target.value)"></div>
+      <!--<select class="set_sort_type marT20 marR20" (change)='filter("dataSourceID",$event.target.value)'>
+        <option value="">项目名</option>
+        <option *ngFor="let dataSource of dataSourceSet" value="{{dataSource.dataSourceID}}" [selected]="(dataSource.dataSourceID == filterDataSet.dataSourceID)?'selected':null">{{dataSource.dataSourceName}}</option>
+      </select>
+      <select class="set_sort_type marT20 marR20" (change)='filter("createdBy",$event.target.value)'>
+        <option value="">组织名</option>
+        <option *ngFor="let createdBy of createdBySet" value="{{createdBy}}">{{createdBy}}</option>
+      </select>
+      <div class="time_sort_type code_update_time marT20 marR20"><span>项目最近更新时间</span><i class="sort_btn sort_down"></i></div>
+      <div class="time_sort_type code_update_time marT20"><span>代码最近更新时间</span><i class="sort_btn sort_down"></i></div>-->
+      <div class="add_dataset_btn marT20 marL20"><button class="self_btn c_ef5350" (click)="openModal('upload')" >上传文件</button></div>
+      <div class="add_dataset_btn marT20"><button class="self_btn c_ef5350" (click)="openModal('add')"  >新增项目</button></div>
+    </div>
+    <div class="container-fluid data_list_head">
+      <div class="row">
+        <div class="col-sm-2 col-lg-2 col-md-2 list_text_align self_ellipsis first_item_pad" >项目名称</div>
+        <div class="col-sm-1 col-lg-1 col-md-1 self_ellipsis">组织</div>
+        <div class="col-sm-3 col-lg-3 col-md-3 self_ellipsis">项目链接</div>
+        <div class="col-sm-1 col-lg-1 col-md-1 self_ellipsis">分支数量</div>
+        <div class="col-sm-1 col-lg-1 col-md-1 self_ellipsis">项目更新次数</div>
+        <div class="col-sm-1 col-lg-1 col-md-1 self_ellipsis">项目更新时间</div>
+        <div class="col-sm-1 col-lg-1 col-md-1 self_ellipsis">日志处理时间</div>
+        <div class="col-sm-1 col-lg-1 col-md-1 self_ellipsis">状态</div>
+        <div class="col-sm-1 col-lg-1 col-md-1 self_ellipsis"></div>
+      </div>
+    </div>
+    <ul *ngIf="manifestList" class="container-fluid data_list_body marB20">
+      <li *ngFor="let manifest of manifestList" class="row" >
+        <div class="col-sm-2 col-lg-2 col-md-2 list_text_align self_ellipsis first_item_pad " title="{{manifest.project}}">{{manifest.project}}</div>
+        <div class="col-sm-1 col-lg-1 col-md-1 self_ellipsis " title="{{manifest.organization}}">{{manifest.organization}}</div>
+        <div class="col-sm-3 col-lg-3 col-md-3 self_ellipsis " title="{{manifest.url}}">{{manifest.url}}</div>
+        <div class="col-sm-1 col-lg-1 col-md-1 self_ellipsis"><a href="javascript:void(0)" (click)="openModal('update',manifest)">{{manifest.branchesNum}}</a></div>
+        <div class="col-sm-1 col-lg-1 col-md-1 self_ellipsis ">{{manifest.updatedNum}}</div>
+        <div class="col-sm-1 col-lg-1 col-md-1 self_ellipsis manifest_time" title='{{manifest.lastUpdateTime*1000|date:"yyyy-MM-dd HH:mm"}}'>{{manifest.lastUpdateTime*1000|date:"yyyy-MM-dd HH:mm"}}</div>
+        <div class="col-sm-1 col-lg-1 col-md-1 self_ellipsis manifest_time" title='{{manifest.lastPulledTime*1000|date:"yyyy-MM-dd HH:mm"}}'>{{manifest.lastPulledTime*1000|date:"yyyy-MM-dd HH:mm"}}</div>
+        <div class="col-sm-1 col-lg-1 col-md-1 self_ellipsis manifest_state manifest_time"><i class="iconfont" [ngClass]="{'icon-yitianjia': manifest.status == 'pending', 'icon-shanchuzhuangtai': manifest.status == 'deleted', 'icon-fenxi': manifest.status == 'updating'}" title="{{manifest.status}}"></i>{{manifest.status}}</div>
+        <div class="col-sm-1 col-lg-1 col-md-1 self_ellipsis operate">
+          <i class="iconfont icon-qianming" (click)="openModal('update',manifest)"></i>
+          <i class="iconfont icon-shanchu" (click)="manifestConfirm.open('确定要删除该项目吗？',manifest.manifestID);$event.stopPropagation();"></i>
+        </div>
+      </li>
+    </ul>
+    <div *ngIf="!manifestList" class="not_source">
+      <div class="not_source_con"> 您还没有添加项目！</div>
+    </div>
+    <div class="self_page marL20 marR20" *ngIf="manifestList">
+      <pagination [totalItems]="pagination.total" [(ngModel)]="pagination.current" [itemsPerPage]="pagination.pageSize" class="pagination-sm" (pageChanged)="pageChanged($event)"
+                  [boundaryLinks]="false" [rotate]="false" [maxSize]="pagination.maxShowPage" [previousText]="previousText" [nextText]="nextText" [pageBtnClass]="'self_page_item'"></pagination>
+    </div>
+  </div>
+</div>
+<manifest-upload *ngIf="modal.upload" #manifestUpload (closeChange)="refreshList($event)"></manifest-upload>
+<manifest-update *ngIf="modal.update" [manifest]="currentManifest" #manifestUpdate (closeChange)="refreshList($event)"></manifest-update>
+<manifest-add *ngIf="modal.add" #manifestAdd (closeChange)="refreshList($event)"></manifest-add>
+<alert-confirm #manifestConfirm (confirm)="delete($event)"></alert-confirm>

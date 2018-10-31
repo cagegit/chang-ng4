@@ -1,0 +1,6 @@
+.set_operate{ width: 166px; padding: 10px;}
+.set_operate li{ height: 37px; border-bottom: 1px solid #e6eaec; line-height: 36px; padding-left: 3px; font-size: 12px; color: #666; cursor: pointer;}
+.set_operate li:last-child{ border-bottom: none;}
+.set_operate li i{ color: #849bd1; margin-right: 8px; vertical-align: middle;}
+.set_operate:before,.set_operate:after{right: 10px;}
+.cur{border: 1px solid #c6d3f1; background-color: #f1f1f1;}

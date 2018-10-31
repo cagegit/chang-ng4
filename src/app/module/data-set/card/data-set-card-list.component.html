@@ -1,0 +1,38 @@
+<div class="data_table_box">
+  <ul class="container-fluid data_table_list self_large" #listBox>
+    <li class="col-lg-2 col-sm-3 col-md-3 " *ngIf="bigCurrentPage==1" [style.height.px]="cardWidth + 38">
+      <div class="data_table">
+        <div class="create_table"  (click)="gotoCard(true)">
+          <div class="create_con">
+            <i class="iconfont icon-chuangjianhuodong"></i>
+            <p>创建一个报表</p>
+          </div>
+        </div>
+      </div>
+    </li>
+    <ng-template ngFor let-card [ngForOf]="pageCards">
+      <li class="col-lg-2 col-sm-3 col-md-3" *ngIf="card.cardName!=''" [style.height.px]="cardWidth + 38">
+        <card-summary [card]="card" [dataSet]="dataSet" (alert)="dataSetAlert.alert($event)" (delete)="alertConfirm.open('确定','确定要删除该Card吗？',card.cardId)"></card-summary>
+        <!--<div class="table_box">-->
+          <!--<div class="table_name">{{card.cardName}}</div>-->
+          <!--<div class="d3_box" (click)="gotoCard(true,card.cardId)">-->
+            <!--&lt;!&ndash;<div class="table_ng-template">模板</div>&ndash;&gt;-->
+            <!--<img src="{{card.img}}" >-->
+          <!--</div>-->
+          <!--<div class="create_auth">-->
+            <!--<div class="auth_head"><img src="{{card.avatarUrl}}?{{timestamp}}"></div>-->
+            <!--{{card.displayName}}-->
+            <!--<i class="iconfont icon-shanchu1 self_cursor" (click)="alertConfirm.open('确定要删除该Card吗？',card.cardId)"></i>-->
+          <!--</div>-->
+        <!--</div>-->
+      </li>
+    </ng-template>
+
+  </ul>
+</div>
+<div class="self_page">
+  <pagination [totalItems]="bigTotalItems" [(ngModel)]="bigCurrentPage" [itemsPerPage]="itemsPerPage" class="pagination-sm" (pageChanged)="pageChanged($event)"
+              [boundaryLinks]="false" [rotate]="false"  [previousText]="previousText" [nextText]="nextText" [pageBtnClass]="'self_page_item'"></pagination>
+</div>
+<alert-confirm #alertConfirm (confirm)="delCard($event)"></alert-confirm>
+<data-set-alert #dataSetAlert ></data-set-alert>

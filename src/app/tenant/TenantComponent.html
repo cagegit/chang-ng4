@@ -1,0 +1,37 @@
+
+  <div class="app_main tenant_box" #tenantBox>
+    <div class="tenant_content"  *ngIf="tenant">
+      <div class="tenant_title">账户名称：<span class="tenant_name">{{tenant.tenantName}}</span>
+        <span [class.hidden]="!tenant.active"><i class="iconfont icon-daiqueren"></i><span class="had_jihuo">已激活</span></span>
+
+      </div>
+      <ul class="tenant_con">
+        <li><i class="iconfont icon-wodeyuming"></i>域名: {{tenant.domainName}}</li>
+        <li><i class="iconfont icon-data"></i>创建时间:  {{tenant.createdTime|date:"yyyy-MM-dd HH:mm"}}</li>
+        <li><i class="iconfont icon-yonghu"></i>创建人: {{tenant.createdBy}}</li>
+      </ul>
+      <div class="had_yongyou">
+        <div class="yongyou_title"><i class="iconfont icon-"></i>已经拥有</div>
+        <ul class="yongyou_list">
+          <li>
+            <i class="iconfont icon-yonghu"></i>
+            <a routerLink="/um/user" >{{tenant.numOfUsers}}个用户</a>
+          </li>
+          <li>
+            <i class="iconfont icon-yonghuzu"></i>
+            <a routerLink="/um/group">{{tenant.numOfGroups}}个用户组</a>
+          </li>
+          <li>
+            <i class="iconfont icon-tongjishujuji"></i>
+            <a routerLink="/data_center/set/list">{{tenant.numOfDataSets}}个数据集</a>
+          </li>
+          <li>
+            <i class="iconfont icon-shuju1"></i>
+            <a routerLink="">{{tenant.numOfDashboards}}个仪表盘</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+

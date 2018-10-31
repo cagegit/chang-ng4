@@ -1,0 +1,13 @@
+<div class="page_layout" [style.top.px]="top" >
+  <div class="layout_title">请选择页面布局，可选择布局模板或自定义布局~</div>
+  <div class="layout_item_name" (click)="changePageType('template')"><input type="radio" name="pageLayout" hidden id="spcLayout" [checked]="pageType=='template'"><div class="moni_radio"></div><label for="spcLayout">布局模板</label></div>
+  <ul class="layout_list self_clearfix">
+    <li *ngFor="let template of templates;let i=index" class="layout_{{i+1}}"  [class.cur]="(i==currentTemplateIndex)&&!defaultFlag"  (click)="changeCurrentTemplate(i)"></li>
+    <div class="zhao" *ngIf="pageType!='template'"></div>
+  </ul>
+  <div class="layout_item_name" (click)="changePageType('custom')"><input type="radio" name="pageLayout" hidden id="defaultLayout" [checked]="pageType=='custom'"><div class="moni_radio"></div><label for="defaultLayout">自定义布局</label></div>
+  <div class="layout_input"><span class="marR20">模块数量:</span><input [(ngModel)]="itemCount" type="text" placeholder="输入模块数量" name="itemCount"  maxlength="2"><div class="zhao" *ngIf="pageType!='custom'"></div></div>
+  <div class="layout_item_name" (click)="changePageType('iframe')"><input type="radio" name="pageLayout" hidden id="iframeLink" [checked]="pageType=='iframe'"><div class="moni_radio"></div><label for="iframeLink">页面引用</label></div>
+  <div class="layout_input"><span class="marR20">添加网址:</span><input type="text" placeholder="请输入url链接地址" name="url" [(ngModel)]="url" ><div class="zhao" *ngIf="pageType!='iframe'"></div></div>
+  <div class="create_layout"><button class="self_btn c_ef5350" (click)="createLayout()">创建布局</button> </div>
+</div>

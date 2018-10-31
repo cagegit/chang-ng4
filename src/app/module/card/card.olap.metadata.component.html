@@ -1,0 +1,71 @@
+<div class="saiku_left" [@toLeftState]="toLeftStateStr">
+  <div class="dataset_box">
+    <div class="self_left select_dataset">
+      <div class="self_clearfix self_cursor">
+        <!--(click)="showDatasetList($event)"-->
+        <span class="select_dataset_title" title="{{selectedDataSet.dataSetName}}">{{selectedDataSet.dataSetName}}</span>
+        <i class="iconfont icon-arrow-down-copy self_right"></i>
+      </div>
+      <ul class="s_dataset_list keys_operate_box scroll_bar">
+        <ng-template [ngIf]="!dataSets||dataSets.length<=0">
+          <li>还没有数据集，赶紧去创建一个吧！</li>
+        </ng-template>
+        <li *ngFor="let set of dataSets" (click)="noSaveBox.showModal(selectedDataSet.dataSetID,set.dataSetID,set.queryType)" title="{{set.dataSetName}}">
+          <!--changeSet(set.dataSetID,set.dataSetName)-->
+          {{set.dataSetName}}
+        </li>
+      </ul>
+    </div>
+    <!--<div class="e_dataset self_right"><i class="iconfont icon-iconbianji" tooltip="编辑数据模型" placement="left" (click)="editDataSet()"></i></div>-->
+  </div>
+  <!--<div class="e_dataset"><i *ngIf="showSql" class="iconfont icon-zidingyiSQL" tooltip="sql" placement="bottom" (click)="navigateSQL()"></i><span *ngIf="showSql" >|</span><i class="iconfont icon-iconbianji" tooltip="编辑数据模型" placement="bottom" (click)="editDataSet()"></i></div>-->
+  <div #leftContent class="left_content scroll_bar">
+    <div class="s_type_title" style="border-top: 1px solid  #f0f0f0;"><i class=" iconfont icon-zhishu"></i><span>指标 </span></div>
+    <div class="s_type_box" #markContainer>
+      <ul class="s_class scroll_bar">
+        <li class="first_class" *ngFor="let group of measureGroup">
+          <div class="class_name" (click)="changeFolderState($event,'un_folder','class_name')"><i class="iconfont icon-arrow-down-copy"></i><i
+              class="iconfont icon-wenjianjiahover"></i><span>{{group}}</span></div>
+          <ul class="drag_fromMeasure" [dragula]="'measureBag'" [attr.data-container]="'fromMeasure'">
+            <ng-template ngFor let-item [ngForOf]="measures" let-i="index" [ngForTrackBy]="trackByFn">
+              <li *ngIf="item.measureGroup==group" class="second_class" [attr.data-unique-name]="item.uniqueName" [attr.data-name]="item.name"
+                [attr.data-caption]="item.caption" (click)="addMeasure(item)" title="{{item.caption}}">{{item.caption}}</li>
+            </ng-template>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="s_type_title"><i class=" iconfont icon-kmd"></i><span>维度</span></div>
+    <div class="s_type_box">
+      <ul class="s_class weidu_class">
+        <ng-template ngFor let-dimension [ngForOf]="dimensions">
+          <li class="first_class" *ngIf="dimension.visible==undefined||dimension.visible">
+            <!--*ngIf="cardUtils.checkDimensionStatus(dimension)"-->
+            <div class="class_name" (click)="changeFolderState($event,'un_folder','class_name')"><i class="iconfont icon-arrow-down-copy"></i><i
+                class="iconfont icon-wenjianjiahover"></i><span>{{dimension.caption}}</span></div>
+            <ul>
+              <ng-template ngFor let-item [ngForOf]="dimension.hierarchies">
+                <li class="second_class" *ngIf="item.visible==undefined||item.visible">
+                  <!--*ngIf="cardUtils.checkHierarchyStatus(item)"-->
+                  <div class="second_class_title un_second_folder" (click)="changeFolderState($event,'un_second_folder','second_class_title')"><i
+                      class="iconfont icon-arrow-down-copy"></i><span>{{item.caption}}</span></div>
+                  <ul class="third_box" [dragula]='"dimBag"' [attr.data-container]="'fromDimension'">
+                    <ng-template ngFor let-level [ngForOf]="item.levels" let-i=index>
+                      <li class="third_class" [attr.data-hierarchy-name]="item.uniqueName" [attr.data-hierarchy-caption]="item.caption" [attr.data-level-name]="level.name"
+                        [attr.data-level-caption]="level.caption" [attr.data-dimension]="dimension.name" [attr.data-level-index]="i"
+                        (click)="addDimension('ROWS',item.uniqueName,item.caption,level.name,level.caption,dimension.name,i)">
+                        {{level.caption}}</li>
+                    </ng-template>
+                  </ul>
+                </li>
+              </ng-template>
+            </ul>
+          </li>
+        </ng-template>
+
+      </ul>
+    </div>
+  </div>
+  <div class="left_folder_btn"><i class="iconfont icon-shouqi1" #toLeftBtn (click)="changeLeftFolderState($event)"></i></div>
+</div>
+<no-save #noSaveBox [router]="router"></no-save>

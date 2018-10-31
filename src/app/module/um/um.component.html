@@ -1,0 +1,14 @@
+<div [ngStyle]="{background:'#fff',width:'100%',height:'100%'}">
+  <div class="user_fixed" #userManage [@flyIn]="active">
+    <div class="user_left">
+      <div class="sub_nav">
+        <a routerLink="./user" routerLinkActive="cur" [routerLinkActiveOptions]="{ exact: false }"><i
+          class="iconfont icon-yonghuguanli"></i><span>用户管理</span></a>
+        <a routerLink="./group" routerLinkActive="cur"><i class="iconfont icon-yonghuzu"></i><span>用户组管理</span></a>
+        <a routerLink="./auth" routerLinkActive="cur"><i class="iconfont icon-kuanyi20guanrenjiaoseguanli"></i><span>权限管理</span></a>
+      </div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>
+

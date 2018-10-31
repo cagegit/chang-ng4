@@ -1,0 +1,126 @@
+<div class="detail" *ngIf="data.id&&data">
+  <h5 class="title">协议详情</h5>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="col-md-6 text_right text_padding"><span class="span-text">协议名称：</span></div>
+      <div class="col-md-6 text_left text_padding">{{data.name}}</div>
+    </div>
+    <div class="col-md-6">
+      <div class="col-md-6 text_right text_padding"><span class="span-text">规约号：</span></div>
+      <div class="col-md-6 text_left text_padding">{{data.roleName}}</div>
+    </div>
+    <div class="col-md-6">
+      <div class="col-md-6 text_right text_padding"><span class="span-text">协议类型：</span></div>
+      <div class="col-md-6 text_left text_padding">{{data.typeName}}</div>
+    </div>
+    <div class="col-md-6" [hidden]="!data.port">
+      <div class="col-md-6 text_right text_padding"><span class="span-text">端口：</span></div>
+      <div class="col-md-6 text_left text_padding">{{data.port}}</div>
+    </div>
+    <div class="col-md-6">
+      <div class="col-md-6 text_right text_padding"><span class="span-text">备注：</span></div>
+      <div class="col-md-6 text_left text_padding">{{data.notes}}</div>
+    </div>
+  </div>
+  <h5 class="title">协议数据项详情</h5>
+  <div class="form-group search_box" [ngStyle]="{width:'15%'}">
+    <input type="text" autocomplete="off" #search class="form-control" (keyup)="searchDataItem(search.value,data)"
+      [(ngModel)]="searchKey" placeholder="搜索数据项名称">
+    <i class="iconfont icon-fangdajing"></i>
+  </div>
+  <div class="invite" [ngStyle]="{width:'70px'}"><button (click)="showDataItemModel(data)"><span>添加数据项</span></button></div>
+
+  <div class="mar10">
+    <nz-table #nzTable #nzTable [nzAjaxData]="dataItem" [nzShowSizeChanger]="true" [nzLoading]="_loading" [nzBordered]="true"
+      [nzIsPagination]="false">
+      <thead nz-thead>
+        <tr>
+          <th nz-th nzWidth="6%"><span>序号</span></th>
+          <th nz-th nzWidth="20%"><span>类别</span></th>
+          <th nz-th nzWidth="30%"><span>数据项名称</span></th>
+          <th nz-th nzWidth="30%"><span>计量单位</span></th>
+          <th nz-th nzWidth="14%"><span>状态</span></th>
+      </thead>
+      <tbody nz-tbody>
+        <tr nz-tbody-tr *ngFor="let data of nzTable.data; index as i;">
+          <td nz-td>{{i+1}}</td>
+          <td nz-td>{{data.type}}</td>
+          <td nz-td>{{data.name}}</td>
+          <td nz-td>{{data.unit}}</td>
+          <td nz-td><i class="iconfont icon-shanchu" (click)="dataSetConfirm.open('删除数据项','确定要删除该数据吗？',data.id);$event.stopPropagation();"></i></td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+<nz-modal [nzVisible]="isVisible" [nzTitle]="'添加数据项'" [nzContent]="modalContent" [nzFooter]="false" [nzWidth]="700"
+  (nzOnCancel)="handleCancel($event)">
+  <ng-template #modalContent>
+    <form role="form" #AddDataForm="ngForm">
+      <div class="modal-body clearfix">
+        <div class="self_modal_input row">
+          <div class="col-xs-3 text_right">协议名称</div>
+          <input type="text" autocomplete="off" name="name" [(ngModel)]="data.name" disabled="disabled" [ngClass]="{disabled:true}">
+        </div>
+        <div class="self_modal_input row" [ngStyle]="{position:'relative'}">
+          <div class="col-xs-3 text_right">数据项名称</div>
+          <input type="text" autocomplete="off" name="dataName" #searchkey required [(ngModel)]="searchDataName.name"
+            placeholder="输入数据项名称" (keyup)="searchData(searchkey.value)">
+          <!-- <button type="button" class="btn btn-sm btn-size" (click)="searchData(searchDataName.name)">查询</button> -->
+          <!-- <div class="muti-btn"> -->
+          <!-- <div class="invite" [ngStyle]="{width:'70px',position:'absolute',right:'100px',top:'8px'}">
+            <button type="button" (click)="searchData(searchDataName.name)"><span>查询</span></button>
+          </div> -->
+          <!-- </div> -->
+        </div>
+        <div [ngStyle]="{padding:'10px 50px'}">
+          <nz-table #nzTable [nzDataSource]="dataItemAll" [nzShowSizeChanger]="false" [nzLoading]="_loading"
+            [nzBordered]="true" [nzIsPagination]="false" [nzScroll]="{ y: 400 }">
+            <ng-template #nzFixedHeader>
+              <thead nz-thead>
+                <tr>
+                  <th nz-th nzWidth="30%"><span>数据项名称</span></th>
+                  <th nz-th nzWidth="14%"><span>状态</span></th>
+              </thead>
+            </ng-template>
+            <tbody nz-tbody>
+              <tr nz-tbody-tr *ngFor="let data of nzTable.data; index as i;">
+                <td nz-td>{{data.name}}</td>
+                <td nz-td><input type="checkbox" [checked]="data.isAssigned" name="isAssigned" [disabled]="data.checked"
+                    (change)="changeCheckedState($event,i)"></td>
+              </tr>
+            </tbody>
+          </nz-table>
+          <!-- <table class="table table-bordered table-hover">
+                <tr>
+                  <th>数据项名称</th>
+                  <th>状态</th>
+                </tr>
+                <tr *ngFor="let item of dataItemAll;index as i;">
+                  <td>{{item.name}}</td>
+                  <td>
+                    <input type="checkbox" [checked]="item.isAssigned" name="isAssigned" [disabled]="item.checked"
+                      (change)="changeCheckedState($event,i)">
+                  </td>
+                </tr>
+              </table> -->
+        </div>
+      </div>
+      <div class="muti-btn">
+        <div class="invite" [ngStyle]="{width:'70px'}">
+          <button type="submit" (click)="onSubmit()"><span>保存</span></button>
+        </div>
+        <div class="invite" [ngStyle]="{width:'70px'}">
+          <button (click)="clearData()"><span>重置</span></button>
+        </div>
+      </div>
+      <!-- <div class="modal-footer text-center">
+            <button type="submit" class="btn btn-primary btn-color btn-size" nz-button [nzType]="'primary'">保存</button>
+            <button type="button" class="btn btn-default btn-size" (click)="clearData()" nz-button [nzType]="'default'">重置</button>
+          </div> -->
+    </form>
+  </ng-template>
+</nz-modal>
+
+<alert-confirm #dataSetConfirm (confirm)="deleteDataItem($event)"></alert-confirm>

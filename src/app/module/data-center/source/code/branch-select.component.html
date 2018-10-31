@@ -1,0 +1,41 @@
+<div bsModal #branchSelectModal="bs-modal"  [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog">
+    <div class="modal-content self_modal_content">
+      <div class="modal-header self_modal_header relational_table">
+        <button type="button" class="close self_close" (click)="cancel()" aria-label="Close">
+          <i class="iconfont icon-guanbigongjulan"></i>
+        </button>
+      </div>
+      <div class="branch_body">
+        <div class="branch_title">{{project.projectName}}</div>
+        <div class="filter_branch_box self_clearfix">
+          <div class="filter_branch_label">可选分支</div>
+          <div class="filter_branch_input">
+            <input  type="text" (keyup)='search($event.target.value)'>
+            <i class="iconfont icon-fangdajing"></i>
+          </div>
+          <div class=" filter_branch"><button class="self_btn c_49a2df" (click)="addAll()">全选</button></div>
+        </div>
+        <ul class="branch_list">
+          <li *ngFor="let branch of allBranches" (click)="selectBranch(branch)">{{branch}}</li>
+        </ul>
+        <div class="branch_page">
+          <!--<span>总条数:{{filterBranches.length}}&#45;&#45;每页条数{{itemsPerPage}}&#45;&#45;当前页:{{currentPage}}&#45;&#45;{{totalItems}}</span>-->
+          <pager [totalItems]="pagination.total" [(ngModel)]="pagination.current" [itemsPerPage]="pagination.pageSize" (pageChanged)="pageChanged($event)" pageBtnClass="btn"  previousText="&lt;上一页" nextText="下一页&gt;"></pager>
+        </div>
+        <div class="filter_branch_box self_clearfix has_select_branch">
+          <div class="filter_branch_label">已选分支</div>
+          <i class="iconfont icon-clear self_right self_cursor" (click)="delAll()"></i>
+        </div>
+        <ul class="branch_contanier scroll_o_bar">
+          <li *ngFor="let branch of project.branches"  class="self_ellipsis">
+            <span>{{branch}}</span>
+            <i class="iconfont icon-xxz" (click)="delBranch(branch)"></i>
+          </li>
+        </ul>
+      </div>
+      <div class="relation_btn marT20"><button class="self_btn self_cancel self_left" (click)="cancel()">取消</button><button class="self_btn c_ef5350 self_right" (click)="save()">保存</button></div>
+    </div>
+  </div>
+</div>
+

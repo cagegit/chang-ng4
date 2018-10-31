@@ -1,0 +1,21 @@
+<div nz-row [nzGutter]="8">
+  <form name="upload-tool">
+    <div nz-col [nzSpan]="14">
+      <nz-input style="cursor:pointer;" [nzType]="'text'" [(ngModel)]="fileName" [ngModelOptions]="{standalone: true}" [nzReadonly]="true" [nzSize]="'normal'" (click)="uploadFile(upload)" [nzPlaceHolder]="'上传查询文件'">
+        <ng-template #addOnAfter><i class="anticon anticon-folder-open"></i></ng-template>
+      </nz-input>
+      <input type="file" name="file" #upload style="display: none;" (change)="changeFile($event)" ng2FileSelect [uploader]="uploader">
+    </div>
+    <div nz-col [nzSpan]="10">
+      <div nz-row *ngIf="fileName">
+        <div nz-col [nzSpan]="12">
+          <nz-progress [ngModel]="upProcess" [nzStrokeWidth]="5" [nzStatus]="upStatus" [ngModelOptions]="{standalone: true}"></nz-progress>
+        </div>
+        <div nz-col [nzSpan]="12">
+          {{UpZf[upStatus]}}
+        </div>
+      </div>
+    </div>
+    <button type="reset" style="display: none" #resetBtn>reset</button>
+  </form>
+</div>

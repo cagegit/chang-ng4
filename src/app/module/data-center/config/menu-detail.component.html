@@ -1,0 +1,125 @@
+<div class="detail" #detail *ngIf="menuInfo&&menuInfo.id">
+  <h5 class="title">菜单详情</h5>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="col-md-4 text_right text_padding">
+        <span class="span-text">名称：</span>
+      </div>
+      <!-- <div class="col-md-8 text_left text_padding">{{menuInfo.name}}</div> -->
+      <div class="col-md-8 text_left text_padding">
+        <!-- <i class="iconfont icon-bumen"></i> -->
+        <span>
+          {{menuInfo.name}}
+          <!-- <i class="iconfont icon-qianming qianming"></i> -->
+        </span>
+        <!-- <my-editer *ngIf="editer.name" (onSave)="onSaveHandle($event,menuInfo.name,'name')" (onCancel)="hideEidter('name')"
+          [myVal]="menuInfo.name" [placeholder]="'请输入名称'" regStr="^.{1,50}$" errMessage="请输入1到50位的字符"></my-editer> -->
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="col-md-4 text_right text_padding"><span class="span-text">启用状态：</span></div>
+      <div class="col-md-8 text_left text_padding">
+        <span>{{menuInfo.status==1?'启用':'禁用'}}
+          <!-- <i class="iconfont icon-qianming qianming"></i> -->
+        </span>
+        <!-- <div class="radio-input" [hidden]="!editer.status">
+          <input type="radio" name="status" [(ngModel)]="menuInfo.statuss" value="1">启用
+          <input type="radio" name="status" [(ngModel)]="menuInfo.statuss" value="0">禁用
+          <i class="iconfont icon-duihao save" (click)="save(menuInfo.statuss)"></i>
+          <span class="split">|</span>
+          <i class="iconfont icon-xxz cancel" (click)="cancle('status')"></i>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <div [ngStyle]="{position:'relative'}">
+    <h5 class="title">当前使用报表 </h5>
+    <div class="invite" [ngStyle]="{width:'70px',position:'absolute',top:'-13px',left:'100px'}">
+      <button (click)="show()"><span>分配报表</span></button>
+    </div>
+  </div>
+  <!-- <h5 class="title">当前使用报表</h5>
+  <div class="muti-btn muti-btn-start">
+    <div class="invite" [ngStyle]="{width:'70px'}">
+      <button (click)="show()"><span>分配报表</span></button>
+    </div>
+  </div> -->
+  <div style="margin-top: 20px;">
+    <nz-table #nzTable #nzTable [nzAjaxData]="tablelist" [nzShowSizeChanger]="true" [nzLoading]="_loading"
+      [nzIsPagination]="false" [nzBordered]="true">
+      <thead nz-thead>
+        <tr>
+          <th nz-th nzWidth="8%"><span>序号</span></th>
+          <th nz-th nzWidth="30%"><span>报表名称</span></th>
+          <th nz-th nzWidth="42%"><span>报表列数据项</span></th>
+          <th nz-th nzWidth="12%"><span>图的维度</span></th>
+          <th nz-th nzWidth="8%"><span>操作</span></th>
+        </tr>
+      </thead>
+      <tbody nz-tbody>
+        <tr nz-tbody-tr *ngFor="let data of nzTable.data; index as i;">
+          <td nz-td>{{i+1}}</td>
+          <td nz-td>{{data.name}}</td>
+          <td nz-td>{{data.headName}}</td>
+          <td nz-td>{{data.chartNameIndex}}</td>
+          <td>
+            <span class="operate">
+              <i class="iconfont icon-shanchu" (click)="dataSetConfirm.open('确认','确定要删除该数据集吗？',data.id);$event.stopPropagation();"></i>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+<nz-modal [nzVisible]="isVisible" [nzTitle]="'分配报表'" [nzContent]="modalContent" [nzFooter]="false" [nzWidth]="700"
+  (nzOnCancel)="handleCancel($event)">
+  <ng-template #modalContent>
+    <form role="form" #AddDataForm="ngForm">
+      <div class="modal-body clearfix">
+        <div class="form-group search_box" [ngStyle]="{width:'50%'}">
+          <input type="text" autocomplete="off" #search class="form-control" (keyup)="searchFun(search.value)"
+            placeholder="搜索报表名称" name="tableName" [(ngModel)]="searchDataName.name">
+          <i class="iconfont icon-fangdajing"></i>
+        </div>
+        <div style="margin-top:20px">
+          <nz-table #nzTable #nzTable [nzAjaxData]="_dataSet" [nzShowSizeChanger]="true" [nzLoading]="_loading"
+            [nzIsPagination]="false" [nzBordered]="true" [nzScroll]="{ y: 400 }">
+            <ng-template #nzFixedHeader>
+                <thead nz-thead>
+                    <tr>
+                        <th nz-th nzWidth="10%"><span>序号</span></th>
+                        <th nz-th nzWidth="20%"><span>报表名称</span></th>
+                        <th nz-th nzWidth="40%"><span>报表列数据项</span></th>
+                        <th nz-th nzWidth="20%"><span>图的维度</span></th>
+                        <th nz-th nzWidth="10%"><span>状态</span></th>
+                      </tr>
+                </thead>
+              </ng-template>
+            <tbody nz-tbody>
+              <tr nz-tbody-tr *ngFor="let data of nzTable.data; index as i;">
+                <td nz-td>{{i+1}}</td>
+                <td nz-td>{{data.name}}</td>
+                <td nz-td>{{data.headName}}</td>
+                <td nz-td>{{data.chartNameIndex}}</td>
+                <td nz-td><input type="checkbox" [checked]="data.checked" name="checked" [disabled]="data.isAssigned"
+                    (change)="changeCheckedState($event,i)">{{data.checked?'已选':'选择'}}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+      </div>
+      <div class="muti-btn">
+        <div class="invite" [ngStyle]="{width:'70px'}">
+          <button type="submit" (click)="onSubmit()"><span>保存</span></button>
+        </div>
+        <div class="invite" [ngStyle]="{width:'70px'}">
+          <button (click)="clearData()"><span>重置</span></button>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</nz-modal>
+
+<alert-confirm #dataSetConfirm (confirm)="delete($event)"></alert-confirm>

@@ -1,0 +1,52 @@
+<div bsModal #setFilterBox="bs-modal"  [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog set_filter_box">
+    <div class="modal-content self_modal_content">
+      <div class="modal-header self_modal_header set-filter">
+        <button type="button" class="close self_close" (click)="closeModal()" aria-label="Close">
+          <i class="iconfont icon-guanbigongjulan"></i>
+        </button>
+      </div>
+      <div class="f_search_box"><input type="text" (keyup)="filterMember($event.target.value)" placeholder="搜索筛选条件"><i class="iconfont icon-fangdajing" ></i></div>
+      <div class="will_select_box">
+
+        <span>待选项:共{{memberCount}}</span>
+        <label class="mock_label self_right" >
+          <input class="mock_input" type="checkbox" value="ab"  #all (change)="changeAllChecked($event.target.checked)">
+          <i  class="right_con"></i>
+          <div  class="mock_box"></div>
+          全选
+        </label>
+      </div>
+
+      <ul class="will_select_list scroll_bar" #willSelectList>
+        <li *ngFor="let member of members; let i = index;" title="{{member.name}}">
+          <label class="mock_label" (change)="selectMember($event,member)" [attr.for]="'mock'+i">
+            <input class="mock_input" type="checkbox" [checked]="member.visible" [attr.id]="'mock'+i">
+            <i  class="right_con"></i>
+            <div  class="mock_box"></div>
+            <span>{{member.name}}</span>
+          </label>
+        </li>
+      </ul>
+      <div class="will_select_box">
+        <span>选中项:共{{selectMemberCount}}</span>
+        <div class="x_line set_line"><label for="y_include"><input  id="y_include" name="include" [checked]="memberType=='INCLUSION'" type="radio" (change)="changeMemberType('INCLUSION')"><span class="mock_radio"></span>包括</label><label for="n_include"><input id="n_include" name="include" [checked]="memberType=='EXCLUSION'" type="radio" (change)="changeMemberType('EXCLUSION')"><span class="mock_radio"></span>不包括</label></div>
+      </div>
+      <ul class="get_val_list scroll_bar">
+        <li *ngFor="let item of selectedMembers"><span>{{item.name}}</span><i class="iconfont icon-xxz" (click)="delMember(item)"></i></li>
+      </ul>
+      <div class="clear_condition" (click)="clearAll()"><i class="iconfont icon-clear"></i>清除筛选条件</div>
+      <div class="set_param_name">设置参数名（在dashboard中显示的筛选条件名称，如：时间）</div>
+      <div class="f_search_box">
+        <label class="mock_label" style="color: #fff" (change)="setFilterName($event)" >
+          <input class="mock_input" type="checkbox" [checked]="parameter?true:false" >
+          <i  class="right_con"></i>
+          <div  class="mock_box">  </div>
+          {{levelCaption}}
+        </label>
+        <!--<input type="text" [value]="parameter" (keyup)="parameter=$event.target.value">-->
+      </div>
+      <div class="set_filter_btn marT20"><button class="self_btn c_a0a1a1 self_left" (click)="closeModal()">取消</button><button class="self_btn c_ef5350 self_right" (click)="saveMember()">保存</button></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<div [ngStyle]="{background:'#fff',width:'100%'}">
+    <data-center-nav></data-center-nav>
+  <div class="user_fixed">
+    <div class="user_left" style="min-height: 100vh;bottom: 0;position: absolute;left: 0;">
+      <div class="nav_title"><i class="fa fa-sliders"></i><span>多维分析</span></div>
+      <div class="sub_nav">
+        <a routerLink="/chang/data-center/list/set" routerLinkActive="cur" [routerLinkActiveOptions]="{exact: true}"><i class="fa fa-bars"></i><span>数据集</span></a>
+        <a routerLink="/chang/data-center/list/set/source" routerLinkActive="cur" [routerLinkActiveOptions]="{exact: true}"><i class="fa fa-table"></i><span>数据源</span></a>
+        <a routerLink="/chang/data-center/list/set/dashboards" routerLinkActive="cur" [routerLinkActiveOptions]="{exact: true}"><i class="fa fa-bars"></i><span>仪表盘</span></a>
+      </div>
+    </div>
+    <div style="min-height: 100vh;margin-left: 195px;">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

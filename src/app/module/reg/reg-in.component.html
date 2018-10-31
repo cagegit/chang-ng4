@@ -1,0 +1,85 @@
+<div class="self_fullpage">
+  <div mnFullpage [mnFullpageNavigation]="true" [mnFullpageKeyboardScrolling]="false" [mnFullpageSlidesNavigation]="false"
+    [mnFullpageSlidesNavPosition]="right" [mnFullpageOnLeave]="onLeaveFn()" [mnFullpageAfterLoad]="afterLoadFn()" mnFullpageScrollingSpeed="300">
+
+    <div class="section welcome-section fp-section self_page_1">
+      <div class="zhezhao"></div>
+      <div class="first_page_img">
+        <img src="assets/img/reg_page.png" alt="">
+        <div class="tip_text">5分钟从源数据到可视化报表，没有数据分析师也可以让数据报告更专业</div>
+        <form role="form" (ngSubmit)="onSubmit()" #regForm="ngForm">
+          <div class="reg_form self_clearfix self_input_box" [hidden]="isIntroduce">
+            <input type="email" name="email" id="email" required #email (blur)="onBlurHandle($event,email.value)" placeholder="请填写有效的email地址">
+            <input type="text" style=" position: fixed; top: -1000px;">
+            <div class="self_error" *ngIf="errMessage"><i class="iconfont icon-buzhengque"></i>{{errMessage}}</div>
+            <div class="reg_account">
+              <button type="submit" class="self_btn c_ef5350">注册账号</button>
+            </div>
+            <!--<div class="account_zhao" *ngIf="!isValid"></div>-->
+          </div>
+          <!--<div class="modal-header self_modal_header create_account">-->
+          <!--<div class="modal-body self_modal_body marB20">-->
+          <!--<div class="self_modal_input user_name clearfix marB20">-->
+          <!--<i class="iconfont icon-youxiang"></i>-->
+
+
+          <!--</div>-->
+          <!--</div>-->
+          <!--<div class="modal-footer self_modal_footer">-->
+
+          <!--</div>-->
+        </form>
+      </div>
+    </div>
+    <div class="section install-section fp-section self_page_2">
+      <div class="page2_bg"></div>
+      <div class="page2_bg_img"></div>
+      <div class="page_img" #page2>
+        <div class="page_jiantou"></div>
+        <div class="yuan1"></div>
+        <div class="yuan2"></div>
+        <div class="yuan3"></div>
+      </div>
+      <div class="zhezhao2" #zhezhao2>
+        <div class="tit">支持多种数据</div>
+      </div>
+    </div>
+    <div class="section install-section fp-section self_page_3">
+      <div class="page3_box">
+        <div class="page_title">简单自助式分析</div>
+        <ul class="page_list self_clearfix">
+          <li>
+            <div class="img_box img_box_1"></div>
+            <div class="page_img_ms color_1">拖拽式分析</div>
+          </li>
+          <li>
+            <div class="img_box img_box_2"></div>
+            <div class="page_img_ms color_2">丰富可视化图表</div>
+          </li>
+          <li>
+            <div class="img_box img_box_3"></div>
+            <div class="page_img_ms color_3">自定义看板</div>
+          </li>
+          <li>
+            <div class="img_box img_box_4"></div>
+            <div class="page_img_ms color_4">高速实时查询</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="section install-section fp-section self_page_4">
+      <div class="page4_box">
+        <div class="page_title">应用领域解决方案</div>
+        <div class="page_ms">适用于业务场景和用户角色的数据分析模板</div>
+        <img src="assets/img/home_page4_1.png">
+      </div>
+    </div>
+    <div class="section install-section fp-section self_page_5">
+      <div class="page5_box">
+        <div class="page_title">数据安全保障</div>
+        <div class="page_sm">基于大数据应用的行业领先数据安全机制</div>
+        <div class="page_ms">完善的用户和租户权限管理机制</div>
+        <img src="assets/img/home_page5_1.png">
+      </div>
+    </div>
+  </div>

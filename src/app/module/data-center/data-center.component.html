@@ -1,0 +1,34 @@
+<!--<div class="user_fixed">-->
+  <!--<div>-->
+    <!--<div>-->
+      <!--<a routerLink="./set/list" routerLinkActive="cur" ><i class="iconfont icon-yonghuguanli"></i><span>数据集</span></a>-->
+      <!--<a routerLink="." routerLinkActive="cur" ><i class="iconfont icon-yonghuguanli"></i><span>ETL</span></a>-->
+      <!--<a routerLink="./source/list" routerLinkActive="cur" ><i class="iconfont icon-yonghuguanli"></i><span>数据源管理</span></a>-->
+    <!--</div>-->
+    <!--<div>-->
+      <!--<router-outlet></router-outlet>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+<div class="data_main" #dataCenter [@flyIn]="active">
+  <router-outlet></router-outlet>
+</div>
+
+<!-- <div class="data_main" #dataCenter [@flyIn]="active">
+  <div>
+    <nz-tabset [(nzSelectedIndex)]="currentTabIndex" [nzTabPosition]="'top'">
+      <nz-tab *ngFor="let tab of tabs">
+        <ng-template #nzTabHeading>
+          <a routerLink={{tab.link}}><span>{{tab.name}}</span></a>
+        </ng-template>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+  <div [style.display]="currentTabIndex===0?'block':'none'">
+      <config-form></config-form>
+    </div>
+  <div [style.display]="currentTabIndex===1?'block':'none'">
+    <data-set></data-set>
+  </div>
+</div> -->
+

@@ -1,0 +1,101 @@
+<ng-progress [thick]="true" [showSpinner]="false" [minimum]="0.2" [trickleSpeed]="500" [speed]="500"></ng-progress>
+<div class="container-fluid app_box">
+  <!--已登录用户导航-->
+  <header>
+    <nav class="app_nav self_clearfix">
+      <div class="app_logo"><a routerLink="/chang" style="color: #ddd;font-size: 18px;">长安智能网联监控与数据转发系统</a></div>
+      <div class="nav_right">
+        <div class="login_user">
+          <div class="u_left">
+            <img src="../../../assets/img/head.png">
+            <!-- <a [routerLink]="[ '/um/user', appContext.user.userId ]"><img src="{{appContext.user.userHeadImg}}"></a> -->
+          </div>
+          <!-- <div [ngStyle]="{float:'left',color:'#fff','margin-left':'10px'}">
+            <span>admin</span>
+          </div> -->
+          <!-- <ul class="user_nav_list">
+            <li routerLink="/um" routerLinkActive="active"><i class="iconfont icon-yonghuguanli"></i><span>用户管理</span>
+            </li>
+            <li routerLink="/tenant" routerLinkActive="active"><i class="iconfont icon-iconshezhi01"></i><span>租户管理</span>
+            </li>
+            <li (click)="authService.logout()"><i class="iconfont icon-zhuxiao"></i><span>退出</span></li>
+          </ul> -->
+        </div>
+        <!-- <div class="notify_fold"><i class="iconfont icon-zhankai"></i></div> -->
+        <div class="app_message function_nav">
+          <i class="iconfont icon-gongneng"></i>
+          <div class="function_nav_box" style="left:-63px;">
+            <ul class="function_nav_list self_clearfix">
+              <li>
+                <a routerLink="/chang/car/tasks">
+                  <div class="function_icon"><i class="fa fa-random"></i></div>
+                  <div class="function_text">数据转发</div>
+                </a>
+              </li>
+              <!-- <li>
+                <a routerLink="/chang">
+                  <div class="function_icon"><i class="fa fa-tasks"></i></div>
+                  <div class="function_text">数据分析</div>
+                </a>
+              </li> -->
+              <li>
+                <a routerLink="/chang/data-center/config/menu">
+                  <div class="function_icon"><i class="fa fa-tasks"></i></div>
+                  <div class="function_text">数据中心</div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="app_message datasee_nav">
+          <i class="iconfont icon-chuangjianhuodong"></i>
+          <div class="datasee_nav_box">
+            <!-- <div class="add_to_datasee">Datasee</div>-->
+            <ul class="datasee_nav_list">
+              <li class="datasee_nav_source"><a [routerLink]="['/chang/data-center/list/set/source']" [queryParams]="{ isAdd: 1 }"
+                  routerLinkActive="cur">数据源</a></li>
+              <li class="datasee_nav_set "><a routerLink="/chang/set/update" routerLinkActive="cur"> 数据集</a></li>
+              <li class="datasee_nav_table"><a routerLink="/card/OLAP" routerLinkActive="cur">报表</a></li>
+              <li class="datasee_nav_dashboard"><a routerLink="/dashboard/info/update" routerLinkActive="cur">仪表盘</a></li>
+              <!-- <li class="datasee_nav_user"><a href="javascript:void(0);">用户</a></li> -->
+              <li class="datasee_nav_table"><a routerLink="/chang/active/search">车辆功能活跃度查询</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </nav>
+    <!-- <head-dashboard-list></head-dashboard-list> -->
+    <!-- <app-dash-head></app-dash-head> -->
+    <head-dashboard-list *ngIf="isDataCenter"></head-dashboard-list>
+  </header>
+  <!--<ng-template #isNotLogin>-->
+  <!--&lt;!&ndash;未登录用户导航&ndash;&gt;-->
+  <!--<header>-->
+  <!--<nav class="app_nav not_login self_clearfix" *ngIf="!appContext.isLoggedIn">-->
+  <!--<div class="app_logo self_cursor"><a  routerLink="/chang" style="color: #ddd;font-size: 18px;">长安智能网联监控与数据转发系统</a></div>-->
+  <!--<ul class="not_login_nav">-->
+  <!--<li><a routerLink="/login_domain" routerLinkActive="active">登录</a></li>-->
+  <!--&lt;!&ndash;<li class="look_demo"><a routerLink="" routerLinkActive="active">观看Demo</a></li>&ndash;&gt;-->
+  <!--&lt;!&ndash;<li><a routerLink="" routerLinkActive="active">观看Demo</a></li>&ndash;&gt;-->
+  <!--<li><a routerLink="/contact" routerLinkActive="active">联系我们</a></li>-->
+  <!--<li><a routerLink="/introduce" routerLinkActive="active">产品介绍</a></li>-->
+  <!--</ul>-->
+  <!--</nav>-->
+  <!--</header>-->
+  <!--</ng-template>-->
+
+  <!-- 主体部分 -->
+  <div class="app_container" #appContainer style="overflow: auto">
+    <router-outlet></router-outlet>
+  </div>
+
+  <footer class="app_footer clearfix">
+    <!--&lt;!&ndash; <span>Copyright © 2016-2021, DATASEE.NET, All Rights Reserved</span>-->
+    <!--<a href="javascript:void(0)" class="footer_link fr">帮助</a>-->
+    <!--<span class="fenge fr">|</span>-->
+    <!--<a href="javascript:void(0)" class="footer_link fr">关于我们</a> &ndash;&gt;-->
+  </footer>
+  <app-notification></app-notification>
+  <a id="download-tag" href="javascript:void(0);" style="display: none"></a>
+</div>

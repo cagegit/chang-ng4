@@ -1,0 +1,41 @@
+<div bsModal #setDimension="bs-modal"  [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog set_filter_box">
+    <div class="modal-content self_modal_content">
+      <div class="modal-header self_modal_header set-filter">
+        <span style="margin-left: 50px;">设置维度和指标</span>
+        <button type="button" class="close self_close" (click)="closeModal()" aria-label="Close">
+          <i class="iconfont icon-guanbigongjulan"></i>
+        </button>
+      </div>
+
+      <div class="will_select_box">
+        <span>维度</span>
+      </div>
+
+      <ul class="will_select_list scroll_bar" #willSelectList>
+        <li *ngFor="let member of strMetas; let i = index;">
+          <label class="mock_label" (change)="selectMember($event,true,member)" [attr.for]="'mock'+i">
+            <input class="mock_input" type="checkbox"  [checked]="member.selected" [attr.id]="'mock'+i">
+            <i  class="right_con"></i>
+            <div  class="mock_box"></div>
+            <span>{{member.showName}}</span>
+          </label>
+        </li>
+      </ul>
+      <div class="will_select_box">
+        <span>指标</span>
+      </div>
+      <ul class="will_select_list scroll_bar" #willSelectList1>
+        <li *ngFor="let member of numMetas; let j = index;" >
+          <label class="mock_label" (change)="selectMember($event,false,member)" [attr.for]="'mocka'+j">
+            <input class="mock_input" type="checkbox" [checked]="member.selected"  [attr.id]="'mocka'+j">
+            <i  class="right_con"></i>
+            <div  class="mock_box"></div>
+            <span>{{member.showName}}</span>
+          </label>
+        </li>
+      </ul>
+      <div class="set_filter_btn marT20"><button class="self_btn c_a0a1a1 self_left" (click)="closeModal()">取消</button><button class="self_btn c_ef5350 self_right" (click)="saveMember()">保存</button></div>
+    </div>
+  </div>
+</div>

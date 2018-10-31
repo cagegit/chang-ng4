@@ -1,0 +1,162 @@
+<div class="saiku_center" [@centerToRightState]="toRightStateStr">
+  <div class="saiku_center_l">
+    <div class="key_kinds_box scroll_bar" #keyBox>
+      <div class="kinds_contanier" #indicatorBox>
+        <div class="kinds_title self_clearfix">指标<i class="iconfont icon-clear self_right"  (click)="clearMeasure()"></i></div>
+        <ul class="kinds_list scroll_bar"  [dragula]="'measureBag'" [attr.data-container]="'toMeasure'">
+          <ng-template [ngIf]="selectMeasures&&selectMeasures.length>0">
+            <li class="shadow_box" *ngFor="let m of selectMeasures;let i=index" [attr.data-type]="'measure'" [attr.data-name]="m.name" [attr.data-index]="i">
+              <div class="key_filter_name">
+                <span>{{m.caption}}</span><i class="iconfont icon-xxz" (click)="delMeasure(m.name)"></i>
+              </div>
+            </li>
+          </ng-template>
+        </ul>
+      </div>
+      <div class="kinds_contanier" #rowBox>
+        <div class="kinds_title self_clearfix" >行<i class="iconfont icon-clear self_right" (click)="clearAxis('ROWS')"></i><i class="iconfont icon-qianming self_right self_cursor" (click)="showOperaterBox($event,'ROWS')"></i></div>
+        <ul class="kinds_list scroll_bar" [attr.data-to]="'dropContainer'" [attr.data-container]="'ROWS'" [dragula]='"dimBag"'>
+          <li class="kinds_folder shadow_box" *ngFor="let item of selectRows;let i=index;"  [attr.data-type]="'dim'" [attr.data-unique-name]="item.uniqueName" [attr.data-name]="item.name" [attr.data-caption]="item.caption" [attr.data-index]="i">
+            <div class="key_filter_name key_filter_folder self_cursor"  (click)="changeFolderState($event,'key_filter_folder','key_filter_name')"><span title="{{item.dimension}} - {{item.caption}}">{{item.dimension}} - {{item.caption}}</span><i class="iconfont self_right icon-jiantouzuo" ></i></div>
+            <ul class="sub_filter_list">
+              <li *ngFor="let lv of item.levels" (click)="setFilter.showModal('ROWS',item,lv.name)"><span>{{lv.caption}}</span><i class="iconfont icon-xxz" (click)="delLv($event,'ROWS',item.name,lv.name)"></i></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="kinds_contanier" #colsBox>
+        <div class="kinds_title self_clearfix">列<i class="iconfont icon-clear self_right" (click)="clearAxis('COLUMNS')"></i><i class="iconfont icon-qianming self_right self_cursor" (click)="showOperaterBox($event,'COLUMNS')"></i></div>
+        <ul class="kinds_list scroll_bar" [attr.data-to]="'dropContainer'" [attr.data-container]="'COLUMNS'" [dragula]='"dimBag"'>
+          <li class="kinds_folder shadow_box" *ngFor="let item of selectColumn;let i=index;" [attr.data-unique-name]="item.uniqueName" [attr.data-name]="item.name" [attr.data-caption]="item.caption" [attr.data-index]="i">
+            <div class="key_filter_name key_filter_folder self_cursor"  (click)="changeFolderState($event,'key_filter_folder','key_filter_name')"><span title="{{item.dimension}} - {{item.caption}}">{{item.dimension}} - {{item.caption}}</span><i class="iconfont self_right icon-jiantouzuo" ></i></div>
+            <ul class="sub_filter_list">
+              <li *ngFor="let lv of let lv of item.levels"  (click)="setFilter.showModal('COLUMNS',item,lv.name)"><span>{{lv.caption}}</span><i class="iconfont icon-xxz"  (click)="delLv($event,'COLUMNS',item.name,lv.name);"></i></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="kinds_contanier" #dimensionalityBox>
+        <div class="kinds_title self_clearfix">过滤<i class="iconfont icon-clear self_right" (click)="clearAxis('FILTER')"></i><i class="iconfont icon-qianming self_right self_cursor" (click)="showOperaterBox($event,'FILTER')"></i></div>
+        <ul class="kinds_list scroll_bar" [attr.data-to]="'dropContainer'" [attr.data-container]="'FILTER'"  [dragula]='"dimBag"'>
+          <li class="kinds_folder shadow_box" *ngFor="let item of selectFilter;let i=index;" [attr.data-unique-name]="item.uniqueName" [attr.data-name]="item.name" [attr.data-caption]="item.caption" [attr.data-index]="i">
+            <div class="key_filter_name key_filter_folder self_cursor"  (click)="changeFolderState($event,'key_filter_folder','key_filter_name')"><span title="{{item.dimension}} - {{item.caption}}">{{item.dimension}} - {{item.caption}}</span><i class="iconfont self_right icon-jiantouzuo" ></i></div>
+            <ul class="sub_filter_list">
+              <li *ngFor="let lv of item.levels"  (click)="setFilter.showModal('FILTER',item,lv.name)"><span>{{lv.caption}}</span><i class="iconfont icon-xxz"  (click)="delLv($event,'FILTER',item.name,lv.name)"></i></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <operater-list *ngIf="showFlagList.showOperaterBoxFlag" [showFlagList]="showFlagList" [helper]="helper" [dimType]="dimType" [top]="operaterBoxPosition.top" [left]="operaterBoxPosition.left"
+                   [measures]="selectMeasures" (checkRun)="checkRun($event)" (limitBoxEmit)="limitFn($event)" [autoExecute]="toolBarObj.autoExecute"></operater-list>
+    <div class="saiku_detail_box">
+      <div class="sk_table_name">
+        <div class="sk_t_n">
+          <input type="text" name="card-title" placeholder="报表名称"  [(ngModel)]="title" maxlength="50" (focus)="focusFn($event)" />
+        </div>
+        <textarea class="sk_t_d"  [(ngModel)]="desc" maxlength="100" placeholder="报表描述信息"></textarea>
+      </div>
+
+      <div class="chart_title">
+        <span>图表</span>
+        <i class="iconfont icon-shaixuan self_cursor" (click)="onFoldFilterBox($event)"></i>
+        <span class="notice">{{dataNotice}}</span>
+      </div>
+      <div class="filter_box" #filterBox [hidden]="isFold">
+        <div class="filter_label">筛选条件：</div>
+        <ul class="filter_list">
+          <li *ngFor="let param of filterCondition"><span>{{param.showName}}</span><input type="text" placeholder="default" value="{{param.values}}"></li>
+        </ul>
+      </div>
+      <div class="data_content_contanier" #showDataContainer>
+        <!--上下切换-->
+        <ng-template [ngIf]="showType =='chart'&&(chartType=='singleHorizontalBar'||chartType=='groupHorizontalBar'||chartType=='horizontalStackedBar')">
+          <div class="data_container up_scroll_contanier" >
+            <div class="up_scroll_box" *ngIf="totalPage>1">
+              <div class="up_btn scroll_btn_box" [class.unable_loading]="curPage == 0" (click)="prevPage()"><i class="iconfont icon-jiantouy-copy"></i></div>
+            </div>
+            <div class="chart_box scroll_bar scroll_o_bar"  #svgChartBox>
+              <chart-highChart *ngIf="chartType!='china-map'"  #highchart [cardResult]="cardResult" [dimensions]="dimensions" [barChart]="chartUtil" [chartType]="chartType" [drill]="toolBarObj.drillDown" [helper]="helper"  [section]="toolBarObj.section"  (cellClickEvent)="showSectionDimension($event)"></chart-highChart>
+              <chart-maps *ngIf="chartType=='china-map'"  #chartmap  [cardResult]="cardResult" [dimensions]="dimensions" [barChart]="chartUtil" [chartType]="chartType" [drill]="toolBarObj.drillDown" [helper]="helper"  [section]="toolBarObj.section"  (cellClickEvent)="showSectionDimension($event)"></chart-maps>
+              <!--<chart [options]="options"  (load)="saveInstance($event.context)"></chart>-->
+            </div>
+            <div class="down_scroll_box"  *ngIf="totalPage>1">
+              <div class="down_btn scroll_btn_box"  [class.unable_loading]="curPage == totalPage-1" (click)="nextPage()"><i class="iconfont icon-jiantouy-copy"></i></div>
+            </div>
+          </div>
+        </ng-template>
+        <!--上下切换 end-->
+        <!--左右切换-->
+        <ng-template [ngIf]="showType =='chart'&&chartType!='singleHorizontalBar'&&chartType!='groupHorizontalBar'&&chartType!='horizontalStackedBar'">
+          <div class="data_container left_scroll_contanier" >
+            <div class="chart_box  scroll_bar scroll_o_bar" #svgChartBox>
+              <chart-highChart *ngIf="chartType!='china-map'" #highchart [cardResult]="cardResult" [dimensions]="dimensions" [barChart]="chartUtil" [chartType]="chartType" [drill]="toolBarObj.drillDown" [helper]="helper"  [section]="toolBarObj.section"  (cellClickEvent)="showSectionDimension($event)"></chart-highChart>
+              <chart-maps *ngIf="chartType=='china-map'" #chartmap  [cardResult]="cardResult" [dimensions]="dimensions" [barChart]="chartUtil" [chartType]="chartType" [drill]="toolBarObj.drillDown" [helper]="helper"  [section]="toolBarObj.section"  (cellClickEvent)="showSectionDimension($event)"></chart-maps>
+              <!--<chart [options]="options"  (load)="saveInstance($event.context)"></chart>-->
+            </div>
+            <div class="left_scroll_box"  *ngIf="totalPage>1">
+              <div class="left_btn scroll_btn_box" (click)="prevPage()" [class.unable_loading]="curPage == 0" ><i class="iconfont icon-jiantouy-copy"></i></div>
+              <div class="right_btn scroll_btn_box" (click)="nextPage()" [class.unable_loading]="curPage == totalPage-1" ><i class="iconfont icon-jiantou-copy"></i></div>
+            </div>
+          </div>
+        </ng-template>
+        <!--左右切换 end-->
+        <!--- table begin --->
+        <div class="data_container " *ngIf="showType=='table'">
+          <div class="new_table_box">
+            <show-table [cardResult]="cardResult" [dimensions]="dimensions" [page]="curPage" [fullScreen]="fullScreenFlag" [showType]="showType" [drill]="toolBarObj.drillDown" [helper]="helper"  [section]="toolBarObj.section"  (run)="run($event)" (cellClickEvent)="showSectionDimension($event)" (changePageEvent)="changPageFn($event)" [totalPage]="totalPage"></show-table>
+          </div>
+        </div>
+        <!---- table end --->
+        <!---- text  begin--->
+        <div class="data_container"  *ngIf="showType=='txt'" >
+          <showTxt [cardResult]="cardResult" ></showTxt>
+        </div>
+        <!---- text  end--->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="operate_btn">
+  <span tooltip="后退" placement="bottom" [class.no_hover]="!goBackEnable" (click)="backPreHistory()"><i class="iconfont icon-fanhui1" ></i></span>
+  <!--<span><i class="iconfont icon-yulan" tooltip="打开" placement="bottom"></i></span>-->
+  <span  *ngIf="showSql" (click)="navigateSQL()"><i class="iconfont icon-zidingyiSQL" tooltip="sql" placement="bottom" ></i></span>
+  <span class="no_margin" (click)="editDataSet()"><i class="iconfont icon-iconbianji" tooltip="编辑数据模型" placement="bottom" ></i></span>
+  <b>|</b>
+  <span tooltip="新建" placement="bottom" (click)="createNew()"><i class="iconfont icon-xinjian"></i></span>
+  <!--<span><i class="iconfont icon-yulan" tooltip="打开" placement="bottom"></i></span>-->
+  <span (click)="updateCard()"><i class="iconfont icon-baocun" tooltip="保存" placement="bottom" ></i></span>
+        <span class="sk_download no_margin" tooltip="导出" placement="bottom"  (click)="showDownloadType($event)">
+          <i class="iconfont icon-daochu" (click)="showDownloadType($event)"></i>
+          <div class="mock_down"></div>
+          <ul class="download_list" *ngIf="showFlagList.showDownloadFlag">
+             <!--<li (click)="exportPDF()"><i class="iconfont icon-pdf"></i>PDF</li>-->
+            <li (click)="exportExcel()"><i class="iconfont icon-excel"></i>表格</li>
+            <li (click)="exportImage()"><i class="iconfont icon-iconfontpngeps"></i>图片</li>
+          </ul>
+        </span>
+  <b>|</b>
+  <span class="cur" [class.cur]="toolBarObj.autoExecute"  (click)="setMode($event,'run')"><i class="iconfont icon-zdcx" tooltip="自动查询" placement="bottom"  ></i> </span>
+  <span (click)="run()" class="no_margin"><i class="iconfont icon-sdcx" tooltip="手动查询" placement="bottom" ></i></span>
+  <b>|</b>
+  <span  [class.cur]="toolBarObj.formatter"  (click)="setMode($event,'formatter')"><i class="iconfont icon-XSHZH" tooltip="显示汇总行" placement="bottom" ></i> </span>
+  <span  class="cur"  [class.cur]="toolBarObj.noEmpty" (click)="setMode($event,'noEmpty')"><i class="iconfont icon-yckzd" tooltip="隐藏空字段" placement="bottom" ></i> </span>
+  <span (click)="swapAxes()"><i class="iconfont icon-hljh" tooltip="行列交换" placement="bottom"></i> </span>
+  <span  class="cur"  [class.cur]="toolBarObj.drillDown" (click)="setMode($event,'drillDown')"><i class="iconfont icon-xz" tooltip="下钻" placement="bottom" ></i> </span><!--(click)="drilldown.showModal()"-->
+  <span class="cur" [class.cur]="toolBarObj.section" (click)="setMode($event,'section')"><i class="iconfont icon-qp" tooltip="切片" placement="bottom" ></i> </span> <!--(click)="showSectionDimension($event)"-->
+  <!--<span class="" (click)="changeQueryType('SQL')"><i class="iconfont icon-zidingyiSQL" tooltip="SQL查询" placement="bottom" ></i> </span>-->
+  <b>|</b>
+  <span *ngIf="fullScreenFlag" (click)="fullScreen($event)" ><i class="iconfont icon-quxiaoquanping" tooltip="取消全屏" placement="bottom"></i></span>
+  <span *ngIf="!fullScreenFlag" (click)="fullScreen($event)"><i class="iconfont icon-quanping" tooltip="全屏" placement="bottom"></i></span>
+
+</div>
+
+<set-filter #setFilter [helper]="helper" (checkRun)="checkRun($event)"  [autoExecute]="toolBarObj.autoExecute"></set-filter>
+<!--<no-save #noSaveBox [router]="router"></no-save>-->
+<drilldown #drilldown  [dimensions]="dimensions" [helper]="helper"  (run)="run($event)"></drilldown>
+<section-dimension #sectionDimension  [dimensions]="dimensions" [measures]="measures" [measureGroup]="measureGroup" [helper]="helper"  (run)="run($event)"></section-dimension>
+<alert-confirm #confirmBox (confirm)="save($event)"></alert-confirm>
+<div #cancelDiv style="position: fixed;width:150px;z-index:1000;text-align:center;height:20px;background-color: rgba(255,255,255,0.7);display: none">
+  正在查询...<a (click)="cancel()">取消查询</a>
+</div>
+<card-limit #cardLimit [helper]="helper" [dimType]="dimType" [measures]="selectMeasures" (checkRun)="checkRun($event)" [autoExecute]="toolBarObj.autoExecute"></card-limit>

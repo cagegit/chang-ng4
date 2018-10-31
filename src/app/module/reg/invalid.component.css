@@ -1,0 +1,6 @@
+.invalid_box{ width: 100%; position: relative;}
+.invalid{ width: 360px; margin: 0 auto; position: absolute; height:284px; top: 50%; left: 50%; margin-left: -180px; margin-top: -142px; }
+.invalid_img{ width: 180px; margin: 0 auto;}
+.invalid_text{ font-size: 20px; color: #333; margin-top: 35px; line-height: 32px;}
+.invalid_link{ line-height: 30px;}
+.invalid_link i{ font-size: 14px;}

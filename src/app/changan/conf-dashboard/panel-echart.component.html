@@ -1,0 +1,98 @@
+<div class="p_panel_box">
+  <div class="panel_content_box">
+    <div class="panel-dash-board" [style.display]="currentData.length>0?'block':'none'">
+      <div class="date-select-box">
+        <div nz-row>
+          <div nz-col [nzSpan]="2">
+          </div>
+          <div nz-col [nzSpan]="22" style="text-align: right">
+            <i class="fa fa-filter" style="cursor: pointer;" *ngIf="isGlShow" (click)="showGlModal(glContent,glFooter)"></i>
+            <i class="fa fa-search" style="cursor: pointer;padding-left: 10px;" (click)="showSearchModal(searchContent,searchFooter)"></i>
+          </div>
+        </div>
+      </div>
+      <div #pchart [attr.id]="tableid" echarts [options]="options" [loading]="isLoading" theme="macarons" class="chang-chart"></div>
+    </div>
+    <!--无数据时显示-->
+    <div *ngIf="currentData.length===0" class="chart_text">{{chartTxt}}</div>
+  </div>
+</div>
+
+<ng-template #glContent>
+  <div class="gl-panel">
+    <!--/动态筛选条件-->
+    <!--下拉条件-->
+    <div nz-form-item nz-row *ngFor="let item of canCate">
+      <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+        <label >{{item.name}}:</label>
+      </div>
+      <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+        <nz-select [(ngModel)]="item.multiples" style="width: 100%;" [nzSize]="size" [nzMode]="'multiple'" [nzPlaceHolder]="'条件'">
+          <nz-option
+            *ngFor="let txt of item.list"
+            [nzLabel]="txt"
+            [nzValue]="txt">
+          </nz-option>
+        </nz-select>
+      </div>
+    </div>
+    <div nz-form-item nz-row *ngFor="let item of noCate">
+      <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+        <label >{{item.name}}:</label>
+      </div>
+      <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+        <nz-input-group [nzCompact]="true"  style="width: 100%;">
+          <nz-select [(ngModel)]="item.c" style="width: 25%;">
+            <nz-option
+              *ngFor="let c of ysfList"
+              [nzLabel]="c"
+              [nzValue]="c">
+            </nz-option>
+          </nz-select>
+          <nz-input [(ngModel)]="item.value" [nzPlaceHolder]="'值只能为数字，非数字将忽略'" style="width: 75%;"></nz-input>
+        </nz-input-group>
+      </div>
+    </div>
+    <!--文本条件-->
+  </div>
+</ng-template>
+<ng-template #glFooter>
+  <div>
+    <button nz-button [nzType]="'primary'" [nzSize]="'small'" (click)="saveGlInfo($event)" [nzLoading]="isConfirmLoading">筛 选</button>
+  </div>
+</ng-template>
+
+<ng-template #searchContent>
+  <div class="gl-panel">
+    <!--/默认筛选条件-->
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+        <label >开始时间:</label>
+      </div>
+      <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+        <nz-datepicker style="width: 100%;" (ngModelChange)="_startDate=$event;_startValueChange()" id="startTime" [ngModel]="_startDate" [nzDisabledDate]="_disabledStartDate" [nzShowTime]="true" [nzFormat]="'YYYY-MM-DD HH:mm:ss'" [nzPlaceHolder]="'开始时间'"></nz-datepicker>
+      </div>
+    </div>
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+        <label >结束时间:</label>
+      </div>
+      <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+        <nz-datepicker style="width: 100%;" (ngModelChange)="_endDate=$event;_endValueChange()" id="endTime" [ngModel]="_endDate" [nzDisabledDate]="_disabledEndDate" [nzShowTime]="_endTime" [nzFormat]="'YYYY-MM-DD HH:mm:ss'" [nzPlaceHolder]="'结束时间'"></nz-datepicker>
+      </div>
+    </div>
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzSm]="6" [nzXs]="24">
+        <label >工作日:</label>
+      </div>
+      <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
+        <label nz-checkbox [(ngModel)]="isWorkDay"></label>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #searchFooter>
+  <div>
+    <button nz-button [nzType]="'primary'" [nzSize]="'small'" (click)="print($event)" [nzLoading]="isConfirmLoading">筛 选</button>
+  </div>
+</ng-template>

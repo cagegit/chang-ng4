@@ -1,0 +1,18 @@
+.message_box{ width: 100%; background-color:#e5e5e5; padding: 20px 50px;}
+.message_con{ border:1px solid #d2dadf; background-color: #fff; padding: 0 20px 20px; border-radius: 3px 3px 0 0;}
+.message_header{ height: 55px; line-height: 54px; color: #323757;}
+.message_list li{ border-top: 1px solid #e6eaec; height: 67px; line-height: 66px;overflow: hidden;}
+.message_list li:last-child{ border-bottom: 1px solid #e6eaec;}
+.message_list li div{overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.message_user{ width: 20%; padding-left:47px; position:relative;}
+.message_text{padding: 0 15px;}
+.message_time{ text-align: right; font-size: 12px; color: #9ba6c0; height: 66px; position: absolute; right: 0; top: 0; padding-right: 15px; }
+.message_con .icon_box{ width: 18px; height: 18px; position: absolute;  left: 15px; top: 24px;text-align: center; color: #fff; line-height: 18px;}
+.message_con .icon_box i{ font-size: 16px;}
+.message_con .icon_box i.icon-shujuku{ font-size: 14px;}
+.bg_green{ background-color: #53bb9b; }
+.bg_red{ background-color: #ef5350;}
+.bg_yellow{ background-color: #f48c37;}
+.bg_purple{ background-color: #8562a3;}
+.message_item{ position: relative; padding: 0 200px 0 47px;}
+

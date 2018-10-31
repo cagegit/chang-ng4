@@ -1,0 +1,97 @@
+<div class="app_main login " *ngIf="!forgotPasswordFlag">
+  <!--<div class="zhezhao"></div>-->
+  <!--<div class="login_box">-->
+    <!--<form role="form"  [formGroup]="loginForm">-->
+      <!--<div class="modal-body self_modal_body">-->
+        <!--<div class="login_title">-->
+          <!--<span>{{domainName}}</span>-->
+        <!--</div>-->
+        <!--<div class="self_modal_input user_email login_email clearfix marB20">-->
+          <!--<i class="iconfont icon-youxiang"></i>-->
+          <!--<input type="text" name="userName" placeholder="请输入email地址" formControlName="userName"  (keyup)="resetMessage()" required>-->
+          <!--<div class="self_error" *ngIf="formErrors.userName"><i class="iconfont icon-buzhengque"></i>{{formErrors.userName}}</div>-->
+        <!--</div>-->
+        <!--<div class="self_modal_input user_name clearfix marB20">-->
+          <!--<i class="iconfont icon-mima"></i>-->
+          <!--<input type="password" name="userPw" placeholder="请输入密码" formControlName="userPw" (keyup)="resetMessage()" required />-->
+          <!--<div class="self_error" *ngIf="formErrors.userPw"><i class="iconfont icon-buzhengque"></i>{{formErrors.userPw}}</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="modal-footer self_modal_footer">-->
+        <!--<div class="">-->
+          <!--<button type="submit" class="self_btn c_ef5350" (click)="submit()"  [disabled]="!loginForm.valid||submitted">登录</button>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="forget_password">-->
+        <!--<a href="javascript:void(0)" (click)="resetPw()">忘记密码?</a>-->
+      <!--</div>-->
+    <!--</form>-->
+  <!--</div>-->
+  <div bsModal #login="bs-modal"  [config]="{backdrop: 'static'}" class="modal self_modal"  style="display: block" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-sm self_modal_dialog self_success_modal delete_confirm" >
+      <div class="modal-content self_modal_content">
+        <form role="form"  [formGroup]="loginForm">
+          <div class="modal-header self_modal_header login_title">
+            <span>{{domainName}}</span>
+            <button _ngcontent-c127="" aria-label="Close" class="close self_close" type="button" (click)="close()">
+              <i _ngcontent-c127="" class="iconfont icon-guanbigongjulan"></i>
+            </button>
+          </div>
+          <div class="modal-body self_modal_body">
+
+            <div class="self_modal_input user_email login_email clearfix marB20">
+              <i class="iconfont icon-youxiang"></i>
+              <input type="text" name="userName" placeholder="请输入email地址" formControlName="userName"  (keyup)="resetMessage()" required>
+              <div class="self_error" *ngIf="formErrors.userName"><i class="iconfont icon-buzhengque"></i>{{formErrors.userName}}</div>
+            </div>
+            <div class="self_modal_input user_name clearfix marB20">
+              <i class="iconfont icon-mima"></i>
+              <input type="password" name="userPw" placeholder="请输入密码" formControlName="userPw" (keyup)="resetMessage()" required />
+              <div class="self_error" *ngIf="formErrors.userPw"><i class="iconfont icon-buzhengque"></i>{{formErrors.userPw}}</div>
+            </div>
+          </div>
+          <div class="modal-footer self_modal_footer">
+            <div class="">
+              <button type="submit" class="self_btn c_ef5350" (click)="submit()"  [disabled]="!loginForm.valid||submitted">登录</button>
+            </div>
+          </div>
+          <div class="forget_password">
+            <a href="javascript:void(0)" (click)="resetPw()">忘记密码?</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<div class="app_main" *ngIf="forgotPasswordFlag" [style.min-height.px]="minHeight">
+  <div class="password_left">
+    <div class="password_title">找回密码</div>
+    <form class="set_psw" (ngSubmit)="onSubmit()" role="form" #forgotPasswordForm ="ngForm">
+      <div class="self_form_group">
+        <i class="iconfont icon-youxiang input_icon"></i>
+        <input type="email" placeholder="请输入注册使用的邮箱" name="regEmail" #regEmail="ngModel"  class="form-control" [(ngModel)]="model.userName" id="regEmail" required pattern="^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,}){1,})$">
+        <div class="self_error" *ngIf="(regEmail.errors && (regEmail.dirty || regEmail.touched))" ><i class="iconfont icon-buzhengque"></i>邮箱不存在,请重新输入</div>
+      </div>
+      <div class=" marT20">
+        <button type="submit" class="self_btn c_ef5350" [disabled]="!forgotPasswordForm.form.valid">验证邮箱</button>
+      </div>
+    </form>
+  </div>
+  <div class="password_right"></div>
+</div>
+
+<!---修改密码-->
+<div bsModal #resetPwSuccessModal="bs-modal" [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog">
+    <div class="modal-content self_modal_content">
+      <div class="modal-header self_modal_header edit_password">
+        <button type="button" class="close self_close" (click)="onCloseModal()" aria-label="Close">
+          <i class="iconfont icon-guanbigongjulan"></i>
+        </button>
+      </div>
+      <div class="self_modal_text">为了保证您的账户安全，重置密码的链接已经发送到您的邮箱 <a href="{{mailServer}}" target="_blank">{{this.model.userName}}</a>，请查收邮件！</div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,25 @@
+<div bsModal #manifestUploadModal="bs-modal"  [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog">
+    <div class="modal-content self_modal_content">
+      <div class="modal-header self_modal_header upload_file_head">
+        <button type="button" class="close self_close" (click)="closeHandle()" aria-label="Close">
+          <i class="iconfont icon-guanbigongjulan"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="upload_file_box self_clearfix">
+          <div class="upload_input">{{uploader.queue[0]?.file?.name}}</div>
+          <button class="upload_button"><input type="file" ng2FileSelect [uploader]="uploader"/><i class="iconfont icon-daochu"></i>选择文件</button>
+        </div>
+        <div class="upload_tip">文件格式支持txt，里面每行放一个项目；<br>
+          每行的格式：项目名称,组织名,项目url,分支1 分支2<br>
+          （分支可以不填）</div>
+      </div>
+      <div class="modal-footer">
+        <button class="self_btn self_cancel" (click)="closeHandle()">取消</button>
+        <button class="self_btn c_ef5350" (click)="ok()" [disabled]="!uploader.getNotUploadedItems().length">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,59 @@
+<div bsModal #relationalTable="bs-modal"  [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog">
+    <div class="modal-content self_modal_content">
+      <div class="modal-header self_modal_header relational_table">
+        <button type="button" class="close self_close" (click)="closeHandle()" aria-label="Close">
+          <i class="iconfont icon-guanbigongjulan"></i>
+        </button>
+      </div>
+      <div class="self_clearfix">
+        <select class="select_source self_left"  (change)='changeTable("left",$event.target.value);changeOtherTable("right",$event.target.value);'>
+          <option *ngFor="let tableName of options" value="{{tableName}}" [selected]="tableName==currentTableJoin.leftTable">{{tableName}}</option>
+        </select>
+        <div class="select_relation self_left">join</div>
+        <select class="select_source self_right" (change)='changeTable("right",$event.target.value)'>
+          <ng-template ngFor let-tableName [ngForOf]="options">
+            <ng-template [ngIf]="tableName!=currentTableJoin.leftTable">
+              <option value="{{tableName}}" [selected]="tableName==currentTableJoin.rightTable">{{tableName}}</option>
+            </ng-template>
+          </ng-template>
+        </select>
+      </div>
+      <div class=" marT20 self_clearfix">
+        <div class="key_box self_left">
+          <div class="key_search_box"><i class="iconfont icon-fangdajing"></i><input type="text" (keyup)='search("left",$event.target.value)' /></div>
+          <ul class="key_list scroll_bar">
+            <li *ngFor="let field of fieldListLeft" (click)='changeField("left",field.fieldName)' [class.selected]="field.fieldName==currentTableJoin.leftField">
+              <i [ngClass]="['iconfont', field.schemaShowCSS]"></i>
+              {{field.fieldName}}
+            </li>
+          </ul>
+        </div>
+        <div class="moveBtn self_left relation_moveBtn">
+        </div>
+        <div class="key_box self_right">
+          <div class="key_search_box"><i class="iconfont icon-fangdajing"></i><input type="text" (keyup)='search("right",$event.target.value)' /></div>
+          <ul class="key_list scroll_bar ">
+            <li *ngFor="let field of fieldListRight" (click)='changeField("right",field.fieldName)' [class.selected]="field.fieldName==currentTableJoin.rightField">
+              <i [ngClass]="['iconfont', field.schemaShowCSS]"></i>
+              {{field.fieldName}}
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="marT20 marB20">
+        <button class="self_btn create_relation c_49a2df" (click)='addRelation()'>添加</button>
+      </div>
+      <div class="table_box">
+        <div class="table_tit self_clearfix">关联表<i class="iconfont icon-clear self_right" (click)="clearRelation(tableJoin)"></i></div>
+        <ul class="table_list scroll_bar" *ngIf="starSchema&&starSchema.allJoins">
+          <li class="self_clearfix" *ngFor="let tableJoin of starSchema.allJoins"><span>{{tableJoin.leftTable}}.{{tableJoin.leftField}} -INNER JOIN - {{tableJoin.rightTable}}.{{tableJoin.rightField}}</span><i class="iconfont self_right icon-shanchu1" (click)="deleteRelation(tableJoin)"></i></li>
+        </ul>
+        <ul class="table_list scroll_bar" *ngIf="!(starSchema&&starSchema.allJoins)">
+        </ul>
+      </div>
+      <div class="relation_btn marT20"><button class="self_btn self_cancel self_left" (click)="closeHandle()">取消</button><button class="self_btn c_ef5350 self_right" (click)="saveRelation()">保存</button></div>
+    </div>
+  </div>
+</div>
+

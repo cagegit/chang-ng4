@@ -1,0 +1,5 @@
+.error_page{ width: 310px; height: 270px; position: absolute; left: 50%; top: 50%; margin-top: -135px; margin-left: -155px;}
+.err_text{ margin-top: 35px; line-height: 32px; font-size: 20px; color: #333;}
+.err_img{ margin: 0 auto; width:166px; }
+.err_link{ line-height: 30px;}
+.err_link i{ font-size: 14px;}

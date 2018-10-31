@@ -1,0 +1,15 @@
+<div class="saiku_box" #saikuBox [@flyIn]="active">
+  <div class="saiku_container" [@centerToLeftState]="toLeftStateStr" #saikuContainerBox>
+    <!---olap left start--->
+    <olap-metadata *ngIf="queryType=='OLAP'" [dataSetID]="dataSetID" [toLeftStateStr]="toLeftStateStr" [showFlagList]="showFlagList" (setMetaDataEmit)="setMetaDataFn($event)" (addMeasureEmit)="addMeasureFn($event)" (addDimensionEmit)="addDimensionFn($event)" (changeActive)="changeActiveFn($event)"></olap-metadata>
+    <query-meta *ngIf="queryType=='SQL'" [queryType]="queryType" [dataSetID]="dataSetID"  [toLeftStateStr]="toLeftStateStr"  (changeActive)="changeActiveFn($event)"  (addFieldEvent)="addFieldFn($event)" (addTableEvent)="addTableFn($event)" (updateDataSourceCountEvent)="updateDataSourceCountFn($event)"></query-meta>
+    <!-----olap left end---->
+    <div class="saiku_right" [class.gray]="!dataSetID">
+      <!-- olap center -->
+      <olap-com #olapCom *ngIf="queryType=='OLAP'" [chartUtil]="barChart" [chartType]="chartType" [toRightStateStr]="toRightStateStr" [toLeftStateStr]="toLeftStateStr" [cardId]="cardId" [validCube]="validCube" [showType]="showType" [iconType]="iconType" [metaDataMap]="metaDataMap" [measures]="measures" [measureGroup]="measureGroup" [dimensions]="dimensions"  [dataSetID]="dataSetID" [dataChange]="dataChange" (changeChartTypeEmit)="changeSvgView($event)" (fullScreenEmit)="fullScreenFn" (changeQueryTypeEvent)="changeQueryTypeFn($event)"></olap-com>
+      <query-com #queryCom  *ngIf="queryType=='SQL'" [dataSourceCount]="dataSourceCount" [chartUtil]="barChart" [chartType]="chartType" [toRightStateStr]="toRightStateStr" [toLeftStateStr]="toLeftStateStr" [cardId]="cardId" [showType]="showType" [iconType]="iconType" [dataSetID]="dataSetID" [dataChange]="dataChange" (changeChartTypeEmit)="changeSvgView($event)" (fullScreenEmit)="fullScreenFn"  (changeQueryTypeEvent)="changeQueryTypeFn($event)" (changeShowTypeEvent)="changeShowTypeFn($event)" (changeRightChartBarEvent)="changeRightChartBarFn($event)"></query-com>
+      <!-- olap right -->
+      <change-showType [chartUtil]="barChart" [chartType]="chartType" [toRightStateStr]="toRightStateStr" [showType]="showType" [iconType]="iconType" [dataChange]="dataChange" [chartToolBarStatus]="chartToolBarStatus" (changeView)="changeSvgView($event)" (changeActiveEmit)="changeActiveFn($event)"></change-showType>
+    </div>
+  </div>
+</div> 

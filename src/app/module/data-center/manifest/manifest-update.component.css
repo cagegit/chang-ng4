@@ -1,0 +1,26 @@
+.relational_table{ background: url("../../../../assets/img/manifest_update.png") no-repeat left center; padding-left: 40px; font-size: 16px; font-weight: bold;height: 50px; line-height: 50px; border-bottom: 1px solid #5a5d6c;}
+.relational_table .self_close{ height: 50px; line-height: 50px;}
+.self_modal_dialog{ width: 400px;}
+/*** manifest add ****/
+.data_input{ margin-left: 0; width: 100%; margin-bottom: 20px;}
+.data_input input{ width:338px;}
+.data_input i{ font-size: 20px;}
+.manifest_btn button{width: 49%;}
+.branch_names{ line-height: 38px;}
+.branch_names input{ display: inline-block; vertical-align: middle; width: 220px; padding:0 10px; height: 38px; line-height: 36px; font-size: 12px; color: #666}
+.branch_names input:focus{ border-color: #a4caed; box-shadow: 0 0 5px rgba(0,0,0,0.28); color: #333;}
+.branch_box{ width: 100%; border-radius: 3px; background-color: #fff; padding: 0 10px;}
+.branch_lable{ line-height: 40px; margin-bottom: 5px; color: #666;}
+.branch_box textarea{ border-radius: 3px; border: 1px solid #dbdde4; background-color: #e6e6e7; padding:5px 10px;line-height: 20px; color: #666; width: 100%; resize: none; outline: none; }
+.branch_remarks{ line-height: 36px; color: #999;}
+.modal-body{ padding: 0;}
+.self_radio{ color: #fff;}
+.branch_search{ position: relative; width: 220px;height: 30px; line-height: 30px;}
+.branch_search input{background-color: #e6e6e7; border:1px solid #dbdde4; height: 30px; line-height: 28px; padding: 0 30px 0 10px;}
+.branch_search i{ color: #b4b7c6; position: absolute; top:0; right: 10px; cursor: pointer;}
+.branch_list{ margin-top: 8px; max-height: 320px;}
+.branch_list li{ height: 32px; line-height: 32px; padding-left: 10px;}
+.mock_box{ top:8px;}
+.right_con{ top: 9px;}
+.branch_page{ height: 36px; background-color: #f7f7f7; padding: 0 20px; margin: 0 -10px; line-height: 36px;}
+.branch_page i{ font-size: 14px; vertical-align: top;}

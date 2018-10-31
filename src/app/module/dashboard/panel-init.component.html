@@ -1,0 +1,104 @@
+<div class="panel_init_box" [ngSwitch]="panelType" [attr.panelID]="panelID"  #panelBox  > <!--[class.top55]="preview"-->
+  <ng-template [ngSwitchCase]="pType.filter">
+    <div *ngIf="!data||data.length==0" class="chart_text">请拖入全局筛选条件</div>
+    <!---- 没有拖入筛选条件 begin ----->
+    <!--<div *ngIf="data">{{panel.data}}</div> <div *ngIf="!data"> 请拖入筛选条件</div>-->
+    <!---- 没有拖入筛选条件 end ----->
+    <!---拖入筛选提交 begin -->
+    <div class="has_filter" *ngIf="data.length>0">
+      <!--<div class="time_filter self_clearfix"><i class="iconfont icon-riqi"></i><input type="text" placeholder="2016/08/22-2016/09/21"></div>-->
+      <ul class="not_time_filter self_clearfix marT20">
+        <li *ngFor="let item of data" (mousedown)="cancelBubble($event)">
+          <label>{{item.paramName}}</label>
+          <select [attr.data-unique-name]="item.uniqueName" (change)="searchFilter($event,item)">
+            <option value="">请选择</option>
+            <option *ngFor="let optValue of item.children"  [selected]="optValue.selected" value="{{optValue.uniqueName}}">{{optValue.name}}</option>
+          </select>
+        </li>
+        <!--<li>-->
+          <!--<label>年</label>-->
+          <!--<select> -->
+            <!--<option>选择</option>-->
+          <!--</select>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<label>月</label>-->
+          <!--<select>-->
+            <!--<option>选择</option>-->
+          <!--</select>-->
+        <!--</li>-->
+        <!--<li>-->
+          <!--<label>日</label>-->
+          <!--<select>-->
+            <!--<option>选择</option>-->
+          <!--</select>-->
+        <!--</li>-->
+      </ul>
+    </div>
+    <!---拖入筛选提交 end -->
+  </ng-template>
+  <ng-template [ngSwitchCase]="pType.text">
+    <!--<div *ngIf = "!data" class="input_text" (click)="showTextarea($event)" (mousedown)="cancelBubble($event)">请输入文字信息</div>-->
+    <div class="text" *ngIf="!data && !textFlag"><span (mousedown)="cancelBubble($event)" (click)="showTextarea($event)">请输入文字信息</span></div>
+    <!--<textarea cols="10" rows="10"  #textEidter ></textarea>-->
+    <div class="text_eidter"  #textEidter *ngIf="data || textFlag" (mousedown)="cancelBubble($event)">
+      <ng-template [ngIf]="preview">
+        <span [innerHTML]="data|htmlParse"></span>
+      </ng-template>
+      <ng-template [ngIf]="!preview">
+        <textarea (blur)="inputText($event)">{{data}}</textarea>
+      </ng-template>
+
+
+    </div>
+  </ng-template>
+  <ng-template [ngSwitchCase]="pType.img">
+    <div class="no_img chart_text" *ngIf="!data">
+      <input type="file" style="display: none" (mousedown)="cancelBubble($event)" (change)="uploadImg($event)" ng2FileSelect [uploader]="uploader">
+      <span>"</span><span class="upload_text" (mousedown)="cancelBubble($event)" (click)="showFileFolder($event)">上传图片</span><span>"</span> 或 <span>"</span>
+      <span class="upload_text" (mousedown)="cancelBubble($event)" (click)="showAddImgUrlInput($event)">添加图片链接</span><span>"</span>
+    </div>
+    <input type="text" (mousedown)="cancelBubble($event)"  class="add_imgurl" placeholder="图片链接" #addImgUrl (change)="addImgUrlHandle($event)" [style.margin-left.px]="-pWidth*0.4" style="display: none">
+    <img *ngIf="data" [attr.src]="data" class="panel_img" [style.width.px]="imgW" [style.height.px]="imgH">
+  </ng-template>
+  <ng-template ngSwitchDefault>
+    <!--<d3chart  *ngIf="showType =='chart' && cardResult"  [chartOpt]="barChart" [chartType]="chartType" ></d3chart>-->
+    <ng-template [ngIf]="showType =='chart' && cardResult">
+      <!--上下切换-->
+      <ng-template [ngIf]="chartType=='singleHorizontalBar'||chartType=='groupHorizontalBar'||chartType=='horizontalStackedBar'">
+        <div  *ngIf="totalPage>1" class="dashboard_up_btn scroll_btn_box" [class.unable_loading]="curPage == 0" (click)="prevPage()"><i class="iconfont icon-jiantouy-copy"></i></div>
+        <div  *ngIf="totalPage>1" class="dashboard_down_btn scroll_btn_box"  [class.unable_loading]="curPage == totalPage-1" (click)="nextPage()"><i class="iconfont icon-jiantouy-copy"></i></div>
+        <div class="data_container dashboard_up_scroll_contanier" [hidden]="showType !='chart'" #chartContainer>
+          <div class="chart_box scroll_bar scroll_o_bar"  #svgChartBox>
+            <chart-highChart #highchart [cardResult]="cardResult" [queryType]="queryType" [dimensions]="dimensions" [barChart]="barChart" [chartType]="chartType" [drill]="drill" [helper]="helper"  [section]="section"  (cellClickEvent)="showSectionDimension($event)"></chart-highChart>
+            <!--<chart [options]="options"  (load)="saveInstance($event.context)"></chart>-->
+          </div>
+        </div>
+      </ng-template>
+      <!--上下切换 end-->
+      <!--左右切换-->
+      <ng-template [ngIf]="chartType!='singleHorizontalBar'&&chartType!='groupHorizontalBar'&&chartType!='horizontalStackedBar'">
+        <div class="data_container dashboard_left_scroll_contanier" [hidden]="showType !='chart'"  #chartContainer>
+          <div class="chart_box  scroll_bar scroll_o_bar" #svgChartBox>
+            <chart-highChart #highchart [cardResult]="cardResult"  [queryType]="queryType"  [dimensions]="dimensions" [barChart]="barChart" [chartType]="chartType" [drill]="drill" [helper]="helper"  [section]="section"  (cellClickEvent)="showSectionDimension($event)"></chart-highChart>
+            <!--<chart [options]="options"  (load)="saveInstance($event.context)"></chart>-->
+          </div>
+        </div>
+        <div  *ngIf="totalPage>1" class="dashboard_left_btn scroll_btn_box" (click)="prevPage()" [class.unable_loading]="curPage == 0"><i class="iconfont icon-jiantouy-copy"></i></div>
+        <div  *ngIf="totalPage>1" class="dashboard_right_btn scroll_btn_box" (click)="nextPage()" [class.unable_loading]="curPage == totalPage-1" ><i class="iconfont icon-jiantou-copy"></i></div>
+      </ng-template>
+      <!--左右切换 end-->
+      <!--<chart  [options]="options"  (load)="saveInstance($event.context)">-->
+      <!--</chart>-->
+    </ng-template>
+    <!--<chart  *ngIf="showType =='chart' && cardResult"  [hidden]="showType !='chart'"  [options]="options"  (load)="saveInstance($event.context)">-->
+    <!--</chart>-->
+    <div class="sk_table_contanier  scroll_bar scroll_o_bar" *ngIf="showType =='table' && cardResult">
+      <show-table  [cardResult]="cardResult" [helper]="helper" [showType]="showType" [drill]="drill" [dimensions]="dimensions"  [section]="section" [page]="curPage" (cellClickEvent)="showSectionDimension($event)" (changePageEvent)="changPageFn($event)" (run)="run($event)" [totalPage]="totalPage"></show-table>
+    </div>
+    <showTxt *ngIf="showType =='txt' && cardResult"  [cardResult]="cardResult" ></showTxt>
+    <div *ngIf="!preview&&!cardResult" class="chart_text">请拖入图表</div>
+  </ng-template>
+</div>
+<!--<drilldown #drilldown  [dimensions]="dimensions" [helper]="helper"  (run)="run($event)"></drilldown>-->
+<!--<section-dimension #sectionDimension  [dimensions]="dimensions"  [helper]="helper"  (run)="run($event)"></section-dimension>-->

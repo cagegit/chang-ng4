@@ -1,0 +1,27 @@
+.home_right{ position: fixed; top: 65px; right: 0;}
+/** right style **/
+.home_right{position: fixed; top: 65px; right: 0;width:482px;background-color: #fbfbfb; border-left:1px solid #d2dadf;padding: 0 20px; }
+.sub_title{height:55px; line-height: 55px; color: #323757; font-size: 14px; border-bottom: 1px solid #e6eaec;}
+.sub_title a{ text-decoration: none; color: #323757; float: right;}
+.table_list li{ height:66px; line-height: 34px; color: #666; padding: 16px 0; border-bottom: 1px solid #e6eaec; }
+.table_list li:last-child{ border-bottom: none;}
+.table_list li img { float: left; width: 34px; height: 34px; margin-right: 25px;}
+.table_title,.table_dir{ float: left; display:inline-block;width: 176px; padding-right: 10px; font-family:  " Arial Microsoft Himalaya";}
+.table_dir{width: 100px;}
+.table_time{ float: right; text-align: right; color: #9ba6c0; font-size: 12px; font-family: Arial;}
+.update_time{ display:inline-block; float: left; line-height: 16px; color: #aab3c9; width: 55px;}
+.update_time span{ color: #333;}
+.update_title{ float: left; position: relative; padding-left: 30px; width: 142px;}
+.update_title .t_icon{ display:block; position:absolute;width:20px;  height:20px; left: 0; top: 7px; font-style: normal; font-size: 10px; font-family: Arial; font-weight: bold; text-align: center; color: #fff; line-height: 20px;}
+.pm{ background-color:#53bb9b; }
+.ui{ background-color: #ef5350}
+.rd{background-color: #8562a3;}
+.qa{background-color: #f48c37}
+.db{ background-color: #348ea9}
+.op{ background-color: #e91f63}
+.update_dir{ display: inline-block; float: left; width: 230px; padding-right: 10px;}
+.update_dir a{ color: #4c86c4;}
+.update_link{ display: inline-block; float: right; text-align: right;}
+.update_link a{ color: #333; text-decoration: none;}
+.update_link i{ font-size: 12px;}
+.dash_list li{background-color: #f1f2f7; border:1px solid #e6eaec;border-radius: 3px;}

@@ -1,0 +1,26 @@
+<div class="app_main container-fluid no_padding" *ngIf="!isNotExist">
+  <div class="domain_left col-lg-5 col-md-5 col-sm-5">
+    <div class="domain_title">设置一个域名用来登录DataSee测试</div>
+    <form class="form-horizontal set_psw" (ngSubmit)="onSubmit()" role="form" #setDomain="ngForm">
+      <div class="self_input_box set_domain_input">
+        <input type="text" name="domain" #domain required [ngModel]="domainName" (ngModelChange)="onChangeValue(domain.value)">
+        <div class="self_error" *ngIf="errMessage"><i class="iconfont icon-buzhengque"></i>{{errMessage}}</div>
+        <ng-template #toolTipTemplate let-model="model">
+          <div class="tooltip_tem">长度小于20个字符。支持英文和数字，特殊符号支持“-”，但不能出现在第一个和最后一个字符</div>
+        </ng-template>
+        <div class="tishi"><i class="iconfont icon-wenhao" [tooltipHtml]="toolTipTemplate" [tooltipContext]="tooltipModel"
+            placement="top"></i></div>
+
+      </div>
+      <div class="input-group">
+      </div>
+      <div class="domain_btn marT20">
+        <button type="submit" class="self_btn c_ef5350" [disabled]="!canSubmit">下一步！</button>
+      </div>
+    </form>
+    <div class="has_exist" *ngIf="isExist">已有账号 请直接<a routerLink="/login_domain">登录</a></div>
+  </div>
+  <div class="domain_right col-lg-7 col-md-7 col-sm-7" #domainRight></div>
+  <div style="clear:both"></div>
+</div>
+<reg-unexist *ngIf="isNotExist" [tenant]="tenant"></reg-unexist>

@@ -1,0 +1,28 @@
+.set-filter{background: url("../../../assets/img/set-query-meta.png") no-repeat left center;border-bottom: 1px solid #ccc;}
+
+.set_filter_box{ width: 500px;}
+.f_search_box{ position: relative;}
+.f_search_box label{line-height: 15px;}
+.f_search_box input{ width: 100%; border:1px solid #e6eaec; color: #666; font-size: 12px; height:38px; line-height: 38px; background-color: #fff; outline: none; border-radius: 3px; padding:0 40px 0 10px;  }
+.f_search_box i{ position: absolute; line-height: 38px; top: 0; right: 10px; cursor: pointer;}
+.will_select_box{ height: 16px; margin: 20px 0 10px; line-height: 16px;}
+.will_select_box label{color: #fff; width: auto; display: inline-block;}
+.will_select_list{height: 195px; background-color: #fff; padding:10px 0; border-radius: 3px; border:1px solid #e6eaec;}
+.will_select_list li{padding: 0 10px; height: 26px; line-height: 26px; margin-bottom: 10px;}
+.will_select_list li .mock_box{ top:5px; }
+.will_select_list li:hover{ background-color: #f9f9f9;}
+.will_select_list li .right_con{ top: 6px;}
+.get_val_list{ height: 134px; border:1px solid #e6eaec; padding: 10px; background-color: #fff; border-radius:3px;}
+.get_val_list li{ float: left; width: 103px; padding:0 20px 0 10px; position: relative;height:30px; line-height: 28px; background-color: #f0f0f0; color: #666; font-size: 12px; border:1px solid #e7e7e8; margin: 0 10px 10px 0;border-radius: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+.get_val_list li i{ color: #f04946; position: absolute;right: 5px; top: 1px; cursor: pointer;}
+.clear_condition{ line-height: 36px; color: #fff;}
+.clear_condition i{ color: #66938e; margin-right: 10px;}
+.set_param_name{ line-height: 30px; color: #fff; margin-top: 10px;}
+.set_line{ height: 16px; line-height: 16px; margin-bottom: 10px; display: inline-block; float: right;}
+.will_select_list label{height: 26px; overflow: hidden;}
+.will_select_list label .mock_input{ width: 1px; height: 1px; overflow: hidden; top: -10px;}
+.set_line input{ position: absolute; top: 0px; opacity: 0;}
+.mock_radio{ display: inline-block;margin-right:6px;position:relative;width: 12px; height: 12px; border-radius: 50%; background-color: #e9e9e9;position: relative;border:1px solid #c9c9c9; }
+.mock_radio:after{ display:none;content:''; overflow:hidden;position: absolute; width: 4px; height: 4px; background-color: #1f7acc; border-radius: 50%; top: 3px; left: 3px; }
+.set_line input:checked+.mock_radio:after{ display: inline-block;}
+.set_filter_btn button{ width: 49%;}

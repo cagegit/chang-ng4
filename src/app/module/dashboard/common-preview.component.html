@@ -1,0 +1,72 @@
+<div class="page_tab_box">
+  <ul class="p_page_list self_clearfix" [class.p_page_list_template]="isTemplate && !isPreview" #pageList>
+    <li *ngFor="let page of dashboard.content;let i = index" [class.current]="page.pageID === curPage.pageID" (click)="changeCurPage(page,$event)"
+      title="{{page.pageName}}">{{page.pageName}}</li>
+  </ul>
+  <div class="preview_operate_list self_clearfix" *ngIf="isPreview">
+    <div class="replace_template_data self_clearfix" *ngIf="isTemplate && isPreview && dashboardTemplate"><a [routerLink]="['/template','dashboard','data',dashboardTemplate.dataSourceType,dashboard.dashboardID]">替换模板数据</a></div>
+    <div class="more_operate">
+      <i class="iconfont icon-gengduo1"></i>
+      <ul class="operate_item_list">
+        <li (click)="toEditDashboard(dashboard.dashboardID)"><i class="iconfont icon-qianming"></i><span>编辑dashboard</span></li>
+        <li *ngIf="dashboard.dashboardID&&dashboard.hasPermission(PERMISSION_TYPE.AUTH)" (click)="resourcePermissionModal.show(dashboard.dashboardID,dashboard.dashboardName,RESOURCE_TYPE_DASHBOARD)"><i
+            class="iconfont icon-iconshezhi01"></i><span>设置权限</span></li>
+        <li (click)="exportPDF()"><i class="iconfont icon-iconfontxiazai"></i><span>下载pdf</span></li>
+      </ul>
+    </div>
+    <span>|</span>
+    <div class="dashboard_auth"><a [routerLink]="['/dashboard/info/list']" title="{{dashboard.createdBy}}"><img
+          src="{{dashboard.createUserAvatarUrl}}"></a></div>
+  </div>
+</div>
+<div class="p_panel_box" [class.p_panel_box_template]="isTemplate && !isPreview">
+  <div class="panel_content_box">
+    <ng-template ngFor let-page [ngForOf]="dashboard.content">
+      <iframe *ngIf="curPage&&page.href" [class.hidden]="(page.pageID != curPage.pageID)" [src]="safeUrlMap[page.pageID]" width="100%"
+        height="700px" frameborder="0" scrolling="auto"></iframe>
+      <div *ngIf="curPage&&(!page.href)&&page.pageID==curPage.pageID" class="grid panels_list" id="panels_list" [ngGrid]="CONTAINER_CONFIG">
+        <!--panel loop start{-->
+        <div *ngFor="let panel of curPage.panels; let i = index" class="grid-item" [class.grid-item-template]="isTemplate" [(ngGridItem)]="panel.config"
+          (onResizeStop)="panelContent.onResizeStop($event.width,$event.height)">
+          <div class="preview_head">
+            <span class="preview-title self_ellipsis" title="{{panel.panelName}}">{{panel.panelName}}</span>
+            <div class="preview_btn_list self_clearfix" *ngIf="!isTemplate && panel.panelType!==4">
+              <span class="icon-filter" *ngIf="panel.panelType == 0 && panel?.data?.cardId"><i class="iconfont  self_right icon-shezhi"
+                  (click)="showLayer($event,'setOperateFlag',true,i,showPreview($event,panel) )" (mousedown)="cancelBubble($event)"></i></span>
+              <span class="icon-filter"><i class="iconfont  self_right icon-gengxin" (mousedown)="cancelBubble($event)"></i></span>
+              <span class="change_table" *ngIf="panel.data?.queryType!='SQL'&&panel.panelType==0&&panel.dataShowType!='txt'&&panel.dataShowType!='table'"
+                [class.cur_table]="panel.panelType==0&&panel.dataShowType=='chart_table'">
+                <ng-template [ngIf]="panel.panelType==0&&panel.dataShowType!='chart_table'">
+                  <i *ngIf="panel.dataShowType&&panel.dataShowType!='table'&&panel.dataShowType!='txt'" class="iconfont  self_right icon-biaoge"
+                    (click)="changeShowType(panel.panelID,'chart_table')"></i>
+                </ng-template>
+                <ng-template [ngIf]="panel.panelType==0&&panel.dataShowType=='chart_table'">
+                  <i *ngIf="panel.dataShowType&&panel.dataShowType!='table'&&panel.dataShowType!='txt'" class="iconfont  self_right icon-biaoge"
+                    (click)="changeShowType(panel.panelID,'chart')"></i>
+                </ng-template>
+              </span>
+              <span class="icon-filter" *ngIf="panel.showFilterOpt"><i class="iconfont  self_right icon-shaixuan" (click)="showLayer($event,'panelFilterFlag',true,i,showPreview($event,panel) )"
+                  (mousedown)="cancelBubble($event)"></i></span>
+            </div>
+          </div>
+          <!--OLAP报表-->
+          <panel-init *ngIf="panel.panelType!==4 && panel.data.cardId" [data]="panel.data" [singlePanelFilters]="panel.singlePanelFilters" #panelContent [panelID]="panel.panelID"
+            [fromTemplateList]="fromTemplateList" [preview]="true" [panelType]="panel.panelType" [panelCharts]="panelCharts"
+            [changePanelShowType]="panel.dataShowType" (setFilterEvent)="setFiltersFn($event)" (setSectionOrDrill)="setSectionOrDrillFn($event)"
+            (showSectionOrDrill)="showSectionOrDrillFn($event)" (panelRun)="panelRun($event)"></panel-init>
+          <!--可配置报表chart-->
+          <app-panel-echart *ngIf="panel.panelType===4 && panel.data.cardId" [timeRange]="panel.data.content?panel.data.content:'14:1'" [tableId]="panel.data?.cardId" #panelContent [panelID]="panel.panelID" [attr.data-panelID]="panel.panelID"></app-panel-echart>
+        </div>
+        <preview-filter [attr.id]="'filter'" [filters]="selectPanelFilters" [panel]="curPanel" [top]="previewFilterPos.top" *ngIf="layerFlags.panelFilterFlag"
+          [left]="previewFilterPos.left" (searchRunEvent)="searchRunFn($event)" (setFilterEvent)="setFiltersFn($event)"></preview-filter>
+        <set-operate [top]="previewFilterPos.top" *ngIf="layerFlags.setOperateFlag" [queryType]="curPanelQueryType" [panel]="curPanel"
+          [page]="curPage" [left]="previewFilterPos.left" (setOptionEvent)="setOptionFn($event)" (refreshPanelEvent)="refreshPanelFn($event)"></set-operate>
+        <!--}panel loop end-->
+        <!--<preview-filter [top]="previewFilterPos.top" *ngIf="layerFlags.panelFilterFlag" [left]="previewFilterPos.left" (mousedown)="cancelBubble($event)"></preview-filter>-->
+      </div>
+    </ng-template>
+  </div>
+</div>
+<resource-permission-modal #resourcePermissionModal (changeUserPermission)="update($event)"></resource-permission-modal>
+<drilldown #drilldown (run)="panelRunFn($event)"></drilldown>
+<section-dimension #sectionDimension (run)="panelRunFn($event)"></section-dimension>

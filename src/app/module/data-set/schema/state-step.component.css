@@ -1,0 +1,18 @@
+.state_step{ width: 800px; margin:150px auto; }
+.step_title{ text-align: center; font-size: 24px; color: #666; font-weight: bold;}
+.step_describe{ color: #666; text-align: center; line-height: 60px; margin-bottom: 40px;}
+.step_list li{ width: 200px; float: left; position: relative; padding-top: 55px; background: url("../../../../assets/img/state_step_bg.png") no-repeat; height: 170px;}
+.step_list .step_first{ background-position: 0 0;}
+.step_list .step_second{ background-position: -200px 0;}
+.step_list .step_third{ background-position: -400px 0;}
+.step_list .step_fourth{ background-position: -600px 0;}
+.step_text{ line-height: 30px; color: #859acf; text-align: center;}
+.step_first .step_text{ line-height: 60px;}
+.step_number{ text-align: center; line-height: 32px; border-radius: 50%; width: 32px; height: 32px; color: #fff; position: absolute; left: 84px;  bottom: 0; font-size: 20px; font-weight: bold; background-color: #859acf;}
+.step_number:before,.step_number:after{ width: 86px; height:14px; background-color: #859acf; position: absolute; left: -84px; top: 9px; content: ''; }
+.step_number:after{ left: 30px;}
+.step_first .step_number:before,.step_fourth .step_number:after{ display: none;}
+.step_list li:before,.step_list li:after{ border-left:10px solid #fff; border-top: 7px solid transparent; border-bottom: 7px solid transparent; width: 0; height: 0; font-size: 0; overflow: hidden; content: ''; position: absolute; bottom: 9px; right:-6px;  z-index: 2;}
+/*.step_list li:after{ border-left-color: #859acf; right: 7px;}*/
+.step_list li:after{ border-left: 10px solid #859acf; right: -4px;}
+.step_list .step_fourth:after,.step_list .step_fourth:before{ display: none;}

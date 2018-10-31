@@ -1,0 +1,10 @@
+<div id="dsPreView" class="preview" [@flyIn]="active">
+<!--  <div class="p_dashboard_name self_ellipsis" title="{{dashboard.dashboardName}}">
+    <span>{{dashboard.dashboardName}}</span>
+  </div>-->
+  <div class="no_dashboard" *ngIf="!dashboard.content">
+    <no-content text="没有内容" [style]="noContentStyle" imgSrc="assets/img/not_source.jpg"></no-content>
+  </div>
+  <common-preview [dashboard]="dashboard" [isPreview] = "isPreview"></common-preview>
+</div>
+

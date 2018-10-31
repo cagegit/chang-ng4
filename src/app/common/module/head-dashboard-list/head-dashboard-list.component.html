@@ -1,0 +1,25 @@
+<div class="head_dashboard_list self_clearfix">
+  <div class="cur_dashboard_bg" [class.hidden_cur_dashboard]="true" [style.left.px]="curDashboardBgPosition.left" [style.width.px]="curDashboardBgPosition.width"></div>
+  <div class="manage_dashboard_btn" routerLink="/dashboard/info/list"><i class="iconfont icon-dashboardwtdlc"></i></div>
+  <ul class="h_dashboard_list" >
+    <!-- <li><a routerLink="/welcome">如何使用datasee</a></li> -->
+    <li *ngFor="let dashboard of showDashboardList" class="self_ellipsis" [attr.id]="dashboard.dashboardID" title="{{dashboard.dashboardName}}"><a routerLink="/dashboard/info/{{dashboard.dashboardID}}" routerLinkActive="selected" title="{{dashboard.dashboardName}}">{{dashboard.dashboardName}}</a> </li>
+  </ul>
+  <div class="more_box" *ngIf="hiddenDashboardList.length > 0">
+    <div class="more_btn" [class.select_more_btn]="inMore">更多<i class="iconfont icon-jiantouzuo-copy"></i></div>
+    <div class="more_down_box scroll_bar">
+      <div class="more_down_search">
+        <input type="text" placeholder="搜索仪表盘" (keyup)="search($event.target.value)">
+        <i class="iconfont icon-fangdajing"></i>
+      </div>
+      <ul class="hidden_dashboard_lsit  scroll_bar">
+        <li *ngFor="let dashboard of hiddenDashboardList" class="self_ellipsis"  [class.cur]="dashboard.dashboardID == dashboardID" title="{{dashboard.dashboardName}}"><a routerLink="/dashboard/info/{{dashboard.dashboardID}}">{{dashboard.dashboardName}}</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+  <ul class="h_dashboard_list comput_dashboard" #computeArea>
+    <li>欢迎页</li>
+    <li *ngFor="let dashboard of dashboardList" class="self_ellipsis">{{dashboard.dashboardName}}</li>
+  </ul>
+

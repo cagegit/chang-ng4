@@ -1,0 +1,137 @@
+<div class="detail" *ngIf="data&&data.id" #taskdetail>
+  <h5 class="title">任务详情</h5>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="col-md-3 text_right text_padding">
+        <span class="span-text">任务名称：</span>
+      </div>
+      <div class="col-md-9 text_left text_padding">{{data.name}}</div>
+    </div>
+    <div class="col-md-6">
+      <div class="col-md-3 text_right text_padding"><span class="span-text">目标平台：</span></div>
+      <div class="col-md-9 text_left text_padding">{{data.platform.unitName}}</div>
+    </div>
+    <div class="col-md-6">
+      <div class="col-md-3 text_right text_padding"><span class="span-text">转发协议：</span></div>
+      <div class="col-md-9 text_left text_padding">{{data.protocol.name}}</div>
+    </div>
+    <div class="col-md-6">
+      <div class="col-md-3 text_right text_padding"><span class="span-text">有效期：</span></div>
+      <div class="col-md-9 text_left text_padding" [hidden]="data.isLongterm===1">
+          <div>
+            {{data.startDateFormat}}-{{data.expireDateFormat}}
+        <span class="label label-warning span-right" [ngStyle]="{left:'300px',width:'40px',top:'10px'}" *ngIf="data.isOverdue">过期</span>
+          </div>
+      </div>
+      <div class="col-md-9 text_left text_padding" [hidden]="data.isLongterm===0">长期有效</div>
+    </div>
+    <div class="col-md-6">
+      <div class="col-md-3 text_right text_padding"><span class="span-text">传输加密：</span></div>
+      <div class="col-md-9 text_left text_padding">{{data.isEncrypt===1?'明文':'加密'}}</div>
+    </div>
+    <div class="col-md-6">
+      <div class="col-md-3 text_right text_padding"><span class="span-text">任务状态：</span></div>
+      <div class="col-md-9 text_left text_padding">{{data.isEnable===1?'启用':'禁用'}}</div>
+    </div>
+  </div>
+  <h5 class="title">任务转发车辆详情</h5>
+
+  <div class="tj-select-panel clear-fix mar10">
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="search(data.id)" class="ant-advanced-search-form">
+      <div nz-row [nzGutter]="10">
+        <div nz-col [nzSpan]="8">
+          <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSpan]="5">
+              <label>车牌号</label>
+            </div>
+            <div nz-form-control nz-col [nzSpan]="19">
+              <nz-input formControlName="licensePlate" [nzSize]="'normal'" [nzPlaceHolder]="'请输入车牌号'"></nz-input>
+            </div>
+          </div>
+        </div>
+
+        <div nz-col [nzSpan]="8">
+          <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSpan]="5">
+              <label>VIN</label>
+            </div>
+            <div nz-form-control nz-col [nzSpan]="19">
+              <nz-input formControlName="vin" [nzSize]="'normal'" [nzPlaceHolder]="'请输入VIN'"></nz-input>
+            </div>
+          </div>
+        </div>
+
+        <div nz-col [nzSpan]="8">
+          <div nz-form-item nz-row>
+            <div nz-form-label nz-col [nzSpan]="5">
+              <label>车辆厂商</label>
+            </div>
+            <div nz-form-control nz-col [nzSpan]="19">
+              <nz-select formControlName="vendor" [nzPlaceHolder]="'请选择车辆厂商'" [nzShowSearch]="true" nzAllowClear>
+                <nz-option *ngFor="let option of vendorEnum" [nzLabel]="option.name" [nzValue]="option.name">
+                </nz-option>
+              </nz-select>
+            </div>
+          </div>
+        </div>
+        <div nz-col [nzSpan]="24" style="text-align: right;">
+          <button nz-button [nzType]="'primary'">查询</button>
+          <button nz-button (click)="resetForm()">重置</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="muti-btn muti-btn-start">
+      <div class="invite" [ngStyle]="{width:'70px'}">
+        <button (click)="taskVehicleConfirm.open();$event.stopPropagation();"><span>添加车辆</span></button>
+      </div>
+      <div class="invite" [ngStyle]="{width:'70px'}">
+        <button (click)="dataSetConfirm.open('移除转发车辆配置','转发配置删除后，该车辆将停止向目标平台转发数据，是否继续删除？',dataItem);$event.stopPropagation();"
+          [disabled]="!deleteVehicles" class="self-btn"><span>移除车辆</span></button>
+      </div>
+      <div class="invite" [ngStyle]="{width:'70px'}">
+        <button (click)="exportVehicle()" [disabled]="export" class="self-btn"><span>{{export?'导出中':'导出'}}</span></button>
+      </div>
+    </div>
+
+  <div style="margin-top: 20px;">
+    <nz-table #nzTable #nzTable [nzAjaxData]="_dataSet" [nzShowSizeChanger]="true" [nzLoading]="_loading" [nzTotal]="_total"
+      [(nzPageIndex)]="_current" (nzPageIndexChange)="refreshData()" [(nzPageSize)]="_pageSize" (nzPageSizeChange)="refreshData(true)"
+      [nzBordered]="true" [nzShowTotal]="true" [nzShowQuickJumper]="true">
+      <thead nz-thead>
+        <tr>
+          <th nz-th nzWidth="6%">
+            <span>
+             <input type="checkbox" [(ngModel)]="checkAll" name="checkAll" (change)="checkAllChange($event.target)">
+             序号</span></th>
+          <th nz-th nzWidth="10%"><span>车牌号</span></th>
+          <th nz-th nzWidth="12%"><span>VIN</span></th>
+          <th nz-th nzWidth="14%"><span>车辆厂商</span></th>
+          <th nz-th nzWidth="12%"><span>通讯协议类型</span></th>
+          <th nz-th nzWidth="12%"><span>车辆型号</span></th>
+          <th nz-th nzWidth="12%"><span>车辆种类</span></th>
+          <th nz-th nzWidth="12%"><span>运营公司</span></th>
+          <!-- <th nz-th nzWidth="10%"><span>平台连接状态</span></th> -->
+        </tr>
+      </thead>
+      <tbody nz-tbody>
+        <tr nz-tbody-tr *ngFor="let data of nzTable.data; index as i;">
+          <td nz-td><input type="checkbox" [(ngModel)]="data.check" name="checkbox" (change)="checkChange(data.check)">{{i+1}}</td>
+          <td nz-td>{{data.licensePlate}}</td>
+          <td nz-td>{{data.vin}}</td>
+          <td nz-td>{{data.vendor}}</td>
+          <td nz-td>{{data.communicationProtocol}}</td>
+          <td nz-td>{{data.vehModelNo}}</td>
+          <td nz-td>{{data.vehType}}</td>
+          <td nz-td>{{data.operatingCompany}}</td>
+          <!-- <td nz-td>{{data.unit}}</td> -->
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+<task-vehicle #taskVehicleConfirm [data]="data" (change)="search()"></task-vehicle>
+
+<alert-confirm #dataSetConfirm (confirm)="deleteDataItem($event)"></alert-confirm>

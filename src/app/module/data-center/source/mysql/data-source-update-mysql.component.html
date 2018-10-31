@@ -1,0 +1,62 @@
+<div class="data_main" #fullpage class="full_height">
+    <div class="connector_title {{dataSource.dataSourceType}}_title">{{dataSourceTypeDesc}}</div>
+    <form role="form" [formGroup]="dataSourceForm">
+      <!-- <input type="hidden" formControlName="dataSourceID" /> -->
+    <div class="data_box marB20" [@foldState] = 'foldState.sourceName'>
+      <div class="data_source_name">
+        <i class="iconfont  icon-daiqueren icon_tit"></i>数据源名称
+        <i class="iconfont icon-shouqi list_fold"[@iconState]="iconState.sourceName"  (click)="changeFoldState('sourceName')"></i>
+      </div>
+        <div class="data_input marT30">
+            <i class="iconfont icon-qianming"></i>
+            <input type="text" placeholder="命名这个数据源" formControlName="name" myFocusChangeStyle  [focusClass]="'data_focus_box'" (keyup)="asyncValidator($event.target.value)" *ngIf="!disable">
+            <input type="text" placeholder="命名这个数据源" formControlName="name" myFocusChangeStyle  [focusClass]="'data_focus_box'" (keyup)="asyncValidator($event.target.value)" disabled *ngIf="disable">
+            <div class="self_error" *ngIf="formErrors.name"><i class="iconfont icon-buzhengque"></i>{{formErrors.name}}</div>
+        </div>
+    </div>
+    <div class="data_box marB20" [@foldState] = 'foldState.connectConfig'>
+      <div class="data_source_name"><i class="iconfont icon_tit icon-daiqueren"></i>连接配置
+        <i class="iconfont icon-shouqi list_fold" [@iconState]="iconState.connectConfig" (click)="changeFoldState('connectConfig')"></i>
+      </div>
+        <div class="data_input marT30 marB20">
+            <i class="iconfont icon-ip"></i>
+            <input type="text" formControlName="hostname" placeholder="数据库主机名或者ip地址" myFocusChangeStyle  [focusClass]="'data_focus_box'" *ngIf="!disable">
+            <input type="text" formControlName="hostname" placeholder="数据库主机名或者ip地址" myFocusChangeStyle  [focusClass]="'data_focus_box'" disabled *ngIf="disable">
+            <div class="self_error" *ngIf="formErrors.hostname"><i class="iconfont icon-buzhengque"></i>{{formErrors.hostname}}</div>
+        </div>
+        <div class="data_input marT30 marB20">
+          <i class="iconfont icon-shujuku"></i>
+          <input type="text" formControlName="databaseName" placeholder="数据库名" myFocusChangeStyle  [focusClass]="'data_focus_box'" *ngIf="!disable">
+          <input type="text" formControlName="databaseName" placeholder="数据库名" myFocusChangeStyle  [focusClass]="'data_focus_box'" disabled *ngIf="disable">
+          <div class="self_error" *ngIf="formErrors.databaseName"><i class="iconfont icon-buzhengque"></i>{{formErrors.databaseName}}</div>
+        </div>
+        <div class="data_input marT30 marB20">
+          <i class="iconfont icon-zhiye1"></i>
+          <input type="text" formControlName="username" placeholder="用户名" myFocusChangeStyle  [focusClass]="'data_focus_box'" >
+          <div class="self_error" *ngIf="formErrors.username"><i class="iconfont icon-buzhengque"></i>{{formErrors.username}}</div>
+        </div>
+        <div class="data_input marT30">
+          <i class="iconfont icon-mima"></i>
+          <input type="password" formControlName="password" placeholder="密码" myFocusChangeStyle  [focusClass]="'data_focus_box'" >
+          <div class="self_error" *ngIf="formErrors.password"><i class="iconfont icon-buzhengque"></i>{{formErrors.password}}</div>
+        </div>
+       <!--<div class="data_input_label marL20">CA证书</div>-->
+        <!--<div class="data_textarea marL20"><textarea></textarea></div>-->
+        <div class="data_input marT30 marB20 input_port">
+          <input type="text" formControlName="databasePort" placeholder="端口号，默认{{defaultPort}}" myFocusChangeStyle  [focusClass]="'data_focus_box'" *ngIf="!disable">
+          <input type="text" formControlName="databasePort" placeholder="端口号，默认{{defaultPort}}" myFocusChangeStyle  [focusClass]="'data_focus_box'" disabled *ngIf="disable">
+          <div class="self_error" *ngIf="formErrors.databasePort"><i class="iconfont icon-buzhengque"></i>{{formErrors.databasePort}}</div>
+          <div class="test_button">
+            <!--<button class="data_btn">连接测试</button>-->
+            <button class="self_btn c_49a2df"  [disabled]="!dataSourceForm.valid||submitted" (click)="connectTest()">连接测试</button>
+          </div>
+        </div>
+    </div>
+    <div class="mysql_btn marT20 self_clearfix">
+      <button class="self_sm_btn self_btn c_ef5350" type="submit" (click)="formSubmit()"  [disabled]="!dataSourceForm.valid||submitted||disables">保存</button>
+      <button class="self_sm_btn self_btn self_cancel" (click)="formReset()">取消</button>
+    </div>
+    </form>
+</div>
+
+

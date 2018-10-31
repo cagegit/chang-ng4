@@ -1,0 +1,154 @@
+<div class="container-fluid" *ngIf="user && user.id">
+  <div class="detail_top clearfix no_delete_btn" [class.no_delete_btn]="loginUser.isAdmin && (loginUser.userId != user.id) && !user.groups.length">
+    <div class="info_left">
+      <div class="header_img" (click)="selectHeadImg()">
+        <img src="{{user.headImg}}" >
+        <div class="edit_img"></div>
+        <i class="iconfont icon-qianming qianming"></i>
+        <input hidden type="file" *ngIf="!user.requireChange&&(loginUser.userId == user.id)" id="userHeadImgFile" (change)="uploadImage($event)" ng2FileSelect [uploader]="uploader"/>
+      </div>
+      <div class="name_p">
+        <p class="detail_user_name" (click)="showEditer($event,'displayName')">
+          <span>{{user.displayName}}<span *ngIf="user.requireChange">(未激活)</span></span>
+          <i class="iconfont icon-qianming qianming" *ngIf="!user.requireChange && loginUser.isAdmin || loginUser.userId == user.id"></i>
+          <my-editer *ngIf="(!user.requireChange && loginUser.isAdmin || loginUser.userId == user.id) && editer.displayName" (onSave)="onSaveHandle($event,user.displayName,'displayName',user.email)" (onCancel)="hideEidter('displayName')" [myVal]="user.displayName" [placeholder]="'请输入昵称'" regStr="^.{1,50}$" errMessage="请输入1到50位的字符"></my-editer>
+        </p>
+        <!--<select [ngModel]="user.permissions" (ngModelChange)="changeAdminFn($event)">-->
+          <!--<option value="true">管理员</option>-->
+          <!--<option value="false">普通用户</option>-->
+        <!--</select>-->
+        <p class="user_permissions">{{user.permissions?'管理员':'普通用户'}}</p>
+      </div>
+    </div>
+    <div class="info_right">
+      <ul class="clearfix" [class.no_active]="user.requireChange">
+        <li (click)="resetPasswordModal.show()" *ngIf="!user.requireChange && loginUser.userId == user.id"><i class="iconfont icon-mima"></i><span>修改密码</span></li>
+        <li (click)="showEditer($event,'department')">
+          <i class="iconfont icon-bumen"></i>
+          <span class="user_key">{{user.section}}</span>
+          <i class="iconfont icon-qianming qianming" *ngIf="!user.requireChange && loginUser.isAdmin || loginUser.userId == user.id"></i>
+          <my-editer *ngIf="(!user.requireChange && loginUser.isAdmin || loginUser.userId == user.id) && editer.department" (onSave)="onSaveHandle($event,user.section,'department',user.email)" (onCancel)="hideEidter('department')" [myVal]="user.section" [placeholder]="'请输入部门'" regStr="^.{1,50}$" errMessage="请输入1到50位的字符"></my-editer>
+        </li>
+        <li (click)="showEditer($event,'position')">
+          <i class="iconfont icon-zhiye1"></i>
+          <span class="user_key">{{user.title}}</span>
+          <i class="iconfont icon-qianming qianming" *ngIf="!user.requireChange && loginUser.isAdmin || loginUser.userId == user.id"></i>
+          <my-editer *ngIf="(!user.requireChange && loginUser.isAdmin || loginUser.userId == user.id) && editer.position" (onSave)="onSaveHandle($event,user.title,'position',user.email)" (onCancel)="hideEidter('position')" [myVal]="user.title" [placeholder]="'请输入职称'" regStr="^.{1,50}$" errMessage="请输入1到50位的字符"></my-editer>
+        </li>
+        <li><i class="iconfont icon-youxiang"></i><span class="user_email_item user_key">{{user.email}}</span></li>
+        <li (click)="showEditer($event,'telephone')">
+          <i class="iconfont icon-dianhua"></i>
+          <span class="user_key">{{user.telephone}}</span>
+          <i class="iconfont icon-qianming qianming" *ngIf="!user.requireChange && loginUser.isAdmin || loginUser.userId == user.id"></i>
+          <my-editer *ngIf="(!user.requireChange && loginUser.isAdmin || loginUser.userId == user.id)&& editer.telephone" (onSave)="onSaveHandle($event,user.tel,'telephone',user.email)" (onCancel)="hideEidter('telephone')" [myVal]="user.telephone" [placeholder]="'请输入手机号'" regStr="1(3|4|5|7|8)\d{9}" errMessage="手机号码格式不正确"></my-editer>
+        </li>
+      </ul>
+    </div>
+
+    <div class="delete_group" *ngIf="loginUser.isAdmin && (loginUser.userId != user.id) && !user.groups.length"><button class="self_btn c_ef5350" (click)="userConfirm.open('确定要删除该用户吗？',user.id);$event.stopPropagation();" ><i class="iconfont icon-shanchu1"></i><span>删除用户</span></button></div>
+  </div>
+  <div class="detail_bottom">
+    <p class="group_title">组管理</p>
+    <ul class="group_list">
+      <li class="container-fluid group_head"><span class="col-lg-11 col-sm-11">用户组</span></li>
+      <ng-template [ngIf]="user.groups.length>0">
+        <li class="container-fluid" *ngFor="let g of user.groups"><span class="col-lg-11 col-sm-11">{{g.groupName}}</span><span class="col-lg-1 col-sm-1 group_oprator" *ngIf="loginUser.isAdmin || loginUser.userId == user.id"><i class="iconfont icon-shanchu1" (click)="onDeleteGroup(g.groupID,user.id)"></i></span></li>
+      </ng-template>
+      <div class="no_content_list" *ngIf="user.groups.length==0">
+        <div class="icon_box"><i class="iconfont icon-sousuowuneirong"></i></div>
+        <span>暂无用户组</span>
+      </div>
+    </ul>
+  </div>
+  <!--<div class="detail_bottom">-->
+    <!--<p class="group_title"><span>权限</span></p>-->
+    <!--<ul class="group_list">-->
+      <!--<li class="container-fluid group_head">-->
+        <!--<select class="select_type">-->
+          <!--<option>数据集</option>-->
+          <!--<option>数据源</option>-->
+          <!--<option>dashboard</option>-->
+        <!--</select>-->
+        <!--&lt;!&ndash;<div class="input-group self_input_group"  [ngStyle]='{"margin-top": "6px"}'>&ndash;&gt;-->
+          <!--&lt;!&ndash;<input [(ngModel)]="selectedDataSet"&ndash;&gt;-->
+                 <!--&lt;!&ndash;[typeahead]="dataSetListAll"&ndash;&gt;-->
+                 <!--&lt;!&ndash;[typeaheadOptionField]="'dataSetName'"&ndash;&gt;-->
+                 <!--&lt;!&ndash;(typeaheadOnSelect)="selectAddDataSet($event)"&ndash;&gt;-->
+                 <!--&lt;!&ndash;placeholder="搜索数据集"&ndash;&gt;-->
+                 <!--&lt;!&ndash;class="form-control self_form_control">&ndash;&gt;-->
+          <!--&lt;!&ndash;<div class="input-group-addon self_input_group_addon"><i class="iconfont icon-chuangjianhuodong"></i></div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--</li>-->
+    <!--</ul>-->
+    <!--<ul class="data_list">-->
+      <!--<li class="self_clearfix"><span class="data_list_name">名称</span><span class="read_head self_left">读权限</span><span class="write_head self_left">写权限</span><span class="write_head self_left">授权权限</span> </li>-->
+      <!--<li *ngFor="let dataSet of [0,1,2]" class="self_clearfix">-->
+        <!--<div class="data_img"><img src="assets/img/dataset_icon.png">&lt;!&ndash;<img src="assets/img/dashboard_icon.png"><img src="assets/img/datasource_icon.png">&ndash;&gt;</div>-->
+        <!--<div class="data_text self_left">权限权限权限</div>-->
+        <!--<div class="read_checkbox self_left">-->
+          <!--<label class="mock_label">-->
+            <!--<input type="checkbox" class="mock_input" checked >-->
+            <!--<i class="right_con"></i>-->
+            <!--<div class="mock_box"></div>-->
+          <!--</label>-->
+        <!--</div>-->
+        <!--<div class="read_checkbox self_left">-->
+          <!--<label class="mock_label">-->
+            <!--<input type="checkbox" class="mock_input" >-->
+            <!--<div class="mock_box"></div>-->
+          <!--</label>-->
+        <!--</div>-->
+        <!--<div class="read_checkbox self_left">-->
+          <!--<label class="mock_label">-->
+            <!--<input type="checkbox" class="mock_input" >-->
+            <!--<div class="mock_box"></div>-->
+          <!--</label>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;<div class="delete_data"><i class="iconfont icon-shanchu1" (click)="deleteDataSet(dataSet)"></i></div>&ndash;&gt;-->
+      <!--</li>-->
+    <!--</ul>-->
+    <!--&lt;!&ndash;<div class="delete_group"><button (click)="deleteGroup()" class="self_btn c_ef5350"><i class="iconfont icon-shanchu"></i>删除用户组</button></div>&ndash;&gt;-->
+  <!--</div>-->
+  <resource-permission *ngIf="loginUser.userId == user.id" [relationResourceID]="user.id" [relationResuourceType]="RESOURCE_TYPE_USER"></resource-permission>
+</div>
+
+<alert-confirm #userConfirm (confirm)="onDeleteUser($event)"></alert-confirm>
+
+<div bsModal #resetPasswordModal="bs-modal"  [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog">
+    <div class="modal-content self_modal_content">
+      <form role="form"  #userForm="ngForm" (ngSubmit)="onSubmit(userForm.value)">
+        <div class="modal-header self_modal_header reset_password_bg">
+          <button type="button" class="close self_close" (click)="resetPasswordModal.hide()" aria-label="Close">
+            <i class="iconfont icon-guanbigongjulan"></i>
+          </button>
+        </div>
+        <div class="modal-body self_modal_body">
+          <div class="password-tishi">大于6个字符的字母、数字或特殊字符</div>
+          <div class="self_modal_input user_name clearfix marB20">
+            <i class="iconfont icon-mima"></i>
+            <input type="password" name="oldPassword" id="oldPassword" [myFocusChangeStyle] = "'self_modal_input'" [focusClass]="'focusBox'"  required [(ngModel)]="password.oldPassword"  (blur)="blurFn('oldPassword')" placeholder="输入旧密码">
+            <div class="self_error" *ngIf="errorFlag.oldPasswordErr" ><i class="iconfont icon-buzhengque"></i>请输入正确格式</div>
+          </div>
+          <div class="self_modal_input user_name clearfix marB20">
+            <i class="iconfont icon-mima"></i>
+            <input type="password" name="newPassword" id="newPassword" [myFocusChangeStyle] = "'self_modal_input'" [focusClass]="'focusBox'"   required [(ngModel)]="password.newPassword"  (blur)="blurFn('newPassword')" placeholder="输入新密码">
+            <div class="self_error" *ngIf="errorFlag.newPasswordErr" ><i class="iconfont icon-buzhengque"></i>请输入正确格式</div>
+          </div>
+          <div class="self_modal_input user_name clearfix marT20 marB20">
+            <i class="iconfont icon-mima"></i>
+            <input type="password" name="confirmPassword" id="confirmPassword" [myFocusChangeStyle] = "'self_modal_input'" [focusClass]="'focusBox'"  placeholder="再输入一次新密码" required #pswConfirm1 [(ngModel)]="password.confirmPassword" (blur)="blurFn('confirmPassword',true)">
+            <div class="self_error" *ngIf="errorFlag.confirmPasswordErr" ><i class="iconfont icon-buzhengque"></i>请输入正确格式</div>
+          </div>
+          <div *ngIf="errorFlag.consistencyErr">确认密码和密码不同,请输入相同的密码</div>
+        </div>
+        <div class="modal-footer self_modal_footer">
+          <div class="">
+            <button type="submit" class="self_btn c_ef5350" [disabled]="errorFlag.formErr||errorFlag.consistencyErr">OK</button>
+          </div>
+        </div>
+      </form>
+      <div>{{serverErr}}</div>
+    </div>
+  </div>
+</div>

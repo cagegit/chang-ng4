@@ -1,0 +1,24 @@
+<div class="auth_box  scroll_bar">
+  <h4 class="auth_title self_clearfix" *ngIf="adminPermissions">管理员权限</h4>
+  <ul *ngFor="let permissionArr of adminPermissions" class="auth_list self_clearfix">
+    <li *ngFor="let permission of permissionArr" >
+      <label class="mock_label self_ellipsis">
+        <input type="checkbox" class="mock_input" [checked]="permission.isAllowed" (change)="change($event.target,permission,'admin');" [disabled]="true">
+        <i class="right_con"></i>
+        <div class="mock_box"></div>
+        {{permission.permissionName}}
+      </label>
+    </li>
+  </ul>
+  <h4 class="auth_title" *ngIf="userPermissions">普通成员权限</h4>
+  <ul *ngFor="let permissionArr of userPermissions" class="auth_list self_clearfix">
+    <li *ngFor="let permission of permissionArr">
+      <label class="mock_label">
+        <input type="checkbox" class="mock_input" [checked]="permission.isAllowed" (change)="change($event.target,permission,'user');" [disabled]="true">
+        <i class="right_con"></i>
+        <div class="mock_box"></div>
+        {{permission.permissionName}}
+      </label>
+    </li>
+  </ul>
+</div>

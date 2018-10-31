@@ -1,0 +1,58 @@
+<div style="position: relative;">
+  <div class="user_center" style="position: absolute;top:0;left: 0;bottom: 0;min-height: 100vh">
+    <div class="relative">
+      <h5 class="title">菜单列表</h5>
+      <div class="invite-position invite"><button (click)="show('add')"><span>新增</span></button></div>
+    </div>
+    <div class="form-group search_box">
+      <input type="text" autocomplete="off" #search class="form-control" (keyup)="searchFun(search.value)" placeholder="搜索任务名称"
+        [(ngModel)]="searchKey" name="searchKey">
+      <i class="iconfont icon-fangdajing"></i>
+    </div>
+    <ul class="user_list scroll_bar" *ngIf="searchList">
+      <li *ngFor="let item of searchList" (click)="clickFun(item)" [ngClass]="{cur:currentIndex===item.id}">
+        <a title="{{item.name}}" class="over-text">{{item.name}}</a>
+        <span class="span-right" [hidden]="currentIndex!==item.id">
+          <i class="iconfont icon-qianming" (click)="show('edit',item)"></i>
+          <i class="iconfont icon-shanchu" (click)="dataSetConfirm.open('删除菜单','确定要删除该数据吗？',item.id);$event.stopPropagation();"></i>
+        </span>
+      </li>
+    </ul>
+  </div>
+  <div class="user_right" #userright style="margin-left: 207px;">
+    <menu-detail #detail [menuInfo]="_dataSet" [tablelist]="_tableSet" (change)="getDetailById(_dataSet.id)"></menu-detail>
+  </div>
+
+  <nz-modal [nzVisible]="isVisible" [nzTitle]="title" [nzContent]="modalContent" (nzOnCancel)="handleCancel($event)"
+    [nzWidth]="'500px'" [nzFooter]="false">
+    <ng-template #modalContent>
+      <div class="modal-body clearfix">
+        <div class="self_modal_input row">
+          <div class=" col-xs-4 text_right"><em class="em-color">*</em>名称</div>
+          <input type="text" name="name" required [(ngModel)]="addData.name" autocomplete="off" placeholder="输入名称">
+        </div>
+        <div class="self_modal_input row">
+          <div class=" col-xs-4  text_right"><em class="em-color">*</em>启用状态</div>
+          <div class="radio-input">
+            <label>
+                <input type="radio" name="status" required [(ngModel)]="addData.status" value="1" [checked]="addData.status==='1'">启用
+            </label>
+            <label>
+                <input type="radio" name="status" required [(ngModel)]="addData.status" value="0" [checked]="addData.status==='0'">禁用
+            </label>
+          </div>
+        </div>
+        <div class="muti-btn">
+          <div class="invite" [ngStyle]="{width:'70px'}">
+            <button (click)="submit()"><span>保存</span></button>
+          </div>
+          <div class="invite" [ngStyle]="{width:'70px'}">
+            <button (click)="clear()"><span>重置</span></button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </nz-modal>
+
+  <alert-confirm #dataSetConfirm (confirm)="delete($event)"></alert-confirm>
+</div>

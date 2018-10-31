@@ -1,0 +1,27 @@
+<div class="app_main login_domain">
+  <div bsModal #loginDomain="bs-modal" [config]="{backdrop: 'static'}" class="modal self_modal" style="display: block" tabindex="-1"
+    role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-sm self_modal_dialog self_success_modal delete_confirm">
+      <div class="modal-content self_modal_content">
+        <form role="form" [formGroup]="loginDomainForm">
+          <div class="modal-header self_modal_header login_user_bg">
+            <button _ngcontent-c127="" aria-label="Close" class="close self_close" type="button" (click)="close()">
+              <i _ngcontent-c127="" class="iconfont icon-guanbigongjulan"></i>
+            </button>
+          </div>
+          <div class="modal-body self_modal_body marB20">
+            <div class="self_modal_input user_email clearfix">
+              <input type="text" name="domainName" placeholder="输入域名" formControlName="domainName" required>
+              <div class="self_error" *ngIf="formErrors.domainName"><i class="iconfont icon-buzhengque"></i>{{formErrors.domainName}}</div>
+            </div>
+          </div>
+          <div class="modal-footer self_modal_footer">
+            <div class="">
+              <button type="submit" class="self_btn c_ef5350" (click)="domainValidate()" [disabled]="!loginDomainForm.valid||submitted">下一步</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+  <!--上下切换-->
+  <ng-template [ngIf]="showType =='chart'&&(chartType=='singleHorizontalBar'||chartType=='groupHorizontalBar'||chartType=='horizontalStackedBar')">
+    <div class="data_container up_scroll_contanier" >
+      <div class="up_scroll_box" *ngIf="totalPage>1">
+        <div class="up_btn scroll_btn_box" [class.unable_loading]="curPage == 0" (click)="pagination(false)"><i class="iconfont icon-jiantouy-copy"></i></div>
+      </div>
+      <div class="chart_box scroll_bar scroll_o_bar"  #svgChartBox>
+        <chart-highChart *ngIf="chartType!='china-map'" #highchart [cardResult]="cardResult" [barChart]="chartUtil" [chartType]="chartType" [queryType]="queryType" [dataChange]="dataChange"></chart-highChart>
+        <chart-maps *ngIf="chartType=='china-map'"  #chartmap  [cardResult]="cardResult"  [barChart]="chartUtil" [chartType]="chartType" [queryType]="queryType" [dataChange]="dataChange"></chart-maps>
+        <!--<chart [options]="options"  (load)="saveInstance($event.context)"></chart>-->
+      </div>
+      <div class="down_scroll_box"  *ngIf="totalPage>1">
+        <div class="down_btn scroll_btn_box"  [class.unable_loading]="curPage == totalPage-1" (click)="pagination(true)"><i class="iconfont icon-jiantouy-copy"></i></div>
+      </div>
+    </div>
+  </ng-template>
+  <!--上下切换 end-->
+  <!--左右切换-->
+  <ng-template [ngIf]="showType =='chart'&&chartType!='singleHorizontalBar'&&chartType!='groupHorizontalBar'&&chartType!='horizontalStackedBar'">
+    <div class=" left_scroll_contanier" >
+      <div class="chart_box  scroll_bar scroll_o_bar" #svgChartBox>
+        <chart-highChart *ngIf="chartType!='china-map'"  #highchart [cardResult]="cardResult"  [barChart]="chartUtil" [chartType]="chartType" [queryType]="queryType" [dataChange]="dataChange"></chart-highChart>
+        <chart-maps *ngIf="chartType=='china-map'"  #chartmap  [cardResult]="cardResult"  [barChart]="chartUtil" [chartType]="chartType" [queryType]="queryType" [dataChange]="dataChange"></chart-maps>
+        <!--<chart [options]="options"  (load)="saveInstance($event.context)"></chart>-->
+      </div>
+      <div class="left_scroll_box"  *ngIf="totalPage>1">
+        <div class="left_btn scroll_btn_box" (click)="pagination(false)" [class.unable_loading]="curPage == 0" ><i class="iconfont icon-jiantouy-copy"></i></div>
+        <div class="right_btn scroll_btn_box" (click)="pagination(true)" [class.unable_loading]="curPage == totalPage-1" ><i class="iconfont icon-jiantou-copy"></i></div>
+      </div>
+    </div>
+  </ng-template>
+  <!--左右切换 end-->
+  <!--- table begin --->
+  <div class="data_container " *ngIf="showType=='table'">
+    <div class="new_table_box">
+      <show-table [cardResult]="cardResult"  [page]="curPage" [fullScreen]="fullScreenFlag" [showType]="showType"  (changePageEvent)="changPageFn($event)" [totalPage]="totalPage" [dataChange]="dataChange"></show-table>
+    </div>
+  </div>
+  <!---- table end --->
+  <!---- text  begin--->
+  <div class="data_container"  *ngIf="showType=='txt'" >
+    <showTxt [cardResult]="cardResult"  [dataChange]="dataChange"></showTxt>
+  </div>
+  <!---- text  end--->
+

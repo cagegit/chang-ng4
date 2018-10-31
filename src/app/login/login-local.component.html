@@ -1,0 +1,29 @@
+<div class="app_main login">
+  <div bsModal #login="bs-modal"  [config]="{backdrop: 'static'}" class="modal self_modal"  style="display: block" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-sm self_modal_dialog self_success_modal delete_confirm" >
+      <div class="modal-content self_modal_content">
+        <form role="form"  [formGroup]="loginForm">
+          <div class="modal-header self_modal_header login_title">
+          </div>
+          <div class="modal-body self_modal_body">
+            <div class="self_modal_input user_email login_email clearfix marB20">
+              <i class="iconfont icon-youxiang"></i>
+              <input type="text" name="userName" placeholder="请输入email地址" formControlName="userName"  (keyup)="resetMessage()" required>
+              <div class="self_error" *ngIf="formErrors.userName"><i class="iconfont icon-buzhengque"></i>{{formErrors.userName}}</div>
+            </div>
+            <div class="self_modal_input user_name clearfix marB20">
+              <i class="iconfont icon-mima"></i>
+              <input type="password" name="userPw" placeholder="请输入密码" formControlName="userPw" (keyup)="resetMessage()" required />
+              <div class="self_error" *ngIf="formErrors.userPw"><i class="iconfont icon-buzhengque"></i>{{formErrors.userPw}}</div>
+            </div>
+          </div>
+          <div class="modal-footer self_modal_footer">
+            <div class="">
+              <button type="submit" class="self_btn c_ef5350" (click)="submit()"  [disabled]="!loginForm.valid||submitted">登录</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

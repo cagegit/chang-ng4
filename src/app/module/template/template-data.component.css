@@ -1,0 +1,43 @@
+.template_data{ margin: 0 50px;}
+.data_step_list{ padding-left: 0; padding-right: 0; margin-right: -15px; margin-left: -15px;}
+.data_step_box{ height:420px; background-color: #fff; border-radius: 3px; }
+.step_head{ height: 90px; border-radius: 3px 3px 0 0; background-color:#f4f4f4;   padding:0  20px; transition: all 0.6s; }
+.step_head i{ position: absolute; right: 0; line-height: 90px; top: 0; color: #81b8ab; font-size: 80px; }
+.step_title{ line-height: 46px; font-size:16px;color: #333; transition: all 0.3s;}
+.data_step_describe{ line-height:20px; font-size:12px; color: #999;transition: all 0.1s; }
+.data_step_box:hover .step_head{background-color: #4b9a86;}
+.data_step_box:hover .step_title,.data_step_box:hover .data_step_describe{ color: #fff;}
+.data_step_body{ height: 330px; border:1px solid #fff; border-top: none;}
+.data_step_box:hover .data_step_body{ border:1px solid #4d9a86; border-top: none; }
+.data_step_body li{height: 55px; line-height: 54px;  cursor: pointer;  position: relative; padding: 0 20px; }
+.data_step_body li:before{ width: 4px; height: 4px; border-radius: 50%; background-color: #ef5451; font-size: 0; overflow: hidden; content: ''; position: absolute; left: 29px; top:25px; }
+.data_step_body li a{ color: #666; text-decoration: none; display: block;padding-left: 23px; padding-right: 40px;border-bottom: 1px solid #e6eaec;}
+.data_step_body li i{ position: absolute; right:40px; font-size: 20px; top: 0;color: #bae0c0; background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(rgba(186, 224, 192, 1)), to(rgba(104, 217, 200, 1)));  -webkit-background-clip: text;  -webkit-text-fill-color: transparent;display: none;}
+.data_step_body li:hover{ background-color: #f4f4f4;}
+.data_step_body li:hover a{ border-bottom: none;}
+.data_step_body li:hover i{ display: block};
+.source_step_body li{ padding-left:70px;}
+.source_step_body li.mysql{ background: url("../../../assets/img/data_source_mysql.png") left center no-repeat;}
+.source_step_body li.code{ background: url("../../../assets/img/data_source_code.png") left center no-repeat;}
+.source_step_body li.isource{ background: url("../../../assets/img/data_source_isource.png") left center no-repeat;}
+.template_data_btn{ margin-top: 20px; text-align: right;}
+.template_data_btn button{ width: 116px; height: 30px; line-height: 30px; font-size: 14px;}
+.add_source_body{ position: relative;height: 330px;}
+.add_source_body a{ display: block; width: 191px; height: 75px; position: absolute; top: 50%; left: 50%; margin-left: -95px; margin-top:-57px; background: url("../../../assets/img/source_type.png") no-repeat; cursor: pointer;}
+.add_source_body a.mysql{ background-position: -629px 0;}
+.add_source_body a.mysql:hover{ background-position: -419px 0;}
+.add_source_body a.jira{ background-position: -629px -94px;}
+.add_source_body a.jira:hover{ background-position: -419px -94px;}
+.add_source_body a.csv{ background-position: -629px -187px;}
+.add_source_body a.csv:hover{ background-position: -419px -187px;}
+.add_source_body a.git{ background-position: -629px -280px;}
+.add_source_body a.git:hover{ background-position: -419px -280px;}
+.add_source_body a.code{ background-position: -629px -373px;}
+.add_source_body a.code:hover{ background-position: -419px -373px;}
+.add_source_body a.kylin{ background-position: -629px -466px;}
+.add_source_body a.lylin:hover{ background-position: -419px -466px;}
+.add_source_body a.hive2{ background-position: -629px -559px;}
+.add_source_body a.hive2:hover{ background-position: -419px -559px;}
+.add_source_body a.isource{ background-position: -629px -651px;}
+.add_source_body a.isource:hover{ background-position: -419px -652px;}
+.add_source_describe{ position: absolute; width: 100%; text-align: center; height: 40px; line-height: 40px; color: #666; top: 50%; left: 0; margin-top: 20px; }

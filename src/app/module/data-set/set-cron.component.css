@@ -1,0 +1,20 @@
+.will_select_box{ height: 16px; margin: 20px 0 10px; line-height: 16px;}
+.will_select_box label{ width: auto; display: inline-block;}
+.will_select_list{height: 260px;  padding:10px 0; border-radius: 3px; }
+.will_select_list li{padding: 0 10px; line-height: 55px; border-top: 1px solid #5a5d6c;}
+.will_select_list li .mock_box{ top:5px; }
+/*.will_select_list li:hover{ background-color: #f9f9f9;}*/
+.will_select_list li .right_con{ top: 6px;}
+.startHour{margin-left:16px;}
+.self_btn{width:185px;margin:0 5px;}
+.mock_label{color:#fff;}
+.select_type{width: 80px;
+  height: 30px;
+  border: 1px solid #96ddc4;
+  line-height: 28px;
+  color: #9095b1;
+  margin-left: 15px;
+  border-radius: 3px;}
+.cron-title{background:url(../../../assets/img/cron-icon.png) no-repeat left center;
+  padding-left: 40px;float:left; line-height: 80px;  }
+.input_radio{width:15px;height:14px;}

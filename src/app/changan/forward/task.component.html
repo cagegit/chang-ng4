@@ -1,0 +1,92 @@
+<div style="position: relative;">
+  <div class="user_center" style="position: absolute;top:0;left: 0;bottom: 0;">
+    <div class="relative">
+      <h5 class="title">任务列表</h5>
+      <div class="invite-position invite"><button (click)="show('add')"><span>新增</span></button></div>
+    </div>
+    <div class="form-group search_box">
+      <input type="text" autocomplete="off" #search class="form-control" (keyup)="searchFun(search.value)" placeholder="搜索任务名称" [(ngModel)]="searchKey"
+             name="searchKey">
+      <i class="iconfont icon-fangdajing"></i>
+    </div>
+    <ul class="user_list scroll_bar" *ngIf="searchList">
+      <li *ngFor="let item of searchList" (click)="clickFun(item)" [ngClass]="{cur:currentIndex===item.id}">
+        <a title="{{item.name}}" class="over-text">{{item.name}}</a>
+        <span class="span-right" [hidden]="currentIndex!==item.id">
+        <i class="iconfont icon-qianming" (click)="show('edit',item)"></i>
+        <i class="iconfont icon-shanchu" (click)="dataSetConfirm.open('删除转发任务','确定要删除该数据吗？',item.id);$event.stopPropagation();"></i>
+      </span>
+        <span class="label label-warning span-right" [ngStyle]="{top:'8px',right:'45px'}" *ngIf="item.isOverdue">过期</span>
+      </li>
+    </ul>
+  </div>
+  <div class="user_right" #userright style="margin-left: 207px;">
+    <task-detail #taskDetail [data]="currentData"></task-detail>
+  </div>
+
+  <nz-modal [nzVisible]="isVisible" [nzTitle]="title" [nzContent]="modalContent" (nzOnCancel)="handleCancel($event)"
+            [nzWidth]="'700px'" [nzFooter]="false">
+    <ng-template #modalContent>
+      <div class="modal-body clearfix">
+        <div class="self_modal_input row">
+          <div class=" col-xs-4 text_right"><em class="em-color">*</em>任务名称</div>
+          <input type="text" name="name" required [(ngModel)]="addData.name" autocomplete="off" placeholder="输入任务名称">
+          <!-- <input type="text" autocomplete="off" name="name" [(ngModel)]="addData.name" disabled *ngIf="flag" [ngClass]="{disabled:flag}"> -->
+        </div>
+        <div class="self_modal_input row">
+          <div class=" col-xs-4 text_right"><em class="em-color">*</em>目标平台</div>
+          <select name="platform" required [(ngModel)]="addData.platformId" *ngIf="!flag">
+            <option *ngFor="let item of platformList" value="{{item.id}}">{{item.unitName}}</option>
+          </select>
+          <input type="text" name="platform" [(ngModel)]="addData.platform.unitName" autocomplete="off" disabled *ngIf="flag" [ngClass]="{disabled:flag}">
+        </div>
+        <div class="self_modal_input row">
+          <div class=" col-xs-4 text_right"><em class="em-color">*</em>转发协议</div>
+          <select name="protocol" required [(ngModel)]="addData.protocolId" *ngIf="!flag">
+            <option *ngFor="let item of protocolList" value="{{item.id}}">{{item.name}}</option>
+          </select>
+          <input type="text" autocomplete="off" name="protocol" [(ngModel)]="addData.protocol.name" disabled *ngIf="flag" [ngClass]="{disabled:flag}">
+        </div>
+        <div class="self_modal_input  row">
+          <div class=" col-xs-4 text_right"><em class="em-color">*</em>有效期</div>
+          <nz-datepicker [(ngModel)]="addData.startDate" [nzFormat]="'YYYY-MM-DD HH:mm:ss'" [nzShowTime]="true"
+                         [nzPlaceHolder]="'开始时间'" name="startDate" class="time-input" [nzDisabled]="addData.isLongterm==1"></nz-datepicker>
+          <nz-datepicker [ngStyle]="{'margin-left':'214px'}" [(ngModel)]="addData.expireDate" [nzFormat]="'YYYY-MM-DD HH:mm:ss'"
+                         [nzShowTime]="true" [nzPlaceHolder]="'结束时间'" name="expireDate" class="time-input" [nzDisabled]="addData.isLongterm==1"></nz-datepicker>
+          <div class="radio-input" [ngStyle]="{'margin-left':'217px'}">
+            或 <input type="checkbox" name="isLongterm" [(ngModel)]="addData.isLongterm" (change)="isLongtermChange($event.target)">长期有效
+          </div>
+        </div>
+        <div class="self_modal_input row">
+          <div class=" col-xs-4  text_right"><em class="em-color">*</em>传输加密</div>
+          <div class="radio-input">
+            <input type="radio" name="isEncrypt" required [(ngModel)]="addData.isEncrypt" value="1">明文
+            <input type="radio" name="isEncrypt" required [(ngModel)]="addData.isEncrypt" value="0">加密
+          </div>
+        </div>
+        <div class="self_modal_input row">
+          <div class=" col-xs-4  text_right"><em class="em-color">*</em>任务状态</div>
+          <div class="radio-input">
+            <input type="radio" name="isEnable" required [(ngModel)]="addData.isEnable" value="1">启用
+            <input type="radio" name="isEnable" required [(ngModel)]="addData.isEnable" value="0">禁用
+          </div>
+        </div>
+        <div class="self_modal_input  row">
+          <div class="col-xs-4 text_right">备注</div>
+          <textarea name="notes" rows="3" maxlength="60" minlength="2" [(ngModel)]="addData.notes" placeholder="输入备注描述"></textarea>
+        </div>
+        <div class="muti-btn">
+          <div class="invite" [ngStyle]="{width:'70px'}">
+            <button (click)="submit()"><span>保存</span></button>
+          </div>
+          <div class="invite" [ngStyle]="{width:'70px'}">
+            <button (click)="clear()"><span>重置</span></button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </nz-modal>
+
+  <alert-confirm #dataSetConfirm (confirm)="delete($event)"></alert-confirm>
+</div>
+

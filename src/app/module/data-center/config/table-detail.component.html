@@ -1,0 +1,202 @@
+<div class="detail" #detail *ngIf="tableInfo&&tableInfo.id">
+  <h5 class="title">配置报表详情</h5>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-6">
+        <div class="col-md-3 text_right text_padding">
+          <span class="span-text">名称：</span>
+        </div>
+        <div class="col-md-9 text_left text_padding">
+          <span class="key">
+            {{tableInfo.name}}
+          </span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="col-md-3 text_right text_padding">
+          <span class="span-text">表格表头行数：</span>
+        </div>
+        <div class="col-md-9 text_left text_padding">
+          <span class="key">
+            {{tableInfo.headRowspan}}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-6">
+        <div class="col-md-3 text_right text_padding">
+          <span class="span-text">表格列名称：</span>
+        </div>
+        <div class="col-md-9 text_left text_padding">
+          <nz-tooltip [nzTitle]="tableInfo.headName" [nzPlacement]="'topLeft'">
+            <p nz-tooltip class="text-over key">{{tableInfo.headName}}</p>
+          </nz-tooltip>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="col-md-3 text_right text_padding">
+          <span class="span-text">图类型：</span>
+        </div>
+        <div class="col-md-9 text_left text_padding">
+          <span class="key">
+            {{tableInfo.chartType}}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <!-- <div class="col-md-6">
+        <div class="col-md-3 text_right text_padding">
+          <span class="span-text">图X轴：</span>
+        </div>
+        <div class="col-md-9 text_left text_padding">
+          <span class="key">
+            {{tableInfo.chartAxisIndex}}
+          </span>
+        </div>
+      </div> -->
+      <div class="col-md-6">
+        <div class="col-md-3 text_right text_padding">
+          <span class="span-text">图的维度：</span>
+        </div>
+        <div class="col-md-9 text_left text_padding">
+          <span class="key">
+            {{tableInfo.chartNameIndex}}
+          </span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="col-md-3 text_right text_padding">
+          <span class="span-text">图的指标：</span>
+        </div>
+        <div class="col-md-9 text_left text_padding">
+          <span class="key">
+            {{tableInfo.chartValueIndex}}
+          </span>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-12">
+
+      <!-- <div class="col-md-6">
+        <div class="col-md-3 text_right text_padding">
+          <span class="span-text">维度显示：</span>
+        </div>
+        <div class="col-md-9 text_left text_padding">
+          <span class="key">
+            {{tableInfo.chartShow==1?'是':'否'}}
+          </span>
+        </div>
+      </div> -->
+      <div class="col-md-6">
+        <div class="col-md-3 text_right text_padding">
+          <span class="span-text">启用状态：</span>
+        </div>
+        <div class="col-md-9 text_left text_padding">
+          <span class="key">{{tableInfo.status==1?'启用':'禁用'}}</span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="col-md-3 text_right text_padding">
+          <span class="span-text">默认时间：</span>
+        </div>
+        <div class="col-md-9 text_left text_padding">
+          <span class="key">
+            {{tableInfo.defaultTime}}
+          </span>
+        </div>
+      </div>
+
+    </div>
+    <!-- <div class="col-md-12">
+    </div> -->
+    <div class="col-md-12">
+      <div class="col-md-6">
+        <div class="col-md-3 text_right text_padding">
+          <span class="span-text">过滤属性：</span>
+        </div>
+        <div class="col-md-9 text_left text_padding">
+          <nz-tooltip [nzTitle]="tableInfo.attrFilter" [nzPlacement]="'topLeft'">
+            <p nz-tooltip class="text-over key">{{tableInfo.attrFilter}}</p>
+          </nz-tooltip>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="col-md-3 text_right text_padding">
+          <span class="span-text">SQL：</span>
+        </div>
+        <div class="col-md-9 text_left text_padding">
+          <!--<nz-tooltip [nzTitle]="tableInfo.dataSql" [nzPlacement]="'topLeft'" [nzOverlayStyle]="{'min-width':'500px'}">-->
+          <!--<p nz-tooltip class="text-over key">{{tableInfo.dataSql}}</p>-->
+          <!--</nz-tooltip>-->
+          <textarea style="width: 100%;border: 1px solid #ddd;padding: 5px;border-radius: 5px" rows="3" readonly>{{tableInfo.dataSql}}</textarea>
+        </div>
+      </div>
+      <!-- <div class="col-md-6">
+        <div class="col-md-3 text_right text_padding"><span class="span-text">启用状态：</span></div>
+        <div class="col-md-9 text_left text_padding">
+          <span class="key">{{tableInfo.status==1?'启用':'禁用'}}</span>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <div [ngStyle]="{position:'relative'}">
+    <h5 class="title">所在菜单 </h5>
+    <div class="invite" [ngStyle]="{width:'70px',position:'absolute',top:'-13px',left:'70px'}">
+      <button (click)="show()"><span>分配菜单</span></button>
+    </div>
+  </div>
+  <div>
+    <nz-tag [nzColor]="'blue'" *ngFor="let item of tablelist">{{item.name}}</nz-tag>
+  </div>
+</div>
+<nz-modal [nzVisible]="isVisible" [nzTitle]="'分配菜单'" [nzContent]="modalContent" [nzFooter]="false" [nzWidth]="700"
+  (nzOnCancel)="handleCancel($event)">
+  <ng-template #modalContent>
+    <form role="form" #AddDataForm="ngForm">
+      <div class="modal-body clearfix">
+        <div class="form-group search_box" [ngStyle]="{width:'50%'}">
+          <input type="text" autocomplete="off" #search class="form-control" (keyup)="searchFun(search.value)"
+            placeholder="搜索菜单名称" [(ngModel)]="searchDataName.name" name="searchDataName">
+          <i class="iconfont icon-fangdajing"></i>
+        </div>
+        <div [ngStyle]="{'margin-top':'20px'}">
+          <nz-table #nzTable #nzTable [nzAjaxData]="_dataSet" [nzShowSizeChanger]="true" [nzLoading]="_loading"
+            [nzIsPagination]="false" [nzBordered]="true" [nzScroll]="{ y: 400 }">
+            <ng-template #nzFixedHeader>
+              <thead nz-thead>
+                <tr>
+                  <th nz-th nzWidth="20%"><span>序号</span></th>
+                  <th nz-th nzWidth="60%"><span>菜单名称</span></th>
+                  <th nz-th nzWidth="20%"><span>状态</span></th>
+                </tr>
+              </thead>
+            </ng-template>
+            <tbody nz-tbody>
+              <tr nz-tbody-tr *ngFor="let data of nzTable.data; index as i;">
+                <td nz-td>{{i+1}}</td>
+                <td nz-td>{{data.name}}</td>
+                <td nz-td><input type="checkbox" [checked]="data.checked" name="isAssigned" [disabled]="data.isAssigned"
+                    (change)="changeCheckedState($event,i)">{{data.checked?'已选':'选择'}}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </div>
+      </div>
+      <div class="muti-btn">
+        <div class="invite" [ngStyle]="{width:'70px'}">
+          <button type="submit" (click)="onSubmit()"><span>保存</span></button>
+        </div>
+        <div class="invite" [ngStyle]="{width:'70px'}">
+          <button (click)="clearData()"><span>重置</span></button>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</nz-modal>
+
+<!-- <task-vehicle #taskVehicleConfirm [tableInfo]="tableInfo" (change)="search()"></task-vehicle> -->
+
+<!-- <alert-confirm #tableInfoSetConfirm (confirm)="deleteDataItem($event)"></alert-confirm> -->

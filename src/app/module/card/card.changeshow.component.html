@@ -1,0 +1,108 @@
+<div class="saiku_center_r"  [@toRightState]="toRightStateStr">
+<div class="tab_box self_clearfix">
+<div class="fold_btn self_left self_cursor"><i class="iconfont icon-shouqi1 " [class.gray]="!chartToolBarStatus" #toRightBtn (click)="changeRightFolderState($event)"></i></div>
+<ul class="tab_list self_left">
+<li class="cur" (click)="changeTab($event,true)">选择图表</li>
+
+<li *ngIf="showType=='chart'" (click)="changeTab($event,false)">图表设置</li>
+</ul>
+</div>
+<div class="breviary_box self_clearfix">
+<ul class="breviary_btn self_left">
+<li [class.cur]="showType=='table'" [class.gray]="!chartToolBarStatus" (click)="changeShowType('table',$event.target)"><i class="iconfont icon-biaoge" title="表格"></i></li>
+<li [class.cur]="showType=='chart'&&iconType=='bar'"  [class.gray]="!chartToolBarStatus"  (click)="changeShowType('bar',$event.target)"><i class="iconfont icon-iconfontshuju" title="柱图"></i></li>
+<li [class.cur]="showType=='chart'&&iconType=='line'"  [class.gray]="!chartToolBarStatus"  (click)="changeShowType('line',$event.target)"><i class="iconfont icon-shuju" title="线图"></i></li>
+<li [class.cur]="showType=='chart'&&iconType=='pie'"  [class.gray]="!chartToolBarStatus"  (click)="changeShowType('pie',$event.target)"><i class="iconfont icon-shuju1" title="饼图"></i></li>
+  <li [class.cur]="showType=='chart'&&iconType=='map'"  [class.gray]="!chartToolBarStatus"  (click)="changeShowType('china-map',$event.target)"><i class="iconfont icon-diqiu" title="地图"></i></li>
+<li [class.cur]="showType=='txt'"  [class.gray]="!chartToolBarStatus"  (click)="changeShowType('txt',$event.target)"><i class="iconfont icon-icon-yxj-text" title="文本"></i></li>
+<li [class.cur]="showType=='chart'&&iconType=='more'"  [class.gray]="!chartToolBarStatus"  (click)="changeShowType('polar-spider',$event.target)"><i class="iconfont icon-androidmorevertical" title="更多图表"></i></li>
+</ul>
+<ul class="breviary_list scroll_bar" [hidden]="!TabFlag" #breviaryList>
+<ng-template [ngIf]="showType=='chart'">
+<ng-template [ngIf]="iconType=='bar'">
+<!--<ng-template [ngIf]="chartUtil.measureCount">-->
+<li  title="竖单柱图,只有一个指标时可用。"><img [class.icon_cur]="chartType=='singleVerticalBar'" [class.gray]="chartUtil.measureCount!=1" src="assets/img/bar-vertical.png" (click)="changeShowType('singleVerticalBar',$event.target)"></li>
+<li title="橫单柱图,只有一个指标时可用。"><img [class.icon_cur]="chartType=='singleHorizontalBar'" [class.gray]="chartUtil.measureCount!=1" (click)="changeShowType('singleHorizontalBar',$event.target)" src="assets/img/bar-horizontal.png" ></li>
+<!--</ng-template>-->
+
+<li title="竖多柱图,指标数大于等于两个时可用。"><img [class.icon_cur]="chartType=='bar'" [class.gray]="chartUtil.measureCount<2" src="assets/img/bar-vertical-2d.png" (click)="changeShowType('bar',$event.target)"></li>
+<li title="横多柱图,指标数大于等于两个时可用。"><img [class.icon_cur]="chartType=='groupHorizontalBar'" [class.gray]="chartUtil.measureCount<2"  src="assets/img/bar-horizontal-group.png" (click)="changeShowType('groupHorizontalBar',$event.target)"></li>
+<li title="竖堆积柱图,指标数大于等于两个时可用。"><img [class.icon_cur]="chartType=='verticalStackedBar'" [class.gray]="chartUtil.measureCount<2" src="assets/img/bar-vertical-stacked.png"  (click)="changeShowType('verticalStackedBar',$event.target)"></li>
+<li title="横堆积柱图,指标数大于等于两个时可用。" ><img [class.icon_cur]="chartType=='horizontalStackedBar'" [class.gray]="chartUtil.measureCount<2" src="assets/img/bar-horizontal-stacked.png" (click)="changeShowType('horizontalStackedBar',$event.target)"></li>
+<!--<li (click)="changeShowType('verticalNormalizedBar',$event.target)"><img src="assets/img/pic_1.jpg" title="竖占比柱图"></li>-->
+</ng-template>
+
+<!--<li (click)="changeShowType('horizontalNormalizedBar',$event.target)"><img src="assets/img/pic_1.jpg" title="横标准化柱图"></li>-->
+<ng-template [ngIf]="iconType=='line'">
+<li (click)="changeShowType('line',$event.target)"><img [class.icon_cur]="chartType=='line'" src="assets/img/line.png" title="线图"></li>
+<li (click)="changeShowType('area',$event.target)"><img [class.icon_cur]="chartType=='area'" src="assets/img/area.png" title="区域图"></li>
+<li (click)="changeShowType('stackedArea',$event.target)"><img [class.icon_cur]="chartType=='stackedArea'" src="assets/img/area-stacked.png" title="堆积区域图"></li>
+<li (click)="changeShowType('normalizedArea',$event.target)"><img src="assets/img/normalizedArea.png" title="区域占比图"></li>
+</ng-template>
+<!--<li (click)="changeShowType('treeMap',$event.target)"><img src="assets/img/pic_1.jpg" title="树图"></li> selectMeasures.length==1-->
+<ng-template [ngIf]="iconType=='pie'">
+<li (click)="changeShowType('pie',$event.target)"><img [class.icon_cur]="chartType=='pie'" src="assets/img/pie.png" title="饼图"></li>
+<li (click)="changeShowType('pie-circle',$event.target)"><img [class.icon_cur]="chartType=='pie-circle'" src="assets/img/pie-circle.jpg" title="环图"></li>
+  <li (click)="changeShowType('pie-donut',$event.target)"><img [class.icon_cur]="chartType=='pie-donut'" src="assets/img/pie-circle.jpg" title="饼环图"></li>
+<li (click)="changeShowType('pie-semi-circle',$event.target)"><img [class.icon_cur]="chartType=='pie-semi-circle'" src="assets/img/pie-semi-circle.png" title="扇形图"></li>
+</ng-template>
+<ng-template [ngIf]="iconType=='more'">
+  <li (click)="changeShowType('polar-spider',$event.target)"><img [class.icon_cur]="chartType=='polar-spider'" src="assets/img/polar-spider.png" title="蜘蛛图"></li>
+<li title="散点图，列上有维度且有两个指标时可用。"><img [class.icon_cur]="chartType=='scatter'" src="assets/img/scatter.png"  [class.gray]="!chartUtil.selectColumnCount>0||chartUtil.measureCount!=2" (click)="changeShowType('scatter',$event.target)"></li>
+<li (click)="changeShowType('mixChart',$event.target)"><img [class.icon_cur]="chartType=='mixChart'" src="assets/img/mixChart.png" title="混合图"></li>
+<li title="气泡图，列上有维度且有三个指标时可用。"><img [class.icon_cur]="chartType=='bubble'" src="assets/img/bubble.png" [class.gray]="!chartUtil.selectColumnCount>0||chartUtil.measureCount!=3" (click)="changeShowType('bubble',$event.target)"></li>
+<li  title="热力图，只有一个指标时可用。"><img [class.icon_cur]="chartType=='heatMap'" src="assets/img/heatMap.png" [class.gray]="chartUtil.measureCount!=1" (click)="changeShowType('heatMap',$event.target)"></li>
+
+</ng-template>
+  <ng-template [ngIf]="iconType=='map'">
+    <li title="中国地图,只有一个省份维度和一个指标时可用。"  ><img [class.icon_cur]="chartType=='china-map'" src="assets/img/chinamap.png" [class.gray]="chartUtil.selectRowCount!=1||chartUtil.measureCount!=1" (click)="changeShowType('china-map',$event.target)"></li>
+  </ng-template>
+<!--<li (click)="changeShowType('gauge',$event.target)"><img src="assets/img/pic_1.jpg" title="仪表盘"></li>-->
+<!--<li *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]"><img src="assets/img/pic_1.jpg"></li>-->
+</ng-template>
+<ng-template [ngIf]="showType=='table'">
+<li (click)="changeShowType('table',$event.target)"><img [class.icon_cur]="showType=='table'"  src="assets/img/table-big.png" title="表格"></li>
+</ng-template>
+<ng-template [ngIf]="showType=='txt'">
+<li (click)="changeShowType('txt',$event.target)"><img [class.icon_cur]="showType=='txt'"  src="assets/img/txt-big.png" title="文本"></li>
+</ng-template>
+</ul>
+<div *ngIf="showType=='chart'" class="chart_set" [hidden]="TabFlag" >
+<div class="chart_set_title">柱状图</div>
+<div class="chart_set_box">
+<div class="second_title">坐标轴</div>
+<div class="chart_caption">X坐标轴</div>
+<div class="chart_input"><input type="text" name="xAxisLabel" checked placeholder="限10个字"  [attr.maxlength]="10" (keyup)="chartUtil.changeChartAttribute('xAxisLabel',$event.target.value)"></div>
+<div class="chart_checkbox">
+<label for="x_coord" class="mock_label">
+<input class="mock_input" type="checkbox" id="x_coord" name="x_coord" checked="barConfigs.showXAxisLabel" (change)="chartUtil.changeShowAxisLabel($event.target.checked,'x')">
+<i class="right_con"></i>
+<div  class="mock_box"></div>
+显示标题
+</label>
+</div>
+<div class="chart_caption">Y坐标轴</div>
+<div class="chart_input"><input type="text" checked placeholder="限10个字" name = "yAxisLabel" [attr.maxlength]="10" (keyup)="chartUtil.changeChartAttribute('yAxisLabel',$event.target.value)"></div>
+<div class="chart_checkbox">
+<label for="y_coord" class="mock_label">
+<input class="mock_input" type="checkbox" id="y_coord" name="y_coord" checked="chartUtil.showYAxisLabel" (change)="chartUtil.changeShowAxisLabel($event.target.checked,'y')">
+<i class="right_con"></i>
+<div  class="mock_box"></div>
+显示标题
+</label>
+</div>
+</div>
+<div class="chart_set_box">
+<div class="second_title">图例颜色</div>
+<ul class="color_set_list self_clearfix">
+<li *ngFor="let color of chartUtil.colorScheme; let i= index"><label class="c_btn" [attr.for]="'picker'+i"><i class="iconfont icon-tianchongse" [style.color]="color"></i><i class="iconfont icon-arrow-down-copy"></i><input type="color" [attr.id]="'picker'+i" (change)="chartUtil.changePickerColor($event.target.value,i)"></label><span class="c_text">图例{{i+1}}</span></li>
+</ul>
+</div>
+<div class="chart_set_box">
+<div class="second_title">网格线</div>
+<div class="x_line set_line">X轴:<label for="show_x_line"><input type="radio" [checked]="chartUtil.showXAxis" name="x_line" id="show_x_line" [value]="true" (change)="chartUtil.changeShowAxis(true,'x')" ><span class="mock_radio"></span>显示</label><label for="no_x_line"><input type="radio" name="x_line" id="no_x_line"  [checked]="!chartUtil.showXAxis" [value]="false" (change)="chartUtil.changeShowAxis(false,'x')"><span class="mock_radio"></span>不显示</label></div>
+<div class="x_line set_line">Y轴:<label for="show_y_line"><input type="radio"  [checked]="chartUtil.showYAxis"  name="y_line" id="show_y_line" [value]="true" (change)="chartUtil.changeShowAxis(true,'y')" ><span class="mock_radio"></span>显示</label><label for="no_y_line"><input type="radio" name="y_line" id="no_y_line"  [checked]="!chartUtil.showYAxis" [value]="false" (change)="chartUtil.changeShowAxis(false,'y')"><span class="mock_radio"></span>不显示</label></div>
+</div>
+</div>
+</div>
+</div>

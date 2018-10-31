@@ -1,0 +1,15 @@
+.operater_list{ position: absolute; background-color: #fff; border:1px solid #e3edf4; width: 130px; line-height: 26px; left: 145px; z-index: 10}
+.operater_list:before,.operater_list:after{ position: absolute; border-bottom: 8px solid #e3edf4; border-left: 6px solid  transparent; border-right: 6px solid transparent; border-top: 0; content: ''; left:10px; top: -8px; }
+.operater_list:after{ border-bottom-color: #fff; top: -6px;}
+.operater_list li{ position: relative; font-size:12px; color: #666;  }
+.operater_list p{ margin: 0;  padding: 0 20px 0 15px;}
+/*.operater_list p:hover{ background-color:#f7f7f7; color: #849bd1; cursor: pointer; }*/
+.operater_list li i{ position: absolute; right: 10px; font-size: 12px; color: #666;}
+.first_o_list>li{ width:130px;}
+.second_o_list{ display: none; border:1px solid #e3edf4; width: 150px; background-color: #fff; left: 128px; top: -1px; position: absolute; z-index: 1000;}
+.third_o_list{ display: none; width: 186px; background-color: #fff; position: absolute; left: 138px; top: -1px;border:1px solid #e3edf4;}
+.p_hover .second_o_list,.p_hover .third_o_list{ display: block;}
+.first_o_list>li:hover .second_o_list,.second_o_list>li:hover .third_o_list{ display: block;}
+.first_o_list>li:hover>p,.second_o_list>li:hover>p,.third_o_list>li:hover>p,.first_o_list>li>p.selected,.second_o_list>li>p.selected,.third_o_list>li>p.selected{ background-color:#f7f7f7; color: #849bd1; cursor: pointer; }
+.first_o_list,.second_o_list,.third_o_list{ box-shadow:2px 2px  0 0 #e3e3e3; }
+.test{ position: absolute; top: -2000px;}

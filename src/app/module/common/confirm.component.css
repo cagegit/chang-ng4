@@ -1,0 +1,88 @@
+.delete_confirm {
+  width: 380px;
+}
+
+.confirm_btn {
+  text-align: center
+}
+
+.confirm_btn button {
+  width: 20%;
+}
+
+.delete_icon {
+  line-height: 122px;
+  text-align: center;
+}
+
+.delete_icon i {
+  font-size: 80px;
+  color: #6ad9c8;
+}
+
+.delete_text {
+  line-height: 50px;
+  font-size: 14px;
+  text-align: center;
+  /* margin-bottom: 50px; */
+}
+
+.modal-content {
+  padding: 10px 16px;
+}
+
+.btn-color {
+  background: #49a2df;
+  border: 1px solid #49a2df;
+}
+
+.btn-color:hover {
+  background-color: #127fcc;
+}
+
+.btn-size {
+  font-size: 12px;
+}
+
+.muti-btn {
+  margin: 10px 0px;
+  height: 30px;
+  line-height: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.muti-btn .invite {
+  margin-right: 16px;
+}
+
+.invite {
+  width: 40px;
+  border-radius: 4px;
+  overflow: hidden;
+  bottom: 10px;
+  /* background-color: #587CD8; */
+  height: 25px;
+  line-height: 25px;
+  font-size: 12px;
+  color:#108ee9;
+  margin: 10px 0px;
+}
+
+.invite button {
+  display: block;
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+
+.invite button span {
+  vertical-align: top;
+}
+
+.invite:hover {
+  background-color:#ef5350;
+  color: #fff;
+}

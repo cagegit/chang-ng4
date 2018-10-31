@@ -1,0 +1,9 @@
+.show_data{ background: url("../../../../assets/img/show_data_bg.jpg") no-repeat left center;}
+.self_modal_dialog{ width: 900px;}
+.data_show_box{ width: 100%; height: 500px; background-color: #fff; padding:20px; border-radius: 3px; }
+.data_table{ height: 460px;}
+.data_show_box table{ border:1px solid #dbdbdb;}
+.data_show_box th{ line-height: 40px; border-right: 1px solid #dbdbdb;text-align: center; background-color: #f7f7f7; font-size:14px; color: #333; border-bottom: 1px solid #dbdbdb;font-weight: normal; white-space: nowrap; padding: 0 20px;}
+.data_show_box td{ line-height: 30px; border-right: 1px solid #dbdbdb; color: #666; white-space: nowrap; padding: 0 20px; text-align: center; border-bottom: 1px solid #dbdbdb;}
+.data_show_box tr td:last-child{ border-right: none;}
+.data_show_box tbody tr:last-child td{border-bottom: none;}

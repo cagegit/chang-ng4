@@ -1,0 +1,125 @@
+<template #itemTemplate let-page="item.value" let-index="index">
+  <div class="sortable-item-inner" [class.cur]="page.pageID == curPage.pageID">
+    <span  (click)="tabClick(page,$event)">{{page.pageName}}</span>
+    <input type="text" value="{{page.pageName}}" #inputN (blur)="renamePage($event,page,inputN.value)">
+    <i class="iconfont icon-xxz" *ngIf ="dashboard.content.length>1" (click)="showDeleteConfirmPage($event,page)"></i>
+  </div>
+</template>
+
+
+<div class="dashboard_container" #dashboardBox  [@flyIn]="active">
+  <div class="dashboard_box">
+    <div class="panel_title"><input type="text" #dashboardName maxlength="50" value="{{dashboard.dashboardName}}" (blur)="changeDashboardName($event,dashboardName.value)"></div>
+    <div class="panel_top">
+      <!--<ul class="panel_tab_list self_clearfix" (dblclick)="showPageNameInputBox($event)"  (click)="changeTab(page)">-->
+       <!--<li class="self_cursor"  *ngFor = "let page of dashboard.content" [class.cur]="page.pageID == curPage.pageID"><span  (click)="tabClick(page,$event)">{{page.pageName}}</span><input type="text" value="{{page.pageName}}" #inputN (blur)="renamePage($event,page,inputN.value)"><i class="iconfont icon-xxz" *ngIf ="dashboard.content.length>1" (click)="showDeleteConfirmPage($event,page)"></i></li>-->
+        <!--<bs-sortable-->
+          <!--[(ngModel)]="dashboard.content"-->
+          <!--[itemTemplate]="itemTemplate"-->
+          <!--itemClass="sortable-item"-->
+          <!--itemActiveClass="sortable-item-active"-->
+          <!--placeholderItem="Drag here"-->
+          <!--placeholderClass="placeholderStyle"-->
+          <!--wrapperClass="sortable-wrapper"-->
+        <!--&gt;</bs-sortable>-->
+        <!--<li class="panel_add_btn_box"><div class="panel_add_btn self_cursor" (click)="createPage()"></div></li>-->
+      <!--</ul>-->
+      <div class="panel_tab_list self_clearfix">
+        <bs-sortable
+          [(ngModel)]="dashboard.content"
+          [itemTemplate]="itemTemplate"
+          itemClass="sortable-item"
+          itemActiveClass="sortable-item-active"
+          placeholderClass="placeholderStyle"
+          wrapperClass="sortable-wrapper"
+          (onChange)="sortTab($event)"
+        ></bs-sortable>
+        <!--<div class="panel_add_btn_box"><div class="panel_add_btn self_cursor" (click)="createPage()" placement="bottom"></div></div>-->
+      </div>
+
+      <div class="panel_icon_list">
+        <i class="iconfont panel_add_btn "(click)="createPage()"tooltip="打开新的标签页" placement="bottom"  ></i>
+        <i class="iconfont icon-tianjia-copy " *ngIf="curPage&&!curPage.href&&pageType!='iframe'" (click)="addPanel($event)"tooltip="添加面板" placement="bottom"  ></i>
+        <i class="iconfont icon-layout2" (click)="resetLayout()"tooltip="清空" placement="bottom" style="margin-right: 15px;"></i>
+        <!--<span (click)="showLayer($event,'layoutListFlag')"><i class="iconfont icon-layout2" ></i><i class="iconfont icon-jiantouyou "></i></span>-->
+        <span>|</span>
+        <i class="iconfont icon-iconshezhi01 " tooltip="权限设置" placement="bottom" *ngIf="dashboard.dashboardID&&dashboard.hasPermission(PERMISSION_TYPE.AUTH)" (click)="resourcePermissionModal.show(dashboard.dashboardID,dashboard.dashboardName,RESOURCE_TYPE_DASHBOARD)" ></i>
+        <i  *ngIf="dashboard.dashboardID" class="icon-yulan iconfont " tooltip="预览" placement="bottom" [routerLink]="[ '/dashboard/info',dashboard.dashboardID ]"></i>
+        <i class=" iconfont icon-baocun " tooltip="保存全部" placement="bottom" (click)="saveDashboard($event)"></i>
+      </div>
+    </div>
+    <div class="dashboard_content" [style.min-height.px]="minHeight" [class.dashboard_table_box_hide]="curPage&&curPage.href||pageType=='iframe'">
+      <div class="dashboard_table_box" [class.dashboard_left_fixed]="isFixed" *ngIf="curPage&&!curPage.href&&pageType!='iframe'">
+        <h3 class="dashboard_left_title" style="top:0"><i class="iconfont icon-biaoti"></i>设置页面名称</h3>
+        <div class="dashboard_dataset_box" style="top:30px;">
+          <label style="padding: 0 10px;"><input style="border: 1px solid #e6eaec;" type="text" maxlength="20" value="{{curPage.pageName}}" #panelTxt (blur)="renameCurPage($event,curPage,panelTxt.value)"></label>
+        </div>
+        <h3 class="dashboard_left_title" style="top:70px;"><i class="iconfont icon-biaoge"></i>选择菜单</h3>
+        <div class="dashboard_dataset_box scroll_bar" style="top:100px;">
+          <select #dataSetList (change)="changeDataSet($event,dataSetList.value)" class="dataset_select" *ngIf="menuList.length>0">
+            <option *ngFor="let dataset of menuList" value="{{dataset.id}}" [selected]="curPage && (dataset.id === curPage.dataSetID)">{{dataset.name}}</option>
+          </select>
+          <ul *ngIf="tableList.length>0" class="dashboard_cardlist" [dragula]='"panel"' [attr.data-drag]='"panel0"'>
+            <li *ngFor="let table of tableList" class="card_item self_ellipsis" title="{{table.name}}" [class.sel]="usedCards.indexOf(table.id+'')>=0" [attr.data-cardID]="table.id" [attr.data-cardName]="table.name">{{table.name}}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="dashboard_panel_box">
+        <div class="panel_content_box scroll_bar" [style.min-height.px]="minHeight" style="overflow: inherit;" #gridContainer>
+          <page-layout *ngIf="curPage && curPage.panels.length == 0" [url]="curPage.href" [top]="panelHeight/2-120" (createLayoutEvent)="createPanelLayout($event.url,$event.arr)" (pageTypeChange)="pageTypeChange($event)"></page-layout>
+          <ng-template ngFor let-page [ngForOf]="dashboard.content">
+            <div class="grid panels_list "  id="panels_list" [ngGrid]="CONTAINER_CONFIG" *ngIf="curPage.panels.length>0&&page.pageID == curPage.pageID">
+              <!--panel loop start{-->
+              <div *ngFor="let panel of curPage.panels; let i = index" class="grid-item" [(ngGridItem)]="panel.config"  (onItemChange)="onPanelSizeChange(panel,i, $event)" (onDragStop)="onDragStop(panel,$event)"  (onResizeStop)="onResizeStop($event);panelContent.onResizeStop($event.width,$event.height)">
+                <div class="panel_operator">
+                  <div class="panel_operator dev-drag">
+                   <!--<span class="self_cursor span-float" (click)="showLayer($event,'panelTypeFlag',true,panelOperateFn($event,panel,true));$event.stopPropagation();">-->
+                     <!--<i class="iconfont self_left" [class.icon-shaixuan]="panel.panelType == 1" [class.icon-wenben]="panel.panelType == 2" [class.icon-shujuji]="panel.panelType == 0" [class.icon-tupian]="panel.panelType == 3"></i>-->
+                     <!--<i class="iconfont icon-jiantouzuo-copy" ></i>-->
+                   <!--</span>-->
+                    <span class="panelbox_title self_ellipsis" title="{{panel.panelName}}" (dblclick)="showPanelInputBox($event)">
+                      {{panel.panelName}}
+                      <input type="text" style="display: none;background-color: #fff;" maxlength="20" [attr.data-panel-id]="panel.panelID"  (mousedown)="$event.stopPropagation();" (blur)="savePanelTitle($event);" value="{{panel.panelName}}" />
+                      <!--{{panel.panelName}}-->
+                    </span>
+                    <i class="iconfont icon-shanchu self_right marL20 self_cursor" tooltip="删除" placement="bottom" (click)="removePanel(panel);$event.stopPropagation();"></i>
+                    <i class="iconfont icon-clear self_right marL20 self_cursor" tooltip="清空" placement="bottom" (click)="clearPanel(panel);$event.stopPropagation();"></i>
+                    <span class="self_right self_cursor" (click)="showLayer($event,'panelFilterFlag',true,i,panelOperateFn($event,panel,false))">
+                     <i class="iconfont icon-shaixuan self_left" *ngIf="panel.singlePanelFilters && panel.singlePanelFilters.length"></i>
+                     <i class="iconfont icon-jiantouzuo-copy"  *ngIf="panel.singlePanelFilters && panel.singlePanelFilters.length"></i>
+                   </span>
+                  </div>
+                </div>
+                <!--<panel-init [data]="panel.data" #panelContent [panelID]="panel.panelID" [panelType]="panel.panelType" [preview]="false" [panelCharts]="panelCharts" [dragula]='"panel"' [attr.data-drag]='"panel"+panel.panelType' [attr.data-move]="'0'" [attr.data-panelID]="panel.panelID" (addDataEvent)="addDataFn($event,panel)" (createPageFilterEvent)="createPageFilterFn($event)" (setFilterEvent)="setFiltersFn($event)"></panel-init>-->
+                  <app-panel-echart [tableId]="panel.data?.cardId" #panelContent [panelID]="panel.panelID" [dragula]='"panel"' [attr.data-panelID]="panel.panelID"></app-panel-echart>
+              </div>
+              <panel-type *ngIf="layerFlags.panelTypeFlag" [top]="panelTypeBoxPos.top - 1" [left]="panelTypeBoxPos.left" (changePanelTypeEvent)="changePanelTypeFn($event)"></panel-type>
+              <panel-filter  *ngIf="layerFlags.panelFilterFlag" [filters]="selectPanelFilters" [top]="panelFilterBoxPos.top" [left]="panelFilterBoxPos.left"></panel-filter>
+              <!--}panel loop end-->
+            </div>
+          </ng-template>
+          <!--<iframe *ngIf="curPage && curPage.href && curPage.panels.length == 0" [src]="safeUrl" width="100%" height="700px" frameborder="0" scrolling="auto"></iframe>-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dashboard_box" >
+  </div>
+</div>
+<div bsModal #deletePageConfirm="bs-modal"  [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog self_success_modal delete_confirm" >
+    <div class="modal-content self_modal_content">
+      <div class="modal-header self_modal_header create_success">
+        <button type="button" class="close self_close" aria-label="Close" (click)="deletePageConfirm.hide()">
+          <i class="iconfont icon-guanbigongjulan"></i>
+        </button>
+      </div>
+      <div class="delete_icon"><i class="iconfont icon-shanchu"></i></div>
+      <div class="delete_text">确认删除页面么？</div>
+      <div class="self_clearfix confirm_btn"><button class="self_btn self_left c_a0a1a1" (click)="cancelRemove($event)">取消</button><button class="self_btn  self_right c_ef5350" (click)="confirmRemove($event)">确认</button> </div>
+    </div>
+  </div>
+</div>
+
+<resource-permission-modal  #resourcePermissionModal (changeUserPermission)="update($event)"></resource-permission-modal>
+

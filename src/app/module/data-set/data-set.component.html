@@ -1,0 +1,79 @@
+<div class="not_full_box" #dataSetBox [@flyIn]="active">
+  <div class="not_fullpage">
+    <div class="crumbs"><a routerLink="/chang/data-center/list/set">数据集</a> &gt; {{dataSet.dataSetName}}</div>
+    <div class="dataset_detail_box">
+      <div class="detail_brief">
+        <img *ngIf="dataSet.dataSourceList.length == 1 && dataSet.dataSourceType!=='impala'" src="assets/img/{{dataSet.dataSourceType}}_detail.png">
+        <img *ngIf="dataSet.dataSourceList.length == 1 && dataSet.dataSourceType=='impala'" src="assets/img/{{dataSet.dataSourceType}}_bg.png">
+        <img *ngIf="dataSet.dataSourceList.length>1" src="assets/img/sources_detail.png">
+        <div class="brief_title">{{dataSet.dataSetName}}</div>
+        <div class="self_clearfix detail_brief_con">
+          <a  *ngFor="let dataSource of dataSet.dataSourceList" class="self_left title_link" routerLink="/chang/source/update/{{dataSource.dataSourceType}}/{{dataSource.dataSourceID}}">{{dataSource.dataSourceName}}</a>
+          <!-- <span class="create_u self_left">创建者:<a  class="testjira" routerLink="/um/user/{{dataSet.createdById}}">{{dataSet.createdBy}}</a></span> -->
+          <!-- *ngIf="dataSet.hasPermission(PERMISSION_TYPE.AUTH)" -->
+          <!-- <span class="author">授权用户:<span>{{dataSet.userList}}</span><a href="javascript:void(0)"  (click)="resourcePermissionModal.show(dataSet.dataSetID,dataSet.dataSetName,RESOURCE_TYPE_DATA_SET)">查看更多</a> </span> -->
+          <i  class="iconfont icon-shanchu1" (click)="dataSetConfirm.open('确定','确定要删除该数据报表吗？',dataSet.dataSetID);$event.stopPropagation();" placement="top" tooltip="删除所有数据报表"></i>
+          <!-- <i  class="iconfont icon-iconshezhi01 self_right" (click)="resourcePermissionModal.show(dataSet.dataSetID,dataSet.dataSetName,RESOURCE_TYPE_DATA_SET)" placement="top" tooltip="设置"></i> -->
+          <!-- <i  class="iconfont icon-shuaxin" (click)="refreshCache(dataSet.dataSetID);$event.stopPropagation();" placement="top" tooltip="更新缓存"></i> -->
+          <i  class="iconfont icon-qianming" routerLink="/chang/set/update/{{dataSet.dataSetID}}" placement="top" tooltip="编辑数据集"></i>
+        </div>
+      </div>
+      <nav class="dataset_nav">
+        <ul>
+          <li routerLink="/chang/data_set/{{dataSet.dataSetID}}/card" [class.cur]="tab=='card'">数据报表</li>
+          <li *ngIf="(dataSet.dataSourceList.length==1)&&(dataSet.dataSourceType!='hive2'&& dataSet.dataSourceType!='isource')" routerLink="/chang/data_set/{{dataSet.dataSetID}}/schema" [class.cur]="tab=='schema'">数据模型</li>
+          <!-- <li *ngIf="dataSet.dataSourceType=='kylin'||dataSet.dataSourceType=='code'||dataSet.dataSourceType=='isource'" routerLink="/data_set/{{dataSet.dataSetID}}/query" [class.cur]="tab=='query'" >高级查询</li> -->
+          <!-- <li routerLink="/data_set/{{dataSet.dataSetID}}/changelog" [class.cur]="tab=='changelog'" >更新历史</li> -->
+        </ul>
+        <!-- <div *ngIf="dataSet.schemaHandle&&dataSet.schemaHandle.showTips&&!showMiniWarn" class="update_state">
+          <ng-template [ngIf]="dataSet.schemaHandle.status=='READY'&&dataSet.schemaHandle.modifyStatus=='NO'">
+            <i class="iconfont icon-buzhengque"></i>数据模型于{{dataSet.updatedTime|date:"yyyy-MM-dd HH:mm"}}完成更新.可以开始制作分析报表<i class="iconfont icon-xxz" (click)="hiddenWarnDesc()"></i>
+          </ng-template>
+          <ng-template [ngIf]="dataSet.schemaHandle.status=='READY'&&dataSet.schemaHandle.modifyStatus=='YES'">
+            <i class="iconfont icon-buzhengque"></i>数据模型于{{dataSet.updatedTime|date:"yyyy-MM-dd HH:mm"}}发生了修改，修改还未生效，请点击“<a>更新模型</a>”使修改生效<i class="iconfont icon-xxz" (click)="hiddenWarnDesc($event)"></i>
+          </ng-template>
+          <ng-template [ngIf]="dataSet.schemaHandle.status=='ERROR'&&dataSet.schemaHandle.modifyStatus=='NO'">
+            <i class="iconfont icon-buzhengque"></i>数据模型于{{dataSet.startTime|date:"yyyy-MM-dd HH:mm"}}<span>构建失败</span>。请：<br>
+            • 检查模型修改是否正确，点击“<a>更新模型</a>”重新构建<br>
+            • 恢复默认模型，点击“<a>更新模型</a>”重新构建<i class="iconfont icon-xxz" (click)="hiddenWarnDesc($event)"></i>
+          </ng-template>
+          <ng-template [ngIf]="dataSet.schemaHandle.status=='ERROR'&&dataSet.schemaHandle.modifyStatus=='YES'">
+            <i class="iconfont icon-buzhengque"></i>数据模型于{{dataSet.updatedTime|date:"yyyy-MM-dd HH:mm"}}发生了修改，修改还未生效，请点击“更新模型”使修改生效<i class="iconfont icon-xxz" (click)="hiddenWarnDesc($event)"></i>
+          </ng-template>
+        </div> -->
+        <div class="close_warn" *ngIf="showMiniWarn"><i class="iconfont icon-buzhengque" (click)="showWarnDesc($event)"></i></div>
+
+        <ng-template [ngIf]="dataSet.schemaHandle&&dataSet.schemaHandle.status!='READY'">
+        <button [class]="dataSet.schemaHandle.statusColor" (click)="schemaHandle.startConfirm()">
+          <span>{{dataSet.schemaHandle.statusDesc}}</span>
+        </button>
+        </ng-template>
+        <ng-template [ngIf]="dataSet.schemaHandle&&dataSet.schemaHandle.status=='READY'">
+          <button [class]="dataSet.schemaHandle.statusColor" (click)="showOption($event)">
+          <span>{{dataSet.schemaHandle.statusDesc}}
+            <!--<ng-template [ngIf]="dataSet.schemaHandle.status=='READY'">-->
+          <i class="iconfont icon-arrow-down-copy" style="color:#fff;"></i>
+          </span>
+          </button>
+          <ul *ngIf="showUpdateOption" class="selectUpdateMenu download_list">
+            <li (click)="schemaHandle.startConfirm()">全量更新</li>
+            <li (click)="setCron.showModal()">定时增量</li>
+          </ul>
+          </ng-template>
+      </nav>
+      <div [ngSwitch]="tab">
+        <!-- 数据报表 -->
+        <data-set-card-list *ngSwitchCase="'card'" [dataSet]="dataSet"></data-set-card-list>
+        <!-- 数据模型 -->
+        <data-set-schema *ngSwitchCase="'schema'" [dataSet]="dataSet" [schameLayerFlag]="schameLayerFlag" (schemaChange)="ngOnInit();"></data-set-schema>
+        <!-- 更新历史 -->
+        <!-- <data-set-query *ngSwitchCase="'query'" [dataSet]="dataSet"></data-set-query>
+        <data-set-changelog *ngSwitchCase="'changelog'"></data-set-changelog> -->
+      </div>
+    </div>
+  </div>
+</div>
+<schema-handle [dataSet]="dataSet" #schemaHandle></schema-handle>
+<!--<resource-permission-modal  #resourcePermissionModal (changeUserPermission)="initDataSet($event)"></resource-permission-modal>-->
+<set-cron #setCron [dataSetID]="dataSet.dataSetID"></set-cron>
+<alert-confirm #dataSetConfirm (confirm)="delete($event)"></alert-confirm>

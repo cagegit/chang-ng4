@@ -1,0 +1,27 @@
+.head_dashboard_list{background-color: #333543;padding: 0 0 0 50px; position: relative;}
+.manage_dashboard_btn{ width: 59px; text-align: center; line-height: 34px; float:right; color: #fff; cursor: pointer;}
+.manage_dashboard_btn i{ font-size: 20px;}
+.h_dashboard_list{ position: relative;float: left}
+.more_box{ float: left;position: relative;height: 36px; width: 76px; cursor: pointer; margin-left: 10px;}
+.more_btn{ position: absolute; left: 0; width:76px; text-align: center; border-radius: 3px;  color: #fff; height: 24px; top: 6px; line-height: 24px;}
+.more_btn i{font-size: 14px; color: #5e6173; margin-left: 5px;}
+.more_down_box{width: 200px; position: absolute; top: 36px; right: 0;overflow: hidden; background-color: #555762;padding:10px 0; z-index: 999;display: none;}
+.more_box:hover .more_btn,.select_more_btn{ height: 30px; border-radius: 3px 3px 0 0;background-color: #555762; line-height: 30px;}
+.more_box:hover .more_down_box{  display: block;}
+.more_box:hover .more_btn i,.select_more_btn i{ color: #fff;}
+.more_box:hover .more_btn i{ display: inline-block; transform: rotateX(180deg)}
+.h_dashboard_list li{ line-height:36px; font-size: 14px; float: left; margin: 0 10px; color: #fff; cursor:pointer; max-width: 300px;}
+.h_dashboard_list li a{ color: #fff; text-decoration: none; display: inline-block; width: 100%; height: 24px; line-height: 24px;padding: 0 10px; border-radius: 3px; }
+.h_dashboard_list li:first-child{ margin-left: 0;}
+.h_dashboard_list li a:hover,.h_dashboard_list li a.selected{ background-color: #555762;}
+.cur_dashboard_bg{ position: absolute; width: 0px;height: 24px; top: 6px; background-color: #555762; border-radius: 3px; transition: all 0.3s ease-in-out; left: -500px;}
+.comput_dashboard{ top:-10000px; position: fixed}
+.hidden_dashboard_lsit{height: 0; transition: all 0.3s; padding: 0 10px;}
+.more_box:hover .hidden_dashboard_lsit{height: 176px;}
+.hidden_dashboard_lsit li{ height: 24px; line-height:24px; padding:0 5px; border-radius:2px;color: #fff; text-align: left; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin: 10px 0;}
+.hidden_dashboard_lsit li.cur,.hidden_dashboard_lsit li:hover{ background-color: #333543;}
+.hidden_dashboard_lsit li a{ color: #fff;text-decoration: none;}
+.more_down_search{ position: relative; line-height: 24px; height: 24px; margin: 0 10px;}
+.more_down_search input{ height: 24px; width: 100%; background-color: #fff; border-radius: 2px; border:none; outline: none; padding: 0 25px 0 10px;}
+.more_down_search i{ position:absolute; top: 0; right: 5px; color: #414351; }
+.hidden_cur_dashboard{left: -200px !important;}

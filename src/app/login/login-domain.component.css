@@ -1,0 +1,9 @@
+.login_user_bg{background:url("../../assets/img/input_domain_bg.png") no-repeat left center;}
+.login_info{ height: 132px; background: url("../../assets/img/login_info.jpg") no-repeat top center;}
+.login_email input{ padding-left: 0; width: 100%;}
+.forget_password{ margin-top: 30px; border-top:1px solid #5a5d6c;padding-top: 20px; text-align: center; }
+.forget_password a{ color: #fff;}
+.login_domain{background: url("../../assets/img/wallhaven.jpg") no-repeat top center;}
+.domain_box{ width: 400px; height: 160px; position: absolute; left: 50%; top: 50%; margin-left: -200px; margin-top: -160px;}
+.self_modal_dialog{ margin-top: 50px;}
+.user_email input{width:90%;}

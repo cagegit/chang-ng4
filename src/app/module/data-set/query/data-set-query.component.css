@@ -1,0 +1,53 @@
+.query_left{ position:absolute; width: 265px; left: 0; top: 0; border:1px solid #e5e5e5; bottom: 0;}
+.query_select_top{ height: 47px; line-height: 46px; padding:0 20px; border-bottom: 1px solid #f0f0f0; background-color: #f7f7f7; color: #333; }
+.query_select_box{ position: absolute; top: 57px; bottom:10px; left: 0px; right: 0px; }
+.sql_query{ margin-top: 20px; width: 100%; position: relative; padding-left:285px; }
+
+.query_list_tab{ margin-bottom: -1px;}
+.query_list_tab li{ width: 120px; height: 32px; float: left; margin-right:8px; cursor: pointer;  border:1px solid #e5e5e5; border-radius: 3px 3px 0 0; background-color: #f4f4f4; text-align: center; line-height: 30px; color: #666;}
+.query_list_tab li.cur{ background-color: #fff; border-bottom-color: #fff; color: #333;}
+.query_top_box{ border:1px solid #e5e5e5; height:360px; padding: 10px; }
+.sql_editor{ width: 100%; height:340px; position: relative;}
+.query_history_list{ width: 100%; height:350px; margin-top: -10px; padding-right: 10px;}
+.history_time{padding-top: 10px;height: 40px; line-height: 30px; font-size: 14px; color: #333; position: relative;}
+.history_query{ position:relative; width: 100%; height:72px;}
+.max_history_query{ height: 216px;}
+.query_save{ width: 72px;}
+.query_save button{ height: 30px; line-height: 30px; font-size:14px;}
+.query_submit{ line-height: 30px; color: #666;}
+.query_submit input{height: 30px; line-height: 28px; border:1px solid #e6eaec; padding: 0 10px; width: 200px; background-color: #f7f7f7; border-radius: 3px; margin: 0 5px;}
+.query_submit button{ width: 72px; line-height: 30px; font-size: 14px; height: 30px;}
+.h310{ height: 310px;}
+.max_num{ height: 40px; line-height: 40px; margin: 10px -10px -10px -10px; border-top:1px solid #e5e5e5; padding-left:18px; color: #666; }
+.query_result_tab_list{ position: relative; height:38px; bottom: -1px;}
+.query_result_tab_list>li{  position:relative; cursor:pointer;background-color: #f4f4f4; padding: 0 20px; border-radius: 3px 3px 0 0; border:1px solid #e5e5e5; height: 38px; line-height: 36px; float: left; margin-right:8px; }
+.query_result_tab_list>li.cur{ background-color: #fff; border-bottom-color: #fff;}
+.query_result_tab_list>li i{ position: absolute; color:#f16d6a;  font-size: 12px; right: 5px;  line-height: 20px;}
+.query_result_tab_list .more_result{ line-height: 36px;padding: 0 10px; }
+.query_result_tab_list .more_result i{ color:#323757; position: static; font-size: 18px;}
+.export_icon{ position: absolute; right:5px; top: 5px;}
+.export_icon:after{ position: absolute; width: 8px; height: 8px; background-color: #fff; content: ''; top: 13px; right: 0px; overflow: hidden;}
+.export_icon i{ color: #849bd1; font-size: 26px;}
+.result_table_box{ height: 465px; padding:20px; border:1px solid #e5e5e5; border-radius: 0 3px 3px 3px;}
+.result_table_box table{ border-radius: 3px;}
+.result_table_box th{ background-color: #f7f7f7; font-weight: normal; color: #333;}
+.result_table_box th,.result_table_box td{ padding:0 10px; word-break: keep-all; line-height: 42px; border:1px solid #dbdbdb;}
+.result_table_box td{ color: #666;}
+.first_select_list{ margin: 0 10px;}
+.first_select_list>li{margin-bottom:20px;}
+.select_item{ position: relative; padding-left:40px; height: 30px; line-height: 30px; color:#333; border:1px solid #dedfe2; padding-right:30px;  }
+.select_item i{ position: absolute;  color: #859acf; left:13px; }
+.select_item>.icon-jiantouyou{ left:214px; font-size: 15px; display: inline-block; transform: rotate(-90deg); cursor: pointer; top: 0;}
+.select_item .item{display: block;width:170px; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.second_select_list{ border:1px solid #dedfe2; border-top:none; padding:13px; background-color: #f7f7f7; border-radius: 0 0 3px 3px;}
+.second_select_list .select_item{ height: 26px; line-height: 24px; background-color: #fff; border-radius: 3px; padding-right: 10px;}
+.second_select_list li{ margin-bottom: 10px;}
+.second_select_list li:last-child{ margin-bottom: 0;}
+.query_folder+ul{ display: none;}
+.query_folder .icon-jiantouyou{ transform: rotate(90deg);}
+.more_result_list{position: absolute;width:130px; padding:0 10px; background-color: #fff; border:1px solid #e3edf4;z-index: 100; left:-76px;cursor:pointer; /*display: none;*/ top: 33px;}
+.more_result_list:before,.more_result_list:after{ content: '';width: 0; height: 0;overflow: hidden; position: absolute; border-bottom: 8px solid #e3edf4; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: none; right: 10px; top: -8px;}
+.more_result_list:after{top: -7px; border-bottom-color: #fff;}
+.more_result_list li{ height: 35px; line-height: 34px; text-align: center; border-bottom: 1px solid #e3edf4;}
+.more_result_list li.cur{ color: #849bd1;}
+.more_result_list li:last-child{ border-bottom: none;}

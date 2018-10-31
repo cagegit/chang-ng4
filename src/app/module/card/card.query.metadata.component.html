@@ -1,0 +1,36 @@
+<div class="saiku_left" [@toLeftState]="toLeftStateStr">
+  <div class="dataset_box">
+    <div class="self_left select_dataset">
+      <div class="self_clearfix self_cursor" >
+        <!--(click)="showDatasetList($event)"-->
+        <span *ngIf="selectedDataSet" title="{{selectedDataSet.dataSetName}}">{{selectedDataSet.dataSetName}}</span>
+        <i class="iconfont icon-arrow-down-copy self_right"></i>
+      </div>
+      <ul class="s_dataset_list keys_operate_box scroll_bar" >
+        <li *ngFor="let set of dataSets" (click)="noSaveBox.showModal(selectedDataSet.dataSetID,set.dataSetID,queryType)" title="{{set.dataSetName}}">
+          <!--changeSet(set.dataSetID,set.dataSetName)-->
+          {{set.dataSetName}}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div #leftContent class="left_content scroll_bar">
+    <ng-template ngFor let-source [ngForOf]="querySources">
+  <div class="s_type_title"><i class=" iconfont icon-arrow-down-copy"></i><i class="iconfont icon-shujuku"></i><span>{{source.sourceName}}</span></div>
+      <div class="s_type_box" >
+        <ul class="s_class scroll_bar"  >
+          <li class="first_class" *ngFor="let table of source.tables">
+            <div class="class_name un_folder" ><i class="iconfont icon-arrow-down-copy" (click)="changeFolderState($event,'un_folder','class_name',source.sourceId,table.tableName)"></i><i class="iconfont icon-biaoge" (click)="changeFolderState($event,'un_folder','class_name',source.sourceId,table.tableName)"></i><span  (click)="addTable(table.tableName+'@'+source.sourceName)">{{table.tableName}}</span></div>
+            <ul class="drag_fromMeasure">
+              <li *ngFor="let field of table.tableFields" class="second_class" title="{{field.fieldName}}" (click)="addField(field.fieldName)"><i class="iconfont icon-kongjianshuzhiqujian" style="position: absolute;  color: #859acf; left:13px;" [ngClass]="{'icon-kongjianshuzhiqujian': field.schemaShowType == 'number', 'icon-abc': field.schemaShowType == 'string', 'icon-riqi': field.schemaShowType == 'time'}"></i><span style="margin-left:10px;">{{field.fieldName}}</span></li>
+              <!--[ngClass]="{'icon-kongjianshuzhiqujian': field.schemaShowType == 'number', 'icon-abc': field.schemaShowType == 'string', 'icon-riqi': field.schemaShowType == 'time'}"-->
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="left_folder_btn"><i class="iconfont icon-shouqi1" #toLeftBtn (click)="changeLeftFolderState($event)"></i></div>
+</div>
+<no-save #noSaveBox [router]="router"></no-save>

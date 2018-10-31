@@ -1,0 +1,66 @@
+<div class="user_right scroll_bar main_content" [@flyInOut]="active">
+  <div class="data_list_box">
+    <div class="list_box scroll_bar">
+      <div class=" self_clearfix add_source">
+        <div class="search_set marT20 marR20"><i class="iconfont icon-fangdajing"></i><input myFocusChangeStyle
+            [focusClass]="'data_focus_box'" type="text" placeholder="搜索数据集名称" (keyup)="search($event.target.value)"></div>
+        <select class="set_sort_type marT20 marR20" (change)='filter("dataSetID",$event.target.value)'>
+          <option value="">按数据源</option>
+          <option *ngFor="let dataSource of dataSourceSet" value="{{dataSource}}" >{{dataSource}}</option>
+        </select>
+        <!-- <select class="set_sort_type marT20 marR20" (change)='filter("createdBy",$event.target.value)'>
+          <option value="">按创建者</option>
+          <option *ngFor="let createdBy of createdBySet" value="{{createdBy}}">{{createdBy}}</option>
+        </select> -->
+        <div class="time_sort_type marT20" (click)="sortByTime()"><span>按时间{{orderByTimeDesc?'降序':'升序'}}</span><i class="sort_btn sort_{{orderByTimeDesc?'down':'up'}}"></i></div>
+        <div class="add_dataset_btn marT20"><button class="self_btn c_ef5350" (click)="redirectToAddPage()">添加数据集</button></div>
+      </div>
+      <div class="container-fluid data_list_head">
+        <div class="row">
+          <div class="col-sm-2 col-lg-2 col-md-2 list_text_align">数据集名称</div>
+          <div class="col-sm-2 col-lg-2 col-md-2 list_text_align">数据源</div>
+          <!-- <div class="col-sm-2 col-lg-2 col-md-2">创建者</div> -->
+          <div class="col-sm-2 col-lg-2 col-md-2">更新时间</div>
+          <div class="col-sm-2 col-lg-2 col-md-2">报表</div>
+          <div class="col-sm-2 col-lg-2 col-md-2"></div>
+        </div>
+      </div>
+      <ul *ngIf="dataSetList" class="container-fluid data_list_body">
+        <li class="row" *ngFor="let dataSet of dataSetList">
+          <div class="col-sm-2 col-lg-2 col-md-2 set_column set_name list_text_align">
+            <!-- {{dataSet.name}}<i class="iconfont icon-moban254"></i> -->
+            <!-- routerLink="/data_set/{{dataSet.dataSetID}}/card" -->
+            <a title="{{dataSet.dataSetName}}" routerLink="/chang/data_set/{{dataSet.dataSetID}}/card">{{dataSet.dataSetName}}</a><i class="iconfont icon-moban254"></i>
+          </div>
+          <div class="col-sm-2 col-lg-2 col-md-2 set_column data_name">
+            <div class="source_logo data_source_{{dataSet.dataSourceType}}" *ngIf="dataSet.dataSourceList.length ==1 "></div>
+            <div class="source_logo data_source_sources" *ngIf="dataSet.dataSourceList.length>1"></div>
+            <ng-template ngFor let-dataSource [ngForOf]="dataSet.dataSourceList" let-i="index">
+              <ng-template [ngIf]="i==0">
+                <a  title="{{dataSource.dataSourceName}}" routerLink="/chang/source/update/{{dataSource.dataSourceType|lowercase}}/{{dataSource.dataSourceID}}"><span *ngIf="i>0"></span>{{dataSource.dataSourceName}}</a>
+              </ng-template>
+              <ng-template [ngIf]="i>0">
+                ，<a  title="{{dataSource.dataSourceName}}"routerLink="/chang/source/update/{{dataSource.dataSourceType|lowercase}}/{{dataSource.dataSourceID}}"><span *ngIf="i>0"></span>{{dataSource.dataSourceName}}</a>
+              </ng-template>
+            </ng-template>
+          </div>
+          <!-- <div class="col-sm-2 col-lg-2 col-md-2 set_column account"><span *ngIf="dataSet">{{dataSet.createdBy}}</span></div> -->
+          <div class="col-sm-2 col-lg-2 col-md-2 set_column add_time" title='{{dataSet.updatedTime|date:"yyyy-MM-dd HH:mm:ss"}}'>{{dataSet.updatedTime|date:"yyyy-MM-dd HH:mm:ss"}}</div>
+          <!-- routerLink="/chang/data_set/{{dataSet.dataSetID}}/card" -->
+          <div class="col-sm-2 col-lg-2 col-md-2"><a routerLink="/chang/data_set/{{dataSet.dataSetID}}/card">{{dataSet.cardNum}}个</a></div>
+          <div class="col-sm-2 col-lg-2 col-md-2 operate">
+            <!-- routerLink="/data_center/set/update/{{dataSet.dataSetID}}" -->
+            <i class="iconfont icon-qianming" tooltip="编辑" placement="bottom" (click)="redirectToAddPage(dataSet.dataSetID)"></i>
+            <i class="iconfont icon-shanchu" tooltip="删除" placement="bottom" (click)="dataSetConfirm.open('确认','确定要删除该数据集吗？',dataSet.dataSetID);$event.stopPropagation();"></i>
+          </div>
+        </li>
+      </ul>
+      <div class="not_source" *ngIf="!dataSetList||dataSetList.length===0">
+        <div class="not_source_con"> 您还没有添加数据集！</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<alert-confirm #dataSetConfirm (confirm)="delete($event)"></alert-confirm>
+

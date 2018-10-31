@@ -1,0 +1,46 @@
+<div class="user_center ">
+  <div class="search_box"></div>
+  <div class="form-group search_box">
+    <input type="text" class="form-control" id="search" placeholder="搜索用户组" (keyup)="filterGruopList($event.target.value)" />
+    <i class="iconfont icon-fangdajing"></i>
+  </div>
+  <ul class="user_list scroll_bar">
+    <li *ngFor="let group of groupList" [class.cur]="curGroup && (curGroup.groupId === group.groupId)" (click)="updateCurGroup(group)"><a href="javascript:void(0);" routerLinkActive="active">{{group.groupName}}</a></li>
+  </ul>
+  <div class="invite" *auth="PERMISSION_GROUP_ADD"><button (click)="groupAddModal.show()"><i class="iconfont icon-yaoqing"></i><span>添加用户组</span></button></div>
+</div>
+<div class="user_right scroll_bar">
+    <um-group-detail [group]="curGroup" (deleteGroupEvent)="deleteGroup($event)"></um-group-detail>
+</div>
+
+
+
+<!----- 添加用户组弹层 --->
+<div bsModal #groupAddModal="bs-modal" [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog">
+    <div class="modal-content self_modal_content">
+      <form role="form"  #groupAddForm="ngForm">
+        <div class="modal-header self_modal_header create_group">
+          <button type="button" class="close self_close" (click)="hideModal()" aria-label="Close">
+            <i class="iconfont icon-guanbigongjulan"></i>
+          </button>
+        </div>
+        <div class="modal-body self_modal_body">
+          <div class="self_modal_input user_name clearfix marB20">
+            <i class="iconfont icon-zhiye1"></i>
+            <input type="text"  placeholder="输入组名"  name="groupName" maxlength="20" [(ngModel)]="groupName"  (keyup)="this.message=''"  maxlength="10" required />
+          </div>
+        </div>
+        <div *ngIf="message"
+             class="alert alert-danger">
+          {{message}}
+        </div>
+        <div class="modal-footer self_modal_footer">
+          <div class="self_button">
+            <button type="submit" (click)="addGroupSubmit()"  [disabled]="!groupAddForm.form.valid||submitted">添加</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

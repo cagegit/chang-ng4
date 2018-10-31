@@ -1,0 +1,12 @@
+<ul class="filter_option_box scroll_bar" #filterMemberBox *ngIf="filter.showChildren" [attr.data-unique-name]="filter.uniqueName"  >
+  <li class="select_all_default"><span (click)="selectAll($event,filter.uniqueName)">全选</span><span class="marL10 marR10">|</span><span (click)="setDefault($event,filter.uniqueName)">恢复默认</span></li>
+  <li *ngFor="let optValue of members">
+    <label class="mock_label self_ellipsis" (change)="selectMember($event,optValue,filter.uniqueName)">
+      <input class="mock_input" [checked]="optValue.selected" type="checkbox" value="{{optValue.uniqueName}}">
+      <i class="right_con"></i>
+      <div class="mock_box"></div>
+      {{optValue.showName}}
+    </label>
+  </li>
+  <!--<li  value="{{optValue.uniqueName}}"><input type="checkbox" />{{optValue.name}}</li>-->
+</ul>

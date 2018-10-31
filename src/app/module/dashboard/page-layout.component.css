@@ -1,0 +1,23 @@
+.layout_input{ text-align: left; color: #333;height: 26px; font-size: 12px;padding-left: 20px; position: relative;}
+.layout_input input{ width:138px;height: 26px; border:1px solid #e6eaec; padding: 0 10px; color: #333; background-color: #f7f7f7;  margin-right: 5px;border-radius: 3px;}
+.layout_item_name{ position: relative; padding-left:20px; line-height: 16px; height: 16px; overflow: hidden; margin:30px 0 20px 0;}
+.layout_item_name input{ position: absolute; left: 0; top: 0; height: 0px; width: 0px; overflow: hidden;}
+.layout_item_name label{ font-weight: normal; cursor: pointer; font-size: 14px;}
+.moni_radio{ position: absolute; left: 0; top:1px;width: 14px; height: 14px;  border:1px solid #e7eaec; border-radius: 50%; overflow: hidden;}
+.layout_item_name input:checked+.moni_radio:after{ content:''; width: 4px; height: 4px; background-color: #4aa2de; border-radius: 50%; position: absolute; left: 4px; top: 4px;}
+.layout_title{height: 65px; border-bottom: 1px solid #e5e5e5; line-height: 64px; text-align: center; font-size: 18px;}
+.page_layout{
+  width: 600px;
+  height: 380px;
+  margin: 45px auto 0}
+.create_layout{ margin-top: 40px;}
+.create_layout button{ width:160px; }
+.layout_list{ padding-left: 10px; position: relative;}
+.layout_list li{ width: 75px; height: 72px; background: url("../../../assets/img/panel_layout_bg.jpg") no-repeat; float: left;margin: 0 10px 0 10px; cursor: pointer;}
+.layout_list li.layout_2{ background-position:-87px 0; }
+.layout_list li.layout_3{ background-position:0px -87px; }
+.layout_list li.layout_4{ background-position:-87px -87px; }
+.layout_list li.layout_5{ background-position:0 -174px; }
+.layout_list li.layout_6{ background-position:-87px -174px; }
+.layout_list li:hover,.layout_list li.cur{ box-shadow: 0 0  0 10px  #e9e9e9; transition: all 0.3s;}
+.zhao{ position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(255,255,255,0.5)}

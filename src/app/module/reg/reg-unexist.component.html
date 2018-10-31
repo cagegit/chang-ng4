@@ -1,0 +1,10 @@
+<div class="app_main self_clearfix container-fluid no_padding"  *ngIf="!isResendSuccess">
+  <div class="look_left col-lg-5 col-md-5 col-sm-5">
+    <h4 class="jihuo_title">请通过邮件激活账号</h4>
+    <div class="jihuo_link"><i class="iconfont icon-iconmingchengpaixu65"></i><a href="{{lookEmailUrl}}">查看邮件 >></a></div>
+    <div class="jihuo_link" (click)="repeatSendMail()"><i class="iconfont icon-zhongxinfasong"></i><a>重新发送邮件</a></div>
+  </div>
+  <div class="look_right col-lg-7 col-md-7 col-sm-7" #lookRight></div>
+  <div style="clear:both"></div>
+</div>
+

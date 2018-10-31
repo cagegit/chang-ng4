@@ -1,0 +1,42 @@
+.relational_table{ border-bottom: 1px solid #5a5d6c;}
+.r_dataset{ background: url("../../../assets/img/permisson_modal_bg1.png") no-repeat left center;}
+.r_datasource{ background: url("../../../assets/img/permisson_modal_bg.png") no-repeat left center;}
+.r_dashboard{ background: url("../../../assets/img/permisson_modal_bg2.png") no-repeat left center;}
+.self_modal_dialog{ width: 580px; position: relative;}
+.select_source{ width: 310px; border-radius: 3px; background-color:#fff; color: #666; font-size: 12px; height: 38px; line-height: 38px; padding: 0 10px;}
+.select_relation{ width: 100px; text-align: center; color: #fff; font-size: 12px; line-height: 38px;}
+.key_box{ width:310px; height: 228px; padding:10px;background-color: #fff; border-radius: 3px; border: 1px solid #e6eaec; line-height: 30px;}
+.key_search_box i{position: absolute; color: #b4b7c6; left:9px;  }
+.key_list{ width:100%; height:165px; margin-top: 10px;padding: 0; background-color: #fff; }
+.key_list li{ line-height: 28px; padding-right: 20px; padding-left: 2px; font-size: 14px; color: #333; margin-top: 10px; cursor: pointer; border-bottom: 1px dashed #dcdcdc;}
+.key_list li:hover{ background-color: #f9f9f9;}
+.key_list li.selected{background-color: #e1e1e1;}
+.key_list li i{ color: #859acf; margin-right: 10px;}
+.key_list li .icon-abc{ font-size: 21px;}
+.form_btn{ width:116px; height: 30px; line-height: 30px; cursor: pointer; text-align: center; font-size:14px; color: #fff; border-radius: 3px; border:none; outline: none; }
+.create_relation{ width:94px; height:40px; line-height: 38px;  }
+.table_box{ border:1px solid #e6eaec; border-radius: 3px; background-color: #fff;}
+.table_tit{ height: 40px; line-height: 38px; background-color: #f7f7f7; padding: 0 20px; color: #333; border-bottom: 1px solid #e6eaec;}
+.table_tit i{ font-size: 18px;}
+.table_list{ height: 154px;}
+.table_list li{ margin-top:10px; background-color: #f9f9f9; line-height:38px; color: #333; padding: 0 20px; }
+.table_list li i{ color: #f05d5a; font-size: 18px; cursor: pointer;}
+.relation_moveBtn{ margin-top: 45px;}
+.table_tit i{color: #859acf;}
+.relation_btn button{ width: 49%; font-size: 18px;}
+.key_search_box{ position: relative;}
+.key_search_box input{ width: 100%; color: #333; background-color: #eeeeee; padding: 0 20px 0 35px; height: 30px; line-height: 30px; border:none; outline: none; border-radius: 3px; }
+.permissions_list li{ height: 49px; line-height: 48px; border-bottom: 1px solid #5a5d6c; padding:0 10px; }
+.permissions_list li span{ float: left;}
+.w290{ display: inline-block; width: 290px;}
+.w82{ display: inline-block; width: 82px; text-align: center;}
+.permissions_list li label{ vertical-align: middle; height: 15px; width: 15px; margin: 0 auto; padding-left: 0;}
+.permissions_list li i{ font-size: 20px; color: #df504f; cursor: pointer;}
+.auth_box_h{margin: 12px 0;line-height: 30px;}
+.auth_left{ width: 49%; float: left; }
+.auth_right{ width: 49%;float: right;}
+.auth_right select{ width: 130px; height: 30px; border:1px solid #96ddc4; line-height: 28px; color: #9095b1; margin-left: 15px; border-radius: 3px;}
+.auth_right button{ width: 70px; height: 30px; line-height: 30px; font-size: 14px;}
+
+input.mock_input[disabled]+.right_con+.mock_box{ background-color: #909497; border-color: #909497; box-shadow: 0 0 0 0;}
+input.mock_input[disabled]+.right_con{ border-color: #ccc;}

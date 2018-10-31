@@ -1,0 +1,9 @@
+.ok_top{height: 188px; line-height: 188px; text-align: center; color: #fff; position: relative; background-color: #4ebf7f;font-size: 26px}
+.ok_down{ display: inline-block; width: 60px; height: 60px; text-align: center; line-height: 60px; border-radius: 50%; background-color: #fff; position: absolute; left: 50%; top: 158px; margin-left: -30px;}
+.ok_down i{ font-size: 30px; color: #a3d8d9;}
+.reg_ok_list{ width: 960px; margin:70px auto 0; }
+.reg_ok_list li{ width: 320px; float: left; background-position: top center; background-color: #fff; padding-top: 214px;text-align: center;}
+.ok_list_1{ background:url("../../../assets/img/reg_ok_1.jpg") no-repeat;}
+.ok_list_2{ background:url("../../../assets/img/reg_ok_2.jpg") no-repeat;}
+.ok_list_3{ background:url("../../../assets/img/reg_ok_3.jpg") no-repeat;}
+.reg_ok_list li a{ font-size:18px; color: #4c86c4; }

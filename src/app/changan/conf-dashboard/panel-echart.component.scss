@@ -1,0 +1,93 @@
+.p_panel_box{
+  width: 100%;
+  height: 100%;
+  //background-color: #e5e5e5;
+  padding:0;
+}
+.p_panel_box_template{
+  padding: 20px 0;
+  background-color: #fff;
+}
+.p_panel_box_template1{ padding-top: 0;}
+.panel_content_box{
+  width: 100%;
+  height: 100%;
+}
+.panel-dash-board{
+  background-color: #fff;
+  //transform: translate(5px, 5px);
+  transition: width .25s,height .25s,left .25s,top .25s,right .25s,bottom .25s;
+  overflow: hidden;
+  padding: 0 20px;
+}
+.chang-chart {
+  //min-height: 500px;
+  height: 370px;
+}
+
+.date-select-box{
+  margin: 5px 0;
+  line-height: 30px;
+}
+.head-name-panel{
+  margin-top: 10px;
+  ul li {
+    float: left;
+    line-height: 30px;
+    text-align: center;
+    background-color: #ddd;
+    border-right: 1px solid #fff;
+    &:nth-last-child {
+      border-right: none;
+    }
+  }
+}
+.chart_text{
+  width:220px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  color: #666;
+  font-size:16px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -110px;
+  margin-top: -15px;
+}
+/**scroll bar**/
+.scroll_bar {
+  overflow-y: auto;
+}
+.scroll_bar::-webkit-scrollbar {
+  background-color: rgba(0, 0, 0, 0);
+  width: 8px;
+  border-radius: 2px;
+}
+
+.scroll_bar::-webkit-scrollbar-thumb {
+  background-color: #c3c3c3;
+  width: 8px;
+  height: 4px;
+  border-radius: 4px;
+}
+.scroll_o_bar {
+  overflow-x: auto;
+}
+.scroll_o_bar::-webkit-scrollbar {
+  background-color: rgba(0, 0, 0, 0);
+  height: 8px;
+  border-radius: 2px;
+}
+
+.scroll_o_bar::-webkit-scrollbar-thumb {
+  background-color: #c3c3c3;
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+}
+.gl-panel {
+  .ant-row {
+    margin-bottom: 15px;
+  }
+}

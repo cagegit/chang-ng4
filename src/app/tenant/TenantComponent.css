@@ -1,0 +1,20 @@
+.tenant_box{ background-color: #d5d6d8; padding: 40px 0;}
+.tenant_content{ width: 970px; height: 410px; margin:40px auto 0;border:1px solid #dedfe2; border-radius:3px; background-color: #fff; box-shadow: 0 0 9px rgba(0,0,0,0.2)  }
+.tenant_title{height: 75px; border-bottom: 1px solid #e6eaec; line-height: 74px; font-size:14px; color: #323757; padding-left: 30px; }
+.tenant_name{ font-size: 22px; vertical-align:middle;font-weight: bold; font-family: Arial;}
+.had_jihuo{ color:#1f7acc; vertical-align: top;}
+.tenant_title i{  color: #1f7acc; margin: 0 10px 0 20px; vertical-align: top; font-size: 18px;}
+.had_yongyou{ border-top: 1px solid #e6eaec; padding: 0 30px; vertical-align: top;}
+.yongyou_title{ padding: 23px 0 20px 0; color:#323757; }
+.yongyou_list li{ display: inline-block;float: left; border-radius: 2px; width: 155px; height: 155px; margin-right: 96px; background-color: #f1f2f7; border: 1px solid #e6eaec;}
+.yongyou_list li:last-child{ margin-right: 0;}
+.yongyou_list li i{ display: block; text-align: center; line-height: 116px; height: 116px; font-size: 52px; color: #a5b0b8;}
+.yongyou_list li a{ display: block; text-align: center; color: #333; font-size: 18px; }
+.tenant_con{ height: 76px; line-height: 76px; color: #323757;}
+.tenant_con li{ display: inline-block; float: left;padding-left: 30px; border-right:1px solid #e6eaec; height:76px; }
+.tenant_con li:nth-of-type(1){ width: 375px}
+.tenant_con li:nth-of-type(2){ width: 290px;}
+.tenant_con li:last-child{ border-right: 0;}
+.tenant_con li i{ color:#a8b7dd; margin-right: 7px; font-size: 20px; vertical-align: middle;}
+.yuming{ float: left; margin-right: 15px;}
+.yuming_input{ display: inline-block;float: left;  width: 240px; margin-top: 21px;}

@@ -1,0 +1,103 @@
+<div class="data_main" class="full_height">
+    <div class="connector_title {{dataSource.dataSourceType}}_title">{{dataSource.dataSourceTypeDesc}}</div>
+    <form role="form" [formGroup]="dataSourceForm">
+      <input type="hidden" formControlName="dataSourceID" />
+      <div class="data_box marB20" [@foldState] = 'foldState.sourceName'>
+        <div class="data_source_name">
+          <i class="iconfont  icon-daiqueren icon_tit"></i>数据源名称
+          <i class="iconfont icon-shouqi list_fold"[@iconState]="iconState.sourceName"  (click)="changeFoldState('sourceName')"></i>
+        </div>
+        <div class="data_input marT30">
+          <i class="iconfont icon-qianming"></i>
+          <input type="text" placeholder="命名这个数据源" formControlName="dataSourceName" myFocusChangeStyle  [focusClass]="'data_focus_box'" (keyup)="asyncValidator($event.target.value)" maxlength="50">
+          <div class="self_error" *ngIf="formErrors.dataSourceName"><i class="iconfont icon-buzhengque"></i>{{formErrors.dataSourceName}}</div>
+        </div>
+      </div>
+      <div class="data_box marB20" [@foldState] = 'foldState.connectConfig' *ngIf="this.dataSource.dataSourceType!='isource'">
+        <div class="data_source_name"><i class="iconfont icon_tit icon-daiqueren"></i>连接配置
+          <i class="iconfont icon-shouqi list_fold" [@iconState]="iconState.connectConfig" (click)="changeFoldState('connectConfig')"></i>
+        </div>
+        <div class="data_input marT30 marB20">
+          <i class="iconfont icon-link-copy"></i>
+          <input type="text" formControlName="gitHost" placeholder="{{dataSource.dataSourceType}}服务器ip地址" myFocusChangeStyle  [focusClass]="'data_focus_box'"  maxlength="50">
+          <div class="self_error" *ngIf="formErrors.gitHost"><i class="iconfont icon-buzhengque"></i>{{formErrors.gitHost}}</div>
+        </div>
+        <div class="data_input marT30 marB20">
+          <i class="iconfont icon-zhiye1"></i>
+          <input type="text" formControlName="gitUsername" placeholder="用户名(登录{{dataSource.dataSourceType}}的用户名)" myFocusChangeStyle  [focusClass]="'data_focus_box'" maxlength="50">
+          <div class="self_error" *ngIf="formErrors.gitUsername"><i class="iconfont icon-buzhengque"></i>{{formErrors.gitUsername}}</div>
+        </div>
+        <div class="data_input marT30">
+          <i class="iconfont icon-mima"></i>
+          <input type="password" formControlName="gitPassword" placeholder="密码(登录{{dataSource.dataSourceType}}的密码)" myFocusChangeStyle  [focusClass]="'data_focus_box'" maxlength="50">
+          <div class="self_error" *ngIf="formErrors.gitPassword"><i class="iconfont icon-buzhengque"></i>{{formErrors.gitPassword}}</div>
+          <div _ngcontent-vob-17="" class="test_button">
+            <button class="self_btn c_49a2df"  [disabled]="!dataSourceForm.valid||submitted" (click)="connectTest()">连接测试</button>
+          </div>
+        </div>
+      </div>
+      <div class="data_box marB20 marT20" [@foldState] = 'foldState.dataAdd'>
+        <div class="data_source_name">
+          <i class="iconfont  icon-daiqueren icon_tit"></i>选择项目
+          <i class="iconfont icon-shouqi list_fold" [@iconState]="iconState.dataAdd"  (click)="changeFoldState('dataAdd')"></i>
+        </div>
+        <div  class="sync_radio">
+          <label  class="self_cursor" for="isAll">
+            <input id="isAll" name="allBranchFlag" (click)="updateSelectType($event.target.value)" type="radio"  value="1" [checked]="dataSource.allBranchFlag==1">
+            <div class="radio_btn"></div>选择全部项目</label>
+          <label  class="self_cursor" for="isNotAll">
+            <input id="isNotAll"  name="allBranchFlag" (click)="updateSelectType($event.target.value)" type="radio"  value="0" [checked]="dataSource.allBranchFlag==0">
+            <div  class="radio_btn"></div>选择项目</label>
+        </div>
+        <div class="has_select_project" [class.hidden]="dataSource.allBranchFlag==1">
+          <button class="self_btn c_49a2df" [disabled]="!dataSource.connectedState" (click)="initAllProjects()">获取项目</button>
+          <span *ngIf="pagination.total>0">获取到了{{pagination.total}}个项目</span>
+        </div>
+        <div class="self_pr" [class.hidden]="dataSource.allBranchFlag==1">
+          <div class="select_tabel self_clearfix marL20">
+            <div class="item_box self_left">
+              <div class="item_title">
+                <span>可选择的项目</span>
+                <div class="search_project"><input type="text" placeholder=" 搜索项目" (keyup)='search("left",$event.target.value)'><i class="iconfont icon-fangdajing"></i></div>
+              </div>
+              <ul class="item_list scroll_bar">
+                <li *ngFor="let project of allProjects"  (click)='toggleProject(project)' class="self_ellipsis"  [class.selected]="project.checked">
+                  <i class="iconfont icon-shujubiao left_icon"></i><span>{{project.projectName}}</span>
+                </li>
+              </ul>
+              <div class="item_box_page self_clearfix">
+    <!--            <a class="self_left disable"><i class="iconfont icon-jiantouzuo"></i></a>
+                <a class="self_right"><i class="iconfont icon-jiantouyou"></i></a>-->
+                <pager [totalItems]="pagination.total" [(ngModel)]="pagination.current" [ngModelOptions]="{standalone: true}" (pageChanged)="pageChanged($event)" pageBtnClass="btn" [itemsPerPage]="pagination.pageSize" previousText="&lt;" nextText="&gt;"></pager>
+              </div>
+            </div>
+            <div class="moveBtn self_left">
+              <div class="pointBtn" (click)="moveProject(true)"><i class="iconfont icon-jiantouyou"></i></div>
+              <div class="pointBtn" (click)="moveProject(true,true)"><i class="iconfont icon-doubleup-copy"></i></div>
+              <div class="pointBtn" (click)="moveProject(false)"><i class="iconfont icon-jiantouzuo"></i></div>
+              <div class="pointBtn" (click)="moveProject(false,true)"><i class="iconfont icon-sjiantou04-copy"></i></div>
+            </div>
+            <div class="item_box self_right">
+              <div class="item_title">
+                <span>已选择的项目</span>
+                <div class="search_project"><input type="text" placeholder=" 搜索项目" (keyup)='search("right",$event.target.value)'><i class="iconfont icon-fangdajing"></i></div>
+              </div>
+              <ul class="item_list scroll_bar has_selected" >
+                <li *ngFor="let project of selectedProjects"  (click)='toggleProject(project)' class="self_ellipsis" [class.selected]="project.checked">
+                  <i class="iconfont icon-shujubiao left_icon"></i><span>{{project.projectName}}</span><i class="iconfont icon-flowbranch1157840easyiconnet right_icon" (click)="selectBranch(project.projectName);$event.stopPropagation();"></i>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mysql_btn marT20 self_clearfix">
+        <button class="self_sm_btn self_btn c_ef5350" type="submit" (click)="formSubmit()"  [disabled]="!dataSourceForm.valid||submitted">保存</button>
+        <button class="self_sm_btn self_btn self_cancel" (click)="formReset()">取消</button>
+      </div>
+    </form>
+    
+</div>
+
+<branch-select *ngIf="showBranchSelect" #branchSelectModal [dataSource]="dataSource" [projectName]="currentSelectedProject" (projectChange)="saveProject($event)"  (closeChange)="closeSelectBranch()"></branch-select>
+

@@ -1,0 +1,39 @@
+.dr-select-panel,.tj-select-panel{
+  overflow: hidden;
+}
+.car-zf{
+}
+.zf-title {
+  font-family: PingFangSC-Medium, serif;
+  font-size: 16px;
+  color: #464A54;
+  padding-left: 5px;
+  //border-left: 8px solid #4D6FEE;
+}
+.zf-head{
+  padding:10px 24px;
+  background: #fbfbfb;
+  border: 1px solid #d9d9d9;
+  border-bottom: none;
+}
+.export-file {
+  margin-bottom: 10px;
+}
+.zf-body {
+  padding: 24px;
+  background: #fbfbfb;
+  border: 1px solid #d9d9d9;
+  hr {
+    color: #ddd;
+  }
+}
+.tj-select-panel{
+  display: none;
+}
+.title {
+  padding: 5px 0px;
+  font-family: PingFangSC-Medium;
+  font-size: 16px;
+  margin: 10px 0px;
+}
+

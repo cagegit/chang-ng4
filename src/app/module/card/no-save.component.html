@@ -1,0 +1,14 @@
+<div bsModal #noSaveModal="bs-modal" [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog">
+    <div class="modal-content self_modal_content">
+      <div class="modal-header self_modal_header edit_password sk_nosave">
+        <button type="button" class="close self_close" (click)="closeModal()" aria-label="Close">
+          <i class="iconfont icon-guanbigongjulan"></i>
+        </button>
+      </div>
+      <div class="nosave_text">报表还未保存！</div>
+      <div class="nosave_text">离开页面将放弃之前的全部编辑结果</div>
+      <div class="nosave_btn marT20"><button class="self_btn c_a0a1a1 self_left" (click)="closeModal()">取消</button><button class="self_btn c_ef5350 self_right" (click)="makeSure()">确定</button></div>
+    </div>
+  </div>
+</div>

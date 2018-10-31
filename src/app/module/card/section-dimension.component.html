@@ -1,0 +1,80 @@
+<div bsModal #sectionDomension="bs-modal"  [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog self_success_modal section_dimension" >
+    <div class="modal-content self_modal_content">
+      <div class="modal-header self_modal_header create_success">
+        <span class="dimension_title">切片</span>
+        <button type="button" class="close self_close" aria-label="Close" (click)="sectionDomension.hide()">
+          <i class="iconfont icon-guanbigongjulan"></i>
+        </button>
+      </div>
+      <div class="section_dimension_title">维度</div>
+      <ul class="section_dimension_list scroll_bar">
+        <ng-template ngFor let-dim [ngForOf]="showDim">
+        <li class="first_dimension">
+          <div class="dimension_item self_cursor" (click)="showChildHandle($event)">
+            <i class="iconfont icon-sdcx" ></i>
+            <!--<label>-->
+              <!--<input type="checkbox" (change)="changeCheckedState($event,true)">-->
+              <!--<div class="mock_check"></div>-->
+              <span>{{dim.name}}</span>
+            <!--</label>-->
+          </div>
+          <ul>
+            <ng-template ngFor let-item [ngForOf]="dim.hierarchies">
+            <li class="second_dimension" [attr.data-from]="'dimension'" [attr.data-dim-name]="dim.name" [attr.data-hierarchy-name]="item.name">
+              <div class="dimension_item self_cursor" (click)="showChildHandle($event)">
+                <i class="iconfont icon-sdcx"></i>
+                <label>
+                  <input type="checkbox" [checked]="item.isSection||item.isdrill" [disabled]="item.isdrill"  (change)="changeCheckedState($event,true)">
+                  <div class="mock_check" [class.input_disable_color]="item.isdrill"></div>
+                  <span>{{item.name}}</span>
+                </label>
+              </div>
+              <ul>
+                <ng-template ngFor let-level [ngForOf]="item.levels" let-i="index">
+                <li class="third_dimension"  *ngIf="level.name!='(All)'" [attr.data-from]="'dimension'" [attr.data-index]="i" [attr.data-dim-name]="dim.name"
+                    [attr.data-hierarchy]="item.uniqueName" [attr.data-hierarchy-name]="item.name" [attr.data-hierarchy-caption]="item.caption">
+                  <div class="dimension_item self_cursor">
+                    <label>
+                      <input type="checkbox"  [checked]="level.isSection||level.isdrill" [disabled]="item.isdrill"  (change)="changeCheckedState($event,false)">
+                      <div class="mock_check"  [class.input_disable_color]="item.isdrill"></div>
+                      <span>{{level.caption}}</span>
+                    </label>
+                  </div>
+                </li>
+                </ng-template>
+              </ul>
+            </li>
+            </ng-template>
+          </ul>
+        </li>
+        </ng-template>
+      </ul>
+      <div class="section_dimension_title none_radius">指标</div>
+      <ul class="section_dimension_list scroll_bar section_indicator">
+
+        <li class="first_dimension" *ngFor="let group of measureGroup">
+          <div class="dimension_item self_cursor" (click)="showChildHandle($event)">
+            <i class="iconfont icon-sdcx" ></i>
+              <span>{{group}}</span>
+          </div>
+          <ul>
+            <ng-template ngFor let-item [ngForOf]="showMeasures" let-i="index">
+            <li class="second_dimension" [attr.data-from]="'measure'" [attr.data-measure-name]="item.name" [attr.data-measure-caption]="item.caption" [attr.data-measure-unique]="item.uniqueName" *ngIf="item.measureGroup==group&&(item.visible==undefined||item.visible)">
+              <div class="dimension_item ">
+                <label>
+                  <input type="checkbox"  [checked]="item.isSection" [disabled]="item.isSection"  (change)="changeCheckedState($event,false)">
+                  <div class="mock_check"  [class.input_disable_color]="item.isSection"></div>
+                  <span>{{item.caption}}</span>
+                </label>
+              </div>
+            </li>
+            </ng-template>
+          </ul>
+        </li>
+
+      </ul>
+      <div class="self_clearfix confirm_btn marT20"><button class="self_btn self_left c_a0a1a1" (click)="hide()">取消</button><button class="self_btn  self_right c_ef5350" (click)="slice()">保存</button> </div>
+    </div>
+  </div>
+</div>

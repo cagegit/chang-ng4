@@ -1,0 +1,16 @@
+.relational_table{ background: url("../../../../assets/img/manifest_add.png") no-repeat left center; padding-left: 40px; font-size: 16px; font-weight: bold;}
+.self_modal_dialog{ width: 400px;}
+
+
+/*** manifest add ****/
+.data_input{ margin-left: 0; width: 100%; margin-bottom: 20px;}
+.data_input input{ width:338px; font-size: 14px;}
+.data_input i{ font-size: 20px;}
+.manifest_btn button{width: 49%;}
+.branch_names{ line-height: 38px;}
+.branch_names input{ display: inline-block; vertical-align: middle; width: 220px; padding:0 10px; height: 38px; line-height: 36px; font-size: 12px; color: #666}
+.branch_names input:focus{ border-color: #a4caed; box-shadow: 0 0 5px rgba(0,0,0,0.28); color: #333;}
+.branch_box{ width: 100%; border-radius: 3px; background-color: #fff; padding: 0 10px;}
+.branch_lable{ line-height: 40px; margin-bottom: 5px; color: #666;}
+.branch_box textarea{ border-radius: 3px; border: 1px solid #dbdde4; background-color: #e6e6e7; padding:5px 10px;line-height: 20px; color: #666; width: 100%; resize: none; outline: none; }
+.branch_remarks{ line-height: 36px; color: #999;}

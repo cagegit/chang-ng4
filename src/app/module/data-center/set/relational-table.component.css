@@ -1,0 +1,24 @@
+.relational_table{ background: url("../../../../assets/img/relational_table_bg.jpg") no-repeat left center;}
+.self_modal_dialog{ width: 720px;}
+.select_source{ width: 310px; border-radius: 3px; background-color:#fff; color: #666; font-size: 12px; height: 38px; line-height: 38px; padding: 0 10px;}
+.select_relation{ width: 100px; text-align: center; color: #fff; font-size: 12px; line-height: 38px;}
+.key_box{ width:310px; height: 228px; padding:10px;background-color: #fff; border-radius: 3px; border: 1px solid #e6eaec; line-height: 30px;}
+.key_search_box i{position: absolute; color: #b4b7c6; left:9px;  }
+.key_list{ width:100%; height:165px; margin-top: 10px;padding: 0; background-color: #fff; }
+.key_list li{ line-height: 28px; padding-right: 20px; padding-left: 2px; font-size: 14px; color: #333; margin-top: 10px; cursor: pointer; border-bottom: 1px dashed #dcdcdc;}
+.key_list li:hover{ background-color: #f9f9f9;}
+.key_list li.selected{background-color: #e1e1e1;}
+.key_list li i{ color: #859acf; margin-right: 10px;}
+.key_list li .icon-abc{ font-size: 21px;}
+.form_btn{ width:116px; height: 30px; line-height: 30px; cursor: pointer; text-align: center; font-size:14px; color: #fff; border-radius: 3px; border:none; outline: none; }
+.create_relation{ width:94px; height:40px; line-height: 38px;  }
+.table_box{ border:1px solid #e6eaec; border-radius: 3px; background-color: #fff;}
+.table_tit{ height: 40px; line-height: 38px; background-color: #f7f7f7; padding: 0 20px; color: #333; border-bottom: 1px solid #e6eaec;}
+.table_list{ height: 154px;}
+.table_list li{ margin-top:10px; background-color: #f9f9f9; line-height:38px; color: #333; padding: 0 20px; }
+.table_list li i{ color: #f05d5a; font-size: 20px; cursor: pointer;}
+.relation_moveBtn{ margin-top: 45px;}
+.table_tit i{color: #859acf; font-size: 18px;}
+.relation_btn button{ width: 49%; font-size: 18px;}
+.key_search_box{ position: relative;}
+.key_search_box input{ width: 100%; color: #333; background-color: #eeeeee; padding: 0 20px 0 35px; height: 30px; line-height: 30px; border:none; outline: none; border-radius: 3px; }

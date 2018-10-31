@@ -1,0 +1,128 @@
+<div style="position: relative;">
+  <div class="user_center" style="position: absolute;top:0;left: 0;bottom: 0;min-height: 100vh">
+    <div class="relative">
+      <h5 class="title">配置报表列表</h5>
+      <div class="invite-position invite"><button (click)="show('add')"><span>新增</span></button></div>
+    </div>
+    <div class="form-group search_box">
+      <input type="text" autocomplete="off" #search class="form-control" (keyup)="searchFun(search.value)" placeholder="搜索配置报表名称"
+        [(ngModel)]="searchKey" name="searchKey">
+      <i class="iconfont icon-fangdajing"></i>
+    </div>
+    <ul class="user_list scroll_bar" *ngIf="searchList">
+      <li *ngFor="let item of searchList" (click)="clickFun(item)" [ngClass]="{cur:currentIndex===item.id}">
+        <a title="{{item.name}}" class="over-text">{{item.name}}</a>
+        <span class="span-right" [hidden]="currentIndex!==item.id">
+          <i class="iconfont icon-qianming" (click)="show('edit',item)"></i>
+          <i class="iconfont icon-shanchu" (click)="dataSetConfirm.open('删除配置报表','确定要删除该数据吗？',item.id);$event.stopPropagation();"></i>
+        </span>
+      </li>
+    </ul>
+  </div>
+  <div class="user_right" #userright style="margin-left: 207px;">
+    <table-detail #detail [tableInfo]="_dataSet" [tablelist]="_tableSet" (change)="getDetailById(_dataSet.id)"></table-detail>
+    <div style="min-height: 500px;width: 100%; padding: 10px;">
+      <h5 style="margin: 10px 0;">DashBoard预览</h5>
+      <app-panel-echart *ngIf="isDashShow" [tableId]="tableIdStr" [timeRange]="timeRange" [forceChange]="true" [chartTxt]="'暂无数据'" [panelID]="''"></app-panel-echart>
+    </div>
+  </div>
+
+  <nz-modal [nzVisible]="isVisible" [nzTitle]="title" [nzContent]="modalContent" (nzOnCancel)="handleCancel($event)"
+    [nzWidth]="'1020px'" [nzFooter]="false">
+    <ng-template #modalContent>
+      <div class="modal-body clearfix">
+        <div class="self_modal_input row">
+          <div class=" col-xs-3 text_right"><em class="em-color">*</em>名称</div>
+          <input type="text" name="name"  [(ngModel)]="addData.name" autocomplete="off" placeholder="输入名称">
+        </div>
+        <!--<div class="self_modal_input row">-->
+          <!--<div class=" col-xs-3 text_right"><em class="em-color">*</em>表格表头行数</div>-->
+          <!--<input type="text" name="headRowspan"  [(ngModel)]="addData.headRowspan" autocomplete="off"-->
+            <!--placeholder="输入表格表头行数(仅限数字)">-->
+        <!--</div>-->
+        <div class="self_modal_input row">
+          <div class=" col-xs-3 text_right"><em class="em-color">*</em>表格列名称</div>
+          <input type="text" name="headName"  [(ngModel)]="addData.headName" autocomplete="off" placeholder="输入表格列名称(用【英文分号】分隔)">
+          <!-- <nz-tag [nzColor]="'blue'">表格列名称用【分号】分隔</nz-tag> -->
+        </div>
+        <div class="self_modal_input row">
+          <div class=" col-xs-3 text_right"><em class="em-color">*</em>图类型</div>
+          <select name="chartType"  [(ngModel)]="addData.chartType">
+            <option  value="" style="display: none">选择图类型</option>
+            <option *ngFor="let item of chartTypeList" value="{{item.id}}">{{item.name}}</option>
+          </select>
+        </div>
+        <!--<div class="self_modal_input row">-->
+          <!--<div class=" col-xs-3 text_right"><em class="em-color">*</em>图X轴</div>-->
+          <!--<input type="text" name="chartAxisIndex"  [(ngModel)]="addData.chartAxisIndex" autocomplete="off"-->
+           <!--placeholder="输入图X轴(仅限数字)">-->
+          <!--<nz-tag [nzColor]="'blue'">例:0 表示数据表格的第0列数据作为X轴</nz-tag>-->
+        <!--</div>-->
+        <div class="self_modal_input row">
+          <div class=" col-xs-3 text_right"><em class="em-color">*</em>图的维度</div>
+          <input type="text" name="chartNameIndex"  [(ngModel)]="addData.chartNameIndex" autocomplete="off"
+            placeholder="输入图的维度(仅限数字)">
+          <nz-tag [nzColor]="'blue'">例:1;2 表示表格的第1;2列数据作为维度</nz-tag>
+        </div>
+        <div class="self_modal_input row">
+          <div class=" col-xs-3 text_right"><em class="em-color">*</em>图的指标</div>
+          <input type="text" name="chartValueIndex"  [(ngModel)]="addData.chartValueIndex" autocomplete="off"
+            placeholder="输入图的指标(用【英文分号】分隔)">
+          <nz-tag [nzColor]="'blue'">例:2;3 表示表格的第2;3列数据作为分析指标</nz-tag>
+        </div>
+        <!-- <div class="self_modal_input row">
+          <div class=" col-xs-3  text_right"><em class="em-color">*</em>维度显示</div>
+          <div class="radio-input">
+            <label [ngStyle]="{'margin-bottom':0}">
+                <input type="radio" name="chartNameShow"  [(ngModel)]="addData.chartNameShow" value="1" [checked]="addData.chartNameShow==='1'">是
+            </label>
+            <label [ngStyle]="{'margin-bottom':0}">
+                <input type="radio" name="chartNameShow"  [(ngModel)]="addData.chartNameShow" value="0" [checked]="addData.chartNameShow==='0'">否
+            </label>
+          </div>
+        </div> -->
+        <div class="self_modal_input row">
+          <div class=" col-xs-3 text_right"><em class="em-color">*</em>默认时间</div>
+          <input type="text" name="chartValueIndex"  [(ngModel)]="addData.defaultTimeStart" autocomplete="off"
+            [ngStyle]="{width:'14%'}"  placeholder="输入默认时间">
+          ：
+          <input type="text" name="chartValueIndex"  [(ngModel)]="addData.defaultTimeEnd" autocomplete="off"
+             [ngStyle]="{width:'14%'}"  placeholder="输入默认时间">
+          <nz-tag [nzColor]="'blue'">例:14;1 表示开始时间为历史第14天，结束时间为昨天</nz-tag>
+        </div>
+        <div class="self_modal_input row">
+          <div class=" col-xs-3  text_right"><em class="em-color">*</em>启用状态</div>
+          <div class="radio-input">
+            <label [ngStyle]="{'margin-bottom':0}">
+                <input type="radio" name="status"  [(ngModel)]="addData.status" value="1" [checked]="addData.status==='1'">启用
+            </label>
+            <label [ngStyle]="{'margin-bottom':0}">
+                <input type="radio" name="status"  [(ngModel)]="addData.status" value="0" [checked]="addData.status==='0'">禁用
+            </label>
+          </div>
+        </div>
+        <div class="self_modal_input row">
+          <div class=" col-xs-3 text_right">过滤属性</div>
+          <input type="text" name="attrFilter"  [(ngModel)]="addData.attrFilter" autocomplete="off" placeholder="输入过滤属性名称(请按照用例输入)">
+          <nz-tag [nzColor]="'blue'">例:1:0或1:0;2:1(冒号前数字代表列,冒号后数字--0表示文本(只限数字);1表示下拉框)</nz-tag>
+        </div>
+        <div class="self_modal_input row">
+          <div class=" col-xs-3  text_right"><em class="em-color">*</em>SQL</div>
+          <nz-input [nzRows]="6" [nzType]="'textarea'" [nzPlaceHolder]="'输入SQL'" [nzSize]="'large'" [(ngModel)]="addData.dataSql"
+            class="text-input" [ngStyle]="{width:'400px'}">
+          </nz-input>
+        </div>
+        <div class="muti-btn">
+          <div class="invite" [ngStyle]="{width:'70px'}">
+            <button (click)="submit()"><span>保存</span></button>
+          </div>
+          <div class="invite" [ngStyle]="{width:'70px'}">
+            <button (click)="clear()"><span>重置</span></button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </nz-modal>
+
+  <alert-confirm #dataSetConfirm (confirm)="delete($event)"></alert-confirm>
+</div>

@@ -1,0 +1,5 @@
+.data_set_alert{ width: 650px;}
+.data_set_alert_head{ width: 290px; margin:0 auto; height: 160px; background: url("../../../assets/img/data_set_alter_bg.png") no-repeat center center;}
+.data_set_alert_body{ color: #fff; font-size: 22px; font-weight: bold; text-align: center;}
+.data_set_alert_btn{ text-align: center;}
+.data_set_alert_btn button{ width: 160px; margin: 0 auto;}

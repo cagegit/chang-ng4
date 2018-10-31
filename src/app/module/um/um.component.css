@@ -1,0 +1,83 @@
+ul li {
+  list-style: none;
+}
+.user_fixed {
+  /*position: absolute; left: 0; right: 0; top: 76px; bottom:45px;*/
+  min-width: 100px;
+  width: 100%;
+  position: relative;
+}
+.user_left {
+  width: 195px;
+  height: 100%;
+  background-color: #f0f0f0;
+  border-right: 1px solid #cfcfcf;
+  float: left;
+}
+.sub_nav {
+  padding: 0;
+  margin: 0;
+}
+.sub_nav a {
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  height: 42px;
+  line-height: 42px;
+  text-decoration: none;
+  border-left: 2px solid #f0f0f0;
+  font-size: 14px;
+  padding-left: 35px;
+}
+.sub_nav a.cur {
+  border-left-color: #1f7acc;
+  background-color: #727981;
+  color: #fff;
+}
+
+.sub_nav .sub_li a.dropDown{
+    background-color: #f9ebeb;
+    color: #fff;
+}
+.sub_nav a span {
+  color: #323757;
+  line-height: 42px;
+  vertical-align: top;
+}
+.sub_nav a i {
+  color: #676972;
+  width: 36px;
+  display: inline-block;
+  font-size: 22px;
+}
+.sub_nav a.cur span,
+.sub_nav a.cur i {
+  color: #fff;
+}
+.sub_nav .sub_li a{
+    padding-left:55px;
+    background-color: #e0e0e0;
+    font-size: 12px;
+}
+
+.sub_nav .sub_li a.cur{
+    border-left-color: #1f7acc;
+    background-color: #727981;
+    color: #fff;
+}
+/*.nav_title{ height:72px; line-height: 72px; padding-left: 40px; font-size: 24px; font-weight: bold; color: #313447;}*/
+.nav_title {
+  height: 72px;
+  width: 100%;
+  background: url("../../../assets/img/user_admin_logo.png") no-repeat center
+    center;
+}
+.nav_title i {
+  font-size: 28px;
+  font-weight: normal;
+  margin-right: 14px;
+}
+
+.showDropDown{
+    display:none;
+}

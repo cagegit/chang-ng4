@@ -1,0 +1,101 @@
+<div class="sql_query">
+  <div class="query_left">
+    <div class="query_select_top ">可选择的数据表</div>
+    <div class="query_select_box scroll_bar">
+      <ul class="first_select_list">
+<!--        <li>
+          <div class="select_item query_folder">
+            <i class="iconfont icon-xiangmu"></i>
+            <span class="self_cursor item">可选择的数据表可选择的数据表可选择的数据表可选择的数据表可选择的数据表</span>
+            <i class="iconfont icon-jiantouyou" (click)="folderFn(table.tableName,$event)"></i>
+          </div>
+          <ul class="second_select_list">
+            <li class="self_cursor">
+              <div class="select_item"><i class="iconfont icon-kongjianshuzhiqujian" ></i>可选择的数据表可选择的数据表可选择的数据表可选择的数据表可选择的数据表</div>
+            </li>
+          </ul>
+        </li>-->
+        <li *ngFor=" let table of tableList">
+          <div class="select_item query_folder">
+            <i class="iconfont icon-xiangmu"></i>
+            <span class="self_cursor item" (click)="editorComponent.insertText(table.tableName)" title="{{table.tableName}}">{{table.tableName}}</span>
+            <i class="iconfont icon-jiantouyou" (click)="folderFn(table.tableName,$event)"></i>
+          </div>
+          <ul class="second_select_list">
+            <li *ngFor="let field of table.tableFields" (click)="editorComponent.insertText(field.fieldName)" class="self_cursor">
+              <div class="select_item"><i class="iconfont " [ngClass]="{'icon-kongjianshuzhiqujian': field.schemaShowType == 'number', 'icon-abc': field.schemaShowType == 'string', 'icon-riqi': field.schemaShowType == 'time'}"></i>{{field.fieldName}}</div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="query_right">
+    <div class="query_right_top">
+      <ul class="query_list_tab self_clearfix">
+        <li [class.cur]="queryTabFlags.createQueryFlag" (click)="changeQueryTab('createQueryFlag')">新建查询</li>
+<!--        <li [class.cur]="queryTabFlags.saveQueryFlag" (click)="changeQueryTab('saveQueryFlag')">保存的查询</li>
+        <li [class.cur]="queryTabFlags.historyQueryFlag" (click)="changeQueryTab('historyQueryFlag')">历史查询记录</li>-->
+      </ul>
+      <div class="query_top_box">
+        <div class="sql_editor scroll_bar" *ngIf="queryTabFlags.createQueryFlag">
+          <my-editor [mode]="editorConfig.mode" [data]="query.sql" [editFlag]="true" [createFlag]="true"></my-editor>
+        </div>
+        <ul class="query_history_list scroll_bar" *ngIf="queryTabFlags.saveQueryFlag">
+          <li *ngFor="let query of savedQueryList">
+            <div class="history_time">{{query.updatedTime|date:"yyyy-MM-dd HH:mm"}}</div>
+            <div class="history_query">
+              <my-editor [mode]="editorConfig.mode" [data]="query.sql" [editFlag]="true" (resizeEidtorEvent) = "resizeEidtorFn($event)"></my-editor>
+            </div>
+          </li>
+        </ul>
+        <ul class="query_history_list scroll_bar h310" *ngIf="queryTabFlags.historyQueryFlag" >
+          <li *ngFor="let query of historyQueryList">
+            <div class="history_time">{{query.createdTime|date:"yyyy-MM-dd HH:mm"}}</div>
+            <div class="history_query">
+              <my-editor [mode]="editorConfig.mode" [data]="query.sql" [editFlag]="true" (resizeEidtorEvent) = "resizeEidtorFn($event)"></my-editor>
+            </div>
+          </li>
+        </ul>
+        <div class="max_num" *ngIf="queryTabFlags.historyQueryFlag">历史记录显示最近20条</div>
+      </div>
+      <!--保存/提交按钮 start-->
+      <div class="query_submit_box marT20 self_clearfix" *ngIf="queryTabFlags.createQueryFlag">
+        <!--<div class="self_left query_save"><button class="self_btn c_ef5350" (click)="saveQuery()">保存</button></div>-->
+        <div class="self_right query_submit">
+          <span>最大显示条数</span>
+          <input type="text" placeholder="请输入最大条数" name="limit" [(ngModel)]="limit" >
+          <button class="self_btn c_49a2df" (click)="executeQuery()">提交</button>
+        </div>
+      </div>
+    </div>
+    <!--保存/提交按钮 end-->
+    <div *ngIf="resultTabList.length>0" class="query_right_bottom marT20">
+      <ul class="query_result_tab_list self_clearfix">
+      <li *ngFor="let resultQuery of resultTabList;let i=index" [class.cur]="resultQuery.queryID==currentTab.queryID"><span
+        (click)="changeResultTab(resultQuery)">查询{{i+1}}</span><i class="iconfont icon-xxz" (click)="delResultTab(i,resultQuery)"></i></li>
+<!--       <li><span>查询1</span><i class="iconfont icon-xxz"></i></li>
+        <li><span>查询1</span><i class="iconfont icon-xxz"></i></li>
+        <li>查询1<i class="iconfont icon-xxz"></i></li>
+        <li class="more_result">
+          <i class="iconfont icon-gengduo"></i>
+          <ul class="more_result_list scroll_bar">
+            <li class="cur">查询6</li>
+            <li>查询6</li>
+          </ul>
+        </li>-->
+        <div class="export_icon" *ngIf="currentTab"><i class="iconfont icon-daochu1 self_cursor" (click)="export(currentTab,$event)"></i></div>
+      </ul>
+      <div class="result_table_box scroll_bar"  *ngIf="resultData">
+        <table cellpadding="0" cellspacing="0" border="1">
+          <tr>
+            <th *ngFor="let value of resultData.tableFields">{{value.fieldName}}</th>
+          </tr>
+          <tr *ngFor="let values of resultData.previewData">
+            <td *ngFor="let value of values">{{value}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

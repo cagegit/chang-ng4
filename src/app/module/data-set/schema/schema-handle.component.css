@@ -1,0 +1,13 @@
+.schema_compute_btn{ width: 88px; height: 24px; line-height: 24px; font-size: 12px; position: absolute; right: 27px; top: 9px;}
+.compute_schame{ width: 470px;}
+.schema_btn{ text-align: center;}
+.schema_btn button{ display: inline-block; width: 100px; margin: 0 10px;}
+.schame_text{ font-size: 16px; color: #fff; line-height: 30px; margin-top: 20px; padding-bottom: 20px;}
+.schema_header{height: 140px; border:none; line-height: 140px; background: url("../../../../assets/img/schame_compute.png") no-repeat center center;}
+
+
+.schema_zhezhao{ position: absolute; top: 0; bottom: 0;left: 0; right: 0; background-color: rgba(255,255,255,0.9);z-index: 3}
+.schame_progress{ width: 275px; height:70px; position: absolute; left: 50%; top: 50%; margin-left: -137px; margin-top: -35px;z-index: 5 }
+.progress_bar{ width: 140px; height: 18px; border:3px solid #e4e8e9; border-radius: 9px; margin: 0 auto; line-height: 12px;}
+.progress_bar span{ display: inline-block; background-color: #62b22d; border-radius: 6px;height: 12px;}
+.progress_text{ font-size: 14px; color: #666; margin-top: 30px;}

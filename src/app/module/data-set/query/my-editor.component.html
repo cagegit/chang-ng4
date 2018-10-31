@@ -1,0 +1,8 @@
+<div class="my-editor">
+  <div class="query_operate" *ngIf="!createFlag">
+    <span>重新提交</span>
+    <span>保存</span>
+    <span class="folder_btn"><i class="iconfont icon-jiantouyou" [class.folder]="folderFlag"  (click)="resizeEditor($event)"></i></span>
+  </div>
+  <div class="editor_box" #editorBox></div>
+</div>

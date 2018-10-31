@@ -1,0 +1,52 @@
+<div bsModal #resourcePermissionModal="bs-modal"  [config]="{backdrop: 'static'}" class="modal fade self_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm self_modal_dialog">
+    <div class="modal-content self_modal_content">
+      <div class="modal-header self_modal_header relational_table r_{{relationResuourceType}}">
+        <button type="button" class="close self_close" (click)="resourcePermissionModal.hide()" aria-label="Close">
+          <i class="iconfont icon-guanbigongjulan"></i>
+        </button>
+      </div>
+      <div class="self_clearfix auth_box_h">
+        <div class="auth_left">{{relationResuourceTypeText}}名称:{{relationResuourceName}}</div>
+        <div class="auth_right">
+          <span class="self_left">授权对象</span>
+          <select class="select_type" (change)='changeResourceType($event.target.value);'>
+            <option *ngFor="let item of resourceTypeOption" value="{{item.type}}" [selected]="item.type==resourceType">{{item.text}}</option>
+          </select>
+          <button class="self_btn c_ef5350 self_right" (click)="addPermission.show(relationResourceID,relationResuourceType,resourceType,resourcePermissionList)">添加</button>
+        </div>
+      </div>
+      <ul class="permissions_list">
+        <li><span class="w290">授权对象</span><span class="w82">读权限</span><span class="w82">写权限</span><span class="w82">授权权限</span></li>
+        <li *ngFor="let item of resourcePermissionList" class="self_clearfix">
+          <span class="w290 ">{{item.resourceName}}</span>
+          <span class="w82">
+            <label class="mock_label">
+              <input type="checkbox" class="mock_input" [checked]="item.hasPermission(PERMISSION_TYPE.READ)" (change)="changePermission(item,PERMISSION_TYPE.READ,$event.target);" [disabled]="item.disabled">
+              <i class="right_con"></i>
+              <div class="mock_box"></div>
+            </label>
+          </span>
+          <span class="w82">
+            <label class="mock_label">
+              <input type="checkbox" class="mock_input" [checked]="item.hasPermission(PERMISSION_TYPE.EDIT)" (change)="changePermission(item,PERMISSION_TYPE.EDIT,$event.target);" [disabled]="item.disabled">
+              <i class="right_con"></i>
+              <div class="mock_box"></div>
+            </label>
+          </span>
+          <span class="w82">
+            <label class="mock_label">
+              <input type="checkbox" class="mock_input" [checked]="item.hasPermission(PERMISSION_TYPE.AUTH)"  (change)="changePermission(item,PERMISSION_TYPE.AUTH,$event.target);" [disabled]="item.disabled">
+              <i class="right_con"></i>
+              <div class="mock_box"></div>
+            </label>
+          </span>
+          <i *ngIf="!item.disabled" (click)="del(item)" class="iconfont icon-shanchu1 self_right"></i>
+        </li>
+      </ul>
+      <div class="relation_btn marT20"><button class="self_btn self_cancel self_left" (click)="cancel()">取消</button><button class="self_btn c_ef5350 self_right" (click)="save()">保存</button></div>
+      <add-permission #addPermission [direction]="'left'" (selectChange)="selectAdd($event)" ></add-permission>
+    </div>
+  </div>
+</div>
+
