@@ -11,8 +11,8 @@ import {routes} from "./um.routes";
 import {UmGroupService} from "./group/um-group.service";
 import {UmGroupDetailComponent} from "./group/um-group-detail.component";
 import {SharedModule} from "../../common/module/shared.module";
-import TableRelationModule from "../relation/tableRelation.module";
-import {ResourcePermissionComponent} from "./../permission/resource-permission.component";
+import {TableRelationModule} from "../relation/tableRelation.module";
+import {ResourcePermissionComponent} from "../permission/resource-permission.component";
 import {RouterModule} from "@angular/router";
 
 @NgModule({

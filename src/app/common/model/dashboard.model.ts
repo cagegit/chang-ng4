@@ -3,7 +3,7 @@ import {Card} from "./card/card.model";
 import {ShowChart} from "../../module/card/card.showchart";
 import {BasePermissionModel} from "./base-permission-model";
 import {Cube} from "./card/schema.cube";
-import {NgGridItemConfig} from "angular2-grid/dist/main";
+import {NgGridItemConfig} from "../../ng-grid";
 import {LayoutUtil} from "../../module/dashboard/layout-util";
 /**
  * Created by fengjj on 2016/12/28.
@@ -73,12 +73,13 @@ export class Dashboard extends BasePermissionModel{
   dataSetIDs:string[];
   dataSetNames : string[];
   updatedTime : number=1484657987000;
+  updateTime:any;
   createdBy : string;
   createUserAvatarUrl:string;
   createUserDisplayName: string;
   // dashboardType : number;//  0:(默认)生成  1:通过应用模版生成 2:DEMO     DEMO, TEMPLATE, MANUAL;
   templateID : string;
-  constructor(userList?:string, permissions?:string[],dashboardId = '', dashboardName = 'dashboard name', content = '[]',datasetIds = [],dataSetNames = [],updatedTime? : number,createdBy?:string,createUserAvatarUrl?:string,createUserDisplayName?:string,templateID?:string) {
+  constructor(userList?:string, permissions?:string[],dashboardId = '', dashboardName = 'dashboard name', content = '[]',datasetIds = [],dataSetNames = [],updateTime? : any,createdBy?:string,createUserAvatarUrl?:string,createUserDisplayName?:string,templateID?:string) {
     super(userList, permissions);
     this.dashboardID = dashboardId;
     this.dashboardName = dashboardName;
@@ -92,7 +93,7 @@ export class Dashboard extends BasePermissionModel{
         return Page.build(page);
       })
     }
-    this.updatedTime=updatedTime;
+    this.updateTime=updateTime;
     this.createdBy=createdBy;
     this.createUserAvatarUrl = createUserAvatarUrl;
     this.templateID = templateID;
@@ -120,11 +121,11 @@ export class Dashboard extends BasePermissionModel{
   }
   getPageByID(id){
     let p:Page;
-   this.content.forEach((page:Page)=>{
-     if(page.pageID === id){
-       p = page;
-     }
-   })
+    this.content.forEach((page:Page)=>{
+      if(page.pageID === id){
+        p = page;
+      }
+    })
     return p;
   }
   clone(){
@@ -137,7 +138,7 @@ export class Dashboard extends BasePermissionModel{
     }else{
       content = JSON.stringify(obj.content)
     }
-     return new Dashboard(obj.userList,obj.permissions,obj.dashboardID,obj.dashboardName,content,obj.datasetIds,obj.dataSetNames,obj.updatedTime,obj.createdBy,obj.createUserAvatarUrl,obj.createUserDisplayName,obj.templateID);
+    return new Dashboard(obj.userList,obj.permissions,obj.dashboardID,obj.dashboardName,content,obj.datasetIds,obj.dataSetNames,obj.updateTime,obj.createdBy,obj.createUserAvatarUrl,obj.createUserDisplayName,obj.templateID);
   }
 }
 export class Panel {
@@ -577,6 +578,7 @@ export class SinglePanelFilter{
   cardIDs:string[];
   groupName:string;
   show:boolean;
+  showChildren?:any
 }
 export class SelectParam {
   name:string;

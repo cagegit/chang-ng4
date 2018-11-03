@@ -19,7 +19,7 @@
           <li class="kinds_folder shadow_box" *ngFor="let item of selectRows;let i=index;"  [attr.data-type]="'dim'" [attr.data-unique-name]="item.uniqueName" [attr.data-name]="item.name" [attr.data-caption]="item.caption" [attr.data-index]="i">
             <div class="key_filter_name key_filter_folder self_cursor"  (click)="changeFolderState($event,'key_filter_folder','key_filter_name')"><span title="{{item.dimension}} - {{item.caption}}">{{item.dimension}} - {{item.caption}}</span><i class="iconfont self_right icon-jiantouzuo" ></i></div>
             <ul class="sub_filter_list">
-              <li *ngFor="let lv of item.levels" (click)="setFilter.showModal('ROWS',item,lv.name)"><span>{{lv.caption}}</span><i class="iconfont icon-xxz" (click)="delLv($event,'ROWS',item.name,lv.name)"></i></li>
+              <li *ngFor="let lv of item.levels" title="点击可筛选过滤条件" (click)="setFilter.showModal('ROWS',item,lv.name)"><span>{{lv.caption}}</span><i class="iconfont icon-xxz" (click)="delLv($event,'ROWS',item.name,lv.name)"></i></li>
             </ul>
           </li>
         </ul>
@@ -30,7 +30,7 @@
           <li class="kinds_folder shadow_box" *ngFor="let item of selectColumn;let i=index;" [attr.data-unique-name]="item.uniqueName" [attr.data-name]="item.name" [attr.data-caption]="item.caption" [attr.data-index]="i">
             <div class="key_filter_name key_filter_folder self_cursor"  (click)="changeFolderState($event,'key_filter_folder','key_filter_name')"><span title="{{item.dimension}} - {{item.caption}}">{{item.dimension}} - {{item.caption}}</span><i class="iconfont self_right icon-jiantouzuo" ></i></div>
             <ul class="sub_filter_list">
-              <li *ngFor="let lv of let lv of item.levels"  (click)="setFilter.showModal('COLUMNS',item,lv.name)"><span>{{lv.caption}}</span><i class="iconfont icon-xxz"  (click)="delLv($event,'COLUMNS',item.name,lv.name);"></i></li>
+              <li *ngFor="let lv of let lv of item.levels" title="点击可筛选过滤条件"  (click)="setFilter.showModal('COLUMNS',item,lv.name)"><span>{{lv.caption}}</span><i class="iconfont icon-xxz"  (click)="delLv($event,'COLUMNS',item.name,lv.name);"></i></li>
             </ul>
           </li>
         </ul>
@@ -41,14 +41,14 @@
           <li class="kinds_folder shadow_box" *ngFor="let item of selectFilter;let i=index;" [attr.data-unique-name]="item.uniqueName" [attr.data-name]="item.name" [attr.data-caption]="item.caption" [attr.data-index]="i">
             <div class="key_filter_name key_filter_folder self_cursor"  (click)="changeFolderState($event,'key_filter_folder','key_filter_name')"><span title="{{item.dimension}} - {{item.caption}}">{{item.dimension}} - {{item.caption}}</span><i class="iconfont self_right icon-jiantouzuo" ></i></div>
             <ul class="sub_filter_list">
-              <li *ngFor="let lv of item.levels"  (click)="setFilter.showModal('FILTER',item,lv.name)"><span>{{lv.caption}}</span><i class="iconfont icon-xxz"  (click)="delLv($event,'FILTER',item.name,lv.name)"></i></li>
+              <li *ngFor="let lv of item.levels" title="点击可筛选过滤条件"  (click)="setFilter.showModal('FILTER',item,lv.name)"><span>{{lv.caption}}</span><i class="iconfont icon-xxz"  (click)="delLv($event,'FILTER',item.name,lv.name)"></i></li>
             </ul>
           </li>
         </ul>
       </div>
     </div>
     <operater-list *ngIf="showFlagList.showOperaterBoxFlag" [showFlagList]="showFlagList" [helper]="helper" [dimType]="dimType" [top]="operaterBoxPosition.top" [left]="operaterBoxPosition.left"
-                   [measures]="selectMeasures" (checkRun)="checkRun($event)" (limitBoxEmit)="limitFn($event)" [autoExecute]="toolBarObj.autoExecute"></operater-list>
+                   [measures]="selectMeasures" (checkRun)="checkRun()" (limitBoxEmit)="limitFn($event)" [autoExecute]="toolBarObj.autoExecute"></operater-list>
     <div class="saiku_detail_box">
       <div class="sk_table_name">
         <div class="sk_t_n">
@@ -104,7 +104,7 @@
         <!--- table begin --->
         <div class="data_container " *ngIf="showType=='table'">
           <div class="new_table_box">
-            <show-table [cardResult]="cardResult" [dimensions]="dimensions" [page]="curPage" [fullScreen]="fullScreenFlag" [showType]="showType" [drill]="toolBarObj.drillDown" [helper]="helper"  [section]="toolBarObj.section"  (run)="run($event)" (cellClickEvent)="showSectionDimension($event)" (changePageEvent)="changPageFn($event)" [totalPage]="totalPage"></show-table>
+            <show-table [cardResult]="cardResult" [dimensions]="dimensions" [page]="curPage" [fullScreen]="fullScreenFlag" [showType]="showType" [drill]="toolBarObj.drillDown" [helper]="helper"  [section]="toolBarObj.section"  (run)="run()" (cellClickEvent)="showSectionDimension($event)" (changePageEvent)="changPageFn($event)" [totalPage]="totalPage"></show-table>
           </div>
         </div>
         <!---- table end --->
@@ -132,7 +132,7 @@
           <ul class="download_list" *ngIf="showFlagList.showDownloadFlag">
              <!--<li (click)="exportPDF()"><i class="iconfont icon-pdf"></i>PDF</li>-->
             <li (click)="exportExcel()"><i class="iconfont icon-excel"></i>表格</li>
-            <li (click)="exportImage()"><i class="iconfont icon-iconfontpngeps"></i>图片</li>
+            <!--<li (click)="exportImage()"><i class="iconfont icon-iconfontpngeps"></i>图片</li>-->
           </ul>
         </span>
   <b>|</b>
@@ -146,17 +146,17 @@
   <span class="cur" [class.cur]="toolBarObj.section" (click)="setMode($event,'section')"><i class="iconfont icon-qp" tooltip="切片" placement="bottom" ></i> </span> <!--(click)="showSectionDimension($event)"-->
   <!--<span class="" (click)="changeQueryType('SQL')"><i class="iconfont icon-zidingyiSQL" tooltip="SQL查询" placement="bottom" ></i> </span>-->
   <b>|</b>
-  <span *ngIf="fullScreenFlag" (click)="fullScreen($event)" ><i class="iconfont icon-quxiaoquanping" tooltip="取消全屏" placement="bottom"></i></span>
-  <span *ngIf="!fullScreenFlag" (click)="fullScreen($event)"><i class="iconfont icon-quanping" tooltip="全屏" placement="bottom"></i></span>
+  <span *ngIf="fullScreenFlag" (click)="fullScreen()" ><i class="iconfont icon-quxiaoquanping" tooltip="取消全屏" placement="bottom"></i></span>
+  <span *ngIf="!fullScreenFlag" (click)="fullScreen()"><i class="iconfont icon-quanping" tooltip="全屏" placement="bottom"></i></span>
 
 </div>
 
-<set-filter #setFilter [helper]="helper" (checkRun)="checkRun($event)"  [autoExecute]="toolBarObj.autoExecute"></set-filter>
+<set-filter #setFilter [helper]="helper" (checkRun)="checkRun()"  [autoExecute]="toolBarObj.autoExecute"></set-filter>
 <!--<no-save #noSaveBox [router]="router"></no-save>-->
-<drilldown #drilldown  [dimensions]="dimensions" [helper]="helper"  (run)="run($event)"></drilldown>
-<section-dimension #sectionDimension  [dimensions]="dimensions" [measures]="measures" [measureGroup]="measureGroup" [helper]="helper"  (run)="run($event)"></section-dimension>
-<alert-confirm #confirmBox (confirm)="save($event)"></alert-confirm>
-<div #cancelDiv style="position: fixed;width:150px;z-index:1000;text-align:center;height:20px;background-color: rgba(255,255,255,0.7);display: none">
+<drilldown #drilldown  [dimensions]="dimensions" [helper]="helper"  (run)="run()"></drilldown>
+<section-dimension #sectionDimension  [dimensions]="dimensions" [measures]="measures" [measureGroup]="measureGroup" [helper]="helper"  (run)="run()"></section-dimension>
+<alert-confirm #confirmBox (confirm)="save()"></alert-confirm>
+<div #cancelDiv style="position: fixed;width:150px;z-index:3000;text-align:center;height:20px;background-color: rgba(255,255,255,0.7);display: none">
   正在查询...<a (click)="cancel()">取消查询</a>
 </div>
-<card-limit #cardLimit [helper]="helper" [dimType]="dimType" [measures]="selectMeasures" (checkRun)="checkRun($event)" [autoExecute]="toolBarObj.autoExecute"></card-limit>
+<card-limit #cardLimit [helper]="helper" [dimType]="dimType" [measures]="selectMeasures" (checkRun)="checkRun()" [autoExecute]="toolBarObj.autoExecute"></card-limit>

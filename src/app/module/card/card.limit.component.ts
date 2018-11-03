@@ -1,8 +1,8 @@
 /**
  * Created by houxh on 2017-6-28.
  */
-import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from "@angular/core";
-import {ModalDirective} from "ng2-bootstrap";
+import {Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
+import {ModalDirective} from "ngx-bootstrap";
 import {TemplateHelper} from "./templateHelper";
 import {Measure} from "../../common/model/card/schema.measure";
 import {AppNotification} from "../../app.notification";

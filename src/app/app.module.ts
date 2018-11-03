@@ -29,15 +29,15 @@ import {AppRightComponent} from "./common/module/app-right/app-right.component";
 // import {AppNotificationComponent} from "./notification/app-notification.component";
 import {TenantComponent} from "./tenant/TenantComponent";
 import {MainComponent} from "./main/main.component";
-import {CookieService} from "angular2-cookie/core";
+import {CookieModule} from "ngx-cookie";
 import { NgProgressModule,NgProgressBrowserXhr} from 'ngx-progressbar';
 import {RegModule} from "./module/reg";
 import {GridsterModule} from "./gridster/gridster.module";
 import {SharedModule} from "./common/module/shared.module";
-import TableRelationModule from "./module/relation/tableRelation.module";
+import {TableRelationModule} from "./module/relation/tableRelation.module";
 import {AuthService} from "./auth.service";
 import {appRoutingProviders, routing} from "./app.routing";
-import {ModalModule} from "ng2-bootstrap";
+import {ModalModule} from "ngx-bootstrap";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ContactComponent} from "./contact";
 import {WelcomeComponent} from "./module/welcome/welcome.component";
@@ -55,7 +55,6 @@ import { DataHandleService } from './changan/data.handle.service';
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
   AppState,
-  CookieService,
   AppContext,
   AppNotification,
   LogService,
@@ -69,14 +68,10 @@ type StoreType = {
   restoreInputValues: () => void,
   disposeOldHosts: () => void
 };
-
-let pathStrategy;
-if (ENV === "production") {
-  pathStrategy ={provide: LocationStrategy, useClass: PathLocationStrategy};
-} else {
-  pathStrategy ={provide: LocationStrategy, useClass: HashLocationStrategy};
-}
-
+console.log(ENV);
+console.log('hello env');
+export  const strategy1 = {provide: LocationStrategy, useClass: PathLocationStrategy};
+export  const strategy2 = {provide: LocationStrategy, useClass: HashLocationStrategy};
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
  */
@@ -117,6 +112,7 @@ if (ENV === "production") {
     ChangModule,
     DataCenterModule,
     NgZorroAntdModule,
+    CookieModule.forRoot()
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     appRoutingProviders,
@@ -128,7 +124,7 @@ if (ENV === "production") {
     	provide: ErrorHandler,
 	    useClass: CommonErrorHandler
     },
-    pathStrategy,
+    ENV === "development"?strategy2:strategy1,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpClientInterceptor,

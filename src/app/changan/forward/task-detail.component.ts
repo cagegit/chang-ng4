@@ -187,7 +187,7 @@ export class TaskDetailComponent implements AfterViewInit {
   }
 
   //删除任务车辆
-  deleteDataItem() {
+  deleteDataItem(e) {
     let vehicleIds: Array<any> = [];
     this._dataSet.forEach(item => {
       if (item.check) {

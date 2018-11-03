@@ -4,7 +4,7 @@ import {AppState} from "../../app.service";
 import {AuthService} from "../../auth.service";
 import {AppContext} from "../../common/AppContext";
 import {AppWebSocketService} from "../../common/service/app.websocket.service";
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 import "../../rxjs-extensions";
 import {Router, ActivatedRoute, NavigationEnd} from "@angular/router";
 import {flyIn} from "../../animations";
@@ -19,9 +19,9 @@ import {flyIn} from "../../animations";
 })
 export class LayoutDefaultComponent {
   isDataCenter:boolean;
-  private minHeight;
+  minHeight;
   @ViewChild('loginModal') public childModal:ModalDirective;
-  private _appContainer:ElementRef;
+  _appContainer:ElementRef;
   @ViewChild('appContainer')
   set appContainer(ele:ElementRef){
     this._appContainer = ele;

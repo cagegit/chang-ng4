@@ -1,4 +1,4 @@
-<div class="user_right scroll_bar main_content" [@flyInOut]="active">
+<div class="user_right scroll_bar main_content" [@flyInOut]="'active'">
   <div class="data_list_box">
     <div class="list_box scroll_bar">
       <div class=" self_clearfix add_source">
@@ -13,7 +13,7 @@
           <option *ngFor="let createdBy of createdBySet" value="{{createdBy}}">{{createdBy}}</option>
         </select> -->
         <div class="time_sort_type marT20" (click)="sortByTime()"><span>按时间{{orderByTimeDesc?'降序':'升序'}}</span><i class="sort_btn sort_{{orderByTimeDesc?'down':'up'}}"></i></div>
-        <div class="add_dataset_btn marT20"><button class="self_btn c_ef5350" (click)="redirectToAddPage()">添加数据集</button></div>
+        <div class="add_dataset_btn marT20"><button class="self_btn c_ef5350" (click)="redirectToAddPage('')">添加数据集</button></div>
       </div>
       <div class="container-fluid data_list_head">
         <div class="row">

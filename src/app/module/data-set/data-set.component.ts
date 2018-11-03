@@ -10,11 +10,9 @@ import {
 import { DataSet } from "../../common/model/data-set.model";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AppNotification } from "../../app.notification";
-// import {DataSetService} from "../../common/service/data-set.service";
 import { computeMinHeight } from "../../common/service/compute-min-height";
-import { Error } from "../../common/model/Error";
 import { ResourcePermission } from "../../common/model/resource-permission.model";
-import { ModalDirective } from "ng2-bootstrap";
+import { ModalDirective } from "ngx-bootstrap";
 import { SchemaHandle } from "../../common/model/schema-handle.model";
 import { flyIn } from "../../animations";
 import { SchemaHandleComponent } from "./schema/schema-handle.component";
@@ -51,7 +49,7 @@ export class DataSetComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  private hasClass(el: any, name: string) {
+  hasClass(el: any, name: string) {
     if (!el || !el.className) {
       return false;
     }
@@ -126,7 +124,7 @@ export class DataSetComponent implements OnInit, AfterViewInit {
   }
 
   //是否显示小叹号
-  private showMiniWarn: boolean = false;
+  showMiniWarn: boolean = false;
 
   //隐藏警告信息,展示小叹号
   hiddenWarnDesc(e: any) {

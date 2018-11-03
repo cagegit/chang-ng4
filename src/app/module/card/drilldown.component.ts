@@ -2,12 +2,11 @@
  * Created by houxh on 2017-1-6.
  */
 import {Component, Input, ViewChild, Output, EventEmitter, Renderer} from "@angular/core";
-import {CardService} from "../../common/service/card.service";
 import {TemplateHelper} from "./templateHelper";
-import {Dimension, Hierarchy, Level} from "../../common/model/card/schema.dimension";
-import {ModalDirective} from "ng2-bootstrap";
+import {Dimension} from "../../common/model/card/schema.dimension";
+import {ModalDirective} from "ngx-bootstrap";
 import {CardUtils} from "./card.utils";
-import {Measure, Member} from "../../common/model/card/card.query.template";
+import {Measure} from "../../common/model/card/card.query.template";
 @Component({
   selector: 'drilldown',
   templateUrl: './drilldown.component.html',

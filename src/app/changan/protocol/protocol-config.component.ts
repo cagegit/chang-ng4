@@ -3,7 +3,7 @@ import { ProtocolService } from "./protocol.service";
 import { AppNotification } from "../../app.notification";
 import { DomainFactory } from "../../common/DomainFactory";
 import { flyInOut } from "../../animations";
-import { NzMessageService } from "ng-zorro-antd";
+// import { NzMessageService } from "ng-zorro-antd";
 import { ProtocolDetailComponent } from "./protocol-detail.component";
 import { resolve } from "path";
 @Component({
@@ -52,7 +52,6 @@ export class ProtocolConfigComponent implements OnInit {
   constructor(
     private protocolService: ProtocolService,
     private appNotification: AppNotification,
-    private _message: NzMessageService
   ) {}
   ngOnInit() {
     // console.log(this.numberRegex.test('2222'));
@@ -166,28 +165,28 @@ export class ProtocolConfigComponent implements OnInit {
       (this.addData.name && this.addData.name.length > 20) ||
       (this.addData.name && this.regex.test(this.addData.name))
     ) {
-      this._message.error("请输入协议名称(2-20字符,特殊字符除外)");
+      this.appNotification.error("请输入协议名称(2-20字符,特殊字符除外)");
     } else if (!this.addData.ruleNo) {
-      this._message.error("请输入规约号");
+      this.appNotification.error("请输入规约号");
     } else if (!this.addData.type) {
-      this._message.error("请选择协议类型");
+      this.appNotification.error("请选择协议类型");
     } else if (
       (this.addData.type === 2 || this.addData.type === "2") &&
       !this.addData.port
     ) {
-      this._message.error("请输入端口");
+      this.appNotification.error("请输入端口");
     } else if (
       this.addData.port &&
       (!this.numberRegex.test(this.addData.port) ||
         this.addData.port.length < 2 ||
         this.addData.port.length > 6)
     ) {
-      this._message.error("请输入端口(2-6字符,仅限数字)");
+      this.appNotification.error("请输入端口(2-6字符,仅限数字)");
     } else if (
       (this.addData.notes && this.addData.notes.length < 2) ||
       (this.addData.notes && this.addData.notes.length > 60)
     ) {
-      this._message.error("请输入备注(2-60字符)");
+      this.appNotification.error("请输入备注(2-60字符)");
     } else {
       this.addData.type = parseInt(this.addData.type);
       this.addData.ruleNo = parseInt(this.addData.ruleNo);

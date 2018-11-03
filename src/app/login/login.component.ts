@@ -1,18 +1,15 @@
 import { Component, ViewChild, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { ModalDirective } from "ng2-bootstrap";
+import { ModalDirective } from "ngx-bootstrap";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Response } from "@angular/http";
 import { LoginForm } from "./login-form";
 import { AuthService } from "../auth.service";
 import { AppNotification } from "../app.notification";
-import { UserDTO } from "../common/dto/UserDTO";
 import { DomainFactory } from "../common/DomainFactory";
 import { User } from "../common/model/User";
 import { CFG } from "../common/CFG";
-import { NGValidators } from 'ng-validators';
 import { DashboardService } from "../common/service/dashboard.service";
-import { Error } from "../common/model/Error"
 import { SIZES } from "../common/size-in-documnet";
 @Component({
   templateUrl: "login.component.html",

@@ -141,8 +141,37 @@ export class PanelEchartComponent implements OnInit,OnChanges {
          const res =this.getTimeRange(arr[0],arr[1]);
          this.defaultStartTime = res.start;
          this.defaultEndTime = res.end;
+        if(res.start!==0) {
+          this._startDate = new Date(res.start);
+        }
+        if(res.end !==0) {
+          this._endDate = new Date(res.end);
+        }
       }
     }
+  }
+  // 根式化 echart数据视图
+  getDataView(opt) {
+    let axisData = [];
+    if(opt.xAxis && opt.xAxis.length>0) {
+      axisData = opt.xAxis[0].data;
+    }
+    let series = opt.series;
+    let tdHeaders = '<td>名称</td>'; //表头
+    series.forEach(function(item) {
+      tdHeaders += '<td>' + item.name + '</td>'; //组装表头
+    });
+    let table = '<div class="table-responsive" style="padding: 10px;"><table class="table table-bordered table-striped table-hover" style="text-align:center"><tbody><tr>' + tdHeaders + '</tr>';
+    let tdBodys = ''; //数据
+    for (let i = 0, l = axisData.length; i < l; i++) {
+      for (let j = 0; j < series.length; j++) {
+        tdBodys += '<td>' + series[j].data[i] + '</td>'; //组装表数据
+      }
+      table += '<tr><td style="padding: 0 10px">' + axisData[i] + '</td>' + tdBodys + '</tr>';
+      tdBodys = '';
+    }
+    table += '</tbody></table></div>';
+    return table;
   }
   // 获取时间范围
   getTimeRange(start:number,end:number) {
@@ -156,6 +185,7 @@ export class PanelEchartComponent implements OnInit,OnChanges {
   // 中国地图的配置菜单
   chinaMapOption(chinaJson,geoCoordMap,data,zbName) {
     echarts.registerMap('china', chinaJson);
+    const that = this;
     this.options = {
       backgroundColor: '#404a59',
       tooltip: {
@@ -176,7 +206,12 @@ export class PanelEchartComponent implements OnInit,OnChanges {
       toolbox: {
         show: true,
         feature: {
-          dataView: {readOnly: false},
+          dataView: {
+            readOnly: false,
+            optionToContent : function(opt) {
+              return that.getDataView(opt);
+            }
+          },
           saveAsImage: {}
         }
       },
@@ -465,6 +500,7 @@ export class PanelEchartComponent implements OnInit,OnChanges {
     let newData = [];
     const headData = data.slice(0,1);
     const conData = data.slice(1);
+    const that = this;
     // 筛选条件
     if(this.isGlShow) {
       setTimeout(() => {
@@ -494,7 +530,12 @@ export class PanelEchartComponent implements OnInit,OnChanges {
       toolbox: {
         show: true,
         feature: {
-          dataView: {readOnly: false},
+          dataView: {
+            readOnly: false,
+            optionToContent : function(opt) {
+              return that.getDataView(opt);
+            }
+          },
           saveAsImage: {}
         }
       },
@@ -527,6 +568,7 @@ export class PanelEchartComponent implements OnInit,OnChanges {
     let newData = [];
     const headData = data.slice(0,1);
     const conData = data.slice(1);
+    const that = this;
     // 筛选条件
     if(this.isGlShow) {
       setTimeout(() => {
@@ -560,7 +602,12 @@ export class PanelEchartComponent implements OnInit,OnChanges {
       },
       toolbox: {
         feature: {
-          dataView: {readOnly: false},
+          dataView: {
+            readOnly: false,
+            optionToContent : function(opt) {
+              return that.getDataView(opt);
+            }
+          },
           restore: {},
           saveAsImage: {}
         }
@@ -592,6 +639,7 @@ export class PanelEchartComponent implements OnInit,OnChanges {
     let wdList = [];
     const headData = data.slice(0,1);
     const conData = data.slice(1);
+    const that = this;
     // 筛选条件
     if(this.isGlShow) {
       setTimeout(() => {
@@ -615,7 +663,12 @@ export class PanelEchartComponent implements OnInit,OnChanges {
       },
       toolbox: {
         feature: {
-          dataView: {readOnly: false},
+          dataView: {
+            readOnly: false,
+            optionToContent : function(opt) {
+              return that.getDataView(opt);
+            }
+          },
           restore: {},
           saveAsImage: {}
         }
@@ -1125,6 +1178,7 @@ export class PanelEchartComponent implements OnInit,OnChanges {
   }
   // 构造options
   createOptions(pz:WzInfo,wd,cType) {
+    const that = this;
     if(cType==='pie') {
       const pieArr = [];
       pz.seriesList.forEach(item => {
@@ -1137,6 +1191,18 @@ export class PanelEchartComponent implements OnInit,OnChanges {
         tooltip : {
           trigger: 'item',
           formatter: "{b} : {c} ({d}%)"
+        },
+        toolbox: {
+          show: true,
+          feature: {
+            dataView: {
+              readOnly: false,
+              optionToContent : function(opt) {
+                return that.getDataView(opt);
+              }
+            },
+            saveAsImage: {}
+          }
         },
         legend: {
           orient: 'vertical',
@@ -1207,7 +1273,12 @@ export class PanelEchartComponent implements OnInit,OnChanges {
         toolbox: {
           show: true,
           feature: {
-            dataView: {readOnly: false},
+            dataView: {
+              readOnly: false,
+              optionToContent : function(opt) {
+                return that.getDataView(opt);
+              }
+            },
             magicType: {type: ['line', 'bar']},
             saveAsImage: {}
           }

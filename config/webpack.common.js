@@ -20,6 +20,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 const ngcWebpack = require("ngc-webpack");
+const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
+const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 /*
  * Webpack Constants
  */
@@ -57,7 +59,7 @@ module.exports = function(options) {
      */
     entry: {
       polyfills: "./src/polyfills.browser.ts",
-      main: AOT ? "./src/main.browser.aot.ts" : "./src/main.browser.ts",
+      main: AOT ? "./src/main.browser.aot.ts" : "./src/main.ts",
     },
 
     /*
@@ -129,6 +131,16 @@ module.exports = function(options) {
         //       loader: "angular2-template-loader"
         //     }
         //   ],
+        //   exclude: [/\.(spec|e2e)\.ts$/]
+        // },
+        {
+          test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+          use: ['@ngtools/webpack','angular-router-loader?genDir=compiled&aot='+AOT],
+          exclude: [/\.(spec|e2e)\.ts$/]
+        },
+        // {
+        //   test: /\.(ts|js)$/,
+        //   loaders: ['angular-router-loader?aot=false'],
         //   exclude: [/\.(spec|e2e)\.ts$/]
         // },
 
@@ -334,28 +346,58 @@ module.exports = function(options) {
        */
       new LoaderOptionsPlugin({}),
 
-      // Fix Angular 2
-      new NormalModuleReplacementPlugin(
-        /facade(\\|\/)async/,
-        helpers.root("node_modules/@angular/core/src/facade/async.js")
-      ),
-      new NormalModuleReplacementPlugin(
-        /facade(\\|\/)collection/,
-        helpers.root("node_modules/@angular/core/src/facade/collection.js")
-      ),
-      new NormalModuleReplacementPlugin(
-        /facade(\\|\/)errors/,
-        helpers.root("node_modules/@angular/core/src/facade/errors.js")
-      ),
-      new NormalModuleReplacementPlugin(
-        /facade(\\|\/)lang/,
-        helpers.root("node_modules/@angular/core/src/facade/lang.js")
-      ),
-      new NormalModuleReplacementPlugin(
-        /facade(\\|\/)math/,
-        helpers.root("node_modules/@angular/core/src/facade/math.js")
-      ),
-
+      // new AngularCompilerPlugin({
+      //   skipCodeGeneration: true,
+      //   sourceMap: true,
+      //   hostReplacementPaths:
+      //     { 'D:\\work\\update-aot\\chang-ng4\\src\\environments\\environment.ts': 'D:\\work\\update-aot\\chang-ng4\\src\\environments\\environment.ts' },
+      //   compilerOptions: { module: 'commonjs' },
+      //   tsConfigPath: 'tsconfig.webpack.json',
+      //   mainPath: './src/main.browser.ts'
+      // }),
+      new AngularCompilerPlugin({
+        // skipCodeGeneration: true,
+        // sourceMap: true,
+        // compilerOptions: { module: 'commonjs' },
+        // tsConfigPath: 'tsconfig.webpack.json',
+        // mainPath: 'src/main.browser.ts',
+        // entryModule: 'src/app/app.module#AppModule',
+        mainPath: helpers.root('src/main.ts'),
+        platform: 0,
+        sourceMap: true,
+        tsConfigPath: helpers.root("tsconfig.webpack.json"),
+        skipCodeGeneration: true,
+        compilerOptions: {},
+        entryModule: helpers.root('src/app/app.module#AppModule'),
+      }),
+      // // Fix Angular 2
+      // new NormalModuleReplacementPlugin(
+      //   /facade(\\|\/)async/,
+      //   helpers.root("node_modules/@angular/core/src/facade/async.js")
+      // ),
+      // new NormalModuleReplacementPlugin(
+      //   /facade(\\|\/)collection/,
+      //   helpers.root("node_modules/@angular/core/src/facade/collection.js")
+      // ),
+      // new NormalModuleReplacementPlugin(
+      //   /facade(\\|\/)errors/,
+      //   helpers.root("node_modules/@angular/core/src/facade/errors.js")
+      // ),
+      // new NormalModuleReplacementPlugin(
+      //   /facade(\\|\/)lang/,
+      //   helpers.root("node_modules/@angular/core/src/facade/lang.js")
+      // ),
+      // new NormalModuleReplacementPlugin(
+      //   /facade(\\|\/)math/,
+      //   helpers.root("node_modules/@angular/core/src/facade/math.js")
+      // ),
+      /**
+       * Plugin: InlineManifestWebpackPlugin
+       * Inline Webpack's manifest.js in index.html
+       *
+       * https://github.com/szrenwei/inline-manifest-webpack-plugin
+       */
+      new InlineManifestWebpackPlugin(),
       // new ngcWebpack.NgcWebpackPlugin({
       //   disabled: !AOT,
       //   tsConfig: helpers.root("tsconfig.webpack.json"),

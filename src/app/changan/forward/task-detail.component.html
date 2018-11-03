@@ -132,6 +132,6 @@
   </div>
 </div>
 
-<task-vehicle #taskVehicleConfirm [data]="data" (change)="search()"></task-vehicle>
+<task-vehicle #taskVehicleConfirm [data]="data" (change)="search('')"></task-vehicle>
 
 <alert-confirm #dataSetConfirm (confirm)="deleteDataItem($event)"></alert-confirm>

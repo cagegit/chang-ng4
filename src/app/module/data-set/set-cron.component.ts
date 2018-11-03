@@ -3,7 +3,7 @@
  */
 import {Component, ViewChild, Input} from "@angular/core"
 import {DataSetService} from "../../common/service/data-set.service";
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 @Component({
   selector: 'set-cron',
   templateUrl: './set-cron.component.html',

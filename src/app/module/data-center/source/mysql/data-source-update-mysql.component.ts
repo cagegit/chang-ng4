@@ -7,23 +7,18 @@ import {
   transition,
   animate
 } from "@angular/core";
-import { Params, Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { AuthService } from "../../../../auth.service";
 import {
   FormBuilder,
   FormGroup,
-  Validators,
-  FormControl,
-  ValidatorFn,
-  AbstractControl
+  Validators
 } from "@angular/forms";
 import { AppNotification } from "../../../../app.notification";
 import { Response } from "@angular/http";
 import { DatabaseDataSource } from "../../../../common/model/database-data-source.model";
-// import {DataSourceService} from "../../../../common/service/data-source.service";
 import { DataSource } from "../../../../common/model/data-source.model";
-import { Error } from "../../../../common/model/Error";
-import { NGValidators } from "ng-validators";
+// import { NGValidators } from "ng-validators";
 import { DataSourceService } from "../data-source.service";
 @Component({
   templateUrl: "./data-source-update-mysql.component.html",
@@ -163,14 +158,18 @@ export class DataSourceUpdateMysqlComponent implements OnInit {
       name: [this.dataSource.name, [Validators.required]],
       hostname: [
         this.dataSource.hostname || "",
-        [Validators.required, NGValidators.isURL()]
+        [Validators.required,
+          // NGValidators.isURL()
+        ]
       ],
       databaseName: [this.dataSource.databaseName, [Validators.required]],
       username: this.dataSource.dataSourceType==='mysql'?[this.dataSource.username, [Validators.required]]:[this.dataSource.username],
       password: this.dataSource.dataSourceType==='mysql'?[this.dataSource.password, [Validators.required]]:[this.dataSource.password],
       databasePort: [
         this.dataSource.databasePort || String(this.defaultPort),
-        [Validators.required, NGValidators.isNumeric()]
+        [Validators.required,
+          // NGValidators.isNumeric()
+        ]
       ]
       // 'type': [this.dataSource.type]
     });

@@ -10,8 +10,7 @@ import {AppContext} from "../../../common/AppContext";
 import  {User as CommonUser} from '../../../common/model/User';
 import { AppNotification } from '../../../app.notification'
 import {CFG} from "../../../common/CFG";
-import {Group} from "../group/group.model";
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 @Component({
   templateUrl:'./um-user.component.html',
   styleUrls:['./um-user.component.css']

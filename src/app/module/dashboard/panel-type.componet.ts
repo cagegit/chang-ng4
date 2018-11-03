@@ -34,7 +34,7 @@ export class PaneTypeComponet {
   changePanelType(e:MouseEvent,type:PanelType){
     this.changePanelTypeEvent.emit(type);
   }
-  private cancelBubble(e:MouseEvent){
+  cancelBubble(e:MouseEvent){
     e.stopPropagation();
     e.preventDefault();
   }

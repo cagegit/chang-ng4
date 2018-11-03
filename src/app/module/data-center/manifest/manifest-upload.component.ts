@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewChild, EventEmitter, Output} from "@angular/core";
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 import {AppNotification} from "../../../app.notification";
-import {Error} from "../../../common/model/Error"
 import {FileUploader, ParsedResponseHeaders} from "ng2-file-upload/ng2-file-upload";
 import {CFG} from "../../../common/CFG";
 @Component({

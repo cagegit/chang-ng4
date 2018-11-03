@@ -1,7 +1,7 @@
 import { Component, OnInit,ViewChild,OnDestroy } from '@angular/core';
 import { FormGroup,FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import CHANG from "../CFG_CHANG";
+import {CHANG} from "../CFG_CHANG";
 import {UploaderToolComponent} from "../components/uploader-tool.component";
 import {ChangService} from "../chang.service";
 import {flyInOut} from "../../animations";

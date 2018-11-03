@@ -2,7 +2,7 @@
  * Created by houxh on 2017-1-17.
  */
 import {Component,Output,EventEmitter,ViewChild} from "@angular/core";
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 @Component({
   selector:'alert-confirm',
   styleUrls:['./confirm.component.css'],

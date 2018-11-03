@@ -22,7 +22,7 @@ import {
   SinglePanelFilter
 } from "../../common/model/dashboard.model";
 import { LayoutUtil } from "./layout-util";
-import { NgGridItemEvent } from "angular2-grid/dist/main";
+import { NgGridItemEvent } from "../../ng-grid";
 import { ResourcePermission } from "../../common/model/resource-permission.model";
 import { Card } from "../../common/model/card/card.model";
 import { CardService } from "../../common/service/card.service";

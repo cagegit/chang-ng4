@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import TableRelationModule from "../../module/relation/tableRelation.module";
+import {TableRelationModule} from "../../module/relation/tableRelation.module";
 // import { ResourcePermissionComponent } from "../../module/permission/resource-permission.component";
 import { ForwardConfigComponent } from "./forward-config.component";
 import { ForwardComponent } from "./forward.component";

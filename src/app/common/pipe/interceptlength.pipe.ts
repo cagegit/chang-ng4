@@ -3,7 +3,7 @@
  */
 import {Pipe, PipeTransform} from '@angular/core';
 @Pipe({name:'interceptLength'})
-export class InterceptLength implements PipeTransform {
+export class InterceptlengthPipe implements PipeTransform {
     transform(value:string, ...args:number[]) : any {
         value=value.replace(/^\s+|\s+$/g,'');
         if(value.length>args[0]) {

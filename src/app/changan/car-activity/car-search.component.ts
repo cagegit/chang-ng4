@@ -5,10 +5,7 @@ import { NzModalService } from "ng-zorro-antd";
 import { ChangService } from "../chang.service";
 import { DomainFactory } from "../../common/DomainFactory";
 import { AppNotification } from "../../app.notification";
-import CHANG from "../CFG_CHANG";
-import { UploaderToolComponent } from "../components/uploader-tool.component";
 import { flyInOut } from "../../animations";
-import { map } from "rxjs/operators";
 
 @Component({
   //   selector: 'app-car-zf',
@@ -151,7 +148,11 @@ export class CarSearchComponent implements OnInit {
   search($event, value) {
     $event.preventDefault();
     this.params = value;
-    this.refreshData(true);
+    if(!this.params.startForwardTime||!this.params.endForwardTime){
+      this.appNotification.error('请选择起止时间');
+    }else{
+      this.refreshData(true);
+    }
   }
   // 刷新数据
   refreshData(reset = false) {
@@ -207,8 +208,9 @@ export class CarSearchComponent implements OnInit {
 
   // 导出查询文档
   exportFile() {
-    if (this._dataSet.length === 0) {
-      this.appNotification.error("没有可导出的数据！");
+    console.log(this.params);
+    if((this.params&&(!this.params.startForwardTime||!this.params.endForwardTime))||(!this.params && (!this.startDate || !this.endDate))){
+      this.appNotification.error('请选择起止时间');
       return;
     }
     //需要过滤掉种类变化时 还在functionName里的无效数据；

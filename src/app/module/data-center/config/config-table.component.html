@@ -2,7 +2,7 @@
   <div class="user_center" style="position: absolute;top:0;left: 0;bottom: 0;min-height: 100vh">
     <div class="relative">
       <h5 class="title">配置报表列表</h5>
-      <div class="invite-position invite"><button (click)="show('add')"><span>新增</span></button></div>
+      <div class="invite-position invite"><button (click)="show('add','')"><span>新增</span></button></div>
     </div>
     <div class="form-group search_box">
       <input type="text" autocomplete="off" #search class="form-control" (keyup)="searchFun(search.value)" placeholder="搜索配置报表名称"
@@ -27,7 +27,7 @@
     </div>
   </div>
 
-  <nz-modal [nzVisible]="isVisible" [nzTitle]="title" [nzContent]="modalContent" (nzOnCancel)="handleCancel($event)"
+  <nz-modal [nzVisible]="isVisible" [nzTitle]="title" [nzContent]="modalContent" (nzOnCancel)="handleCancel()"
     [nzWidth]="'1020px'" [nzFooter]="false">
     <ng-template #modalContent>
       <div class="modal-body clearfix">

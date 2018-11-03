@@ -1,4 +1,4 @@
-<div class="saiku_box" #saikuBox [@flyIn]="active">
+<div class="saiku_box" #saikuBox>
   <div class="saiku_container" [@centerToLeftState]="toLeftStateStr" #saikuContainerBox>
     <!---olap left start--->
     <olap-metadata *ngIf="queryType=='OLAP'" [dataSetID]="dataSetID" [toLeftStateStr]="toLeftStateStr" [showFlagList]="showFlagList" (setMetaDataEmit)="setMetaDataFn($event)" (addMeasureEmit)="addMeasureFn($event)" (addDimensionEmit)="addDimensionFn($event)" (changeActive)="changeActiveFn($event)"></olap-metadata>

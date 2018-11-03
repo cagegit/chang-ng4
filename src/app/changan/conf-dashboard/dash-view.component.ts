@@ -9,7 +9,7 @@ import * as moment from 'moment';
   styleUrls: ['./dash-view.component.scss']
 })
 export class DashViewComponent implements OnInit,OnChanges {
-  @Input() dashboard:{content:Array<any>};
+  @Input() dashboard:any;
   @Input() isPreview:boolean;
   curPage:any = {id:0};
   isTemplate = true;

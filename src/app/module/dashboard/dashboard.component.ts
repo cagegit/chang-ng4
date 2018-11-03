@@ -30,13 +30,13 @@ import { CardService } from "../../common/service/card.service";
 import { Card } from '../../common/model/card/card.model';
 import { Error } from '../../common/model/Error';
 import { GridsterComponent } from "../../gridster/gridster.component";
-import { ModalDirective } from "ng2-bootstrap";
+import { ModalDirective } from "ngx-bootstrap";
 import { AppNotification } from "../../app.notification";
 import { DragulaService } from "ng2-dragula/ng2-dragula";
 import { ShowChart } from "../card/card.showchart";
 import { ResourcePermission } from "../../common/model/resource-permission.model";
 import { Cube } from "../../common/model/card/schema.cube";
-import { NgGridItemConfig, NgGridItemEvent } from "angular2-grid/dist/main";
+import { NgGridItemConfig, NgGridItemEvent } from "../../ng-grid";
 import { LayoutUtil } from "./layout-util";
 import * as query from "../../common/model/card/card.query.template";
 import { FilterCondition } from "../../common/model/card/card.query.template";
@@ -63,7 +63,7 @@ export class DashboardComponent implements AfterViewInit,OnInit {
   dashboardLeftStyles ={
     position:''
   }
-  private _gridContainer:ElementRef;
+  public _gridContainer:ElementRef;
   @ViewChild('gridContainer')
   set gridContainer(value:ElementRef){
     this._gridContainer = value;
@@ -112,7 +112,8 @@ export class DashboardComponent implements AfterViewInit,OnInit {
       } else {
         this.cardList=null;
       }
-    },(error:Error)=>{
+    },(err)=>{
+      console.log(err);
       this.cardList=null;
       this.isCardGetting = false;
     });
@@ -217,8 +218,8 @@ export class DashboardComponent implements AfterViewInit,OnInit {
       this.curPage.initPannels(gridItemConfigArr);
     }
   }
-  private safeUrl : any;
-  private pageType;
+  public safeUrl : any;
+  public pageType;
   pageTypeChange(pageType:string){
     // console.log("changePageType:",pageType);
     this.pageType=pageType;
@@ -469,7 +470,7 @@ export class DashboardComponent implements AfterViewInit,OnInit {
     this.changePage(page);
   }
 
-  private count:number=0;
+  public count:number=0;
   tabClick(page:Page,e:MouseEvent){
     this.count+=1;
     if(this.dbClickTimer){
@@ -572,7 +573,7 @@ export class DashboardComponent implements AfterViewInit,OnInit {
 
   }
 
-  private dbClickTimer;
+  public dbClickTimer;
   /***
    * 显示page重命名input 隐藏span
    * @param e
@@ -923,11 +924,11 @@ export class DashboardComponent implements AfterViewInit,OnInit {
     // console.log(panel);
   }
 
-  private cardToString(card) {
+  public cardToString(card) {
     return JSON.stringify(card);
   }
 
-  private createUUID():string {
+  public createUUID():string {
     let uuid = 'xxxxxxxx-xxxx-xxxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
       function (c) {
         let r = Math.random() * 16 | 0,
@@ -937,28 +938,28 @@ export class DashboardComponent implements AfterViewInit,OnInit {
     return uuid;
   }
 
-  private hasClass(el:any, name:string) {
+  public hasClass(el:any, name:string) {
     return new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)').test(el.className);
   }
 
-  private addClass(el:any, name:string) {
+  public addClass(el:any, name:string) {
     if (!this.hasClass(el, name)) {
       el.className = el.className ? [el.className, name].join(' ') : name;
     }
   }
 
-  private removeClass(el:any, name:string) {
+  public removeClass(el:any, name:string) {
     if (this.hasClass(el, name)) {
       el.className = el.className.replace(new RegExp('(?:^|\\s+)' + name + '(?:\\s+|$)', 'g'), '');
     }
   }
 
-  private onDrag(args) {
+  public onDrag(args) {
     let [e, el] = args;
     this.removeClass(e, 'ex-moved');
   }
 
-  private onDrop(args) {
+  public onDrop(args) {
     let [e,toContainer,fromContainer] = args;
     // console.log('args:', args);
     if (toContainer == null || toContainer == fromContainer)
@@ -1044,17 +1045,17 @@ export class DashboardComponent implements AfterViewInit,OnInit {
     }
   }
 
-  private onOver(args) {
+  public onOver(args) {
     let [e, el, container] = args;
     this.addClass(el, 'ex-over');
   }
 
-  private onOut(args) {
+  public onOut(args) {
     let [e, el, container] = args;
     this.removeClass(el, 'ex-over');
   }
 
-  private onDragEnd(args) {
+  public onDragEnd(args) {
   }
   focusFn(e:Event){
     let target = e.target as any;
@@ -1227,11 +1228,11 @@ export class DashboardComponent implements AfterViewInit,OnInit {
     nextObj.setAttribute('style','display:block');
     //  this.renderer.setElementStyle(nextObj,'display','block');
   }
-  private scrollFn(e:Event){
+  public scrollFn(e:Event){
     console.log(e);
     //console.log(document.body.scrollTop,document.documentElement.scrollTop,e.type);
   }
-  // private timer:any=0;
+  // public timer:any=0;
   savePanelTitle(e:any){
     this.cancelBubble(e);
     let target = <any>e.target;
@@ -1276,7 +1277,7 @@ export class DashboardComponent implements AfterViewInit,OnInit {
     console.log("click",obj,"---",e)
   }
 
-  private sortTimer : any;
+  public sortTimer : any;
   sortTab(e:any){
     if(this.sortTimer){
       clearTimeout(this.sortTimer);

@@ -59,7 +59,7 @@
   <span *ngIf="!fullScreenFlag" (click)="fullScreen($event)"><i class="iconfont icon-quanping" tooltip="全屏" placement="bottom"></i></span>
 
 </div>
-<alert-confirm #confirmBox (confirm)="save($event)"></alert-confirm>
+<alert-confirm #confirmBox (confirm)="save()"></alert-confirm>
 <div #cancelDiv style="position: absolute;width:150px;z-index:1000;text-align:center;height:20px;background-color: rgba(255,255,255,0.7);display: none">
   正在查询...<a (click)="cancel()">取消查询</a>
 </div>

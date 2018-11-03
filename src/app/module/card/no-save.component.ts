@@ -2,7 +2,7 @@
  * Created by fengjj on 2016/12/5.
  */
 import { Component ,ViewChild,Input } from '@angular/core';
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 import {Router} from "@angular/router";
 @Component({
   selector:'no-save',

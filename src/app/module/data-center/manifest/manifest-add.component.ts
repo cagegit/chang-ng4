@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, Output,EventEmitter} from "@angular/core";
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 import {AppNotification} from "../../../app.notification";
 import {ManifestService} from "../../../common/service/manifest.service";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";

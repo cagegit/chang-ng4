@@ -1,9 +1,8 @@
 import {
-  Component, Input, Output, EventEmitter, OnInit, SimpleChanges, OnChanges, trigger, state, style, transition,
-  animate, ViewEncapsulation, ViewChild, AfterViewInit
+  Component, Input, Output, EventEmitter, OnInit, SimpleChanges,ViewChild, AfterViewInit
 } from '@angular/core';
 import {DataSet} from "../../../common/model/data-set.model";
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 import {SchemaHandle} from "../../../common/model/schema-handle.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AppNotification} from "../../../app.notification";

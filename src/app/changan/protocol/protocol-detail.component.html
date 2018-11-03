@@ -55,7 +55,7 @@
 </div>
 
 <nz-modal [nzVisible]="isVisible" [nzTitle]="'添加数据项'" [nzContent]="modalContent" [nzFooter]="false" [nzWidth]="700"
-  (nzOnCancel)="handleCancel($event)">
+  (nzOnCancel)="handleCancel()">
   <ng-template #modalContent>
     <form role="form" #AddDataForm="ngForm">
       <div class="modal-body clearfix">

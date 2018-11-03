@@ -7,7 +7,7 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "noEmit": true,
+    "noEmit": false,
     "noEmitHelpers": true,
     "importHelpers": true,
     "strictNullChecks": false,
@@ -27,14 +27,18 @@
     "node_modules",
     "dist",
     "src/**/*.spec.ts",
-    "src/**/*.e2e.ts"
+    "src/**/*.e2e.ts",
+    "static",
+    "compiled",
+    "dll",
+    "config"
   ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,
     "useWebpackText": true
   },
   "angularCompilerOptions": {
-    "genDir": "./compiled",
+    "genDir": "compiled/",
     "skipMetadataEmit": true
   },
   "compileOnSave": false,

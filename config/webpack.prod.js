@@ -108,10 +108,14 @@ module.exports = function(env) {
 
       module: {
         rules: [
-          {
-            test: /\.ts$/,
-            loader: '@ngtools/webpack'
-          },
+          // {
+          //   test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+          //   loaders:
+          //     [
+          //       '@ngtools/webpack',
+          //       'angular-router-loader?genDir=compiled&aot=true'
+          //     ]
+          // },
           /*
          * Extract CSS files from .src/styles directory to external CSS file
          */
@@ -151,10 +155,10 @@ module.exports = function(env) {
          * See: https://github.com/vigneshshanmugam/optimize-js-plugin
          */
         new BundleAnalyzerPlugin(),
-        new AotPlugin({
-          tsConfigPath: helpers.root("tsconfig.webpack.json"),
-          entryModule:  helpers.root('src/app/app.module#AppModule')
-        }),
+        // new AotPlugin({
+        //   tsConfigPath: helpers.root("tsconfig.webpack.json"),
+        //   entryModule:  helpers.root('src/app/app.module.aot#AppModule')
+        // }),
         new OptimizeJsPlugin({
           sourceMap: false
         }),

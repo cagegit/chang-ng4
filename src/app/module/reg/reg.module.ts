@@ -14,22 +14,27 @@ import {RegSetDomainComponent} from "./reg-set-domain.component";
 import {RegOkComponent} from "./reg-ok.component";
 import {SharedModule} from "../../common/module/shared.module";
 //full page
-import {MnFullpageDirective, MnFullpageService} from "ng2-fullpage";
+import {MnFullpageModule} from "ngx-fullpage";
 import {InvalidComponent} from "./invalid.component";
 import {ResendSuccessComponent} from "./resend-success.component";
 
 @NgModule({
-  imports:      [ routing ,HttpModule ,SharedModule],
-  declarations: [ RegComponent,
+  imports:      [
+    routing ,
+    HttpModule ,
+    SharedModule,
+    MnFullpageModule
+  ],
+  declarations: [
+    RegComponent,
     RegUnexistComponent,
     RegSetPasswordComponent ,
     RegInComponent,
     RegSetDomainComponent,
     RegOkComponent,
-    MnFullpageDirective,
     InvalidComponent,
     ResendSuccessComponent],
   exports:      [],
-  providers:    [ RegService ,MnFullpageService ]
+  providers:    [ RegService ]
 })
 export class RegModule { }

@@ -1,4 +1,4 @@
-<div class="car-zf" [@flyInOut]="active" [ngStyle]="{'min-height':'calc(100vh - 95px)',background:'#fff'}">
+<div class="car-zf" [@flyInOut]="'active'" [ngStyle]="{'min-height':'calc(100vh - 95px)',background:'#fff'}">
   <div class="zf-head">
     <h5 class="title">车辆功能活跃度列表</h5>
     <div class="tj-select-panel clear-fix">
@@ -40,12 +40,12 @@
               </div>
             </div>
           </div>
-          <div nz-col [nzSpan]="8">
+          <div nz-col [nzSpan]="12">
             <div nz-form-item nz-row>
-              <div nz-form-label nz-col [nzSpan]="5">
+              <div nz-form-label nz-col [nzSpan]="3">
                 <label>车辆功能配置</label>
               </div>
-              <div nz-form-control nz-col [nzSpan]="19">
+              <div nz-form-control nz-col [nzSpan]="21">
                 <nz-select style="width: 48%;" [nzMode]="'multiple'" formControlName="functionType" [nzPlaceHolder]="'请选择功能配置种类'"
                   nzAllowClear [nzShowSearch]="true" [(ngModel)]="_value" (ngModelChange)="changeConfigType($event)">
                   <nz-option *ngFor="let option of configTypeEnum" [nzLabel]="option.functionType" [nzValue]="option.functionType">
@@ -76,7 +76,7 @@
         [nzIsPagination]="false">
         <thead nz-thead>
           <tr>
-            <th nz-th nzWidth="160px" [ngStyle]="{padding:0}">
+            <th nz-th nzWidth="320px" [ngStyle]="{padding:0}">
               <div class="item_colorBox">
                 <i title="Black" class="select_colors">
                   <div class="select_black"></div>

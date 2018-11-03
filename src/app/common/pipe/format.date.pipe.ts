@@ -3,7 +3,7 @@
  */
 import {Pipe, PipeTransform} from '@angular/core';
 @Pipe({name: 'formatDate'})
-export class FormatDate implements PipeTransform {
+export class FormatDatePipe implements PipeTransform {
   transform(value:string, args:string[]) : string {
     let date='';
     let dateObj=new Date(Number(value));

@@ -1,7 +1,7 @@
 import {
-  Component, OnInit, Input, ViewChild, AfterViewInit, Output, EventEmitter, OnChanges, SimpleChanges
+  Component, OnInit, Input, ViewChild, Output, EventEmitter, OnChanges, SimpleChanges
 } from "@angular/core";
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 import {Subject, Observable} from "rxjs/Rx";
 import {GitDataSource, Project} from "../../../../common/model/git-data-source.model";
 import {DataSourceService} from "../../../../common/service/data-source.service";

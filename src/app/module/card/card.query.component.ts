@@ -7,7 +7,6 @@ import {
   trigger,
   ViewChild, ViewEncapsulation
 } from '@angular/core';
-import {DragulaService} from "ng2-dragula";
 import {Location} from "@angular/common";
 import {CardService} from "../../common/service/card.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -19,7 +18,6 @@ import {Md5} from "ts-md5/dist/md5";
 import {QueryInfo, QueryResult, QueryResultInfo, chartOptions} from "../../common/model/card/query.model";
 import {ConfirmComponent} from "../common/confirm.component";
 import {Loading} from "../../common/loading.mask.util";
-import {ChartHighChartComponent} from "../../chart/chart.highchart.component";
 import {Error} from "../../common/model/Error"
 import {flyIn} from "../../animations";
 import {QueryPrettyShowComponent} from "./card.query.prettyshow.component";
@@ -80,6 +78,7 @@ export class QueryComponent implements OnInit {
   @Output() changeQueryTypeEvent = new EventEmitter<any>();
   @Output() changeShowTypeEvent = new EventEmitter<any>();
   @Output() changeRightChartBarEvent = new EventEmitter<any>();
+  edit:null;
   queryTemplate: QueryInfo;
   cardResult: QueryResult;
   prettyResult: QueryResultInfo = new QueryResultInfo();
@@ -87,7 +86,7 @@ export class QueryComponent implements OnInit {
   dataNotice: string;
   showFlagList = {
     showDownloadFlag: false
-  }
+  };
   operaterBoxPosition = {top: 0, left: 0};
   fullScreenFlag = false;
   //pagination start
@@ -100,17 +99,17 @@ export class QueryComponent implements OnInit {
   goBackEnable: boolean = true;
   //设置右侧图表是否可用，QUERY默认false
   chartToolBarStatus: boolean = false;
-  private computeShowDataContanierHeight = new Subject<boolean>();
-  private screenHeight: number;
-  private headerHeight: number = 76 + 220;
-  private footerHeight: number = 45;
-  private otherHeight = 39 + 90 + 43;
-  private markHeight: number = 0;
-  private _showDataContainer: ElementRef;
+  computeShowDataContanierHeight = new Subject<boolean>();
+  screenHeight: number;
+  headerHeight: number = 76 + 220;
+  footerHeight: number = 45;
+  otherHeight = 39 + 90 + 43;
+  markHeight: number = 0;
+  _showDataContainer: ElementRef;
   @ViewChild('queryEdit') queryEdit: ElementRef;
   // @ViewChild('highchart') highchart: ChartHighChartComponent;
   @ViewChild('confirmBox') confirmBox: ConfirmComponent;
-  private _queryPretty: QueryPrettyShowComponent;
+  _queryPretty: QueryPrettyShowComponent;
   @ViewChild('queryPretty')
   set queryPretty(val: QueryPrettyShowComponent) {
     this._queryPretty = val;
@@ -132,6 +131,7 @@ export class QueryComponent implements OnInit {
     return this._showDataContainer;
   }
 
+  @ViewChild('cancelDiv') cancelDiv: ElementRef;
   constructor(private route: ActivatedRoute, public router: Router, private appNotification: AppNotification, private renderer: Renderer, private cardService: CardService, private location: Location,
               private dataHandleSer:DataHandleService) {
     // document.addEventListener('click', () => {
@@ -462,16 +462,18 @@ export class QueryComponent implements OnInit {
   //   this.renderer.setElementStyle(this.cancelDiv.nativeElement, 'display', 'block');
   // }
 
-  // hideCancel() {
-  //   this.renderer.setElementStyle(this.cancelDiv.nativeElement, 'display', 'none');
-  // }
-  //
-  // cancel() {
-  //   this.cardService.cancel(this.helper.model().name).subscribe(rep=> {
-  //     this.hideCancel();
-  //     Loading.removeLoading();
-  //   });
-  // }
+  hideCancel() {
+    this.renderer.setElementStyle(this.cancelDiv.nativeElement, 'display', 'none');
+  }
+
+  cancel() {
+    Loading.removeLoading();
+    this.hideCancel();
+    // this.cardService.cancel(this.helper.model().name).subscribe(rep=> {
+    //   this.hideCancel();
+    //   Loading.removeLoading();
+    // });
+  }
 
   changeQueryType(type: string) {
     this.changeQueryTypeEvent.emit(type);
@@ -525,7 +527,7 @@ export class QueryComponent implements OnInit {
     this.computeShowDataContanierHeight.next(this.fullScreenFlag);
   }
 
-  private changeHeaderAndFooterDisplay(isShow: boolean) {
+  changeHeaderAndFooterDisplay(isShow: boolean) {
     let header = document.getElementsByTagName('header')[0];
     let footer = document.getElementsByTagName('footer')[0];
     if (isShow) {
@@ -539,7 +541,7 @@ export class QueryComponent implements OnInit {
 
   }
 
-  private computeMarkHeight() {
+  computeMarkHeight() {
     this.markHeight = Math.round((this.screenHeight - this.headerHeight - this.footerHeight - 39 - 39 - 39 - 27 - 40) / 2);
     console.log('markHeight', this.markHeight)
   }
@@ -554,7 +556,7 @@ export class QueryComponent implements OnInit {
     e.stopPropagation();
   }
 
-  private hiddenOtherLayers(property: string) {
+  hiddenOtherLayers(property: string) {
     for (let p in this.showFlagList) {
       if (p == property) {
         this.showFlagList[p] = true;
@@ -564,7 +566,7 @@ export class QueryComponent implements OnInit {
     }
   }
 
-  private hiddenAll() {
+  hiddenAll() {
     for (let p in this.showFlagList) {
       this.showFlagList[p] = false;
     }
@@ -602,7 +604,7 @@ export class QueryComponent implements OnInit {
 
   }
 
-  private backPreHistory() {
+  backPreHistory() {
     if (this.goBackEnable) {
       this.location.back();
       // window.history.go(-1);

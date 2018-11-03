@@ -1,7 +1,7 @@
 import {
-  Component, OnInit, Input, ViewChild, AfterViewInit, Output, EventEmitter
+  Component, OnInit, Input, ViewChild, Output, EventEmitter
 } from "@angular/core";
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 import {DataSet} from "../../../common/model/data-set.model";
 import {TableJoin} from "../../../common/model/table-join.model";
 import {StarSchema} from "../../../common/model/star-schema.model";

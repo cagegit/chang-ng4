@@ -1,7 +1,7 @@
-<div class="user_right scroll_bar main_content" [@flyInOut]="active">
+<div class="user_right scroll_bar main_content" [@flyInOut]="'active'">
   <h5 class="title">目标平台列表</h5>
   <div class="tj-select-panel clear-fix mar10">
-    <form nz-form [formGroup]="validateForm" (ngSubmit)="search($event,validateForm.value)" class="ant-advanced-search-form">
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="search()" class="ant-advanced-search-form">
       <div nz-row [nzGutter]="10">
         <div nz-col [nzSpan]="8">
           <div nz-form-item nz-row>
@@ -46,7 +46,7 @@
     </form>
   </div>
 
-  <div class="invite"><button (click)="show('add')"><span>新增</span></button></div>
+  <div class="invite"><button (click)="show('add','')"><span>新增</span></button></div>
   <div>
     <nz-table #nzTable [nzAjaxData]="_dataSet" [nzShowSizeChanger]="true" [nzLoading]="_loading" [nzTotal]="_total"
       [(nzPageIndex)]="_current" (nzPageIndexChange)="refreshData()" [(nzPageSize)]="_pageSize" (nzPageSizeChange)="refreshData(true)"
@@ -83,7 +83,7 @@
   </div>
 </div>
 
-<nz-modal [nzVisible]="isVisible" [nzTitle]="title" [nzContent]="modalContent" (nzOnCancel)="handleCancel($event)"
+<nz-modal [nzVisible]="isVisible" [nzTitle]="title" [nzContent]="modalContent" (nzOnCancel)="handleCancel()"
   [nzFooter]="false">
   <ng-template #modalContent>
     <form role="form" #AddForm="ngForm">
@@ -191,8 +191,7 @@
 
 <alert-confirm #dataSetConfirm (confirm)="delete($event)"></alert-confirm>
 
-<nz-modal [nzVisible]="isVisibles" [nzTitle]="'删除转发平台配置'" [nzContent]="modalContents" (nzOnCancel)="handleCancelItem($event)"
-  (nzOnOk)="handleOk($event)" [nzFooter]="false">
+<nz-modal [nzVisible]="isVisibles" [nzTitle]="'删除转发平台配置'" [nzContent]="modalContents" (nzOnCancel)="handleCancelItem()" [nzFooter]="false">
   <ng-template #modalContents>
     <div class="modal-body clearfix form-inline" [ngStyle]="{'padding':'20px 10px'}">
       <span class="fz14">存在车辆正在当前转发平台配置，请删除这些转发车辆后再删除此平台配置。 </span>

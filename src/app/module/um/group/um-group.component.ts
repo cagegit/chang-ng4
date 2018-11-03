@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {UmGroupService} from "./um-group.service";
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 import {DomainFactory} from "../../../common/DomainFactory";
 import {Response} from "@angular/http";
 import {Group} from "../../../common/model/Group";
@@ -16,19 +16,19 @@ export class UmGroupComponent implements OnInit {
   @ViewChild('groupAddModal') public groupAddModal:ModalDirective;
 
   //分组列表
-  private groupList : Group[] = [];
-  private groupListAll : Group[] = [];
+  groupList : Group[] = [];
+  groupListAll : Group[] = [];
   //当前选中分组
-  private curGroup : Group;
-  private defaultGroupID : number;
-  private searchTimer : any;
+  curGroup : Group;
+  defaultGroupID : number;
+  searchTimer : any;
 
   //添加分组使用
-  private groupName : string;
+  groupName : string;
   //表单提交状态,防重复提交
-  private submitted : boolean;
+  submitted : boolean;
 
-  private message : string;
+  message : string;
 
   PERMISSION_GROUP_ADD : string=CFG.PERMISSION.GROUP_ADD;
 

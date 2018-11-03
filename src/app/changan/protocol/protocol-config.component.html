@@ -3,7 +3,7 @@
   <!-- <h5 class="title">数据协议列表</h5> -->
   <div class="relative">
     <h5 class="title">数据协议列表</h5>
-    <div class="invite-position invite"><button (click)="show('add')"><span>新增</span></button></div>
+    <div class="invite-position invite"><button (click)="show('add','')"><span>新增</span></button></div>
   </div>
   <div class="form-group search_box">
     <input type="text" autocomplete="off" #search class="form-control" (keyup)="searchFun(search.value)" placeholder="搜索数据协议名称"
@@ -24,7 +24,7 @@
   <protocol-detail #protocolDetail [data]="currentData"></protocol-detail>
 </div>
 
-<nz-modal [nzVisible]="showModel" [nzTitle]="title" [nzContent]="modalContent" (nzOnCancel)="handleCancel($event)"
+<nz-modal [nzVisible]="showModel" [nzTitle]="title" [nzContent]="modalContent" (nzOnCancel)="handleCancel()"
   [nzFooter]="false">
   <ng-template #modalContent>
     <div class="modal-body clearfix">

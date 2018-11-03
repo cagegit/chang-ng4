@@ -94,6 +94,7 @@ export class OlapComponent implements OnInit, OnChanges {
   @Output() changeChartTypeEmit = new EventEmitter<any>();
   @Output() fullScreenEmit = new EventEmitter<any>();
   @Output() changeQueryTypeEvent = new EventEmitter<any>();
+  showSql = false;
   queryTemplate: query.QueryTemplate = new query.QueryTemplate();
   helper = new TemplateHelper();
   selectMeasures: query.Measure[];
@@ -146,14 +147,14 @@ export class OlapComponent implements OnInit, OnChanges {
     return this._showDataContainer;
   }
 
-  private computeShowDataContanierHeight = new Subject<boolean>();
-  private screenHeight: number;
-  private headerHeight: number = 76;
-  private footerHeight: number = 45;
-  private otherHeight = 39 + 90 + 43;
-  private _showDataContainer: ElementRef;
-  private isFold = true;
-  private markHeight: number = 0;
+  public computeShowDataContanierHeight = new Subject<boolean>();
+  public screenHeight: number;
+  public headerHeight: number = 76;
+  public footerHeight: number = 45;
+  public otherHeight = 39 + 90 + 43;
+  public _showDataContainer: ElementRef;
+  public isFold = true;
+  public markHeight: number = 0;
 
   constructor(private route: ActivatedRoute, public router: Router, private appNotification: AppNotification, private renderer: Renderer2, private cardService: CardService, private dragulaService: DragulaService, private location: Location
   ,private dataHandleSer: DataHandleService) {
@@ -230,7 +231,7 @@ export class OlapComponent implements OnInit, OnChanges {
 
   }
 
-  private hiddenAll() {
+  public hiddenAll() {
     for (let p in this.showFlagList) {
 
       this.showFlagList[p] = false;
@@ -768,7 +769,7 @@ export class OlapComponent implements OnInit, OnChanges {
     this.computeShowDataContanierHeight.next(this.fullScreenFlag);
   }
 
-  private changeHeaderAndFooterDisplay(isShow: boolean) {
+  public changeHeaderAndFooterDisplay(isShow: boolean) {
     let header = document.getElementsByTagName('header')[0];
     let footer = document.getElementsByTagName('footer')[0];
     if (isShow) {
@@ -875,7 +876,7 @@ export class OlapComponent implements OnInit, OnChanges {
     this.changeChartTypeEmit.emit({chartType: 'table', showType: 'table', toRightStateStr: this.toRightStateStr});
   }
 
-  private hasClass(el: any, name: string) {
+  public hasClass(el: any, name: string) {
     if (!el || !el.className) {
       return false;
     }
@@ -885,7 +886,7 @@ export class OlapComponent implements OnInit, OnChanges {
     return false;
   }
 
-  private _title: string;
+  public _title: string;
   set title(title: string) {
     this._title = title;
   }
@@ -894,7 +895,7 @@ export class OlapComponent implements OnInit, OnChanges {
     return this._title || ''
   }
 
-  private _desc: string;
+  public _desc: string;
   set desc(desc: string) {
     this._desc = desc;
   }
@@ -956,7 +957,7 @@ export class OlapComponent implements OnInit, OnChanges {
   }
 
   //#region 分页 end
-  private backPreHistory() {
+  public backPreHistory() {
     if (this.goBackEnable) {
       this.location.back();
       // window.history.go(-1);
@@ -977,12 +978,12 @@ export class OlapComponent implements OnInit, OnChanges {
     }, 120);
   }
 
-  private computeMarkHeight() {
+  public computeMarkHeight() {
     this.markHeight = Math.round((this.screenHeight - this.headerHeight - this.footerHeight - 39 - 39 - 39 - 27 - 40) / 2);
     console.log('markHeight', this.markHeight)
   }
 
-  private onFoldFilterBox(e: any) {
+  public onFoldFilterBox(e: any) {
     this.isFold = !this.isFold;
     setTimeout(() => {
       this.computeShowDataContanierHeight.next(this.fullScreenFlag);
@@ -998,7 +999,7 @@ export class OlapComponent implements OnInit, OnChanges {
     this.operaterBoxPosition.left = (e.target.parentNode.getBoundingClientRect().left - this.keyBox.nativeElement.getBoundingClientRect().left) + this.indicatorBox.nativeElement.getBoundingClientRect().width;
   }
 
-  private hiddenOtherLayers(property: string) {
+  public hiddenOtherLayers(property: string) {
     for (let p in this.showFlagList) {
       if (p == property) {
         this.showFlagList[p] = true;

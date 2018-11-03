@@ -3,9 +3,9 @@ import { Component,ViewEncapsulation,AfterViewInit,OnInit } from '@angular/core'
  * App Component
  * Top Level Component
  */
-
+export const ROOT_SELECTOR = 'app';
 @Component({
-  selector: 'app',
+  selector: ROOT_SELECTOR,
   encapsulation: ViewEncapsulation.None,
   template:`<router-outlet></router-outlet>`,
   styleUrls: [

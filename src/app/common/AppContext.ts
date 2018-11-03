@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { CookieService } from "angular2-cookie/core";
+import { CookieService } from "ngx-cookie";
 import { CFG } from "./CFG";
 import { User } from "./model/User";
 import { AppWebSocketService } from "./service/app.websocket.service";

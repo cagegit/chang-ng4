@@ -33,7 +33,7 @@ export class MyEditerComponent implements AfterViewInit {
   @Output() onSave = new EventEmitter();
   @Output() onCancel = new EventEmitter();
   @ViewChild('any') inputRef:ElementRef;
-  private hasErr = false;
+  public hasErr = false;
   ngAfterViewInit() {
     this.inputRef.nativeElement.focus();
   }
@@ -58,11 +58,11 @@ export class MyEditerComponent implements AfterViewInit {
     e.cancelBubble = true;
     this.onCancel.next();
   }
-  private saveValue(val:string) {
+  saveValue(val:string) {
     this.onSave.next(val);
   }
 
-  private formatCheak(val:string):boolean{
+  formatCheak(val:string):boolean{
     if(this.regStr){
       let reg = new RegExp(this.regStr);
       console.log("验证:",this.regStr,val,"结果:",new RegExp(this.regStr).test(val));

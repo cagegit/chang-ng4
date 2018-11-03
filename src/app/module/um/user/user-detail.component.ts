@@ -1,7 +1,7 @@
 /**
  * Created by fengjj on 2016/9/29.
  */
-import {Component, Input, ViewChild,OnInit} from "@angular/core";
+import {Component, Input, ViewChild} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UmUserService} from "./um-user.service";
 import {User} from "./user.model";
@@ -21,13 +21,14 @@ export class UserDetailComponent  {
 
   @Input() user:User;
   @ViewChild('resetPasswordModal')  resetPasswordModal;
+  serverErr;
   errorFlag = {
     newPasswordErr:false,
     pswConfirmErr:false,
     oldPasswordErr:false,
     consistencyErr:false,
-    formErr:true
-
+    formErr:true,
+    confirmPasswordErr:false
   }
   password = {
     oldPassword:'',
@@ -120,7 +121,7 @@ export class UserDetailComponent  {
     console.log(value);
   }
 
-  private authPasswd(string:string) {
+  authPasswd(string:string) {
     if(string.length >=6) {
       if(/[a-zA-Z]+/.test(string) && /[0-9]+/.test(string) && /[^a-zA-Z0-9]+/.test(string)) {
         return 3
@@ -140,7 +141,7 @@ export class UserDetailComponent  {
     }
   }
 
-  private blurFn(key:string,b = false){
+  blurFn(key:string,b = false){
     let grade = this.authPasswd(this.password[key]);
     let oldPasswordGrade = this.authPasswd(this.password['oldPassword']);
     let newPasswordGrade = this.authPasswd(this.password['newPassword']);
@@ -164,7 +165,7 @@ export class UserDetailComponent  {
     }
 
   }
-  private selectHeadImg($event:any){
+  selectHeadImg($event:any){
     if(!this.user.requireChange&&(this.loginUser.userId+'' == this.user.id)){
       document.getElementById('userHeadImgFile').click();
     }else{
@@ -173,7 +174,7 @@ export class UserDetailComponent  {
 
   }
 
-  private uploadImage($event){
+  uploadImage($event){
     var self=this;
     this.uploader.onSuccessItem=function(item: any, response: string, status: number, headers: ParsedResponseHeaders){
       let userHeadImg=JSON.parse(response).UserAvatar.userAvatar;

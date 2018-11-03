@@ -13,6 +13,8 @@ function hasProcessFlag(flag) {
 }
 
 function hasNpmFlag(flag) {
+  console.log(EVENT);
+  console.log(flag);
   return EVENT.includes(flag);
 }
 

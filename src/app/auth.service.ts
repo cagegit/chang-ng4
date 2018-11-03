@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { CookieService } from "angular2-cookie/services/cookies.service";
+import { CookieService } from "ngx-cookie";
 import { Router } from "@angular/router";
 import { Http } from "@angular/http";
 import { Observable } from "rxjs/Rx";

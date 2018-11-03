@@ -6,7 +6,7 @@ import { RegService } from './reg.service';
 import { Router ,ActivatedRoute } from '@angular/router';
 import { Tenant } from './Tenant.model';
 import { AppNotification } from '../../app.notification';
-import { MnFullpageService } from 'ng2-fullpage'
+import { MnFullpageService } from 'ngx-fullpage'
 import {SIZES} from "../../common/size-in-documnet";
 import {AppContext} from "../../common/AppContext";
 
@@ -18,7 +18,7 @@ interface TenantInfo {
 @Component({
   selector:'reg-in',
   templateUrl:'./reg-in.component.html',
-  styleUrls:['./reg-in.component.css','../../../../node_modules/fullpage.js/dist/jquery.fullpage.css']
+  styleUrls:['./reg-in.component.css']
 })
 export class RegInComponent implements AfterViewInit ,OnDestroy {
   isValid = false;
@@ -30,14 +30,14 @@ export class RegInComponent implements AfterViewInit ,OnDestroy {
   submitted = false;
   emailActiveUrl = "";
   tenant:Tenant;
-  private id:string;
-  private email:string;
-  private uuid:string;
-  private emailReg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,}){1,})$/;
-  private pageOneHeight:number;
-  private pageHeights = [];
+  public id:string;
+  public email:string;
+  public uuid:string;
+  public emailReg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,}){1,})$/;
+  public pageOneHeight:number;
+  public pageHeights = [];
   errMessage:string;
-  private isIntroduce = false;
+  public isIntroduce = false;
   constructor(private regService:RegService,private render:Renderer,private router:Router ,private route:ActivatedRoute ,private appNotification:AppNotification,private fullpageService: MnFullpageService,private appContext:AppContext){
     this.regService.errMessage.subscribe((err:string) => {
       this.appNotification.error(err);
@@ -123,7 +123,7 @@ export class RegInComponent implements AfterViewInit ,OnDestroy {
     }
   }
 
-  private formChecked() {
+  public formChecked() {
     if(this.tenantEmail.email && this.emailReg.test(this.tenantEmail.email)) {
       return true;
     }else {
@@ -131,7 +131,7 @@ export class RegInComponent implements AfterViewInit ,OnDestroy {
       return false;
     }
   }
-  private setTopFunc() {
+  public setTopFunc() {
     let width = document.documentElement.clientWidth || document.body.clientWidth ;
     let r = 2250;
     let top =-(Math.sqrt(r*r -(width/2)*(width/2))+r)+96;

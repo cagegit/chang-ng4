@@ -5,7 +5,7 @@ import { NzModalService } from 'ng-zorro-antd';
 import {ChangService} from "../chang.service";
 import {DomainFactory} from "../../common/DomainFactory";
 import {AppNotification} from "../../app.notification";
-import CHANG from "../CFG_CHANG";
+import {CHANG} from "../CFG_CHANG";
 import {UploaderToolComponent} from "../components/uploader-tool.component";
 import {flyInOut} from "../../animations";
 

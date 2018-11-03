@@ -1,5 +1,5 @@
 import {NgModule} from "@angular/core";
-import TableRelationModule from "../../module/relation/tableRelation.module";
+import {TableRelationModule} from "../../module/relation/tableRelation.module";
 // import {ResourcePermissionComponent} from "../../module/permission/resource-permission.component";
 import {ProtocolConfigComponent} from "./protocol-config.component";
 import {ProtocolDetailComponent} from "./protocol-detail.component";

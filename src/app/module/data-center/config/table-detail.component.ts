@@ -1,23 +1,13 @@
 import {
   Component,
-  ViewChild,
-  ElementRef,
   AfterViewInit,
   Renderer,
   Input,
   Output,
-  OnInit,
   EventEmitter
 } from "@angular/core";
-//   import { ForwardService } from "./forward.service";
-//   import { AppNotification } from "../../app.notification";
-//   import { DomainFactory } from "../../common/DomainFactory";
-//   import { Pagination } from "../../common/model/pagination.model";
 import { NzMessageService } from "ng-zorro-antd";
-import { FormGroup, FormBuilder } from "@angular/forms";
 import { ConfigService } from "./config.service";
-//   import { platform } from 'os';
-import { DomainFactory } from "../../../common/DomainFactory";
 import { AppNotification } from "../../../app.notification";
 
 @Component({

@@ -4,25 +4,38 @@
 import {NgModule} from "@angular/core";
 import { ChartModule } from 'angular2-highcharts';
 import {ChartHighChartComponent} from "./chart.highchart.component";
+import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
+declare var require: any;
+export function highchartsFactory() {
+  const hc = require('highcharts');
+  const dd = require('highcharts/modules/drilldown');
+  const ee =  require('highcharts/modules/heatmap');
+  const ff =   require('highcharts/highcharts-more');
+  const gg =   require('highcharts/modules/exporting');
+  dd(hc);
+  ee(hc);
+  ff(hc);
+  gg(hc);
+  return hc;
+}
 @NgModule({
   imports: [
-    ChartModule.forRoot(
-      require('highcharts'),
-      require('highcharts/modules/heatmap'),
-      require('highcharts/highcharts-more'),
-      require('highcharts/modules/exporting')
-    )
+    ChartModule
   ],
   declarations: [
     ChartHighChartComponent
   ],
   providers : [
+    {
+      provide: HighchartsStatic,
+      useFactory: highchartsFactory
+    }
   ],
   exports:[
     ChartModule,
     ChartHighChartComponent
   ]
 })
-export default class ChartHighChartModule{
+export class ChartHighChartModule{
 
 }

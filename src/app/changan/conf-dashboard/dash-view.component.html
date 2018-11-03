@@ -6,14 +6,14 @@
     <li>&nbsp;</li>
   </ul>
   <div class="preview_operate_list self_clearfix" >
-    <div class="replace_template_data self_clearfix" *ngIf="isTemplate && isPreview && dashboardTemplate"><a [routerLink]="['/template','dashboard','data',dashboardTemplate.dataSourceType,dashboard.dashboardID]">替换模板数据</a></div>
+    <div class="replace_template_data self_clearfix" *ngIf="isTemplate && isPreview"><a href="javascript:void(0);">替换模板数据</a></div>
     <div class="more_operate">
       <i class="iconfont icon-gengduo1"></i>
       <ul class="operate_item_list">
         <li [routerLink]="[ '/dashboard/update',dashboard.dashboardID ]"><i class="iconfont icon-qianming"></i><span>编辑dashboard</span></li>
-        <li *ngIf="dashboard.dashboardID&&dashboard.hasPermission(PERMISSION_TYPE.AUTH)" (click)="resourcePermissionModal.show(dashboard.dashboardID,dashboard.dashboardName,RESOURCE_TYPE_DASHBOARD)"><i
+        <li *ngIf="dashboard.dashboardID" (click)="resourcePermissionModal.show(dashboard.dashboardID,dashboard.dashboardName,RESOURCE_TYPE_DASHBOARD)"><i
           class="iconfont icon-iconshezhi01"></i><span>设置权限</span></li>
-        <li (click)="exportPDF()"><i class="iconfont icon-iconfontxiazai"></i><span>下载pdf</span></li>
+        <li ><i class="iconfont icon-iconfontxiazai"></i><span>下载pdf</span></li>
       </ul>
     </div>
     <span>|</span>

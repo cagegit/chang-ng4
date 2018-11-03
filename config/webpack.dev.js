@@ -106,18 +106,56 @@ module.exports = function(options) {
 
     module: {
       rules: [
-        {
-          test: /\.ts$/,
-          use: [
-            {
-              loader: "tslint-loader",
-              options: {
-                configFile: "tslint.json"
-              }
-            }
-          ],
-          exclude: [/\.(spec|e2e)\.ts$/]
-        },
+        /*
+         * Typescript loader support for .ts
+         *
+         * Component Template/Style integration using `angular2-template-loader`
+         * Angular 2 lazy loading (async routes) via `ng-router-loader`
+         *
+         * `ng-router-loader` expects vanilla JavaScript code, not TypeScript code. This is why the
+         * order of the loader matter.
+         *
+         * See: https://github.com/s-panferov/awesome-typescript-loader
+         * See: https://github.com/TheLarkInn/angular2-template-loader
+         * See: https://github.com/shlomiassaf/ng-router-loader
+         */
+        // {
+        //   test: /\.ts$/,
+        //   use: [
+        //     {
+        //       loader: "@angularclass/hmr-loader",
+        //       options: {
+        //         pretty: true,
+        //         prod: false
+        //       }
+        //     },
+        //     {
+        //       // MAKE SURE TO CHAIN VANILLA JS CODE, I.E. TS COMPILATION OUTPUT.
+        //       loader: "ng-router-loader",
+        //       options: {
+        //         loader: "async-import",
+        //         genDir: "compiled",
+        //         aot: false
+        //       }
+        //     },
+        //     {
+        //       loader: "awesome-typescript-loader",
+        //       options: {
+        //         configFileName: "tsconfig.webpack.json"
+        //       }
+        //     },
+        //     {
+        //       loader: "angular2-template-loader"
+        //     },
+        //     {
+        //       loader: "tslint-loader",
+        //       options: {
+        //         configFile: "tslint.json"
+        //       }
+        //     }
+        //   ],
+        //   exclude: [/\.(spec|e2e)\.ts$/]
+        // },
 
         /*
          * css loader support for *.css files (styles directory only)
@@ -144,7 +182,7 @@ module.exports = function(options) {
     },
 
     plugins: [
-      new BundleAnalyzerPlugin(),
+      // new BundleAnalyzerPlugin(),
       /**
        * Plugin: DefinePlugin
        * Description: Define free variables.
@@ -165,37 +203,37 @@ module.exports = function(options) {
         }
       }),
 
-      new DllBundlesPlugin({
-        bundles: {
-          polyfills: [
-            "core-js",
-            {
-              name: "zone.js",
-              path: "zone.js/dist/zone.js"
-            },
-            {
-              name: "zone.js",
-              path: "zone.js/dist/long-stack-trace-zone.js"
-            }
-          ],
-          vendor: [
-            "@angular/platform-browser",
-            "@angular/platform-browser-dynamic",
-            "@angular/core",
-            "@angular/common",
-            "@angular/forms",
-            "@angular/http",
-            "@angular/router",
-            "@angularclass/hmr",
-            "rxjs"
-          ]
-        },
-        dllDir: helpers.root("dll"),
-        webpackConfig: webpackMergeDll(commonConfig({ env: ENV }), {
-          devtool: "cheap-module-source-map",
-          plugins: []
-        })
-      }),
+      // new DllBundlesPlugin({
+      //   bundles: {
+      //     polyfills: [
+      //       "core-js",
+      //       {
+      //         name: "zone.js",
+      //         path: "zone.js/dist/zone.js"
+      //       },
+      //       {
+      //         name: "zone.js",
+      //         path: "zone.js/dist/long-stack-trace-zone.js"
+      //       }
+      //     ],
+      //     vendor: [
+      //       "@angular/platform-browser",
+      //       "@angular/platform-browser-dynamic",
+      //       "@angular/core",
+      //       "@angular/common",
+      //       "@angular/forms",
+      //       "@angular/http",
+      //       "@angular/router",
+      //       "@angularclass/hmr",
+      //       "rxjs"
+      //     ]
+      //   },
+      //   dllDir: helpers.root("dll"),
+      //   webpackConfig: webpackMergeDll(commonConfig({ env: ENV }), {
+      //     devtool: "cheap-module-source-map",
+      //     plugins: []
+      //   })
+      // }),
 
       /**
        * Plugin: AddAssetHtmlPlugin
@@ -205,18 +243,18 @@ module.exports = function(options) {
        *
        * See: https://github.com/SimenB/add-asset-html-webpack-plugin
        */
-      new AddAssetHtmlPlugin([
-        {
-          filepath: helpers.root(
-            `dll/${DllBundlesPlugin.resolveFile("polyfills")}`
-          )
-        },
-        {
-          filepath: helpers.root(
-            `dll/${DllBundlesPlugin.resolveFile("vendor")}`
-          )
-        }
-      ]),
+      // new AddAssetHtmlPlugin([
+      //   {
+      //     filepath: helpers.root(
+      //       `dll/${DllBundlesPlugin.resolveFile("polyfills")}`
+      //     )
+      //   },
+      //   {
+      //     filepath: helpers.root(
+      //       `dll/${DllBundlesPlugin.resolveFile("vendor")}`
+      //     )
+      //   }
+      // ]),
 
       /**
        * Plugin: NamedModulesPlugin (experimental)

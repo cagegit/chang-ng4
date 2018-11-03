@@ -5,9 +5,7 @@ import {
   Component, Input, Output, EventEmitter, ViewChild, ElementRef, OnInit, SimpleChanges,
   OnChanges
 } from '@angular/core';
-import {NgGridItemConfig} from "angular2-grid/dist/main";
 import {LayoutUtil} from "./layout-util";
-import {OnChange} from "ng2-bootstrap";
 import {AppNotification} from "../../app.notification";
 @Component({
   selector:'page-layout',

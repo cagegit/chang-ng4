@@ -8,7 +8,7 @@
         </button>
       </div>
       <ul class="will_select_list scroll_bar" #willSelectList>
-        <li><label class="mock_label" [attr.for]="mock_day">
+        <li><label class="mock_label" [attr.for]="'mock_day'">
           <input type="radio" class="input_radio" name="timer" id="mock_day" value="1" [checked]="cronType==1" (click)="cronTypeFn(1)">
           每 <select id="intervalDay" class="select_type"  (change)="changeDay($event)">
           <option *ngFor="let i of cronDay" value="{{i}}" [selected]="intervalDay==i">{{i.toString()}}</option>
@@ -17,7 +17,7 @@
             <option *ngFor="let j of cornStartTime" value="{{j}}" [selected]="startTime==j">{{j<10?'0'+j.toString():j.toString()}}:00:00</option>
           </select></div>
         </label> </li>
-        <li><label class="mock_label" [attr.for]="mock_hour">
+        <li><label class="mock_label" [attr.for]="'mock_hour'">
           <input type="radio" class="input_radio" name="timer" id="mock_hour" value="2" [checked]="cronType==2" (click)="cronTypeFn(2)">
           每 <select id="intervalHour" class="select_type" (change)="changeHour($event)">
           <option value="1" [selected]="intervalHour==1">1</option>
@@ -27,7 +27,7 @@
           <option value="12">12</option>
         </select> 小时自动更新
         </label> </li>
-        <li><label class="mock_label" [attr.for]="mock_none">
+        <li><label class="mock_label" [attr.for]="'mock_none'">
           <input type="radio" class="input_radio" name="timer" id="mock_none" value="3" [checked]="cronType==3" (click)="cronTypeFn(3)">
           取消定时更新
         </label></li>

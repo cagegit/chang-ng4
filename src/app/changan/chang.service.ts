@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import CHANG from "./CFG_CHANG";
+import {CHANG} from "./CFG_CHANG";
 import { repeatWhen, find } from "rxjs/operators";
 @Injectable()
 export class ChangService {
@@ -92,7 +92,7 @@ export class ChangService {
     type: number,
     data: object,
     excelTitle = "导出车辆数据_"
-  ): Observable<boolean> {
+  ): Observable<any> {
     let real_path = "";
     switch (type) {
       case 0:

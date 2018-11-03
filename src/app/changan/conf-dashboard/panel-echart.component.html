@@ -11,7 +11,7 @@
           </div>
         </div>
       </div>
-      <div #pchart [attr.id]="tableid" echarts [options]="options" [loading]="isLoading" theme="macarons" class="chang-chart"></div>
+      <div #pchart echarts [options]="options" [loading]="isLoading" theme="macarons" class="chang-chart"></div>
     </div>
     <!--无数据时显示-->
     <div *ngIf="currentData.length===0" class="chart_text">{{chartTxt}}</div>
@@ -70,7 +70,7 @@
         <label >开始时间:</label>
       </div>
       <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
-        <nz-datepicker style="width: 100%;" (ngModelChange)="_startDate=$event;_startValueChange()" id="startTime" [ngModel]="_startDate" [nzDisabledDate]="_disabledStartDate" [nzShowTime]="true" [nzFormat]="'YYYY-MM-DD HH:mm:ss'" [nzPlaceHolder]="'开始时间'"></nz-datepicker>
+        <nz-datepicker style="width: 100%;" (ngModelChange)="_startDate=$event;_startValueChange()" id="startTime" [(ngModel)]="_startDate" [nzDisabledDate]="_disabledStartDate" [nzShowTime]="true" [nzFormat]="'YYYY-MM-DD HH:mm:ss'" [nzPlaceHolder]="'开始时间'"></nz-datepicker>
       </div>
     </div>
     <div nz-form-item nz-row>
@@ -78,7 +78,7 @@
         <label >结束时间:</label>
       </div>
       <div nz-form-control nz-col [nzSm]="14" [nzXs]="24">
-        <nz-datepicker style="width: 100%;" (ngModelChange)="_endDate=$event;_endValueChange()" id="endTime" [ngModel]="_endDate" [nzDisabledDate]="_disabledEndDate" [nzShowTime]="_endTime" [nzFormat]="'YYYY-MM-DD HH:mm:ss'" [nzPlaceHolder]="'结束时间'"></nz-datepicker>
+        <nz-datepicker style="width: 100%;" (ngModelChange)="_endDate=$event;_endValueChange()" id="endTime" [(ngModel)]="_endDate" [nzDisabledDate]="_disabledEndDate" [nzShowTime]="_endTime" [nzFormat]="'YYYY-MM-DD HH:mm:ss'" [nzPlaceHolder]="'结束时间'"></nz-datepicker>
       </div>
     </div>
     <div nz-form-item nz-row>

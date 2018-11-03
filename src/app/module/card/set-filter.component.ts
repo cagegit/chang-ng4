@@ -2,7 +2,7 @@
  * Created by fengjj on 2016/12/2.
  */
 import {Component, ViewChild, Input, Output, EventEmitter, ElementRef} from '@angular/core';
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 import {CardService} from "../../common/service/card.service";
 import * as query from "../../common/model/card/card.query.template";
 import {TemplateHelper} from "./templateHelper";

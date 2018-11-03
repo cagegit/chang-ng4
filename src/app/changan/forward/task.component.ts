@@ -49,7 +49,6 @@ export class TaskComponent implements OnInit, AfterViewInit {
     private forwardService: ForwardService,
     private appNotification: AppNotification,
     private protocolService: ProtocolService,
-    private _message: NzMessageService
   ) {}
 
   ngOnInit() {}
@@ -202,38 +201,38 @@ export class TaskComponent implements OnInit, AfterViewInit {
       (this.addData.name && this.addData.name.length > 20) ||
       (this.addData.name && this.regex.test(this.addData.name))
     ) {
-      this._message.error("请输入任务名称(2-20字符,特殊字符除外)");
+      this.appNotification.error("请输入任务名称(2-20字符,特殊字符除外)");
     } else if (!this.addData.platformId) {
-      this._message.error("请选择目标平台");
+      this.appNotification.error("请选择目标平台");
     } else if (!this.addData.protocolId) {
-      this._message.error("请选择转发协议");
+      this.appNotification.error("请选择转发协议");
     } else if (
       !this.addData.isLongterm &&
       (!this.addData.startDate || !this.addData.expireDate)
     ) {
-      this._message.error("请选择有效期");
+      this.appNotification.error("请选择有效期");
     } else if (
       !this.addData.isLongterm &&
       !this.addData.startDate &&
       !this.addData.expireDate
     ) {
-      this._message.error("请选择有效期");
+      this.appNotification.error("请选择有效期");
     } else if (
       this.addData.startDate &&
       this.addData.expireDate &&
       new Date(this.addData.startDate).getTime() >=
         new Date(this.addData.expireDate).getTime()
     ) {
-      this._message.error("请选择有效期(开始时间不能大于结束时间)");
+      this.appNotification.error("请选择有效期(开始时间不能大于结束时间)");
     } else if (!this.addData.isEncrypt) {
-      this._message.error("请选择传输加密");
+      this.appNotification.error("请选择传输加密");
     } else if (!this.addData.isEnable) {
-      this._message.error("请选择任务状态");
+      this.appNotification.error("请选择任务状态");
     } else if (
       (this.addData.notes && this.addData.notes.length < 2) ||
       (this.addData.notes && this.addData.notes.length > 60)
     ) {
-      this._message.error("请输入备注(2-60字符)");
+      this.appNotification.error("请输入备注(2-60字符)");
     } else {
       this.addData.name = this.addData.name.trim();
       if (this.addData.notes) {
@@ -287,7 +286,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
           },
           response => {
             let message = DomainFactory.buildError(response.json()).errorMsg;
-            this._message.error(response.json().errorMsg);
+            this.appNotification.error(response.json().errorMsg);
           }
         );
       } else {
@@ -333,7 +332,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
         },
         response => {
           let message = DomainFactory.buildError(response.json()).errorMsg;
-          this._message.error(message);
+          this.appNotification.error(message);
         }
       );
     }

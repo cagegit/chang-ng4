@@ -7,11 +7,11 @@ import {
   Input,
   AfterViewInit
 } from "@angular/core";
-import { ModalDirective } from "ng2-bootstrap";
+// import { ModalDirective } from "ng2-bootstrap";
 import { ForwardService } from "./forward.service";
 import { AppNotification } from "../../app.notification";
 import { DomainFactory } from "../../common/DomainFactory";
-import CHANG from "../CFG_CHANG";
+import {CHANG} from "../CFG_CHANG";
 import { NzMessageService } from "ng-zorro-antd";
 import { UploaderToolComponent } from "../components/uploader-tool.component";
 import { FormGroup, FormBuilder } from "@angular/forms";
@@ -79,7 +79,6 @@ export class TaskVehicleComponent implements OnInit, AfterViewInit {
     private renderer: Renderer,
     private forwardService: ForwardService,
     private appNotification: AppNotification,
-    private _message: NzMessageService,
     private fb: FormBuilder,
     private successModel: NzModalService,
     private changSer: ChangService
@@ -476,7 +475,7 @@ export class TaskVehicleComponent implements OnInit, AfterViewInit {
         }
       );
     } else {
-      this._message.error("请先查询数据");
+      this.appNotification.error("请先查询数据");
     }
   }
 

@@ -118,4 +118,4 @@ export const CHART_TYPE_LIST = [
   { id: 9, name: "仪表盘", type: "gauge" }
 ];
 
-export default CHANG;
+export {CHANG};

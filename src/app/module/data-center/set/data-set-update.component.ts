@@ -12,28 +12,18 @@ import {
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AppNotification } from "../../../app.notification";
-import { ModalDirective } from "ng2-bootstrap";
+import { ModalDirective } from "ngx-bootstrap";
 import { DataSet } from "../../../common/model/data-set.model";
 import { DataSource } from "../../../common/model/data-source.model";
-import { ActivatedRoute, Router, Params } from "@angular/router";
-// import { DataSourceService } from "../../../common/service/data-source.service";
-// import { DataSetService } from "../../../common/service/data-set.service";
-import { Response } from "@angular/http";
+import { ActivatedRoute, Router } from "@angular/router";
 import { StarSchema } from "../../../common/model/star-schema.model";
 import { DataSourceTable } from "../../../common/model/data-source-table.model";
-import { Error } from "../../../common/model/Error";
 import { Subject } from "rxjs/Subject";
-import { Observable } from "rxjs/Observable";
 import {
-  GitDataSource,
   Project
 } from "../../../common/model/git-data-source.model";
-import { MultiDataSourceTablesModel } from "./multi-data-source-tables.model";
 import { DataSourceService } from "../source/data-source.service";
 import { DataSetService } from "./data-set.service";
-import { keyframes } from "@angular/animations";
-import { DomainFactory } from "../../../common/DomainFactory";
-declare var ace: any;
 @Component({
   templateUrl: "./data-set-update.component.html",
   styleUrls: ["./data-set-update.component.css"],

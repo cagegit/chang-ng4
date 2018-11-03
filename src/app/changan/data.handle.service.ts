@@ -6,7 +6,7 @@
 import { Injectable } from "@angular/core";
 import { Observable,Subject } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
-import CHANG from './CFG_CHANG';
+import {CHANG} from './CFG_CHANG';
 import { catchError,tap,map,timeout,switchMap} from 'rxjs/operators';
 import { AppNotification } from '../app.notification';
 import { QueryTemplate } from '../common/model/card/card.query.template';
@@ -197,13 +197,13 @@ export class DataHandleService {
         }).map((dashboard:any)=>{
           return Dashboard.build(dashboard);
         });
-        list.sort((x:Dashboard, y:Dashboard)=> {
-          if(y.dashboardName=="Demo"){
-            return 1;
-          }else{
-            return y.content.length-x.content.length;
-          }
-        });
+        // list.sort((x:Dashboard, y:Dashboard)=> {
+        //   if(y.dashboardName=="Demo"){
+        //     return 1;
+        //   }else{
+        //     return y.content.length-x.content.length;
+        //   }
+        // });
         return list;
       } else {
         return [];

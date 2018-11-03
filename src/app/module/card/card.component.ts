@@ -20,17 +20,12 @@ import {Measure} from "../../common/model/card/schema.measure";
 import {Dimension} from "../../common/model/card/schema.dimension";
 import {MetaData} from "../../common/model/card/schema.metadata";
 import {Cube} from "../../common/model/card/schema.cube";
-import {CardService} from "../../common/service/card.service";
 import {HashMap} from "../../common/model/card/card.query.template";
-import {DragulaService} from 'ng2-dragula/ng2-dragula';
 import {Loading} from "../../common/loading.mask.util";
 import {ChartUtil} from "../../chart/chart.util";
 import {flyIn} from '../../animations'
 import {OlapComponent} from './card.olap.component';
 import {QueryComponent} from "./card.query.component";
-// import {QueryMetaDataComponent} from "./card.query.metadata.component";
-// import {CardLimitComponent} from "./card.limit.component";
-// declare var Sonic: any;
 @Component({
   encapsulation: ViewEncapsulation.None,
   templateUrl: './card.component.html',

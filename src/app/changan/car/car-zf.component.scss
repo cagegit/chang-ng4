@@ -57,14 +57,12 @@
 .select_black {
   border-top:25px solid transparent;
   border-bottom:25px solid #e0e0e054;
-  border-left:80px solid #e0e0e054;
-  border-right:80px solid transparent;
+  border-left:160px solid #e0e0e054;
+  border-right:160px solid transparent;
 
 }
 
 .item_colorBox {
-  // height: 50px;
-  // width:160px;
   width: 100%;
   height: 100%;
   position: relative;
@@ -72,8 +70,6 @@
 
 .select_colors {
   display: block;
-  // height: 50px;
-  // width: 160px;
   width: 100%;
   height: 100%;
   float: left;
@@ -91,4 +87,5 @@
   right: 18px;
   top: 8px;
 }
+
 

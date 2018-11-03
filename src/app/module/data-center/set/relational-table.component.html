@@ -45,7 +45,7 @@
         <button class="self_btn create_relation c_49a2df" (click)='addRelation()'>添加</button>
       </div>
       <div class="table_box">
-        <div class="table_tit self_clearfix">关联表<i class="iconfont icon-clear self_right" (click)="clearRelation(tableJoin)"></i></div>
+        <div class="table_tit self_clearfix">关联表<i class="iconfont icon-clear self_right" (click)="clearRelation()"></i></div>
         <ul class="table_list scroll_bar" *ngIf="starSchema&&starSchema.allJoins">
           <li class="self_clearfix" *ngFor="let tableJoin of starSchema.allJoins"><span>{{tableJoin.leftTable}}.{{tableJoin.leftField}} -INNER JOIN - {{tableJoin.rightTable}}.{{tableJoin.rightField}}</span><i class="iconfont self_right icon-shanchu1" (click)="deleteRelation(tableJoin)"></i></li>
         </ul>

@@ -109,7 +109,7 @@ export class UploaderToolComponent implements OnInit, OnChanges {
       };
     }
   }
-  uploadFile() {
+  uploadFile(e) {
     this.resetForm();
     if(this.isTime) {
       if(!this.start) {

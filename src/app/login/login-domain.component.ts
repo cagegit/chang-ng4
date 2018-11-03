@@ -1,11 +1,9 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { AppNotification } from "../app.notification";
 import { AuthService } from "../auth.service";
-import { DomainFactory } from "../common/DomainFactory";
 import { CFG } from "../common/CFG";
-import { ModalDirective } from "ng2-bootstrap";
+import { ModalDirective } from "ngx-bootstrap";
 
 @Component({
   templateUrl: "login-domain.component.html",
@@ -19,7 +17,7 @@ export class LoginDomainComponent implements OnInit {
   loginDomainForm: FormGroup;
   @ViewChild('loginDomain') loginDomain: ModalDirective;
 
-  constructor(public authService: AuthService, public router: Router, private formBuilder: FormBuilder, private appNotification: AppNotification) {
+  constructor(public authService: AuthService, public router: Router, private formBuilder: FormBuilder) {
     //TODO : 测试数据,待删除
     this.modelDomain = (CFG.DEV.ENV == CFG.DEV_OPS.DEV ? CFG.DEV.DEBUG_USER.userDomain : '');
   }

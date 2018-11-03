@@ -11,7 +11,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AppNotification} from "../../app.notification";
 import {CardService} from "../../common/service/card.service";
 import {DataSetService} from "../../common/service/data-set.service";
-import {DragulaService} from "ng2-dragula";
 import {flyIn} from "../../animations";
 import {DataSourceService} from "../../common/service/data-source.service";
 import {DataSourceTable} from "../../common/model/data-source-table.model";

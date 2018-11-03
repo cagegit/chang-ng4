@@ -4,7 +4,6 @@
 import { Component ,ViewChild , ElementRef ,Renderer} from '@angular/core';
 import {LogService} from "../common/service/log.service";
 import {Log} from "../common/model/log.model";
-import {CFG} from "../common/CFG";
 import { flyIn } from '../animations'
 import {AppContext} from "../common/AppContext";
 import {SIZES} from "../common/size-in-documnet";
@@ -16,6 +15,7 @@ import {SIZES} from "../common/size-in-documnet";
   ]
 })
 export class MessageListComponent {
+  active =false;
   recentlyLogs=[];
   itemsPerPage:number = 20;
   totalItems:number;

@@ -10,13 +10,14 @@ import {QueryResult} from "../../common/model/card/query.model";
 })
 export class QueryOriginalShowComponent implements OnChanges{
   @Input() cardResult:QueryResult;
-@Input() page:number;
-@Input() totalPage:number;
+  @Input() page:number;
+  @Input() totalPage:number;
+  curPage:any;
   ngOnChanges(changes: SimpleChanges): void {
    let resultChange=changes['cardResult'];
    if(resultChange&&!resultChange.isFirstChange()){
      this.cardResult=resultChange.currentValue;
    }
   }
-
+  changPageFn(e) {}
 }

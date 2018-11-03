@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Rx";
 import { HttpClient } from "@angular/common/http";
 import "rxjs/operators";
-import CHANG from "../../../changan/CFG_CHANG";
+import {CHANG} from "../../../changan/CFG_CHANG";
 
 @Injectable()
 export class DataSourceService {

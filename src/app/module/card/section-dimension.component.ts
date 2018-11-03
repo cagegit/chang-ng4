@@ -3,7 +3,7 @@
  */
 import {
   Component, ViewChild, Renderer, EventEmitter, Input, Output} from '@angular/core';
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 import {TemplateHelper} from "./templateHelper";
 import {Dimension, Level} from "../../common/model/card/schema.dimension";
 import {CardUtils} from "./card.utils";

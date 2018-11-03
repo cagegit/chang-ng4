@@ -1,4 +1,4 @@
-import {NgGridItemConfig} from "angular2-grid/dist/main";
+import {NgGridItemConfig} from "../../ng-grid";
 export class LayoutUtil{
   private static MAX_COLS=6;
   private static DRAG_SELECTOR= '.dev-drag';

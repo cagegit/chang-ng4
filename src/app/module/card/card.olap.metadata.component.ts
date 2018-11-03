@@ -13,15 +13,12 @@ import {Measure} from "../../common/model/card/schema.measure";
 import {Dimension} from "../../common/model/card/schema.dimension";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AppNotification} from "../../app.notification";
-import {DragulaService} from "ng2-dragula/index";
 import {flyIn} from "../../animations";
 import {MetaData} from "../../common/model/card/schema.metadata";
 import {CardService} from '../../common/service/card.service'
 import {Cube} from "../../common/model/card/schema.cube";
 import {HashMap} from "../../common/model/card/card.query.template";
-import {Error} from "../../common/model/Error"
 import {DataSetService} from "../../common/service/data-set.service";
-import { ChangService } from '../../changan/chang.service';
 import { DataHandleService } from '../../changan/data.handle.service';
 @Component({
   selector:'olap-metadata',

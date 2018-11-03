@@ -1,16 +1,6 @@
-import {
-  Component,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
-  Renderer,
-  OnInit
-} from "@angular/core";
+import { Component, AfterViewInit, Renderer, OnInit } from "@angular/core";
 import { AppNotification } from "../../../app.notification";
-import { DomainFactory } from "../../../common/DomainFactory";
-import { NzMessageService } from "ng-zorro-antd";
 import { ConfigService } from "./config.service";
-import { state } from "@angular/core";
 
 @Component({
   templateUrl: "./config-menu.component.html",
@@ -19,7 +9,7 @@ import { state } from "@angular/core";
 export class ConfigMenuComponent implements OnInit, AfterViewInit {
   // @ViewChild("taskDetail") taskDetail:TaskDetailComponent;
   searchList: Array<any> = [];
-  _dataSet: Array<any> = [];
+  _dataSet: any;
   _tableSet: Array<any> = [];
   addData: any = {};
   originData: any = {};
@@ -30,6 +20,7 @@ export class ConfigMenuComponent implements OnInit, AfterViewInit {
   private regex = new RegExp(
     "[`~!@#$^&%*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？《》]"
   );
+  private space = /(^\s+)|(\s+$)/;
   constructor(
     private renderer: Renderer,
     private appNotification: AppNotification,
@@ -70,7 +61,7 @@ export class ConfigMenuComponent implements OnInit, AfterViewInit {
     if (flag == "add") {
       this.title = "新增菜单";
       this.addData = {};
-      // this.addData.status = "0";
+      this.addData.status = "1";
     } else {
       this.title = "编辑菜单";
       this.addData = JSON.parse(JSON.stringify(item));
@@ -85,7 +76,7 @@ export class ConfigMenuComponent implements OnInit, AfterViewInit {
       this.addData.status = this.addData.status + "";
     } else {
       this.addData = {};
-      // this.addData.status = "0";
+      this.addData.status = "1";
     }
   }
 
@@ -120,16 +111,16 @@ export class ConfigMenuComponent implements OnInit, AfterViewInit {
   }
 
   submit() {
-    if (this.addData.name) {
-      this.addData.name = this.addData.name.trim();
-    }
     if (
       !this.addData.name ||
       (this.addData.name && this.addData.name.length < 2) ||
       (this.addData.name && this.addData.name.length > 20) ||
-      (this.addData.name && this.regex.test(this.addData.name))
+      ((this.addData.name && this.regex.test(this.addData.name)) ||
+        (this.addData.name && this.space.test(this.addData.name)))
     ) {
-      this.appNotification.error("请输入名称(2-20字符,特殊字符除外)");
+      this.appNotification.error(
+        "请输入名称(2-20字符,特殊字符除外,首尾不可有空格)"
+      );
     } else if (!this.addData.status) {
       this.appNotification.error("请选择启用状态");
     } else {

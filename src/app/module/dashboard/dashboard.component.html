@@ -1,13 +1,13 @@
-<template #itemTemplate let-page="item.value" let-index="index">
+<ng-template #itemTemplate let-page="item.value" let-index="index">
   <div class="sortable-item-inner" [class.cur]="page.pageID == curPage.pageID">
     <span  (click)="tabClick(page,$event)" title="双击修改页面名称">{{page.pageName}}</span>
     <input type="text" value="{{page.pageName}}" #inputN (blur)="renamePage($event,page,inputN.value)">
     <i class="iconfont icon-xxz" *ngIf ="dashboard.content.length>1" (click)="showDeleteConfirmPage($event,page)"></i>
   </div>
-</template>
+</ng-template>
 
 
-<div class="dashboard_container" #dashboardBox  [@flyIn]="active">
+<div class="dashboard_container" #dashboardBox  [@flyIn]="'active'">
   <div class="dashboard_box">
     <div class="panel_title"><input type="text" #dashboardName maxlength="50" value="{{dashboard.dashboardName}}" (blur)="changeDashboardName($event,dashboardName.value)"></div>
     <div class="panel_top">
@@ -25,13 +25,13 @@
 
       <div class="panel_icon_list">
         <i class="iconfont panel_add_btn "(click)="createPage()"tooltip="打开新的标签页" placement="bottom"  ></i>
-        <i class="iconfont icon-tianjia-copy " *ngIf="curPage&&!curPage.href&&pageType!='iframe'" (click)="addPanel($event)"tooltip="添加面板" placement="bottom"  ></i>
-        <i class="iconfont icon-layout2" (click)="resetLayout()"tooltip="清空" placement="bottom" style="margin-right: 15px;"></i>
+        <i class="iconfont icon-tianjia-copy " *ngIf="curPage&&!curPage.href&&pageType!='iframe'" (click)="addPanel($event)" tooltip="添加面板" placement="bottom"  ></i>
+        <i class="iconfont icon-layout2" *ngIf="curPage && curPage.panels.length > 0" (click)="resetLayout()" tooltip="清空" placement="bottom" style="margin-right: 15px;"></i>
         <!--<span (click)="showLayer($event,'layoutListFlag')"><i class="iconfont icon-layout2" ></i><i class="iconfont icon-jiantouyou "></i></span>-->
         <span>|</span>
         <i class="iconfont icon-iconshezhi01 " tooltip="权限设置" placement="bottom" *ngIf="dashboard.dashboardID&&dashboard.hasPermission(PERMISSION_TYPE.AUTH)" (click)="resourcePermissionModal.show(dashboard.dashboardID,dashboard.dashboardName,RESOURCE_TYPE_DASHBOARD)" ></i>
         <i  *ngIf="dashboard.dashboardID" class="icon-yulan iconfont " tooltip="预览" placement="bottom" [routerLink]="[ '/dashboard',dashboard.dashboardID ]"></i>
-        <i class=" iconfont icon-baocun " tooltip="保存全部" placement="bottom" (click)="saveDashboard($event)"></i>
+        <i class=" iconfont icon-baocun " *ngIf="curPage && curPage.panels.length > 0" tooltip="保存全部" placement="bottom" (click)="saveDashboard($event)"></i>
       </div>
     </div>
     <div class="dashboard_content" style="min-height: 90vh;" [class.dashboard_table_box_hide]="curPage&&curPage.href||pageType=='iframe'">
@@ -53,6 +53,9 @@
           <select #menusList (change)="changeMenu($event,menusList.value)" class="dataset_select" *ngIf="menuList.length>0">
             <option *ngFor="let dataset of menuList" value="{{dataset.id}}" [selected]="curPage && (dataset.id === curPage.menuId)">{{dataset.name}}</option>
           </select>
+          <div *ngIf="isGettingTable" style="text-align: center;">
+            <i class="fa fa-spinner fa-pulse fa-2x"></i>
+          </div>
           <ul *ngIf="tableList.length>0" class="dashboard_cardlist scroll_bar" [dragula]='"panel"' [attr.data-drag]='"panel0"'>
             <li *ngFor="let table of tableList" class="card_item self_ellipsis" title="{{table.name}}" [class.sel]="usedTables.indexOf(table.id+'')>=0" [attr.data-cardID]="table.id" [attr.data-dashType]="'conf'" [attr.data-cardName]="table.name" [attr.data-defaultTime]="table.defaultTime">{{table.name}}</li>
           </ul>
@@ -116,4 +119,4 @@
   </div>
 </div>
 
-<resource-permission-modal  #resourcePermissionModal (changeUserPermission)="update($event)"></resource-permission-modal>
+<!--<resource-permission-modal  #resourcePermissionModal (changeUserPermission)="update($event)"></resource-permission-modal>-->

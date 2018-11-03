@@ -1,4 +1,9 @@
-.p_panel_box{ width: 100%; background-color: #e5e5e5; padding:20px 50px; }
+.p_panel_box{
+  width: 100%;
+  background-color: #e5e5e5;
+  padding:20px 50px;
+  min-height: 85vh;
+}
 .p_panel_box_template{ padding: 20px 0; background-color: #fff;}
 .p_panel_box_template1{ padding-top: 0;}
 .panel_content_box{ width: 100%;}

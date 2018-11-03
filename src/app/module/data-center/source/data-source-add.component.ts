@@ -1,8 +1,8 @@
-import {Component, OnInit, AfterViewInit, ViewChild} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {AppNotification} from "../../../app.notification";
 import {DataSourceService} from "../../../common/service/data-source.service";
 import {Router} from "@angular/router";
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 import {CFG} from "../../../common/CFG";
 @Component({
   selector:'data-source-add-modal',

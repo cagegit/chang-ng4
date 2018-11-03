@@ -2,7 +2,7 @@ import { Component,ViewContainerRef, ViewChild } from '@angular/core';
 import {AppState} from "../../app.service";
 import {AppContext} from "../../common/AppContext";
 import {AppWebSocketService} from "../../common/service/app.websocket.service";
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 import "../../rxjs-extensions";
 import {Router, ActivatedRoute, NavigationEnd} from "@angular/router";
 import {flyIn} from "../../animations";

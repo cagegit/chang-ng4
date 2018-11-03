@@ -1,9 +1,9 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { AuthGuard } from "../../auth-guard.service";
+// import { NgModule } from "@angular/core";
+// import { Routes, RouterModule } from "@angular/router";
 // import { ConfigMenuComponent } from "./config/config-menu.component";
 // import { ConfigTableComponent } from "./config/config-table.component";
-import { ConfigComponent } from './config.component';
+// import { ConfigComponent } from './config.component';
+import { AuthGuard } from "../../auth-guard.service";
 import { ConfigMenuComponent } from './config-menu.component';
 import { ConfigTableComponent } from './config-table.component';
 import { DataCenterComponent } from '../data-center.component';

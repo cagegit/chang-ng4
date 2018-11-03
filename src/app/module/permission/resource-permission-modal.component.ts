@@ -1,12 +1,9 @@
-import {
-  Component, OnInit, Input, ViewChild, AfterViewInit, Output, EventEmitter
-} from "@angular/core";
-import {ModalDirective} from "ng2-bootstrap";
+import { Component,ViewChild, Output, EventEmitter } from "@angular/core";
+import {ModalDirective} from "ngx-bootstrap";
 import {ResourceTypeInfo} from "./resource-permission.component";
 import {ResourcePermission} from "../../common/model/resource-permission.model";
 import {ResourcePermissionService} from "../../common/service/resource-permission.service";
 import {AppNotification} from "../../app.notification";
-import {Error} from "../../common/model/Error";
 @Component({
   selector:'resource-permission-modal',
   templateUrl: './resource-permission-modal.component.html',

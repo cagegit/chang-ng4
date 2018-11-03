@@ -38,9 +38,11 @@ export class CardSummaryComponent implements OnInit{
       this.query =JSON.parse(this.card.content.replace(/\n/g, ' ')) as QueryInfo;
     }else{
       this.query =JSON.parse(this.card.content.replace(/\n/g, ' ')) as QueryTemplate;
-      console.log(this.query);
+      // console.log(this.query);
     }
-
+    // 设置默认图片
+    this.card.avatarUrl = this.card.avatarUrl || 'assets/img/head.png';
+    this.card.displayName = this.card.displayName || 'admin';
     if(this.renderMode!='txt'&&this.renderMode!='table'&&this.renderMode!='originTable') {
       let pros = this.query.properties['saiku.ui.chart.options'];
       // this.chartUtil.options.chart.type=this.renderMode;

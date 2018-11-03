@@ -1,5 +1,4 @@
-<nz-modal [nzVisible]="isVisible" [nzTitle]="'添加转发车辆'" [nzContent]="modalContent" (nzOnCancel)="handleCancel($event)"
-  (nzOnOk)="handleOk($event)" [nzWidth]="1000" #addVehicle [nzFooter]="false" [nzWrapClassName]="addVehicle">
+<nz-modal [nzVisible]="isVisible" [nzTitle]="'添加转发车辆'" [nzContent]="modalContent" (nzOnCancel)="handleCancel()" [nzWidth]="1000" #addVehicle [nzFooter]="false" [nzWrapClassName]="addVehicle">
   <ng-template #modalContent>
     <div class="self_modal_input row" [ngStyle]="{'margin-left':'0px','margin-right':'0px'}">
       <nz-tabset [(nzSelectedIndex)]="currentTabIndex">
@@ -240,8 +239,7 @@
   </ng-template>
 </nz-modal>
 
-<nz-modal [nzVisible]="isTip" [nzTitle]="'提示'" [nzContent]="modalContents" (nzOnCancel)="handleCancels($event)"
-  (nzOnOk)="handleOk($event)" [nzFooter]="false">
+<nz-modal [nzVisible]="isTip" [nzTitle]="'提示'" [nzContent]="modalContents" (nzOnCancel)="handleCancels()" [nzFooter]="false">
   <ng-template #modalContents>
     <div class="modal-body clearfix form-inline" [ngStyle]="{'padding':'20px 10px'}">
       <span class="fz14">成功添加转发车辆 {{insertCount}} 辆 </span>
@@ -260,15 +258,14 @@
   </ng-template>
 </nz-modal>
 
-<nz-modal [nzVisible]="isSelect" [nzTitle]="'提示'" [nzContent]="modalContents1" (nzOnCancel)="handleCancels($event)"
-  (nzOnOk)="handleOk($event)" [nzFooter]="false">
+<nz-modal [nzVisible]="isSelect" [nzTitle]="'提示'" [nzContent]="modalContents1" (nzOnCancel)="handleCancels()" [nzFooter]="false">
   <ng-template #modalContents1>
     <div class="modal-body clearfix form-inline" [ngStyle]="{'padding':'20px 10px'}">
       <span class="fz14">成功添加转发车辆 {{insertCount}} 辆 </span>
       <span class="fz14" [hidden]="!existVehicleCount">
         重复添加
         <nz-tooltip [nzTitle]="'点击导出车辆信息'" [nzPlacement]="'top'">
-          <a nz-tooltip href="javaScript:;" (click)="exportExistVehicle()">[ {{existVehicleCount}}辆 ]</a>
+          <a nz-tooltip href="javaScript:void(0);" (click)="exportExistVehicle()">[ {{existVehicleCount}}辆 ]</a>
         </nz-tooltip>
         <!-- <a href="javascript:;" (click)="exportExistVehicle()"> {{existVehicleCount}} 辆</a> -->
       </span>

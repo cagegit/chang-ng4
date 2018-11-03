@@ -3,7 +3,7 @@
  */
 import {Component, Output, ViewChild, EventEmitter, Input} from "@angular/core";
 import {QueryInfo, QueryMeta, ShowColumn} from "../../common/model/card/query.model";
-import {ModalDirective} from "ng2-bootstrap";
+import {ModalDirective} from "ngx-bootstrap";
 import {Md5} from "ts-md5/dist/md5";
 @Component({
   selector: 'query-dim',

@@ -24,14 +24,7 @@ export class HttpClientInterceptor implements HttpInterceptor {
               const postUrl = "http://10.10.26.2:19010/monitor2/login.html?redirectUrl=" + redirectUrl;
               window.location.href = postUrl;
             } else {
-              const loginFrame:any = document.getElementById('loginIframe');
-              const url = location.protocol +'//'+location.host+'/dashboard?token=admin';
-              if(loginFrame) {
-                loginFrame.src = url;
-                setTimeout(() => {
-                  window.location.reload();
-                },300);
-              }
+              window.location.href = location.protocol +'//'+location.host+'/dashboard?token=admin';
             }
           }
         }

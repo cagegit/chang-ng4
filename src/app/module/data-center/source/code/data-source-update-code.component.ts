@@ -1,5 +1,6 @@
 import {Component, OnInit ,trigger ,state ,style ,transition , animate } from "@angular/core";
-import {Params, Router, ActivatedRoute} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
+import { ValidatorFn,AbstractControl} from '@angular/forms';
 import {AuthService} from "../../../../auth.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AppNotification} from "../../../../app.notification";
@@ -8,9 +9,17 @@ import {DataSourceService} from "../../../../common/service/data-source.service"
 import {GitDataSource, Project} from "../../../../common/model/git-data-source.model";
 import {Subject, Observable} from "rxjs/Rx";
 import {Error} from "../../../../common/model/Error"
-import { NGValidators } from 'ng-validators';
+// import { NGValidators } from 'ng-validators';
 import {DataSource} from "../../../../common/model/data-source.model";
 import {Pagination} from "../../../../common/model/pagination.model";
+// import isUrl from 'validator/lib/isURL';
+
+export function urlValidator(nameRe: RegExp): ValidatorFn {
+  return (control: AbstractControl): {[key: string]: any} | null => {
+    const forbidden = nameRe.test(control.value);
+    return forbidden ? {'forbiddenName': {value: control.value}} : null;
+  };
+}
 @Component({
   templateUrl:'./data-source-update-code.component.html',
   styleUrls:['../../data-center.component.scss'],
@@ -41,20 +50,20 @@ export class DataSourceUpdateCodeComponent implements OnInit{
   submitted = false;
   dataSourceForm: FormGroup;
   dataSource : GitDataSource=new GitDataSource();
-  private _allProjects : Project[]=[];
-  private _selectedProjects : Project[]=[];
+  _allProjects : Project[]=[];
+  _selectedProjects : Project[]=[];
   allProjectCount : number=0;
   searchTermStream = new Subject<any>();
   filterSearch ={left : "",right : ""};
   dashboardID : string;
-  foldState = {
+  foldState:any = {
     sourceName:'inactive',
     connectConfig:'inactive'
-  }
-  iconState = {
+  };
+  iconState:any = {
     sourceName:'inactive',
     connectConfig:'inactive'
-  }
+  };
   pagination : Pagination=new Pagination(0,0,0);
 
   get allProjects():Project[]{
@@ -162,7 +171,7 @@ export class DataSourceUpdateCodeComponent implements OnInit{
         ]],
         'gitHost': [this.dataSource.gitHost||"",[
           Validators.required,
-          NGValidators.isURL({ protocols: ['http','https'],require_protocol: true})
+          // NGValidators.isURL({ protocols: ['http','https'],require_protocol: true})
         ]],
         'gitUsername': [this.dataSource.gitUsername,[
           Validators.required
@@ -381,8 +390,8 @@ export class DataSourceUpdateCodeComponent implements OnInit{
     this.iconState[key]= this.iconState[key] === 'active' ? 'inactive': 'active';
   }
 
-  private showBranchSelect : boolean=false;
-  private currentSelectedProject : string;
+  showBranchSelect : boolean=false;
+  currentSelectedProject : string;
 
   selectBranch(projectName : string){
     this.dataSource=Object.assign(this.dataSource,this.dataSourceForm.value);

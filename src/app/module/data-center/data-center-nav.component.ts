@@ -8,8 +8,8 @@ import { AppContext } from "../../common/AppContext";
   selector: "data-center-nav",
   template: `
     <ul class="data_nav self_clearfix">
-      <li routerLink="/chang/data-center/config/menu" routerLinkActive="cur" [routerLinkActiveOptions]="{exact: false}">可配置报表</li>
-      <li routerLink="/chang/data-center/list/set" routerLinkActive="cur" [routerLinkActiveOptions]="{exact: false}">多维分析</li>
+      <li [routerLink]="['/chang/data-center/config/menu']" routerLinkActive="cur">可配置报表</li>
+      <li [routerLink]="['/chang/data-center/list/set']" routerLinkActive="cur">多维分析</li>
     </ul>
   `,
   styleUrls: ["./data-center.component.scss"],

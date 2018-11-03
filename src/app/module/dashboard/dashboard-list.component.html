@@ -42,7 +42,7 @@
 </div> -->
 
 
-<div class="user_right scroll_bar main_content" [@flyInOut]="active">
+<div class="user_right scroll_bar main_content" [@flyInOut]="'active'">
   <div class="data_list_box" style="min-height: 90vh;">
     <div class="list_box scroll_bar">
       <div class=" self_clearfix add_source">
@@ -59,7 +59,7 @@
           <div class="col-sm-2 col-lg-2 col-md-2 list_text_align">仪表盘名称</div>
           <!-- <div class="col-sm-2 col-lg-2 col-md-2 list_text_align">创建者</div> -->
           <div class="col-sm-2 col-lg-2 col-md-2">子页面个数</div>
-          <!-- <div class="col-sm-2 col-lg-2 col-md-2">数据更新时间</div> -->
+          <div class="col-sm-2 col-lg-2 col-md-2">数据更新时间</div>
           <!-- <div class="col-sm-2 col-lg-2 col-md-2">数据集</div> -->
           <div class="col-sm-2 col-lg-2 col-md-2"></div>
         </div>
@@ -73,8 +73,7 @@
             {{dashboard.createUserDisplayName}}
           </div> -->
           <div class="col-sm-2 col-lg-2 col-md-2 set_column account">{{dashboard.content.length}}个</div>
-          <!-- <div class="col-sm-2 col-lg-2 col-md-2 set_column add_time" title='{{dashboard.updatedTime|date:"yyyy-MM-dd HH:mm"}}'>{{dashboard.updatedTime|date:"yyyy-MM-dd
-            HH:mm:ss"}}</div> -->
+          <div class="col-sm-2 col-lg-2 col-md-2 set_column add_time" title='{{dashboard.updateTime|date:"yyyy-MM-dd HH:mm:ss"}}'>{{dashboard.updateTime|date:"yyyy-MM-dd HH:mm:ss"}}</div>
           <!-- <div class="col-sm-2 col-lg-2 col-md-2">
             <a *ngFor="let dataSetID of dashboard.datasetIds; let i=index" routerLink="/chang/data_set/{{dataSetID}}/card">{{i>0?',':''}}{{dashboard.datasetIds.length}}</a>
           </div> -->
@@ -93,4 +92,4 @@
 </div>
 
 <alert-confirm #dashboardConfirm (confirm)="delete($event)"></alert-confirm>
-<resource-permission-modal #resourcePermissionModal (changeUserPermission)="update($event)"></resource-permission-modal>
+<!--<resource-permission-modal #resourcePermissionModal (changeUserPermission)="update($event)"></resource-permission-modal>-->

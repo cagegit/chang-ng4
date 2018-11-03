@@ -1,5 +1,4 @@
 import {NgModule} from "@angular/core";
-import {TooltipModule} from "ng2-bootstrap";
 import {CardUpdateComponent} from "./card-update.component";
 import {CardComponent} from "./card.component";
 import {DataSetService} from "../../common/service/data-set.service";
@@ -19,11 +18,9 @@ import {QueryMetaDataComponent} from "./card.query.metadata.component";
 import {QueryDimensionComponent} from "./card.query.dimension.component";
 import {QueryOriginalShowComponent} from "./card.query.originalshow.component";
 import {QueryPrettyShowComponent} from "./card.query.prettyshow.component";
-import ChartMapModule from "../../common/maps/chart.map.module";
+import {ChartMapModule} from "../../common/maps/chart.map.module";
 import {CardLimitComponent} from "./card.limit.component";
 import { DataHandleService } from '../../changan/data.handle.service';
-import { AppNotification } from '../../app.notification';
-// import {ChartMapComponent} from "../../common/maps/card.map.component";
 @NgModule({
   imports: [
     SharedModule,

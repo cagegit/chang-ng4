@@ -4,7 +4,7 @@ import { ForwardService } from "./forward.service";
 import { AppNotification } from "../../app.notification";
 import { DomainFactory } from "../../common/DomainFactory";
 import { flyInOut } from "../../animations";
-import { NzMessageService } from "ng-zorro-antd";
+// import { NzMessageService } from "ng-zorro-antd";
 import { FormGroup, FormBuilder } from "@angular/forms";
 
 @Component({
@@ -43,7 +43,7 @@ export class ForwardConfigComponent implements OnInit {
   constructor(
     private forwardService: ForwardService,
     private appNotification: AppNotification,
-    private _message: NzMessageService,
+    // private appNotification: NzMessageService,
     private fb: FormBuilder
   ) {
     this.validateForm = fb.group({
@@ -158,7 +158,7 @@ export class ForwardConfigComponent implements OnInit {
     this.priority = false;
     this.addData.priority = "1";
     this.addData['forwardMode'] = "SOCKET";
-    this.addData['staticForwardPlatform'] = "空";
+    this.addData['staticForwardPlatform'] = "无";
     this.flag = false;
     }
   }
@@ -187,23 +187,23 @@ export class ForwardConfigComponent implements OnInit {
       this.addData.notes = this.addData.notes.trim();
     }
     if (!this.addData.unitName||(this.addData.unitName&&this.addData.unitName.length<2)||(this.addData.unitName&&this.addData.unitName.length>20)||(this.addData.unitName&&this.regex.test(this.addData.unitName))) {
-      this._message.error("请输入平台名称(2-20字符,特殊字符除外)");
+      this.appNotification.error("请输入平台名称(2-20字符,特殊字符除外)");
     }else if (!this.addData.staticForwardPlatform) {
-      this._message.error("请选择静态推送");
+      this.appNotification.error("请选择静态推送");
     } else if (!this.addData.forwardMode) {
-      this._message.error("请选择转发方式");
+      this.appNotification.error("请选择转发方式");
     } else if (!this.addData.address||(this.addData.address&&this.addData.address.length<5)||(this.addData.address&&this.addData.address.length>60)||(this.addData.address&&this.en.test(this.addData.address))) {
-      this._message.error("请输入目的地址(5-60字符,中文除外)");
+      this.appNotification.error("请输入目的地址(5-60字符,中文除外)");
     } else if (!this.addData.nsPort||(this.addData.nsPort&&this.addData.nsPort.length<2)||(this.addData.nsPort&&this.addData.nsPort.length>60)||(this.addData.nsPort&&this.en.test(this.addData.nsPort))) {
-      this._message.error("请输入目的命名空间/端口(2-60字符,中文除外)");
+      this.appNotification.error("请输入目的命名空间/端口(2-60字符,中文除外)");
     } else if (!this.addData.username||(this.addData.username&&this.addData.username.length<2)||(this.addData.username&&this.addData.username.length>20)||(this.addData.username&&this.en.test(this.addData.username))) {
-      this._message.error("请输入用户名(2-20字符,中文除外)");
+      this.appNotification.error("请输入用户名(2-20字符,中文除外)");
     } else if (!this.addData.password||(this.addData.password&&this.addData.password.length<2)||(this.addData.password&&this.addData.password.length>100)||(this.addData.password&&this.en.test(this.addData.password))) {
-      this._message.error("请输入密码(2-100字符,中文除外)");
+      this.appNotification.error("请输入密码(2-100字符,中文除外)");
     }else if ((this.addData.cdKey&&this.addData.cdKey.length<2)||(this.addData.cdKey&&this.addData.cdKey.length>100)||(this.addData.cdKey&&this.en.test(this.addData.cdKey))) {
-      this._message.error("请输入唯一识别码(2-100字符,中文除外)");
+      this.appNotification.error("请输入唯一识别码(2-100字符,中文除外)");
     } else if ((this.addData.notes&&this.addData.notes.length<2)||(this.addData.notes&&this.addData.notes.length>60)) {
-      this._message.error("请输入备注(2-60字符)");
+      this.appNotification.error("请输入备注(2-60字符)");
     } else {
       this.addData.unitName = this.addData.unitName.trim();
       this.addData.address = this.addData.address.trim();

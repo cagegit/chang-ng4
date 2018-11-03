@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Rx";
 import { Http } from "@angular/http";
-import CHANG from "../CFG_CHANG";
+import {CHANG} from "../CFG_CHANG";
 import { Permission } from "../../../common/model/Permission";
-import { DomainFactory } from "../../common/DomainFactory";
 @Injectable()
 export class ProtocolService {
   constructor(private http: Http) {}

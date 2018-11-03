@@ -28,8 +28,8 @@ import {Card} from "../../common/model/card/card.model";
 })
 export class PreviewFilterComponent implements OnInit {
 
-  @Input() left:string;
-  @Input() top:string;
+  @Input() left:any;
+  @Input() top:any;
   @Input() filters:SinglePanelFilter[];
   @Input() panel:Panel;
   @Output() setFilterEvent = new EventEmitter<any>();

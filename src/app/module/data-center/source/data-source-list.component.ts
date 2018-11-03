@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { DataSource } from "../../../common/model/data-source.model";
 import { AppNotification } from "../../../app.notification";
-import { Error } from "../../../common/model/Error";
 import { DataSourceService } from "./data-source.service";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { AppContext } from "../../../common/AppContext";
@@ -9,10 +7,7 @@ import { CFG } from "../../../common/CFG";
 import { ResourcePermission } from "../../../common/model/resource-permission.model";
 import { NgProgressModule } from "ng2-progressbar/dist/index";
 import { DataSourceAddModalComponent } from "./data-source-add.component";
-import { DomainFactory } from "../../../common/DomainFactory";
-import { NzMessageService } from "ng-zorro-antd";
 import { flyInOut } from "../../../animations";
-import { element } from 'protractor';
 @Component({
   templateUrl: "./data-source-list.component.html",
   styleUrls: ["../data-center.component.scss"],

@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Rx";
 import { Http } from "@angular/http";
-import CHANG from "../CFG_CHANG";
+import {CHANG} from "../CFG_CHANG";
 import { Permission } from "../../../common/model/Permission";
-import { DomainFactory } from "../../common/DomainFactory";
 import { platform } from "os";
 @Injectable()
 export class ForwardService {
@@ -84,7 +83,7 @@ export class ForwardService {
   }
 
   //根据字段搜索车辆 导出
-  exportVehiclesListApi(data, id, taskName, platformName): Observable<boolean> {
+  exportVehiclesListApi(data, id, taskName, platformName): Observable<any> {
     const p = new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       // const formData = new FormData();
@@ -183,7 +182,7 @@ export class ForwardService {
   }
 
   //导出重复添加车辆
-  exportExistVehicleApi(data): Observable<boolean> {
+  exportExistVehicleApi(data): Observable<any> {
     const p = new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       // const formData = new FormData();

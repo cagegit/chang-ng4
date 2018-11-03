@@ -1,6 +1,6 @@
 <div class="saiku_center_r"  [@toRightState]="toRightStateStr">
 <div class="tab_box self_clearfix">
-<div class="fold_btn self_left self_cursor"><i class="iconfont icon-shouqi1 " [class.gray]="!chartToolBarStatus" #toRightBtn (click)="changeRightFolderState($event)"></i></div>
+<div class="fold_btn self_left self_cursor"><i class="iconfont icon-shouqi1 " [class.gray]="!chartToolBarStatus" #toRightBtn (click)="changeRightFolderState()"></i></div>
 <ul class="tab_list self_left">
 <li class="cur" (click)="changeTab($event,true)">选择图表</li>
 
@@ -48,10 +48,10 @@
 </ng-template>
 <ng-template [ngIf]="iconType=='more'">
   <li (click)="changeShowType('polar-spider',$event.target)"><img [class.icon_cur]="chartType=='polar-spider'" src="assets/img/polar-spider.png" title="蜘蛛图"></li>
-<li title="散点图，列上有维度且有两个指标时可用。"><img [class.icon_cur]="chartType=='scatter'" src="assets/img/scatter.png"  [class.gray]="!chartUtil.selectColumnCount>0||chartUtil.measureCount!=2" (click)="changeShowType('scatter',$event.target)"></li>
+<li title="散点图，列上有维度且有两个指标时可用。"><img [class.icon_cur]="chartType=='scatter'" src="assets/img/scatter.png"  [class.gray]="!(chartUtil.selectColumnCount>0)||chartUtil.measureCount!=2" (click)="changeShowType('scatter',$event.target)"></li>
 <li (click)="changeShowType('mixChart',$event.target)"><img [class.icon_cur]="chartType=='mixChart'" src="assets/img/mixChart.png" title="混合图"></li>
-<li title="气泡图，列上有维度且有三个指标时可用。"><img [class.icon_cur]="chartType=='bubble'" src="assets/img/bubble.png" [class.gray]="!chartUtil.selectColumnCount>0||chartUtil.measureCount!=3" (click)="changeShowType('bubble',$event.target)"></li>
-<li  title="热力图，只有一个指标时可用。"><img [class.icon_cur]="chartType=='heatMap'" src="assets/img/heatMap.png" [class.gray]="chartUtil.measureCount!=1" (click)="changeShowType('heatMap',$event.target)"></li>
+<li title="气泡图，列上有维度且有三个指标时可用。"><img [class.icon_cur]="chartType=='bubble'" src="assets/img/bubble.png" [class.gray]="!(chartUtil.selectColumnCount>0)||chartUtil.measureCount!=3" (click)="changeShowType('bubble',$event.target)"></li>
+<li  title="热力图，只有一个指标时可用。"><img [class.icon_cur]="chartType=='heatMap'" src="assets/img/heatMap.png" [class.gray]="chartUtil.measureCount!=1" (click)="changeShowType('heatMap',$event.target)"/></li>
 
 </ng-template>
   <ng-template [ngIf]="iconType=='map'">

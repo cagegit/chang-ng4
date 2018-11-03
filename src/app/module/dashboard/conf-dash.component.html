@@ -1,13 +1,13 @@
-<template #itemTemplate let-page="item.value" let-index="index">
+<ng-template #itemTemplate let-page="item.value" let-index="index">
   <div class="sortable-item-inner" [class.cur]="page.pageID == curPage.pageID">
     <span  (click)="tabClick(page,$event)">{{page.pageName}}</span>
     <input type="text" value="{{page.pageName}}" #inputN (blur)="renamePage($event,page,inputN.value)">
     <i class="iconfont icon-xxz" *ngIf ="dashboard.content.length>1" (click)="showDeleteConfirmPage($event,page)"></i>
   </div>
-</template>
+</ng-template>
 
 
-<div class="dashboard_container" #dashboardBox  [@flyIn]="active">
+<div class="dashboard_container" #dashboardBox  [@flyIn]="'active'">
   <div class="dashboard_box">
     <div class="panel_title"><input type="text" #dashboardName maxlength="50" value="{{dashboard.dashboardName}}" (blur)="changeDashboardName($event,dashboardName.value)"></div>
     <div class="panel_top">
@@ -121,5 +121,5 @@
   </div>
 </div>
 
-<resource-permission-modal  #resourcePermissionModal (changeUserPermission)="update($event)"></resource-permission-modal>
+<!--<resource-permission-modal  #resourcePermissionModal (changeUserPermission)="update($event)"></resource-permission-modal>-->
 
