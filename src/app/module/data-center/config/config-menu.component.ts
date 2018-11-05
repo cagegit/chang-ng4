@@ -59,11 +59,11 @@ export class ConfigMenuComponent implements OnInit, AfterViewInit {
   show(flag, item) {
     this.isVisible = true;
     if (flag == "add") {
-      this.title = "新增菜单";
+      this.title = "新增报表集";
       this.addData = {};
       this.addData.status = "1";
     } else {
-      this.title = "编辑菜单";
+      this.title = "编辑报表集";
       this.addData = JSON.parse(JSON.stringify(item));
       this.originData = JSON.parse(JSON.stringify(item));
       this.addData.status = this.addData.status + "";

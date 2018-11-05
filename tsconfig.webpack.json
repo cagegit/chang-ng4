@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "es2015",
+    "module": "esnext",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "noEmit": false,
     "noEmitHelpers": true,
     "importHelpers": true,
     "strictNullChecks": false,
@@ -15,6 +14,10 @@
       "es2015",
       "dom"
     ],
+    "baseUrl": "./src",
+    "paths": {
+      "@angular/*": ["../node_modules/@angular/*"]
+    },
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -27,18 +30,9 @@
     "node_modules",
     "dist",
     "src/**/*.spec.ts",
-    "src/**/*.e2e.ts",
-    "static",
-    "compiled",
-    "dll",
-    "config"
+    "src/**/*.e2e.ts"
   ],
-  "awesomeTypescriptLoaderOptions": {
-    "forkChecker": true,
-    "useWebpackText": true
-  },
   "angularCompilerOptions": {
-    "genDir": "compiled/",
     "skipMetadataEmit": true
   },
   "compileOnSave": false,

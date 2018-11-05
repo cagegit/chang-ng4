@@ -1,11 +1,11 @@
 <div style="position: relative;">
   <div class="user_center" style="position: absolute;top:0;left: 0;bottom: 0;min-height: 100vh">
     <div class="relative">
-      <h5 class="title">菜单列表</h5>
+      <h5 class="title">报表集列表</h5>
       <div class="invite-position invite"><button (click)="show('add','')"><span>新增</span></button></div>
     </div>
     <div class="form-group search_box">
-      <input type="text" autocomplete="off" #search class="form-control" (keyup)="searchFun(search.value)" placeholder="搜索任务名称"
+      <input type="text" autocomplete="off" #search class="form-control" (keyup)="searchFun(search.value)" placeholder="搜索报表集名称"
         [(ngModel)]="searchKey" name="searchKey">
       <i class="iconfont icon-fangdajing"></i>
     </div>
@@ -14,7 +14,7 @@
         <a title="{{item.name}}" class="over-text">{{item.name}}</a>
         <span class="span-right" [hidden]="currentIndex!==item.id">
           <i class="iconfont icon-qianming" (click)="show('edit',item)"></i>
-          <i class="iconfont icon-shanchu" (click)="dataSetConfirm.open('删除菜单','确定要删除该数据吗？',item.id);$event.stopPropagation();"></i>
+          <i class="iconfont icon-shanchu" (click)="dataSetConfirm.open('删除报表集','确定要删除该数据吗？',item.id);$event.stopPropagation();"></i>
         </span>
       </li>
     </ul>

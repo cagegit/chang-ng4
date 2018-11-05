@@ -55,9 +55,11 @@ const METADATA = webpackMerge(
 );
 
 module.exports = function(env) {
+  METADATA.envFileSuffix = 'prod';
   return webpackMerge(
     commonConfig({
-      env: ENV
+      env: ENV,
+      metadata: METADATA
     }),
     {
       /**
@@ -243,15 +245,15 @@ module.exports = function(env) {
          * See: http://webpack.github.io/docs/list-of-plugins.html#normalmodulereplacementplugin
          */
 
-        new NormalModuleReplacementPlugin(
-          /angular2-hmr/,
-          helpers.root("config/empty.js")
-        ),
+        // new NormalModuleReplacementPlugin(
+        //   /angular2-hmr/,
+        //   helpers.root("config/empty.js")
+        // ),
 
-        new NormalModuleReplacementPlugin(
-          /zone\.js(\\|\/)dist(\\|\/)long-stack-trace-zone/,
-          helpers.root("config/empty.js")
-        ),
+        // new NormalModuleReplacementPlugin(
+        //   /zone\.js(\\|\/)dist(\\|\/)long-stack-trace-zone/,
+        //   helpers.root("config/empty.js")
+        // ),
 
         // AoT
         // new NormalModuleReplacementPlugin(

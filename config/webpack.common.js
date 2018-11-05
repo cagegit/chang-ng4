@@ -10,8 +10,8 @@ const helpers = require("./helpers");
  */
 // problem with copy-webpack-plugin
 const AssetsPlugin = require("assets-webpack-plugin");
-const NormalModuleReplacementPlugin = require("webpack/lib/NormalModuleReplacementPlugin");
-const ContextReplacementPlugin = require("webpack/lib/ContextReplacementPlugin");
+// const NormalModuleReplacementPlugin = require("webpack/lib/NormalModuleReplacementPlugin");
+// const ContextReplacementPlugin = require("webpack/lib/ContextReplacementPlugin");
 const CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CheckerPlugin = require("awesome-typescript-loader").CheckerPlugin;
@@ -19,18 +19,15 @@ const HtmlElementsPlugin = require("./html-elements-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
-const ngcWebpack = require("ngc-webpack");
 const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
+const buildUtils = require('./build-utils');
 /*
  * Webpack Constants
  */
 const HMR = helpers.hasProcessFlag("hot");
 const AOT = helpers.hasNpmFlag("aot");
-const METADATA = {
-  title: "长安智能网联监控与数据转发系统",
-  baseUrl: "/",
-  isDevServer: helpers.isWebpackDevServer(),
+const META = {
   cfg: {}
 };
 
@@ -41,6 +38,18 @@ const METADATA = {
  */
 module.exports = function(options) {
   isProd = options.env === "production";
+  const METADATA = Object.assign({},META,buildUtils.DEFAULT_METADATA, options.metadata || {});
+  const ngcWebpackConfig = buildUtils.ngcWebpackSetup(isProd, METADATA);
+  const entry = {
+    polyfills: "./src/polyfills.browser.ts",
+    main: "./src/main.ts",
+  };
+  Object.assign(ngcWebpackConfig.plugin, {
+    tsConfigPath: METADATA.tsConfigPath,
+    mainPath: entry.main
+  });
+  console.log(ngcWebpackConfig.loaders[0].use);
+  console.log(JSON.stringify(ngcWebpackConfig.plugin));
   return {
     /*
      * Cache generated modules and chunks to improve performance for multiple incremental builds.
@@ -57,10 +66,7 @@ module.exports = function(options) {
      *
      * See: http://webpack.github.io/docs/configuration.html#entry
      */
-    entry: {
-      polyfills: "./src/polyfills.browser.ts",
-      main: AOT ? "./src/main.browser.aot.ts" : "./src/main.ts",
-    },
+    entry: entry,
 
     /*
      * Options affecting the resolving of modules.
@@ -133,11 +139,12 @@ module.exports = function(options) {
         //   ],
         //   exclude: [/\.(spec|e2e)\.ts$/]
         // },
-        {
-          test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
-          use: ['@ngtools/webpack','angular-router-loader?genDir=compiled&aot='+AOT],
-          exclude: [/\.(spec|e2e)\.ts$/]
-        },
+        // {
+        //   test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+        //   use: ['@ngtools/webpack'],
+        //   exclude: [/\.(spec|e2e)\.ts$/]
+        // },
+        ...ngcWebpackConfig.loaders,
         // {
         //   test: /\.(ts|js)$/,
         //   loaders: ['angular-router-loader?aot=false'],
@@ -264,14 +271,14 @@ module.exports = function(options) {
        * See: https://webpack.github.io/docs/list-of-plugins.html#contextreplacementplugin
        * See: https://github.com/angular/angular/issues/11580
        */
-      new ContextReplacementPlugin(
-        // The (\\|\/) piece accounts for path separators in *nix and Windows
-        /angular(\\|\/)core(\\|\/)@angular/,
-        helpers.root("src"), // location of your src
-        {
-          // your Angular Async Route paths relative to this root directory
-        }
-      ),
+      // new ContextReplacementPlugin(
+      //   // The (\\|\/) piece accounts for path separators in *nix and Windows
+      //   /angular(\\|\/)core(\\|\/)@angular/,
+      //   helpers.root("src"), // location of your src
+      //   {
+      //     // your Angular Async Route paths relative to this root directory
+      //   }
+      // ),
 
       /*
        * Plugin: CopyWebpackPlugin
@@ -355,21 +362,17 @@ module.exports = function(options) {
       //   tsConfigPath: 'tsconfig.webpack.json',
       //   mainPath: './src/main.browser.ts'
       // }),
-      new AngularCompilerPlugin({
+      new AngularCompilerPlugin(
+        // {
         // skipCodeGeneration: true,
+        // mainPath: 'src/main.ts',
+        // hostReplacementPaths:
+        // { "D:\work\update-aot\chang-ng4\src\environments\environment.ts": 'D:\\work\\update-aot\\chang-ng4\\src\\environments\\environment.ts' },
         // sourceMap: true,
-        // compilerOptions: { module: 'commonjs' },
-        // tsConfigPath: 'tsconfig.webpack.json',
-        // mainPath: 'src/main.browser.ts',
-        // entryModule: 'src/app/app.module#AppModule',
-        mainPath: helpers.root('src/main.ts'),
-        platform: 0,
-        sourceMap: true,
-        tsConfigPath: helpers.root("tsconfig.webpack.json"),
-        skipCodeGeneration: true,
-        compilerOptions: {},
-        entryModule: helpers.root('src/app/app.module#AppModule'),
-      }),
+        // tsConfigPath: helpers.root("tsconfig.webpack.json")
+      // }
+      ngcWebpackConfig.plugin
+      ),
       // // Fix Angular 2
       // new NormalModuleReplacementPlugin(
       //   /facade(\\|\/)async/,

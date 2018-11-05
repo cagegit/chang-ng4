@@ -29,11 +29,15 @@
   },
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "src/**/*.spec.ts",
+    "src/**/*.e2e.ts",
+    "static",
+    "dll",
+    "config"
   ],
-  "awesomeTypescriptLoaderOptions": {
-    "forkChecker": true,
-    "useWebpackText": true
+  "angularCompilerOptions": {
+    "genDir": "compiled"
   },
   "compileOnSave": false,
   "buildOnSave": false,

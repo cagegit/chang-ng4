@@ -4,13 +4,13 @@
 
 const helpers = require("./helpers");
 const webpackMerge = require("webpack-merge"); // used to merge webpack configs
-const webpackMergeDll = webpackMerge.strategy({ plugins: "replace" });
+// const webpackMergeDll = webpackMerge.strategy({ plugins: "replace" });
 const commonConfig = require("./webpack.common.js"); // the settings that are common to prod and dev
 const path = require('path');
 /**
  * Webpack Plugins
  */
-const AddAssetHtmlPlugin = require("add-asset-html-webpack-plugin");
+// const AddAssetHtmlPlugin = require("add-asset-html-webpack-plugin");
 const DefinePlugin = require("webpack/lib/DefinePlugin");
 // const NamedModulesPlugin = require("webpack/lib/NamedModulesPlugin");
 // const LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
@@ -48,7 +48,7 @@ const METADATA = webpackMerge(commonConfig({ env: ENV }).metadata, {
   BASE_URL: CFG.BASE_URL
 });
 
-const DllBundlesPlugin = require("webpack-dll-bundles-plugin").DllBundlesPlugin;
+// const DllBundlesPlugin = require("webpack-dll-bundles-plugin").DllBundlesPlugin;
 
 /**
  * Webpack configuration
@@ -63,7 +63,7 @@ module.exports = function(options) {
      * See: http://webpack.github.io/docs/configuration.html#devtool
      * See: https://github.com/webpack/docs/wiki/build-performance#sourcemaps
      */
-    devtool: "cheap-module-source-map",
+   devtool: 'inline-source-map',
 
     /**
      * Options affecting the output of the compilation.
@@ -107,57 +107,6 @@ module.exports = function(options) {
     module: {
       rules: [
         /*
-         * Typescript loader support for .ts
-         *
-         * Component Template/Style integration using `angular2-template-loader`
-         * Angular 2 lazy loading (async routes) via `ng-router-loader`
-         *
-         * `ng-router-loader` expects vanilla JavaScript code, not TypeScript code. This is why the
-         * order of the loader matter.
-         *
-         * See: https://github.com/s-panferov/awesome-typescript-loader
-         * See: https://github.com/TheLarkInn/angular2-template-loader
-         * See: https://github.com/shlomiassaf/ng-router-loader
-         */
-        // {
-        //   test: /\.ts$/,
-        //   use: [
-        //     {
-        //       loader: "@angularclass/hmr-loader",
-        //       options: {
-        //         pretty: true,
-        //         prod: false
-        //       }
-        //     },
-        //     {
-        //       // MAKE SURE TO CHAIN VANILLA JS CODE, I.E. TS COMPILATION OUTPUT.
-        //       loader: "ng-router-loader",
-        //       options: {
-        //         loader: "async-import",
-        //         genDir: "compiled",
-        //         aot: false
-        //       }
-        //     },
-        //     {
-        //       loader: "awesome-typescript-loader",
-        //       options: {
-        //         configFileName: "tsconfig.webpack.json"
-        //       }
-        //     },
-        //     {
-        //       loader: "angular2-template-loader"
-        //     },
-        //     {
-        //       loader: "tslint-loader",
-        //       options: {
-        //         configFile: "tslint.json"
-        //       }
-        //     }
-        //   ],
-        //   exclude: [/\.(spec|e2e)\.ts$/]
-        // },
-
-        /*
          * css loader support for *.css files (styles directory only)
          * Loads external css styles into the DOM, supports HMR
          *
@@ -182,7 +131,7 @@ module.exports = function(options) {
     },
 
     plugins: [
-      // new BundleAnalyzerPlugin(),
+      new BundleAnalyzerPlugin(),
       /**
        * Plugin: DefinePlugin
        * Description: Define free variables.

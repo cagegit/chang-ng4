@@ -143,23 +143,23 @@
     </div>
   </div>
   <div [ngStyle]="{position:'relative'}">
-    <h5 class="title">所在菜单 </h5>
-    <div class="invite" [ngStyle]="{width:'70px',position:'absolute',top:'-13px',left:'70px'}">
-      <button (click)="show()"><span>分配菜单</span></button>
+    <h5 class="title">所在报表集 </h5>
+    <div class="invite" [ngStyle]="{width:'70px',position:'absolute',top:'-13px',left:'100px'}">
+      <button (click)="show()"><span>分配报表集</span></button>
     </div>
   </div>
   <div>
     <nz-tag [nzColor]="'blue'" *ngFor="let item of tablelist">{{item.name}}</nz-tag>
   </div>
 </div>
-<nz-modal [nzVisible]="isVisible" [nzTitle]="'分配菜单'" [nzContent]="modalContent" [nzFooter]="false" [nzWidth]="700"
+<nz-modal [nzVisible]="isVisible" [nzTitle]="'分配报表集'" [nzContent]="modalContent" [nzFooter]="false" [nzWidth]="700"
   (nzOnCancel)="handleCancel()">
   <ng-template #modalContent>
     <form role="form" #AddDataForm="ngForm">
       <div class="modal-body clearfix">
         <div class="form-group search_box" [ngStyle]="{width:'50%'}">
           <input type="text" autocomplete="off" #search class="form-control" (keyup)="searchFun(search.value)"
-            placeholder="搜索菜单名称" [(ngModel)]="searchDataName.name" name="searchDataName">
+            placeholder="搜索报表集名称" [(ngModel)]="searchDataName.name" name="searchDataName">
           <i class="iconfont icon-fangdajing"></i>
         </div>
         <div [ngStyle]="{'margin-top':'20px'}">
@@ -169,7 +169,7 @@
               <thead nz-thead>
                 <tr>
                   <th nz-th nzWidth="20%"><span>序号</span></th>
-                  <th nz-th nzWidth="60%"><span>菜单名称</span></th>
+                  <th nz-th nzWidth="60%"><span>报表集名称</span></th>
                   <th nz-th nzWidth="20%"><span>状态</span></th>
                 </tr>
               </thead>
